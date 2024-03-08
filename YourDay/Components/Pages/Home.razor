@@ -52,10 +52,19 @@
         }
 
     
-    .yellow-button {
+    .purple-button {
         color: white;
         background-color: #a28ae5;
         border: 1px solid #a28ae5;
+    }
+
+    .yellow-button {
+        color: #54494B;
+        background-color: #f7fa66;
+        border: 1px solid #f7fa66;
+        height: 80px;
+        /* line-height: 20px; */
+        align-items: baseline;
     }
 
     .blue-button {
@@ -111,10 +120,17 @@
         place-items: center;
         margin: 20px auto ;
     }
+    .c{
+        /* justify-content: space-between;
+        flex-direction: column; */
+
+        display: flex;
+        height: 100px;
+    }
 </style>
 
 @code{
-    List<string> celebrates = new List<string>() { "День рождения", "Новый год", "Выпускной", "Свадьба", "День рождения" };
+    List<string> celebrates = new List<string>() { "День рождения", "Новый год", "Выпускной", "Свадьба", "День рождения", "Вечеринка", "Первое мая", "Просто Праздник" };
     List<string> lastCelebrates = new List<string>() { "Юбилей", "8 марта", "Праздник осени", "Рождество" };
     private int lc = 0;
     private int c = 0;
@@ -144,26 +160,31 @@
     </section>
     <section>
         <div class="button-container">
-            <button class="yellow-button"> Создать заказ </button>
+            <button class="purple-button"> Создать заказ </button>
             <button class="green-button" @onclick="CountCelebrates"> Наши заказы </button>
             <button class="blue-button" @onclick="CountLastCelebrates"> Прошлые заказы </button>
             <button class="pink-button"> Другое </button>
         </div>
     </section>
 
+    <section>
+        <div class="с">
+                @if (c % 2!=0) {
+                    <h3> Наши заказы:</h3>
+                    @foreach (var s in celebrates)
+                        {
+                        <button class="yellow-button"> @s <br> 28.06 </button>
+                        }
+                }
+        </div>
+    </section>
+
+
+
+
+
     <section class="advantages">
         <div class="a">
-            <ul class="advantages-list">
-            @if (c % 2!=0) {
-                <h3> Наши заказы:</h3>
-                @foreach (var s in celebrates)
-                    {
-                        <li class="advantages-item">@s</li>
-                    }
-            }
-   
-            </ul>
-
             <ul class="advantages-list">
                 @if (lc % 2 != 0)
                 {
