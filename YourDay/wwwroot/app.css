@@ -1,5 +1,10 @@
 html, body {
+    margin: 0;
+    padding: 0;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 20px;
+    line-height: 20px;
+    color: #54494B;
 }
 
 a, .btn-link {
@@ -7,9 +12,9 @@ a, .btn-link {
 }
 
 .btn-primary {
-    color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
+    color: #54494B;
+    background-color: #fff252;
+    border-color: #fff252;
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
@@ -22,7 +27,6 @@ a, .btn-link {
 
 h1:focus {
     outline: none;
-    color: red;
 }
 
 .valid.modified:not([type=checkbox]) {
@@ -51,12 +55,24 @@ h1:focus {
     border-color: #929292;
 }
 
-.qqq {
-   
-    color: red;
-}
-.dark-button {
+
+
+
+.green-button {
     color: white;
-    background-color: plum;
-    border: 1px solid red;
+    background-color: #5DA271;
+    border: 1px solid #5DA271;
+}
+
+button {
+    flex: 1; /* Равномерно распределяет пространство между кнопками */
+    padding: 10px 40px;
+    margin: 5px 20px;
+    border: none;
+    border-radius: 20px;
+}
+
+.button-container {
+    display: flex;
+    height: 70px;
 }

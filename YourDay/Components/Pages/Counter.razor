@@ -1,19 +1,105 @@
 ﻿@page "/counter"
 @rendermode InteractiveServer
+@inject NavigationManager NavigationManager
+
 
 <PageTitle>Counter</PageTitle>
+<style>
+    .green-button {
+        color: white;
+        background-color: #5DA271;
+        border: 1px solid #5DA271;
+    }
 
-<h1>Counter</h1>
+    button {
+        flex: 1; /* Равномерно распределяет пространство между кнопками */
+        padding: 10px 40px;
+        margin: 25px 20px;
+        border: none;
+        border-radius: 20px;
+    }
 
-<p role="status">Current count: @currentCount</p>
+    .button-container {
+        display: flex;
+        height: 110px;
+    }
+    .bod{
+        margin: 0;
+        padding: 0;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 20px;
+        line-height: 20px;
+        color: #54494B;
+    }
+    .inf{
+        display: flex;
+        weight: 200px;
+    }
 
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+    .c {
+        /* justify-content: space-between;
+            flex-direction: column; */
+
+        display: flex;
+        height: 100px;
+    }
+
+    .task-button {
+        color: #54494B;
+        background-color: #fff252;
+        border: 1px solid #fff252;
+/*         height: 100px;
+        line-height: 30px;
+        align-items: baseline; */
+        padding: 40px 40px;
+        margin: 10px 10px;
+        height: 220px;
+        line-height: 30px;
+        border-radius: 30px;
+    }
+</style>
+
+
+
 
 @code {
-    private int currentCount = 0;
+    List<string> tasks = new List<string>() { "Привезти красные розы", "Заказать торт", "Привезти оформление", "Нужна живая съемка", "Часовая фотосессия" };
+    
 
-    private void IncrementCount()
-    {
-        currentCount++;
-    }
 }
+
+
+
+
+
+
+
+<div class="bod">
+    <section>
+        <div >
+            <h3>Праздник: День рождения мамы</h3>
+            <h3>Дата: 10.11.2024</h3>
+            <h3>Количество гостей: 15 человек</h3>
+            <h3>Адрес: Большой концертный зал</h3>
+            <h3>Комментарии: любимый цвет именинницы - красный </h3>
+        </div>
+    </section>
+    <section>
+        <div class="button-container">
+            <button class="green-button"> История заказа </button>
+            <button class="green-button"> Завершить заказ </button>
+            <button class="green-button"> Другое </button>
+           
+
+        </div>
+    </section>
+
+
+    <section>
+
+        <h3> Наши заказы:</h3>
+        @foreach (var s in tasks){
+            <button class="task-button"> <h4>@s </h4> работник: Аня <br> дата: 10.11.2004 <br> статус: получено </button>
+        }
+    </section>
+</div>

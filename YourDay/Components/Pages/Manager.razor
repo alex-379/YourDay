@@ -1,5 +1,6 @@
 ﻿@page "/"
 @rendermode InteractiveServer
+@inject NavigationManager NavigationManager
 <PageTitle>Maneger</PageTitle>
 <style>
     
@@ -87,7 +88,7 @@
         border-radius: 20px;
     }
 
-    .celebrate-button {
+    .celebrate-buttons {
         color: #54494B;
         background-color: #92dea8;
         border: 1px solid #92dea8;
@@ -159,6 +160,11 @@
     {
         lc++;
     }
+
+    private void NavigateToPage()
+    {
+        NavigationManager.NavigateTo("/counter");
+    }
 }
 
 
@@ -171,9 +177,7 @@
             
         </div>
     </header>
-    <section>
-        <h3>(на кнопки (2 и 3 ) можно нажимать!!)</h3>
-    </section>
+
     <section>
         <div class="button-container">
             <button class="purple-button"> Создать заказ </button>
@@ -189,7 +193,7 @@
                     <h3> Наши заказы:</h3>
                     @foreach (var s in celebrates)
                         {
-                    <button class="celebrate-button"> @s <br> 28.06 </button>
+                    <button class="celebrate-buttons btn btn-primary" @onclick="NavigateToPage"> @s <br> 16.02 </button>
                         }
                 }
         </div>
@@ -202,7 +206,8 @@
                 <h3> Прошлые заказы:</h3>
                 @foreach (var s in lastCelebrates)
                 {
-                    <button class="last-celebrate-button"> @s <br> 16.02 </button>
+                    <button class="last-celebrate-button" @onclick="NavigateToPage"> @s <br> 16.02 </button>
+
                 }
             }
         </div>
