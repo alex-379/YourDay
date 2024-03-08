@@ -58,14 +58,7 @@
         border: 1px solid #a28ae5;
     }
 
-    .yellow-button {
-        color: #54494B;
-        background-color: #f7fa66;
-        border: 1px solid #f7fa66;
-        height: 80px;
-        /* line-height: 20px; */
-        align-items: baseline;
-    }
+    
 
     .blue-button {
         color: white;
@@ -93,6 +86,29 @@
         border: none;
         border-radius: 20px;
     }
+
+    .celebrate-button {
+        color: #54494B;
+        background-color: #92dea8;
+        border: 1px solid #92dea8;
+        height: 100px;
+        line-height: 30px;
+        align-items: baseline;
+        padding: 10px 40px;
+        margin: 10px 10px;
+    }
+
+    .last-celebrate-button {
+        color: #54494B;
+        background-color: #7eb7e5;
+        border: 1px solid #7eb7e5;
+        height: 100px;
+        line-height: 30px;
+        align-items: baseline;
+        padding: 10px 40px;
+        margin: 10px 10px;
+    }
+
 
     .button-container {
         display: flex;
@@ -173,31 +189,25 @@
                     <h3> Наши заказы:</h3>
                     @foreach (var s in celebrates)
                         {
-                        <button class="yellow-button"> @s <br> 28.06 </button>
+                    <button class="celebrate-button"> @s <br> 28.06 </button>
                         }
                 }
         </div>
     </section>
 
-
-
-
-
-    <section class="advantages">
-        <div class="a">
-            <ul class="advantages-list">
-                @if (lc % 2 != 0)
+    <section>
+        <div class="с">
+            @if (lc % 2 != 0)
+            {
+                <h3> Прошлые заказы:</h3>
+                @foreach (var s in lastCelebrates)
                 {
-                    <h3> Наши прошлые заказы:</h3>
-                    @foreach (var s in lastCelebrates)
-                    {
-                        <li class="advantages-item">@s</li>
-                    }
+                    <button class="last-celebrate-button"> @s <br> 16.02 </button>
                 }
-
-            </ul>
+            }
         </div>
     </section>
+
 
 </body>
 
