@@ -22,6 +22,7 @@ a, .btn-link {
 
 h1:focus {
     outline: none;
+    color: red;
 }
 
 .valid.modified:not([type=checkbox]) {
@@ -48,4 +49,14 @@ h1:focus {
 
 .darker-border-checkbox.form-check-input {
     border-color: #929292;
+}
+
+.qqq {
+   
+    color: red;
+}
+.dark-button {
+    color: white;
+    background-color: plum;
+    border: 1px solid red;
 }
