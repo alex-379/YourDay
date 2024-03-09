@@ -87,3 +87,144 @@ button {
     display: flex;
     height: 70px;
 }
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 20px;
+    line-height: 20px;
+    color: #54494B;
+}
+
+h1 {
+    width: 255px;
+    margin: 0 auto 8px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    text-align: center;
+    font-weight: normal;
+    font-size: 56px;
+    line-height: 64px;
+}
+
+.container {
+    width: 310px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.site-header {
+    min-width: 550px;
+    height: 186px;
+    margin-bottom: 50px;
+    padding-top: 30px;
+    background: #847462 no-repeat center url("https://i.pinimg.com/originals/3b/e9/3e/3be93eeb2ae57dec8bf1f91d9e2e719d.jpg");
+    background-size: cover;
+}
+
+    .site-header p {
+        width: 255px;
+        margin: 0 auto 26px;
+        text-align: center;
+        font-size: 16px;
+        line-height: 24px;
+    }
+
+    .site-header img {
+        display: block;
+        margin: 0 auto;
+    }
+
+
+.purple-button {
+    color: white;
+    background-color: #a28ae5;
+    border: 1px solid #a28ae5;
+}
+
+
+
+.blue-button {
+    color: white;
+    background-color: #408BC9;
+    border: 1px solid #D4A0A7;
+}
+
+.pink-button {
+    color: white;
+    background-color: #D4A0A7;
+    border: 1px solid #D4A0A7;
+}
+
+.green-button {
+    color: white;
+    background-color: #5DA271;
+    border: 1px solid #5DA271;
+}
+
+button {
+    flex: 1; /* Равномерно распределяет пространство между кнопками */
+    padding: 10px 40px;
+    margin: 5px 20px;
+    border: none;
+    border-radius: 20px;
+}
+
+.celebrate-buttons {
+    color: #54494B;
+    background-color: #92dea8;
+    border: 1px solid #92dea8;
+    height: 100px;
+    line-height: 30px;
+    align-items: baseline;
+    padding: 10px 40px;
+    margin: 10px 10px;
+}
+
+.last-celebrate-button {
+    color: #54494B;
+    background-color: #7eb7e5;
+    border: 1px solid #7eb7e5;
+    height: 100px;
+    line-height: 30px;
+    align-items: baseline;
+    padding: 10px 40px;
+    margin: 10px 10px;
+}
+
+
+.button-container {
+    display: flex;
+    height: 70px;
+}
+
+.advantages-item {
+    margin-bottom: 15px;
+    padding-left: 20px;
+    border-left: 20px solid #e2e2e2;
+}
+
+.advantages {
+    width: 510px;
+    margin: 0 auto 40px;
+    padding: 0 20px;
+}
+
+.advantages-list {
+    padding: 0;
+    list-style: none;
+}
+
+.a {
+    display: grid;
+    place-items: center;
+    margin: 20px auto;
+}
+
+.c {
+    /* justify-content: space-between;
+        flex-direction: column; */
+
+    display: flex;
+    height: 100px;
+}
