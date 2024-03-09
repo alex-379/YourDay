@@ -1,6 +1,7 @@
 ﻿@page "/"
 @rendermode InteractiveServer
-@inject NavigationManager NavigationManager
+@inject NavigationManager NavigationManager 
+
 <PageTitle>Maneger</PageTitle>
 <style>
     
@@ -165,6 +166,11 @@
     {
         NavigationManager.NavigateTo("/counter");
     }
+
+    private void NewOrder()
+    {
+        NavigationManager.NavigateTo("/newOrder");
+    }
 }
 
 
@@ -180,7 +186,7 @@
 
     <section>
         <div class="button-container">
-            <button class="purple-button"> Создать заказ </button>
+            <button class="purple-button" @onclick="NewOrder"> Создать заказ </button>
             <button class="green-button" @onclick="CountCelebrates"> Наши заказы </button>
             <button class="blue-button" @onclick="CountLastCelebrates"> Прошлые заказы </button>
             <button class="pink-button"> Другое </button>
