@@ -1,0 +1,18 @@
+﻿@page "/taskMaster"
+@attribute [StreamRendering]
+
+<h3>Задачи</h3>
+
+@code {
+    List<string> tasks = new List<string>() { "Букет из 10 роз", "Цветочная компазия №1", "Живые цветы с фотозону" };
+}
+    <div>
+     <section>
+       <h1>Задачи :</h1>
+       @foreach(string task in tasks)
+       {
+        <button class="task-button"> <h4>@task </h4> пваыацпукпыв <br>fafqwdada </button>
+       }
+    </section>
+    </div>
+
