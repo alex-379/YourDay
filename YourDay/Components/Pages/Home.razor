@@ -1,0 +1,211 @@
+﻿@page "/"
+@rendermode InteractiveServer
+<PageTitle>Maneger</PageTitle>
+<style>
+    
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 20px;
+        line-height: 20px;
+        color: #54494B;
+    }
+
+    h1 {
+        width: 255px;
+        margin: 0 auto 8px;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        text-align: center;
+        font-weight: normal;
+        font-size: 56px;
+        line-height: 64px;
+    }
+
+    .container {
+        width: 310px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .site-header {
+        min-width: 550px;
+        height: 186px;
+        margin-bottom: 50px;
+        padding-top: 30px;
+        background: #847462 no-repeat center url("https://i.pinimg.com/originals/3b/e9/3e/3be93eeb2ae57dec8bf1f91d9e2e719d.jpg");
+        background-size: cover;
+
+    }
+
+        .site-header p {
+            width: 255px;
+            margin: 0 auto 26px;
+            text-align: center;
+            font-size: 16px;
+            line-height: 24px;
+        }
+
+        .site-header img {
+            display: block;
+            margin: 0 auto;
+        }
+
+    
+    .purple-button {
+        color: white;
+        background-color: #a28ae5;
+        border: 1px solid #a28ae5;
+    }
+
+    .yellow-button {
+        color: #54494B;
+        background-color: #f7fa66;
+        border: 1px solid #f7fa66;
+        height: 80px;
+        /* line-height: 20px; */
+        align-items: baseline;
+    }
+
+    .blue-button {
+        color: white;
+        background-color: #408BC9;
+        border: 1px solid #D4A0A7;
+    }
+
+    .pink-button {
+        color: white;
+        background-color: #D4A0A7;
+        border: 1px solid #D4A0A7;
+    }
+
+    .green-button {
+        color: white;
+        background-color: #5DA271;
+        border: 1px solid #5DA271;
+    }
+
+    button {
+
+        flex: 1; /* Равномерно распределяет пространство между кнопками */
+        padding: 10px 40px;
+        margin: 5px 20px;
+        border: none;
+        border-radius: 20px;
+    }
+
+    .button-container {
+        display: flex;
+        height: 70px;
+    }
+
+    .advantages-item {
+        margin-bottom: 15px;
+        padding-left: 20px;
+        border-left: 20px solid #e2e2e2;
+    }
+
+    .advantages {
+        width: 510px;
+        margin: 0 auto 40px;
+        padding: 0 20px;
+    }
+
+    .advantages-list {
+        padding: 0;
+        list-style: none;
+    }
+    .a{
+        display: grid;
+        place-items: center;
+        margin: 20px auto ;
+    }
+    .c{
+        /* justify-content: space-between;
+        flex-direction: column; */
+
+        display: flex;
+        height: 100px;
+    }
+</style>
+
+@code{
+    List<string> celebrates = new List<string>() { "День рождения", "Новый год", "Выпускной", "Свадьба", "День рождения", "Вечеринка", "Первое мая", "Просто Праздник" };
+    List<string> lastCelebrates = new List<string>() { "Юбилей", "8 марта", "Праздник осени", "Рождество" };
+    private int lc = 0;
+    private int c = 0;
+    private void CountCelebrates()
+    {
+        c++;
+    }
+
+    private void CountLastCelebrates()
+    {
+        lc++;
+    }
+}
+
+
+<body>
+
+    <header class="site-header">
+        <div class="container">
+            <h1>YourDay</h1>
+            <p>Добро пожаловать в ваш личный кабинет!</p>
+            
+        </div>
+    </header>
+    <section>
+        <h3>(на кнопки (2 и 3 ) можно нажимать!!)</h3>
+    </section>
+    <section>
+        <div class="button-container">
+            <button class="purple-button"> Создать заказ </button>
+            <button class="green-button" @onclick="CountCelebrates"> Наши заказы </button>
+            <button class="blue-button" @onclick="CountLastCelebrates"> Прошлые заказы </button>
+            <button class="pink-button"> Другое </button>
+        </div>
+    </section>
+
+    <section>
+        <div class="с">
+                @if (c % 2!=0) {
+                    <h3> Наши заказы:</h3>
+                    @foreach (var s in celebrates)
+                        {
+                        <button class="yellow-button"> @s <br> 28.06 </button>
+                        }
+                }
+        </div>
+    </section>
+
+
+
+
+
+    <section class="advantages">
+        <div class="a">
+            <ul class="advantages-list">
+                @if (lc % 2 != 0)
+                {
+                    <h3> Наши прошлые заказы:</h3>
+                    @foreach (var s in lastCelebrates)
+                    {
+                        <li class="advantages-item">@s</li>
+                    }
+                }
+
+            </ul>
+        </div>
+    </section>
+
+</body>
+
+
+<p clas="w" role="status"> </p>
+
+<<<<<<<<< Temporary merge branch 1
+=========
+<h1></h1>
+>>>>>>>>> Temporary merge branch 2
+
