@@ -2,83 +2,13 @@
 @rendermode InteractiveServer
 @inject NavigationManager NavigationManager
 
-
 <PageTitle>Order</PageTitle>
-<style>
-    .green-button {
-        color: white;
-        background-color: #5DA271;
-        border: 1px solid #5DA271;
-    }
-
-    button {
-        flex: 1; /* Равномерно распределяет пространство между кнопками */
-        padding: 10px 40px;
-        margin: 25px 20px;
-        border: none;
-        border-radius: 20px;
-    }
-
-    .button-container {
-        display: flex;
-        height: 110px;
-    }
-    .bod{
-
-        margin: 0;
-        padding: 0;
-        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        font-size: 20px;
-        line-height: 20px;
-        color: #54494B;
-    }
-    h3{
-        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        font-size: 20px;
-
-    }
-    .inf{
-        display: flex;
-        weight: 200px;
-    }
-
-    .c {
-        /* justify-content: space-between;
-            flex-direction: column; */
-
-        display: flex;
-        height: 100px;
-    }
-
-    .task-button {
-        color: #54494B;
-        background-color: #fff252;
-        border: 1px solid #fff252;
-/*         height: 100px;
-        line-height: 30px;
-        align-items: baseline; */
-        padding: 40px 40px;
-        margin: 10px 10px;
-        height: 220px;
-        line-height: 30px;
-        border-radius: 30px;
-    }
-</style>
-
-
-
 
 @code {
     List<string> tasks = new List<string>() { "Привезти красные розы", "Заказать торт", "Привезти оформление", "Нужна живая съемка", "Часовая фотосессия" };
     
 
 }
-
-
-
-
-
-
 
 <div class="bod">
      <section>
@@ -110,8 +40,6 @@
             <button class="green-button"> История заказа </button>
             <button class="green-button"> Завершить заказ </button>
             <button class="green-button"> Другое </button>
-           
-
         </div>
     </section>
 
