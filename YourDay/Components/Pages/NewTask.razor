@@ -1,4 +1,4 @@
-﻿@page "/newOrder"
+﻿@page "/newTask"
 @attribute [StreamRendering]
 
 <PageTitle>Новый заказ</PageTitle>
@@ -57,16 +57,35 @@
 </style>
 
 
-<div class="bod" >
+<div class="bod">
     <div class="layout">
         <h2>Добавить заказ:</h2>
-        <input type="text" placeholder="Название праздника">
-        <input type="text" placeholder="Клиент">
+        <input type="text" placeholder="Задача">
+        <input type="text" placeholder="Специализация">
+        <input type="text" placeholder="Мастер">
         <input type="date" placeholder="Дата">
-        <input type="number" placeholder="Количество человек">
-        <input type="text" placeholder="Адрес">
-        <input type="text" placeholder="Комментарии">
-       
+        <input type="text" placeholder="Статус">
+        <form>
+            <p>Please select your preferred contact method:</p>
+            <div>
+                <input type="radio"
+                       id="contactChoice1"
+                       name="contact"
+                       value="email"
+                       checked />
+                <label for="contactChoice1">Email</label>
+
+                <input type="radio" id="contactChoice2" name="contact" value="phone" />
+                <label for="contactChoice2">Phone</label>
+
+                <input type="radio" id="contactChoice3" name="contact" value="mail" />
+                <label for="contactChoice3">Mail</label>
+            </div>
+            <div>
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+
     </div>
     <button class="green-button">Добавить</button>
 </div>

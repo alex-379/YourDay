@@ -9,6 +9,9 @@ html, body {
     height: 100%;
     overflow: auto;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 20px;
+    line-height: 20px;
+    color: #54494B;
 }
 
 a, .btn-link {
@@ -16,9 +19,9 @@ a, .btn-link {
 }
 
 .btn-primary {
-    color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
+    color: #54494B;
+    background-color: #fff252;
+    border-color: #fff252;
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
@@ -62,4 +65,25 @@ h1:focus {
 .center {
     text-align: center;
     align-self: center;
+}
+
+
+
+.green-button {
+    color: white;
+    background-color: #5DA271;
+    border: 1px solid #5DA271;
+}
+
+button {
+    flex: 1; /* ���������� ������������ ������������ ����� �������� */
+    padding: 10px 40px;
+    margin: 5px 20px;
+    border: none;
+    border-radius: 20px;
+}
+
+.button-container {
+    display: flex;
+    height: 70px;
 }
