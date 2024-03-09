@@ -4,21 +4,21 @@
     align-items: center;
 }
 
-.menu ul {
-    display: flex;
-    list-style: none;
-}
+    .navbar .menu ul {
+        display: flex;
+        list-style: none;
+    }
 
-.navbar .menu ul li {
-    margin: 20px 100px;
-}
+        .navbar .menu ul li {
+            margin: 20px 100px;
+        }
 
-.navbar .menu ul a {
-    text-transform: uppercase;
-    text-decoration: none;
-    font-weight: bold;
-    color: black;
-}
+        .navbar .menu ul a {
+            text-transform: uppercase;
+            text-decoration: none;
+            font-weight: bold;
+            color: black;
+        }
 
 .header-button {
     font-size: 170%;
@@ -28,4 +28,19 @@
 .button {
     background-color: greenyellow;
     border-radius: 20px;
+}
+
+@media screen and (max-width: 500px) {
+    .navbar {
+        flex-direction: column;
+    }
+
+        .navbar .menu ul {
+            flex-direction: column;
+            align-self: center;
+        }
+
+            .navbar .menu ul li {
+                margin: 5px;
+            }
 }
