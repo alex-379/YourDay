@@ -7,6 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Components\Pages\NewOrder" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Components\Pages\NewOrder" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
