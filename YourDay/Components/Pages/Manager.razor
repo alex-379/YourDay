@@ -1,0 +1,86 @@
+﻿@page "/"
+@rendermode InteractiveServer
+@inject NavigationManager NavigationManager 
+
+<PageTitle>Manager</PageTitle>
+
+
+@code{
+    List<string> celebrates = new List<string>() { "День рождения", "Новый год", "Выпускной", "Свадьба", "День рождения", "Вечеринка", "Первое мая", "Просто Праздник" };
+    List<string> lastCelebrates = new List<string>() { "Юбилей", "8 марта", "Праздник осени", "Рождество" };
+    private int lc = 0;
+    private int c = 0;
+    private void CountCelebrates()
+    {
+        c++;
+    }
+
+    private void CountLastCelebrates()
+    {
+        lc++;
+    }
+
+    private void NavigateToPage()
+    {
+        NavigationManager.NavigateTo("/counter");
+    }
+
+    private void NewOrder()
+    {
+        NavigationManager.NavigateTo("/newOrder");
+    }
+}
+
+
+<body>
+
+    <header class="site-header">
+        <div class="container">
+            <h1>YourDay</h1>
+            <p>Добро пожаловать в ваш личный кабинет!</p>
+            
+        </div>
+    </header>
+
+    <section>
+        <div class="button-container">
+            <button class="purple-button" @onclick="NewOrder"> Создать заказ </button>
+            <button class="green-button" @onclick="CountCelebrates"> Наши заказы </button>
+            <button class="blue-button" @onclick="CountLastCelebrates"> Прошлые заказы </button>
+            <button class="pink-button"> Другое </button>
+        </div>
+    </section>
+
+    <section>
+        <div class="с">
+                @if (c % 2!=0) {
+                    <h3> Наши заказы:</h3>
+                    @foreach (var s in celebrates)
+                        {
+                    <button class="celebrate-buttons btn btn-primary" @onclick="NavigateToPage"> @s <br> 16.02 </button>
+                        }
+                }
+        </div>
+    </section>
+
+    <section>
+        <div class="с">
+            @if (lc % 2 != 0)
+            {
+                <h3> Прошлые заказы:</h3>
+                @foreach (var s in lastCelebrates)
+                {
+                    <button class="last-celebrate-button" @onclick="NavigateToPage"> @s <br> 16.02 </button>
+
+                }
+            }
+        </div>
+    </section>
+
+
+</body>
+
+
+<p class="w" role="status"> </p>
+
+
