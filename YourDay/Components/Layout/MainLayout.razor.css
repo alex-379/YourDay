@@ -6,12 +6,21 @@
 }
 
 main {
-    grid: 1;
+    grid: 0;
 }
 
-.sidebar {
+.test1 {
+    grid: 1;
+    background-image: linear-gradient(18deg, rgb(55, 390, 103) 0%, #00ff21 70%);
+}
+
+/*.sidebar {
     grid: 0;
     background-image: linear-gradient(18deg, rgb(55, 390, 103) 0%, #ff0000 70%);
+}*/
+
+.footer {
+    grid: 1;
 }
 
 #blazor-error-ui {
