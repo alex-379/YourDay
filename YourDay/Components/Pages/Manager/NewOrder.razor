@@ -1,0 +1,22 @@
+﻿@page "/newOrder"
+@attribute [StreamRendering]
+@using YourDay.BLL.Models.InputModels;
+@using YourDay.BLL;
+<PageTitle>Новый заказ</PageTitle>
+
+<div class="bod" >
+    <div class="layout">
+        <h2>Добавить заказ:</h2>
+        <input type="text" placeholder="Название праздника" value="OrderName">
+        <input type="text" placeholder="Клиент" value="ClientName">
+        <input type="date" placeholder="Дата" value="Date">
+        <input type="number" placeholder="Количество человек" value="CountPeople">
+        <input type="text" placeholder="Адрес" value="Adress">
+        <input type="text" placeholder="Комментарии" value="Comments">
+    </div>
+    <button class="green-button">Добавить</button>
+</div>
+
+@code{
+    
+}

@@ -1,7 +1,8 @@
 ﻿@page "/"
 @rendermode InteractiveServer
 @inject NavigationManager NavigationManager 
-
+@using YourDay.BLL;
+@using YourDay.BLL.Models.InputModels;
 <PageTitle>Manager</PageTitle>
 
 
@@ -10,6 +11,10 @@
     List<string> lastCelebrates = new List<string>() { "Юбилей", "8 марта", "Праздник осени", "Рождество" };
     private int lc = 0;
     private int c = 0;
+
+
+    List<OrderInputModel> q = new ManagerClient().GetAllOrders();
+
     private void CountCelebrates()
     {
         c++;
@@ -55,9 +60,9 @@
         <div class="с">
                 @if (c % 2!=0) {
                     <h3> Наши заказы:</h3>
-                    @foreach (var s in celebrates)
+                @foreach (var s in q)
                         {
-                    <button class="celebrate-buttons btn btn-primary" @onclick="NavigateToPage"> @s <br> 16.02 </button>
+                    <button class="celebrate-buttons btn btn-primary" @onclick="NavigateToPage"> @s.OrderName <br> @s.Date </button>
                         }
                 }
         </div>
