@@ -7,7 +7,7 @@
 
 
 @code{
-    List<string> celebrates = new List<string>() { "День рождения", "Новый год", "Выпускной", "Свадьба", "День рождения", "Вечеринка", "Первое мая", "Просто Праздник" };
+    //List<string> celebrates = new List<string>() { "День рождения", "Новый год", "Выпускной", "Свадьба", "День рождения", "Вечеринка", "Первое мая", "Просто Праздник" };
     List<string> lastCelebrates = new List<string>() { "Юбилей", "8 марта", "Праздник осени", "Рождество" };
     private int lc = 0;
     private int c = 0;
@@ -59,7 +59,7 @@
     <section>
         <div class="с">
                 @if (c % 2!=0) {
-                    <h3> Наши заказы:</h3>
+                    <h2> Наши заказы:</h2>
                 @foreach (var s in q)
                         {
                     <button class="celebrate-buttons btn btn-primary" @onclick="NavigateToPage"> @s.OrderName <br> @s.Date </button>
@@ -72,7 +72,7 @@
         <div class="с">
             @if (lc % 2 != 0)
             {
-                <h3> Прошлые заказы:</h3>
+                <h2> Прошлые заказы:</h2>
                 @foreach (var s in lastCelebrates)
                 {
                     <button class="last-celebrate-button" @onclick="NavigateToPage"> @s <br> 16.02 </button>

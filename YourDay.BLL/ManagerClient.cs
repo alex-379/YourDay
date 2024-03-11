@@ -50,11 +50,11 @@ namespace YourDay.BLL
 
         }
 
-        public void AddOrderFields(string Name, DateOnly Date)
+        public void AddOrderFields(List<OrderInputModel> model, string Name, DateOnly Date)
         {
-            orderInputModels.Add(new OrderInputModel());
-            orderInputModels[3].OrderName = Name;
-            orderInputModels[3].Date = Date;
+            model.Add(new OrderInputModel());
+            model[model.Count].OrderName = Name;
+            model[model.Count].Date = Date;
         }
     }
 }

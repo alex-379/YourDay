@@ -6,7 +6,10 @@
 
 @code {
     List<string> tasks = new List<string>() { "Привезти красные розы", "Заказать торт", "Привезти оформление", "Нужна живая съемка", "Часовая фотосессия" };
-    
+    private void NavigateToPage()
+    {
+        NavigationManager.NavigateTo("/newTask");
+    }
 
 }
 
@@ -35,21 +38,23 @@
     </section>
 
 
+   
+
+
+    <section>
+
+        <h2> Задачи:</h2>
+        @foreach (var s in tasks){
+            <button class="task-button"> <h4>@s </h4> работник: Аня <br> дата: 10.11.2004 <br> статус: получено </button>
+        }
+        <button class="task-button" @onclick="NavigateToPage"> <h4>Добавить задачу</h4> </button>
+    </section>
+
     <section>
         <div class="button-container">
             <button class="green-button"> История заказа </button>
             <button class="green-button"> Завершить заказ </button>
             <button class="green-button"> Другое </button>
         </div>
-    </section>
-
-
-    <section>
-
-        <h3> Наши заказы:</h3>
-        @foreach (var s in tasks){
-            <button class="task-button"> <h4>@s </h4> работник: Аня <br> дата: 10.11.2004 <br> статус: получено </button>
-        }
-        <button class="task-button"> <h4>Добавить задачу</h4> </button>
     </section>
 </div>
