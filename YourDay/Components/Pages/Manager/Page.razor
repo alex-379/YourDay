@@ -1,11 +1,12 @@
 ﻿@page "/p"
+@rendermode InteractiveServer
 @using YourDay.Components
 @using YourDay.Components.Templates
 @using YourDay.BLL
 @using YourDay.BLL.IServices
 @using YourDay.BLL.Models.InputModels
 @using YourDay.BLL.Models.OutputModels
-@rendermode InteractiveServer
+
 
 <div>
     <input @bind="_inputModel.OrderName" />
@@ -16,6 +17,9 @@
     <input @bind="_inputModel.Comments" />
     <button @onclick="AddOrder">Создать</button>
 </div>
+
+
+
 <p>@_inputModel.OrderName  @_inputModel.Date</p>
 <div style="display:flex; flex-wrap: wrap">
     @foreach(var i in _orders)

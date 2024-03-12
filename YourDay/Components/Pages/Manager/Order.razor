@@ -1,17 +1,58 @@
-﻿@page "/order"
+﻿page "/order/{Id:int}"
 @rendermode InteractiveServer
 @inject NavigationManager NavigationManager
+@* 
+<p>@Id</p>
+<h1>@_orderName</h1>
+<h2>@_clientName</h2>
+<h2>@_date</h2>
+<h2>@_countPeople</h2>
+<h2>@_adress</h2>
+<h2>@_comments</h2>  *@
 
-<PageTitle>Order</PageTitle>
+@code
+{
+    [Parameter]
+    public int Id { get; set; }
 
-@code {
+    private string _orderName;
+
+    private string _clientName;
+
+    private string _date;
+
+    private string _countPeople;
+
+    private string _adress;
+
+    private string _comments;
+
+    private IOrderService _orderService;
+
+    public Order()
+    {
+        _orderService = new OrderServiceMock();
+    }
+
+    protected override void OnInitialized()
+    {
+        //     _productService = new ProductServiceMock();
+
+        var p = _orderService.GetOrderById(Id);
+        _orderName = p.OrderName;
+        _date = p.Date;
+    }
+
+
     List<string> tasks = new List<string>() { "Привезти красные розы", "Заказать торт", "Привезти оформление", "Нужна живая съемка", "Часовая фотосессия" };
     private void NavigateToPage()
     {
         NavigationManager.NavigateTo("/newTask");
     }
-
 }
+
+
+
 
 <div class="body">
      <section>
@@ -27,11 +68,12 @@
             </thead>
             <tbody>
                     <tr>
-                        <td>День рождения мамы</td>
-                        <td>10.11.2024</td>
-                        <td> 15 человек</td>
-                        <td>Большой концертный зал</td>
-                        <td>любимый цвет именинницы - красный</td>
+                    <td>_orderName</td>
+                    <td>_clientName</td>
+                    <td>_date</td>
+                    <td> _countPeople</td>
+                    <td>_adress</td>
+                    <td>_comments</td>
                     </tr>
             </tbody>
         </table>

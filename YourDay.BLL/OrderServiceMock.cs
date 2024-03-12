@@ -21,32 +21,32 @@ namespace YourDay.BLL
                 new OrderOutputModel()
                 {
                     Id = 1,
-                    OrderName = "Test",
-                    ClientName="aa",
+                    OrderName = "День рожения",
+                    ClientName="Анна",
                     Date="20.11.2022",
                     CountPeople=13,
-                    Adress="adress",
-                    Comments="help"
+                    Adress="Новосибирск",
+                    Comments="Очень далеко"
                 },
                 new OrderOutputModel()
                 {
                     Id = 2,
-                    OrderName = "qqqq",
-                    ClientName="b",
-                    Date="20.11.2022",
-                    CountPeople=13,
-                    Adress="adress",
-                    Comments="iii"
+                    OrderName = "Новый год",
+                    ClientName="Иван Васильевич",
+                    Date="20.06.2024",
+                    CountPeople=4,
+                    Adress="Лесная поляна",
+                    Comments="Какой новый год сейчас лето"
                 },
                 new OrderOutputModel()
                 {
                     Id = 3,
-                    OrderName = "qqqq",
-                    ClientName="ccc",
-                    Date="200000",
+                    OrderName = "Выпускной",
+                    ClientName="Юлия Эдуардовна",
+                    Date="11.09.2023",
                     CountPeople=45,
-                    Adress="adress",
-                    Comments="herrlp"
+                    Adress="Школа",
+                    Comments="Очень много людей"
                 },
             };
         }

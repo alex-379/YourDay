@@ -7,12 +7,29 @@
 
 
 @code{
-    List<string> celebrates = new List<string>() { "День рождения", "Новый год", "Выпускной", "Свадьба", "День рождения", "Вечеринка", "Первое мая", "Просто Праздник" };
     List<string> lastCelebrates = new List<string>() { "Юбилей", "8 марта", "Праздник осени", "Рождество" };
     private int lc = 0;
-    private int c = 0;
+
+    @code
+    {
+        
+
+        private List<OrderOutputModel> _orders;
+
+        private IOrderService _orderService;
+
+        public Manager()
+        {
+            _orderService = new OrderServiceMock();
 
 
+            _orders = _orderService.GetAllOrders();
+
+           
+        }
+
+        
+    }
     
 
 
@@ -56,11 +73,12 @@
     <section>
         <div class="с">
                 <h2> Наши заказы:</h2>
-                @foreach (var s in celebrates)
-                        {
-                    <button class="celebrate-buttons btn btn-primary" @onclick="NavigateToPage"> @s <br> @s </button>
-                        }
-
+       
+                @foreach (var i in _orders)
+                {
+                    
+                    <button class="celebrate-buttons"> <OrderCard order=i></OrderCard> </button>
+                }
         </div>
     </section>
 
