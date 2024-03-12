@@ -14,6 +14,8 @@ namespace YourDay.BLL
     {
         private List<OrderOutputModel> _outputModels;
 
+        private List<OrderNameDataOutputModel> _outputNewModels;
+
         public OrderServiceMock()
         {
             _outputModels = new List<OrderOutputModel>()
@@ -68,6 +70,11 @@ namespace YourDay.BLL
         public List<OrderOutputModel> GetAllOrders()
         {
             return _outputModels;
+        }
+
+        public List<OrderNameDataOutputModel> GetAllOrdersOnlyNameData()
+        {
+            return _outputNewModels;
         }
 
         public OrderOutputModel GetOrderById(int id)

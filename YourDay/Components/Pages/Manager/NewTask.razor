@@ -1,9 +1,9 @@
 ﻿@page "/newTask"
 @attribute [StreamRendering]
 
-<PageTitle>Новый заказ</PageTitle>
 
-<div class="body">
+
+@* <section> 
     <div class="layout">
         <h2>Добавить заказ:</h2>
         <input type="text" placeholder="Задача">
@@ -30,4 +30,49 @@
         </form>
     </div>
     <button class="green-button">Добавить</button>
-</div>
+</section>
+ *@
+
+
+<section>
+    <div class="back">
+        <section>
+            <div class="container-add-order">
+                   <div class="fields-add-order">
+                            <form>
+                                <h2>Добавить задачу:</h2>
+            
+                                <div class="conteiner-for-text">
+                                    <label class="text" >Название задачи:</label>
+                                    <input  class="field" type="name"  placeholder="Введите название задачи">
+                                </div>
+                                <div class="conteiner-for-text">
+                                    <label class="text" >Специализация:</label>
+                                    <input  class="field" type="name" placeholder="Введите специализацию">
+                                </div>
+                                <div class="conteiner-for-text">
+                                    <label class="text" >Мастер:</label>
+                                    <input  class="field"  type="text"  placeholder="Введите мастера">
+                                </div>
+                                <div class="conteiner-for-text">
+                                    <label class="text" >Дата:</label>
+                                    <input  class="field"  type="number"  placeholder="Введите дату">
+                                </div>
+                                <div class="conteiner-for-text">
+                                    <label class="text" >Статус:</label>
+                                    <input  class="field"  type="text"  placeholder="Выберете статус">
+                                </div>  
+                            </form>
+
+                            <div>
+                                <button  class="purple-button">Создать</button>
+                                <button class="purple-button" > Назад </button>
+                            </div>
+                   </div>
+            </div
+        </section>
+    </div>
+
+</section>
+
+

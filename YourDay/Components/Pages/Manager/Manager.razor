@@ -5,33 +5,20 @@
 @using YourDay.BLL.Models.InputModels;
 <PageTitle>Manager</PageTitle>
 
-
 @code{
     List<string> lastCelebrates = new List<string>() { "Юбилей", "8 марта", "Праздник осени", "Рождество" };
     private int lc = 0;
 
-    @code
+    private List<OrderOutputModel> _orders;
+
+    private IOrderService _orderService;
+
+    public Manager()
     {
-        
+        _orderService = new OrderServiceMock();
 
-        private List<OrderOutputModel> _orders;
-
-        private IOrderService _orderService;
-
-        public Manager()
-        {
-            _orderService = new OrderServiceMock();
-
-
-            _orders = _orderService.GetAllOrders();
-
-           
-        }
-
-        
-    }
-    
-
+        _orders = _orderService.GetAllOrders();
+    }  
 
     private void CountLastCelebrates()
     {
@@ -48,7 +35,6 @@
         NavigationManager.NavigateTo("/newOrder");
     }
 }
-
 
 <body>
     <div class="meneger-container">
@@ -77,7 +63,7 @@
                 @foreach (var i in _orders)
                 {
                     
-                    <button class="celebrate-buttons"> <OrderCard order=i></OrderCard> </button>
+                    <button class="celebrate-buttons"> <OrderCard order=i> </OrderCard> </button>
                 }
         </div>
     </section>

@@ -1,4 +1,4 @@
-﻿page "/order/{Id:int}"
+﻿@page "/order/{Id:int}"
 @rendermode InteractiveServer
 @inject NavigationManager NavigationManager
 @* 
@@ -21,7 +21,7 @@
 
     private string _date;
 
-    private string _countPeople;
+    private int _countPeople;
 
     private string _adress;
 
@@ -40,7 +40,12 @@
 
         var p = _orderService.GetOrderById(Id);
         _orderName = p.OrderName;
+        _clientName = p.ClientName;
         _date = p.Date;
+        _countPeople = p.CountPeople;
+        _adress = p.Adress;
+        _comments = p.Comments;
+
     }
 
 
@@ -60,6 +65,7 @@
             <thead>
                 <tr>
                     <th>Праздник</th>
+                    <th>Клиент</th>
                     <th>Дата</th>
                     <th>Количество гостей</th>
                     <th>Адрес</th>
@@ -68,12 +74,12 @@
             </thead>
             <tbody>
                     <tr>
-                    <td>_orderName</td>
-                    <td>_clientName</td>
-                    <td>_date</td>
-                    <td> _countPeople</td>
-                    <td>_adress</td>
-                    <td>_comments</td>
+                    <td>@_orderName</td>
+                    <td>@_clientName</td>
+                    <td>@_date</td>
+                    <td> @_countPeople</td>
+                    <td>@_adress</td>
+                    <td>@_comments</td>
                     </tr>
             </tbody>
         </table>

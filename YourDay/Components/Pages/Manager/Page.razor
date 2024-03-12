@@ -8,48 +8,29 @@
 @using YourDay.BLL.Models.OutputModels
 
 
-<div>
-    <input @bind="_inputModel.OrderName" />
-    <input @bind="_inputModel.ClientName" />
-    <input @bind="_inputModel.Date" />
-    <input @bind="_inputModel.CountPeople" />
-    <input @bind="_inputModel.Adress" />
-    <input @bind="_inputModel.Comments" />
-    <button @onclick="AddOrder">Создать</button>
-</div>
+<button type="button" onclick="window.closeMe.show()">
+    Просто открыть
+</button>
+<button type="button" onclick="window.closeMe.showModal()">
+    Открыть как модалку
+</button>
 
 
+<dialog 
+        id="closeMe"
+        aria-labelledby="heading">
+    <h2 id="heading">Закрой меня! 🙏</h2>
+    <p>Результат этих кнопок одинаковый.</p>
 
-<p>@_inputModel.OrderName  @_inputModel.Date</p>
-<div style="display:flex; flex-wrap: wrap">
-    @foreach(var i in _orders)
-    {
-        @* <ProductCard ProductName=@i.Name Cost=i.Cost/> *@
-        <OrderCard order=i></OrderCard>
-    }
-</div>
+    <button type="button" onclick="window.closeMe.close()">
+        Закрыть с помощью JavaScript
+    </button>
 
-
-@code
-{
-    private OrderInputModel _inputModel;
-
-    private List<OrderOutputModel> _orders;
-
-    private IOrderService _orderService;
-
-    public Page()
-    {
-        _orderService = new OrderServiceMock();
-
-
-        _orders = _orderService.GetAllOrders();
-
-        _inputModel = new OrderInputModel();
-    }
-
-    public void AddOrder()
-    {
-        _orders.Add(_orderService.AddOrder(_inputModel));
-    }
-}
+    <form method="dialog">
+        <!-- Если у тега <button> не указан type, то по-умолчанию
+        он будет type="submit" ! -->
+        <button>
+            Закрыть с помощью формы
+        </button>
+    </form>
+</dialog>
