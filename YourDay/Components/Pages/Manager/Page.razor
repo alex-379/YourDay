@@ -1,18 +1,51 @@
 ﻿@page "/p"
-<h3>Page</h3>
+@using YourDay.Components
+@using YourDay.Components.Templates
+@using YourDay.BLL
+@using YourDay.BLL.IServices
+@using YourDay.BLL.Models.InputModels
+@using YourDay.BLL.Models.OutputModels
+@rendermode InteractiveServer
 
-@code {
+<div>
+    <input @bind="_inputModel.OrderName" />
+    <input @bind="_inputModel.ClientName" />
+    <input @bind="_inputModel.Date" />
+    <input @bind="_inputModel.CountPeople" />
+    <input @bind="_inputModel.Adress" />
+    <input @bind="_inputModel.Comments" />
+    <button @onclick="AddOrder">Создать</button>
+</div>
+<p>@_inputModel.OrderName  @_inputModel.Date</p>
+<div style="display:flex; flex-wrap: wrap">
+    @foreach(var i in _orders)
+    {
+        @* <ProductCard ProductName=@i.Name Cost=i.Cost/> *@
+        <OrderCard order=i></OrderCard>
+    }
+</div>
 
+
+@code
+{
+    private OrderInputModel _inputModel;
+
+    private List<OrderOutputModel> _orders;
+
+    private IOrderService _orderService;
+
+    public Page()
+    {
+        _orderService = new OrderServiceMock();
+
+
+        _orders = _orderService.GetAllOrders();
+
+        _inputModel = new OrderInputModel();
+    }
+
+    public void AddOrder()
+    {
+        _orders.Add(_orderService.AddOrder(_inputModel));
+    }
 }
-
-
-<section>
-    <div class="test">
-        <div class="test1">
-            <h3 class="q">aaaaaaaaa</h3>
-            <h3 class="q">aaaaaaaaaaaaaaaaaaaaaaaaaaaaa</h3>
-            <h3 class="q">a</h3>
-            <h3 class="q">aaaaaaaaa</h3>
-        </div>
-    </div>
-</section>

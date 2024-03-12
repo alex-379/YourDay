@@ -1,0 +1,24 @@
+﻿@using YourDay.Components
+@using YourDay.Components.Templates
+@using YourDay.BLL
+@using YourDay.BLL.IServices
+@using YourDay.BLL.Models.InputModels
+@using YourDay.BLL.Models.OutputModels
+<a href="./order/@order.Id">
+    <div class="product-card">
+        <p>@order.OrderName</p>
+        <p>@order.Date</p>
+    </div>
+</a>
+
+@code {
+    // [Parameter]
+    // public string ProductName{ get; set; }
+
+    // [Parameter]
+    // public int Cost { get; set; }
+
+    [Parameter]
+    public OrderOutputModel order { get; set; }
+
+}

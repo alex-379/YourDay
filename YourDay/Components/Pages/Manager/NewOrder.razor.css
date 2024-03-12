@@ -53,3 +53,17 @@
     font-family: inherit;
     font-size: 16px;
 }
+
+.button-add-order {
+    color: white;
+    background-color: #5DA271;
+    border: 1px solid #5DA271;
+    flex: 1;
+    padding: 10px 40px;
+    margin: 20px 20px;
+    border: none;
+    border-radius: 20px;
+}
+h4 {
+    font-size: 25px;
+}

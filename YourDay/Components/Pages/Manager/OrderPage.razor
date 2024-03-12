@@ -1,0 +1,32 @@
+﻿@page "/order/{Id:int}"
+@* @rendermode InteractiveServer *@
+
+<p>@Id</p>
+<h1>@_orderName</h1>
+<h2>@_date</h2>
+
+@code
+{
+    [Parameter]
+    public int Id { get; set; }
+
+    private string _orderName;
+
+    private string _date;
+
+    private IOrderService _orderService;
+
+    public OrderPage()
+    {
+        _orderService = new OrderServiceMock();
+    }
+
+    protected override void OnInitialized()
+    {
+        //     _productService = new ProductServiceMock();
+
+        var p = _orderService.GetOrderById(Id);
+        _orderName = p.OrderName;
+        _date = p.Date;
+    }
+}
