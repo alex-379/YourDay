@@ -21,13 +21,14 @@
         }
 
 .header-button {
-    font-size: 170%;
+    font-size: 140%;
     padding-right: 40px;
 }
 
 .button {
     background-color: greenyellow;
     border-radius: 20px;
+    padding: 5px;
 }
 
 @media screen and (max-width: 500px) {
