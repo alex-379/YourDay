@@ -3,19 +3,50 @@
 @using YourDay.BLL.Models.InputModels;
 @using YourDay.BLL;
 <PageTitle>Новый заказ</PageTitle>
+<div class="back">
+    <section>
 
-<div class="bod" >
-    <div class="layout">
-        <h2>Добавить заказ:</h2>
-        <input type="text" placeholder="Название праздника" >
-        <input type="text" placeholder="Клиент" >
-        <input type="date" placeholder="Дата" >
-        <input type="number" placeholder="Количество человек" >
-        <input type="text" placeholder="Адрес" >
-        <input type="text" placeholder="Комментарии">
-    </div>
-    <button class="green-button">Добавить</button>
+        <div class="container-add-order">
+            <div class="fields-add-order">
+                <form>
+                    <h2>Добавить заказ:</h2>
+            
+                    <div class="conteiner-for-text">
+                        <label class="text" for="inputEmail4">Название праздника:</label>
+                        <input class="field" type="name" id="inputName" placeholder="Введите название праздника">
+                    </div>
+                    <div class="conteiner-for-text">
+                        <label class="text" for="inputEmail4">Клиент:</label>
+                        <input class="field" type="email" placeholder="Введите имя клиента">
+                    </div>
+                    <div class="conteiner-for-text">
+                        <label class="text" for="inputPassword4">Дата:</label>
+                        <input class="field"  type="password" id="inputPassword4" placeholder="Введите дату праздника">
+                    </div>
+                    <div class="conteiner-for-text">
+                        <label class="text" for="inputPassword4">Количество человек:</label>
+                        <input class="field"  type="password" id="inputPassword4" placeholder="Введите сколько будет людей на празднике">
+                    </div>
+                    <div class="conteiner-for-text">
+                        <label class="text" for="inputPassword4">Адрес;</label>
+                        <input class="field"  type="password" id="inputPassword4" placeholder="Введите адрем вашего события">
+                    </div>
+                    <div class="conteiner-for-text">
+                        <label class="text" for="inputPassword4">Комментарии:</label>
+                        <input class="field"  type="password" id="inputPassword4" placeholder="Введите дополнительную информацию">
+                    </div>
+                
+                    <div>
+                            <button type="submit" class="green-button btn btn-primary">Добавить</button>
+                    </div>
+                </form>
+           </div>
+        </div
+
+
+    </section>
 </div>
+
 
 @code{
     
