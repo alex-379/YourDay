@@ -1,39 +1,6 @@
 ﻿@page "/newTask"
 @attribute [StreamRendering]
 
-
-
-@* <section> 
-    <div class="layout">
-        <h2>Добавить заказ:</h2>
-        <input type="text" placeholder="Задача">
-        <input type="text" placeholder="Специализация">
-        <input type="text" placeholder="Мастер">
-        <input type="date" placeholder="Дата">
-        <input type="text" placeholder="Статус">
-        <form>
-            <p>Выьерете статус:</p>
-            <div>
-                <input type="radio"
-                       id="contactChoice1"
-                       name="contact"
-                       value="s1"
-                       checked />
-                <label for="contactChoice1">Получено</label>
-
-                <input type="radio" id="contactChoice2" name="contact" value="s2" />
-                <label for="contactChoice2">Передано</label>
-
-                <input type="radio" id="contactChoice3" name="contact" value="s3" />
-                <label for="contactChoice3">Сделано</label>
-            </div>
-        </form>
-    </div>
-    <button class="green-button">Добавить</button>
-</section>
- *@
-
-
 <section>
     <div class="back">
         <section>
@@ -59,14 +26,19 @@
                                     <input  class="field"  type="number"  placeholder="Введите дату">
                                 </div>
                                 <div class="conteiner-for-text">
-                                    <label class="text" >Статус:</label>
-                                    <input  class="field"  type="text"  placeholder="Выберете статус">
+                                    <label class="text" for="fruits">Статус:</label>
+                                    <select class="field">
+                                        <option>Получено</option>
+                                        <option>Назначено</option>
+                                        <option>Сделано</option>
+                                    </select>
+                                    
                                 </div>  
                             </form>
 
                             <div>
                                 <button  class="purple-button">Создать</button>
-                                <button class="purple-button" > Назад </button>
+                                <button class="purple-button" > Вернуться </button>
                             </div>
                    </div>
             </div
