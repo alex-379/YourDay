@@ -216,14 +216,27 @@ button {
     padding: 10px;
 }
 
-.taskMaster-card > p {
+.taskMaster-card  {
     line-height: 24px;
-    color: #333;
+    color:#050505;
+    background-color:aqua;
+    border:1 px solid #fff252;
     margin-top: 0;
     margin-bottom: 0;
     font-size: 16px;
-    font-weight: 400;
+    width:190px;
 }
-.button-quest:hover{
-    background-color:orange;
+.button-quest:hover {
+    color: #fff;
+    background: #000;
+    padding: 1.2rem 2rem;
+    cursor: pointer;
+    user-select: none;
+    border: none;
+    outline: none;
+    transition: background 9999999s;
+}
+button:active {
+    background: red;
+    transition: background 0s;
 }
