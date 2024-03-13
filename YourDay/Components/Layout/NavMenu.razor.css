@@ -20,6 +20,20 @@
             color: black;
         }
 
+    .navbar .login ul {
+        display: flex;
+        list-style: none;
+    }
+
+        .navbar .login ul li {
+            margin: 0px 10px;
+        }
+
+        .navbar .login ul a {
+            text-decoration: none;
+            color: blue;
+        }
+
 .header-button {
     font-size: 140%;
     padding-right: 40px;

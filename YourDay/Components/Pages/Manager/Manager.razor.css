@@ -1,0 +1,11 @@
+﻿.red{
+    color: red;
+}
+h5{
+    color:green;
+}
+.manager-container {
+    display: flex;
+    margin: 100px 50px 1000px 50px;
+    padding: 100px 50px 100px 50px;
+}

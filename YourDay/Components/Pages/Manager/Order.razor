@@ -1,0 +1,108 @@
+﻿@page "/order/{Id:int}"
+@rendermode InteractiveServer
+@inject NavigationManager NavigationManager
+@* 
+<p>@Id</p>
+<h1>@_orderName</h1>
+<h2>@_clientName</h2>
+<h2>@_date</h2>
+<h2>@_countPeople</h2>
+<h2>@_adress</h2>
+<h2>@_comments</h2>  *@
+
+@code
+{
+    [Parameter]
+    public int Id { get; set; }
+
+    private string _orderName;
+
+    private string _clientName;
+
+    private string _date;
+
+    private int _countPeople;
+
+    private string _adress;
+
+    private string _comments;
+
+    private IOrderService _orderService;
+
+    public Order()
+    {
+        _orderService = new OrderServiceMock();
+    }
+
+    protected override void OnInitialized()
+    {
+        //     _productService = new ProductServiceMock();
+
+        var p = _orderService.GetOrderById(Id);
+        _orderName = p.OrderName;
+        _clientName = p.ClientName;
+        _date = p.Date;
+        _countPeople = p.CountPeople;
+        _adress = p.Adress;
+        _comments = p.Comments;
+
+    }
+
+
+    List<string> tasks = new List<string>() { "Привезти красные розы", "Заказать торт", "Привезти оформление", "Нужна живая съемка", "Часовая фотосессия" };
+    private void NavigateToPage()
+    {
+        NavigationManager.NavigateTo("/newTask");
+    }
+}
+
+
+
+
+<div class="body">
+     <section>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Праздник</th>
+                    <th>Клиент</th>
+                    <th>Дата</th>
+                    <th>Количество гостей</th>
+                    <th>Адрес</th>
+                    <th>Комментарии</th>
+                </tr>
+            </thead>
+            <tbody>
+                    <tr>
+                    <td>@_orderName</td>
+                    <td>@_clientName</td>
+                    <td>@_date</td>
+                    <td> @_countPeople</td>
+                    <td>@_adress</td>
+                    <td>@_comments</td>
+                    </tr>
+            </tbody>
+        </table>
+    </section>
+
+
+   
+
+
+    <section>
+
+        <h2> Задачи:</h2>
+        @foreach (var s in tasks){
+            <button class="task-button"> <h4>@s </h4> работник: Аня <br> дата: 10.11.2004 <br> статус: получено </button>
+        }
+        <button class="task-button" @onclick="NavigateToPage"> <h4>Добавить задачу</h4> </button>
+    </section>
+
+    <section>
+        <div class="button-container">
+            <button class="green-button"> История заказа </button>
+            <button class="green-button"> Завершить заказ </button>
+            <button class="green-button"> Другое </button>
+        </div>
+    </section>
+</div>
