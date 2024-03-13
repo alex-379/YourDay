@@ -16,6 +16,6 @@
 
         public int SpecializationId { get; set; }
 
-        public int StatusId { get; set; }
+        public string Status { get; set; }
     }
 }
