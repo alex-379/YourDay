@@ -1,18 +1,46 @@
 ﻿@page "/taskMaster"
 @attribute [StreamRendering]
 
-<h3>Задачи</h3>
+<div class="conteiner-for-text">
+    <label class="text" for="inputEmail4">Название задачи:</label>
+    <input class="field" type="name" id="inputName" placeholder="Введите название задачи">
+</div>
 
-@code {
-    List<string> tasks = new List<string>() { "Букет из 10 роз", "Цветочная компазия №1", "Живые цветы с фотозону" };
-}
-    <div>
-     <section>
-       <h1>Задачи :</h1>
-       @foreach(string task in tasks)
-       {
-        <button class="task-button"> <h4>@task </h4> пваыацпукпыв <br>fafqwdada </button>
-       }
-    </section>
+<div style="display: flex;">
+    <div>В период :</div>
+    <div style="display: flex;">
+        <div class="conteiner-for-text" style="width: 90px;">
+            <input class="field" type="number" id="inputName" placeholder="от" style="width: 90px;">
+        </div>
+        -
+        <div class="conteiner-for-text" style="width: 90px;">
+            <input class="field" type="number" id="inputName" placeholder="до" style="width: 90px;">
+        </div>
     </div>
+</div>
 
+<div class="button-quest">
+    <button>Поиск</button>
+</div>
+
+<div style="display:flex;flex-wrap:wrap">
+    @foreach(var i in _tasks)
+    {
+        <MasterTaskCard task="i"></MasterTaskCard>
+    }
+</div>
+
+
+@code 
+{
+    private List<TaskOutputModel> _tasks;
+    private IMasters _masters;
+
+    public TaskMaster()
+    {
+        _masters = new MasterMock();
+
+        _tasks = _masters.GetAllTask();
+    }
+}
+    
