@@ -9,6 +9,9 @@ html, body {
     font-size: 20px;
     line-height: 20px;
     color: #54494B;
+    background-image: url("images/back.jpg");
+    background-size: cover;
+    background-position: center;
 }
 
 radio {
