@@ -1,9 +1,3 @@
-﻿@using YourDay.Components
-@using YourDay.Components.Templates
-@using YourDay.BLL
-@using YourDay.BLL.IServices
-@using YourDay.BLL.Models.InputModels
-@using YourDay.BLL.Models.OutputModels
 <a href="./order/@order.Id">
     <div class="product-card">
         <p>@order.OrderName</p>
@@ -16,8 +10,6 @@
 </a>
 
 @code {
-   
     [Parameter]
     public OrderOutputModel order { get; set; }
-
 }

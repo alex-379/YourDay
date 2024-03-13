@@ -34,11 +34,11 @@
 @code 
 {
     private List<TaskOutputModel> _tasks;
-    private IMasters _masters;
+    private IMasterService _masters;
 
     public TaskMaster()
     {
-        _masters = new MasterMock();
+        _masters = new MasterServiceMock();
 
         _tasks = _masters.GetAllTask();
     }

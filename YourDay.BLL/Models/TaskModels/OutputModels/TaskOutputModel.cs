@@ -1,4 +1,4 @@
-﻿namespace YourDay.BLL.Models.OutputModels
+﻿namespace YourDay.BLL.Models.TaskModels.OutputModels
 {
     public class TaskOutputModel
     {
