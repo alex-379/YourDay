@@ -1,0 +1,36 @@
+﻿@page "/p"
+@rendermode InteractiveServer
+@using YourDay.Components
+@using YourDay.Components.Templates
+@using YourDay.BLL
+@using YourDay.BLL.IServices
+@using YourDay.BLL.Models.InputModels
+@using YourDay.BLL.Models.OutputModels
+
+
+<button type="button" onclick="window.closeMe.show()">
+    Просто открыть
+</button>
+<button type="button" onclick="window.closeMe.showModal()">
+    Открыть как модалку
+</button>
+
+
+<dialog 
+        id="closeMe"
+        aria-labelledby="heading">
+    <h2 id="heading">Закрой меня! 🙏</h2>
+    <p>Результат этих кнопок одинаковый.</p>
+
+    <button type="button" onclick="window.closeMe.close()">
+        Закрыть с помощью JavaScript
+    </button>
+
+    <form method="dialog">
+        <!-- Если у тега <button> не указан type, то по-умолчанию
+        он будет type="submit" ! -->
+        <button>
+            Закрыть с помощью формы
+        </button>
+    </form>
+</dialog>
