@@ -10,4 +10,8 @@
     <ProjectReference Include="..\YourDay.BLL\YourDay.BLL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\YourDay.BLL\YourDay.BLL.csproj" />
+  </ItemGroup>
+
 </Project>
