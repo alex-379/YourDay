@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using YourDay.BLL.IMaster.Models;
+﻿using YourDay.BLL.IMaster.Models;
 using YourDay.BLL.Models.OutputModels;
 
 namespace YourDay.BLL.IMaster
@@ -26,7 +20,7 @@ namespace YourDay.BLL.IMaster
                     TimeStart="12:00",
                     TimeEnd="13:00",
                     SpecializationId = 1,
-                    StatusId = 1,
+                    Status ="В работе",
                 },
                 new TaskOutputModel()
                 {
@@ -37,7 +31,7 @@ namespace YourDay.BLL.IMaster
                     TimeStart="16:00",
                     TimeEnd="17:00",
                     SpecializationId = 1,
-                    StatusId = 2,
+                    Status ="Завершен",
                 },
                 new TaskOutputModel()
                 {
@@ -48,7 +42,7 @@ namespace YourDay.BLL.IMaster
                     TimeStart="10:00",
                     TimeEnd="13:00",
                     SpecializationId = 1,
-                    StatusId = 3,
+                    Status ="В работе",
                 }
             };
         }
@@ -69,9 +63,13 @@ namespace YourDay.BLL.IMaster
                 TimeStart = model.TimeStart,
                 TimeEnd = model.TimeEnd,
                 SpecializationId = model.SpecializationId,
-                StatusId = model.StatusId,
+                Status= model.Status,
 
             };
+        }
+        public TaskOutputModel GetTaskById(int id)
+        {
+            return _task[id - 1];
         }
     }
 }

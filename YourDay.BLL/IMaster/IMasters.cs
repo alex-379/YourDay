@@ -8,9 +8,10 @@ namespace YourDay.BLL.IMaster
     {
         public List<TaskOutputModel> GetAllTask();
         public TaskOutputModel UpdateStatusTask(TaskInputModel model);
-        //public TaskOutputModel GetTaskById(int Id);
+        public TaskOutputModel GetTaskById(int id);
 
-        //public List<> GetScheduleByDay(DateTime? day);
+
+
 
     }
 }
