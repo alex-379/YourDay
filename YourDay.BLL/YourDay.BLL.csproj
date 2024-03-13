@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Folder Include="Models\InputModels\" />
+    <Folder Include="Models\Models\" />
   </ItemGroup>
 
 </Project>

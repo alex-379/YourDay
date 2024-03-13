@@ -1,8 +1,21 @@
 ﻿@page "/taskMaster"
 @attribute [StreamRendering]
 
-<h3>Задачи</h3>
+<div class="conteiner-for-text">
+    <label class="text" for="inputEmail4">Название задачи:</label>
+    <input class="field" type="name" id="inputName" placeholder="Введите название задачи">
+</div>
 
+<div class="conteiner-for-text">
+    <label class="text" for="inputEmail4"> В период :</label>
+    <input class="field" type="name" id="inputName" placeholder="с какого числа">
+</div>
+<div class="conteiner-for-text">
+    <input class="field" type="name" id="inputName" placeholder="по какое число">
+</div>
+<div class="button-quest">
+    <input type="button" value="Поиск">
+</div>
 @code {
     List<string> tasks = new List<string>() { "Букет из 10 роз", "Цветочная компазия №1", "Живые цветы с фотозону" };
 }
