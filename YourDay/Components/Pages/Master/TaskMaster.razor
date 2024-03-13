@@ -6,20 +6,49 @@
     <input class="field" type="name" id="inputName" placeholder="Введите название задачи">
 </div>
 
-<div class="conteiner-for-text">
-    <label class="text" for="inputEmail4"> В период :</label>
-    <input class="field" type="name" id="inputName" placeholder="с какого числа">
+<div style="display: flex;">
+    <div>В период :</div>
+    <div style="display: flex;">
+        <div class="conteiner-for-text" style="width: 90px;">
+            <input class="field" type="number" id="inputName" placeholder="от" style="width: 90px;">
+        </div>
+        -
+        <div class="conteiner-for-text" style="width: 90px;">
+            <input class="field" type="number" id="inputName" placeholder="до" style="width: 90px;">
+        </div>
+    </div>
 </div>
-<div class="conteiner-for-text">
-    <input class="field" type="name" id="inputName" placeholder="по какое число">
-</div>
+
 <div class="button-quest">
     <input type="button" value="Поиск">
 </div>
-@code {
-    List<string> tasks = new List<string>() { "Букет из 10 роз", "Цветочная компазия №1", "Живые цветы с фотозону" };
+
+<div style="display:flex;flex-wrap:wrap">
+    @foreach(var i in tasks)
+    {
+        <div class="taskMaster-card">
+            <p>@i.Name</p>
+            <p>@i.WorkerName</p>
+            <p>@i.Date</p>
+            <p>@i.Status</p>
+        </div>
+    }
+</div>
+
+
+@code 
+{
+    private List<TaskOutputModel> tasks;
+    private IMasters _masters;
+
+    public TaskMaster()
+    {
+        _masters = new MasterMock();
+
+        tasks = _masters.GetAllOrders();
+    }
 }
-    <div>
+    @* <div>
      <section>
        <h1>Задачи :</h1>
        @foreach(string task in tasks)
@@ -28,4 +57,4 @@
        }
     </section>
     </div>
-
+ *@
