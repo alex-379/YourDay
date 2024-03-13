@@ -20,26 +20,35 @@ namespace YourDay.BLL.IMaster
                 new TaskOutputModel()
                 {
                     Id = 1,
-                    Name = "Букет роз",
-                    WorkerName ="Мария",
-                    Date = DateTime.Now,
-                    Status = "В работе"
+                    Title = "Букет роз",
+                    OrderId = 1,
+                    Date="12/02/2024",
+                    TimeStart="12:00",
+                    TimeEnd="13:00",
+                    SpecializationId = 1,
+                    StatusId = 1,
                 },
                 new TaskOutputModel()
                 {
-                    Id = 2,
-                    Name = "Букет тюльпанов",
-                    WorkerName ="Александр",
-                    Date = DateTime.Now,
-                    Status = "Завершено"
+                   Id = 2,
+                    Title = "Букет тюльпанов",
+                    OrderId = 2,
+                    Date="03/02/2024",
+                    TimeStart="16:00",
+                    TimeEnd="17:00",
+                    SpecializationId = 1,
+                    StatusId = 2,
                 },
                 new TaskOutputModel()
                 {
                     Id = 3,
-                   Name = "Живые цветы (фотозона)",
-                    WorkerName ="Александр",
-                    Date = DateTime.Now,
-                    Status = "В работе"
+                    Title = "Живые цветы(фотозона)",
+                    OrderId = 3,
+                    Date="01/02/2024",
+                    TimeStart="10:00",
+                    TimeEnd="13:00",
+                    SpecializationId = 1,
+                    StatusId = 3,
                 }
             };
         }
@@ -54,10 +63,13 @@ namespace YourDay.BLL.IMaster
             return new TaskOutputModel()
             {
                 Id = 1,
-                Name = model.Name,
-                WorkerName = model.WorkerName,
-                Date = DateTime.Now,
-                Status = model.Status,
+                Title = model.Title,
+                OrderId = model.OrderId,
+                Date = model.Date,
+                TimeStart = model.TimeStart,
+                TimeEnd = model.TimeEnd,
+                SpecializationId = model.SpecializationId,
+                StatusId = model.StatusId,
 
             };
         }
