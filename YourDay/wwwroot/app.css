@@ -15,9 +15,10 @@ html, body {
 }
 
 radio {
-    width: 20px; /* Установите нужную ширину */
-    height: 10px; /* Установите нужную высоту */
+    width: 20px;
+    height: 10px;
 }
+
 h1 {
     width: 255px;
     margin: 0 auto 8px;
@@ -40,6 +41,53 @@ a {
 .center {
     text-align: center;
     align-self: center;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    .navbar .menu ul {
+        display: flex;
+        list-style: none;
+    }
+
+        .navbar .menu ul li {
+            margin: 20px 100px;
+        }
+
+        .navbar .menu ul a {
+            text-transform: uppercase;
+            text-decoration: none;
+            font-weight: bold;
+            color: black;
+        }
+
+    .navbar .login ul {
+        display: flex;
+        list-style: none;
+    }
+
+        .navbar .login ul li {
+            margin: 0px 10px;
+        }
+
+        .navbar .login ul a {
+            text-decoration: none;
+            color: blue;
+        }
+
+.header-button {
+    font-size: 140%;
+    padding-right: 40px;
+}
+
+.button {
+    background-color: greenyellow;
+    border-radius: 20px;
+    padding: 5px;
 }
 
 .green-button {
@@ -242,4 +290,19 @@ button {
 button:active {
     background: red;
     transition: background 0s;
+}
+
+@media screen and (max-width: 500px) {
+    .navbar {
+        flex-direction: column;
+    }
+
+        .navbar .menu ul {
+            flex-direction: column;
+            align-self: center;
+        }
+
+            .navbar .menu ul li {
+                margin: 5px;
+            }
 }
