@@ -1,0 +1,90 @@
+﻿@page "/newOrder"
+@rendermode InteractiveServer
+@inject NavigationManager NavigationManager 
+
+
+<div class="back">
+    <section>
+
+        <div class="container-add-order">
+               <div class="fields-add-order">
+                        <form>
+                            <h2>Добавить заказ:</h2>
+            
+                            <div class="conteiner-for-text">
+                                <label class="text" >Название праздника:</label>
+                                <input @bind="_inputModel.OrderName" class="field" type="name"  placeholder="Введите название праздника">
+                            </div>
+                            <div class="conteiner-for-text">
+                                <label class="text" >Клиент:</label>
+                                <input @bind="_inputModel.ClientName" class="field" type="name" placeholder="Введите имя клиента">
+                            </div>
+                            <div class="conteiner-for-text">
+                                <label class="text" >Дата:</label>
+                                <input @bind="_inputModel.Date" class="field"  type="text"  placeholder="Введите дату праздника">
+                            </div>
+                            <div class="conteiner-for-text">
+                                <label class="text" >Количество человек:</label>
+                                <input @bind="_inputModel.CountPeople" class="field"  type="number"  placeholder="Введите сколько будет людей на празднике">
+                            </div>
+                            <div class="conteiner-for-text">
+                                <label class="text" >Адрес;</label>
+                                <input @bind="_inputModel.Adress" class="field"  type="text"  placeholder="Введите адрем вашего события">
+                            </div>
+                            <div class="conteiner-for-text">
+                                <label class="text" >Комментарии:</label>
+                                <input @bind="_inputModel.Comments" class="field"  type="text"  placeholder="Введите дополнительную информацию">
+                            </div>
+                
+                            
+                        </form>
+
+                        <div>
+                                    <button @onclick="AddOrder" class="purple-button">Создать</button>
+                                    <button class="purple-button" @onclick="Main"> Назад </button>
+                        </div>
+               </div>
+        </div
+    </section>
+
+    <section>
+        
+        <p>@_inputModel.OrderName  @_inputModel.Date</p>
+        <div style="display:flex; flex-wrap: wrap">
+            @foreach(var i in _orders)
+            {
+                @* <ProductCard ProductName=@i.Name Cost=i.Cost/> *@
+                <OrderCard order=i></OrderCard>
+            }
+        </div>
+    </section>
+</div>
+
+@code
+{
+    private OrderInputModel _inputModel;
+
+    private List<OrderOutputModel> _orders;
+
+    private IOrderService _orderService;
+
+    public NewOrder()
+    {
+        _orderService = new OrderServiceMock();
+
+
+        _orders = _orderService.GetAllOrders();
+
+        _inputModel = new OrderInputModel();
+    }
+
+    public void AddOrder()
+    {
+        _orders.Add(_orderService.AddOrder(_inputModel));
+    }
+
+    private void Main()
+    {
+        NavigationManager.NavigateTo("/");
+    }
+}
