@@ -28,11 +28,11 @@
     private string _status;
 
     private List<TaskOutputModel> _tasks;
-    private IMasters _masters;
+    private IMasterService _masters;
 
     public TaskPage()
     {
-        _masters = new MasterMock();
+        _masters = new MasterServiceMock();
     }
     protected override void OnInitialized()
     {
