@@ -20,41 +20,27 @@
 </div>
 
 <div class="button-quest">
-    <input type="button" value="Поиск">
+    <button>Поиск</button>
 </div>
 
 <div style="display:flex;flex-wrap:wrap">
-    @foreach(var i in tasks)
+    @foreach(var i in _tasks)
     {
-        <div class="taskMaster-card">
-            <p>@i.Name</p>
-            <p>@i.WorkerName</p>
-            <p>@i.Date</p>
-            <p>@i.Status</p>
-        </div>
+        <MasterTaskCard task="i"></MasterTaskCard>
     }
 </div>
 
 
 @code 
 {
-    private List<TaskOutputModel> tasks;
+    private List<TaskOutputModel> _tasks;
     private IMasters _masters;
 
     public TaskMaster()
     {
         _masters = new MasterMock();
 
-        tasks = _masters.GetAllOrders();
+        _tasks = _masters.GetAllTask();
     }
 }
-    @* <div>
-     <section>
-       <h1>Задачи :</h1>
-       @foreach(string task in tasks)
-       {
-        <button class="task-button"> <h4>@task </h4> пваыацпукпыв <br>fafqwdada </button>
-       }
-    </section>
-    </div>
- *@
+    

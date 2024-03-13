@@ -6,7 +6,7 @@ namespace YourDay.BLL.IMaster
 {
     public interface IMasters
     {
-        public List<TaskOutputModel> GetAllOrders();
+        public List<TaskOutputModel> GetAllTask();
         public TaskOutputModel UpdateStatusTask(TaskInputModel model);
         //public TaskOutputModel GetTaskById(int Id);
 

@@ -1,0 +1,15 @@
+﻿<a href="./taskMaster/@task.Id">
+
+<div class="taskMaster-card">
+    <p>@task.Name</p>
+    <p>@task.WorkerName</p>
+    <p>@task.Date</p>
+    <p>@task.Status</p>
+</div>
+</a>
+ 
+@code {
+    [Parameter]
+    public TaskOutputModel task { get; set; }
+
+}

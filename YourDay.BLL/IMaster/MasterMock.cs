@@ -44,15 +44,11 @@ namespace YourDay.BLL.IMaster
             };
         }
 
-        public List<TaskOutputModel> GetAllOrders()
+        public List<TaskOutputModel> GetAllTask()
         {
             return _task;
         }
 
-        //public TaskOutputModel GetTaskById(int id)
-        //{
-        //   return _task(id-1);
-        //}
         public TaskOutputModel UpdateStatusTask(TaskInputModel model)
         {
             return new TaskOutputModel()
