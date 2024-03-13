@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using YourDay.BLL.IMaster.Models;
-using YourDay.BLL.Models.OutputModels;
+﻿using YourDay.BLL.IServices;
+using YourDay.BLL.Models.TaskModels.InputModels;
+using YourDay.BLL.Models.TaskModels.OutputModels;
 
-namespace YourDay.BLL.IMaster
+namespace YourDay.BLL
 {
-    public class MasterMock : IMasters
+    public class MasterServiceMock : IMasterService
     {
         private List<TaskOutputModel> _task;
 
-        public MasterMock()
+        public MasterServiceMock()
         {
             _task = new List<TaskOutputModel>()
             {

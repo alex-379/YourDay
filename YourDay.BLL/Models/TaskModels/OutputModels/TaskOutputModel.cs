@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace YourDay.BLL.IMaster.Models
+﻿namespace YourDay.BLL.Models.TaskModels.OutputModels
 {
-    public class TaskInputModel
+    public class TaskOutputModel
     {
+        public int Id { get; set; }
+
         public string Title { get; set; }
 
         public int OrderId { get; set; }

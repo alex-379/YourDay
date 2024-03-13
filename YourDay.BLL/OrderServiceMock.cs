@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using YourDay.BLL.IServices;
-using YourDay.BLL.Models.InputModels;
-using YourDay.BLL.Models.OutputModels;
+﻿using YourDay.BLL.IServices;
+using YourDay.BLL.Models.OrderModels.InputModels;
+using YourDay.BLL.Models.OrderModels.OutputModels;
 
 namespace YourDay.BLL
 {
-    public class OrderServiceMock: IOrderService
+    public class OrderServiceMock : IOrderService
     {
         private List<OrderOutputModel> _outputModels;
 

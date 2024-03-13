@@ -1,9 +1,7 @@
-﻿namespace YourDay.BLL.Models.OutputModels
+﻿namespace YourDay.BLL.Models.TaskModels.InputModels
 {
-    public class TaskOutputModel
+    public class TaskInputModel
     {
-        public int Id { get; set; }
-
         public string Title { get; set; }
 
         public int OrderId { get; set; }

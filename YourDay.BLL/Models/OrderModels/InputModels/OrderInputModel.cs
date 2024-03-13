@@ -1,9 +1,7 @@
-﻿namespace YourDay.BLL.Models.OutputModels
+﻿namespace YourDay.BLL.Models.OrderModels.InputModels
 {
-    public class OrderOutputModel
+    public class OrderInputModel
     {
-        public int Id { get; set; }
-
         public string OrderName { get; set; }
 
         public string ClientName { get; set; }
