@@ -8,12 +8,18 @@ namespace YourDay.BLL.IMaster.Models
 {
     public class TaskInputModel
     {
-        public string Name { get; set; }
+        public string Title { get; set; }
 
-        public string WorkerName { get; set; }
+        public int OrderId { get; set; }
 
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
 
-        public string Status { get; set; }
+        public string TimeStart { get; set; }
+
+        public string TimeEnd { get; set; }
+
+        public int SpecializationId { get; set; }
+
+        public int StatusId { get; set; }
     }
 }
