@@ -1,0 +1,39 @@
+﻿@page "/applications"
+@rendermode InteractiveServer
+
+@code {
+    List<string> tasks = new List<string>() { "День рождения", "Выпускной", "Просто хотим праздник", "GaguaygsJHGU hd"};
+
+
+}
+
+
+
+
+
+<dialog id="task" aria-labelledby="heading">
+    <h2 id="heading">Что сделать с таской? &#128054 </h2>
+
+    <form method="dialog">
+
+        <button>
+            Закрыть
+        </button>
+        <button>
+            Архивировать
+        </button>
+        <button>
+            Создать заказ
+        </button>
+    </form>
+</dialog>
+
+<section>
+
+    <h3> Наши заявки:</h3>
+    @foreach (var s in tasks)
+    {
+        <button class="task-button" onclick="window.task.showModal()"> <h4>@s </h4> клиент: Аня </button>
+    }
+    
+</section>

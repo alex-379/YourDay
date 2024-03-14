@@ -1,5 +1,6 @@
 ﻿@page "/order/{Id:int}"
 @rendermode InteractiveServer
+@attribute [StreamRendering]
 @inject NavigationManager NavigationManager
 @* 
 <p>@Id</p>
@@ -32,6 +33,10 @@
     public Order()
     {
         _orderService = new OrderServiceMock();
+
+        _masters = new MasterServiceMock();
+
+        _tasks = _masters.GetAllTask();
     }
 
     protected override void OnInitialized()
@@ -54,6 +59,12 @@
     {
         NavigationManager.NavigateTo("/newTask");
     }
+
+
+    private List<TaskOutputModel> _tasks;
+    private IMasterService _masters;
+
+    
 }
 
 
@@ -92,10 +103,13 @@
     <section>
 
         <h2> Задачи:</h2>
-        @foreach (var s in tasks){
-            <button class="task-button"> <h4>@s </h4> работник: Аня <br> дата: 10.11.2004 <br> статус: получено </button>
-        }
-        <button class="task-button" @onclick="NavigateToPage"> <h4>Добавить задачу</h4> </button>
+        <div class="container-task">
+            @foreach (var i in _tasks)
+            {
+                
+                <MasterTaskCard task="i" ></MasterTaskCard>
+            }
+        </div>
     </section>
 
     <section>
