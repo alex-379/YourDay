@@ -266,6 +266,13 @@ button {
     flex-direction: row;
 
 }
+
+.container-buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+
 .button-quest:hover {
     color: #fff;
     background: #000;

@@ -96,18 +96,31 @@
         </table>
     </section>
 
+    <dialog id="task" aria-labelledby="heading">
+        <h2 id="heading">Что сделать с таской? &#128054 </h2>
 
-   
+        <form method="dialog">
 
+            <button>
+                Изменить
+            </button>
+            <button>
+                Установить статус: 
+            </button>
+            <button>
+                Архивировать
+            </button>
+        </form>
+    </dialog>
 
     <section>
-
         <h2> Задачи:</h2>
         <div class="container-task">
             @foreach (var i in _tasks)
             {
-                
+
                 <MasterTaskCard task="i" ></MasterTaskCard>
+               
             }
         </div>
     </section>

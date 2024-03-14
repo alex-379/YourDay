@@ -1,14 +1,14 @@
-<a href="./taskMaster/task/@task.Id">
+<div class="container-buttons">
+    <a href="./taskMaster/task/@task.Id">
 
-<div class="taskMaster-card">
-    <p>@task.Title </p>
-    <p>@task.Date</p>
-    <p>@task.TimeStart</p>
-    <p>@task.TimeEnd</p>
-    <p>@task.Status</p>
-</div>
-</a>
- 
+    <div class="taskMaster-card">
+        <p>@task.Title </p>
+        <p>@task.Date</p>
+   
+    </div>
+    </a>
+    <button onclick="window.task.showModal()"> Изменить </button>
+ </div>
 @code {
     [Parameter]
     public TaskOutputModel task { get; set; }
