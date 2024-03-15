@@ -6,5 +6,9 @@ namespace YourDay.BLL.IServices
     public interface IUserService
     {
         public UserOutputModel AddUser(UserRegistrationInputModel user);
+
+        public List<UserOutputModel> GetAllUsers();
+
+        public UserOutputModel GetUserById(int id);
     }
 }

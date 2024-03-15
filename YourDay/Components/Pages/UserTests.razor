@@ -1,0 +1,57 @@
+﻿@page "/registration"
+@rendermode InteractiveServer
+@inject NavigationManager NavigationManager
+
+
+<div class="container-add-order">
+    <div class="fields-add-order">
+        <form>
+            <h2>Регистрация:</h2>
+
+            <div class="conteiner-for-text">
+                <label class="text">Имя:</label>
+                <input class="field" type="name" placeholder="Введите имя">
+            </div>
+            <div class="conteiner-for-text">
+                <label class="text">Почта:</label>
+                <input class="field" type="text" placeholder="Введите почту">
+            </div>
+            <div class="conteiner-for-text">
+                <label class="text">Телефон:</label>
+                <input class="field" type="text" placeholder="Введите телефон">
+            </div>
+            <div class="conteiner-for-text">
+                <label class="text">Пароль:</label>
+                <input class="field" type="text" placeholder="Введите пароль">
+            </div>
+        </form>
+
+        <div>
+            <button class="purple-button">Регистрация</button>
+            <button class="purple-button"> Отмена </button>
+        </div>
+    </div>
+</div>
+
+<div class="с">
+    <h2> Пользователи:</h2>
+
+    @foreach (var i in _users)
+    {
+        <button class="celebrate-buttons"> <UserCard user=i> </UserCard> </button>
+    }
+</div>
+
+@code
+{
+    private List<UserOutputModel> _users;
+
+    private IUserService _userService;
+
+    public UserTests()
+    {
+        _userService = new UserServiceMock();
+
+        _users = _userService.GetAllUsers();
+    }
+}
