@@ -13,16 +13,12 @@
     {
         NavigationMaster.NavigateTo("/contactTheManager");
     }
-    private void ShiftSchedule()
-    {
-        NavigationMaster.NavigateTo("/shiftSchedule");
-    }
+   
 }
 <div class="bod">
     <div class="button-container">
         <h2>Вы зашли как сотрудник :</h2>
         <button class="purple-button" @onclick ="TaskMaster"> Задачи </button>
         <button class="green-button" @onclick="ContactTheManager"> Связь с менеджером</button>
-        <button class="blue-button" @onclick="ShiftSchedule">Расписание смен</button>
     </div>
 </div>
