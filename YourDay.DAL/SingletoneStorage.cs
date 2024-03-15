@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Options;
-
-namespace YourDay.DAL
+﻿namespace YourDay.DAL
 {
     public class SingletoneStorage
     {
