@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace YourDay.DAL.Dtos
+﻿namespace YourDay.DAL.Dtos
 {
-    internal class UserDto
+    public class UserDto
     {
     }
 }
