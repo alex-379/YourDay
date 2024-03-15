@@ -1,0 +1,49 @@
+﻿@page "/taskMaster/task/{Id:int}"
+
+<p>@_title</p>
+<h1>@Id</h1>
+<h1>@_date</h1>
+<h1>@_timeStart</h1>
+<h1>@_timeEnd</h1>
+<h1>@_status</h1>
+
+@code {
+    [Parameter]
+    public int Id{ get; set; }
+
+    private string _title;
+
+    private int _orderId;
+
+    private string _date;
+
+    private string _timeStart;
+
+    private string _timeEnd;
+
+    private int _specializationId;
+
+    private string _status;
+
+    private List<TaskOutputModel> _tasks;
+    private IMasterService _masters;
+
+    public TaskPage()
+    {
+        _masters = new MasterServiceMock();
+    }
+    protected override void OnInitialized()
+    {
+        var task = _masters.GetTaskById(Id);
+        Id = task.Id;
+        _title = task.Title;
+        _orderId = task.OrderId;
+        _date = task.Date;
+        _specializationId = task.SpecializationId;
+        _status = task.Status;
+        _timeStart = task.TimeStart;
+        _timeEnd = task.TimeEnd;
+    }
+ }
+  
+

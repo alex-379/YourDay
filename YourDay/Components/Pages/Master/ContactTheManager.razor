@@ -1,8 +1,31 @@
 ﻿@page "/contactTheManager"
 @attribute [StreamRendering]
+@inject NavigationManager NavigationMaster
 
-<h3>ContactTheManager</h3>
-
+<PageTitle>ContactTheManager</PageTitle>
 @code {
 
+    private void ContactTheManagers()
+    {
+        NavigationMaster.NavigateTo("/contactTheManager");
+    }
+
+    private List<MenagerNameAndPhoneOutputModel> _models;
+    private IManagerService _managers;
+
+    public ContactTheManager()
+    {
+        _managers = new ManegerServiceMock();
+        _models =_managers.GetAllMenagers();
+    }
+
 }
+<div>
+    <p>Здесь вы можете связаться с менеджером</p>
+</div>
+<div class="display:flex;flex-wrap:wrap">
+    @foreach(var manager in _models)
+    {
+       <button>@manager.Name ,@manager.Phone</button>
+    }
+</div>

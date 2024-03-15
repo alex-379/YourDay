@@ -1,4 +1,4 @@
-﻿using YourDay.BLL.IServices;
+using YourDay.BLL.IServices;
 using YourDay.BLL.Models.TaskModels.InputModels;
 using YourDay.BLL.Models.TaskModels.OutputModels;
 
@@ -21,7 +21,7 @@ namespace YourDay.BLL
                     TimeStart="12:00",
                     TimeEnd="13:00",
                     SpecializationId = 1,
-                    StatusId = 1,
+                    Status ="В работе",
                 },
                 new TaskOutputModel()
                 {
@@ -32,7 +32,7 @@ namespace YourDay.BLL
                     TimeStart="16:00",
                     TimeEnd="17:00",
                     SpecializationId = 1,
-                    StatusId = 2,
+                    Status ="Завершен",
                 },
                 new TaskOutputModel()
                 {
@@ -43,7 +43,7 @@ namespace YourDay.BLL
                     TimeStart="10:00",
                     TimeEnd="13:00",
                     SpecializationId = 1,
-                    StatusId = 3,
+                    Status ="В работе",
                 }
             };
         }
@@ -64,9 +64,13 @@ namespace YourDay.BLL
                 TimeStart = model.TimeStart,
                 TimeEnd = model.TimeEnd,
                 SpecializationId = model.SpecializationId,
-                StatusId = model.StatusId,
+                Status= model.Status,
 
             };
+        }
+        public TaskOutputModel GetTaskById(int id)
+        {
+            return _task[id - 1];
         }
     }
 }
