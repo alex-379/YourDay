@@ -6,7 +6,7 @@ namespace YourDay.DAL.Dtos
     {
         public int Id { get; set; }
 
-        public int RoleId { get; set; }
+        public Roles RoleId { get; set; }
 
         public string UserName { get; set; }
 
