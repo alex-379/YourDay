@@ -1,6 +1,16 @@
-﻿namespace YourDay.DAL.Enums
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace YourDay.DAL.Enums
 {
-    public class Roles
+    public enum Roles
     {
+        [Display(Name = "Менеджер")]
+        Manager,
+
+        [Display(Name = "Работник")]
+        Worker,
+
+        [Display(Name = "Клиент")]
+        Client
     }
 }
