@@ -8,9 +8,9 @@ namespace YourDay.DAL.Dtos
 
         public OrderDto? OrderId { get; set; }
 
-        public Specializations SpecizlizationId { get; set; }
+        public Specialization SpecizlizationId { get; set; }
 
-        public Statuses StatusId { get; set; }
+        public Status StatusId { get; set; }
 
         public string Title { get; set; }
 

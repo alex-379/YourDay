@@ -12,7 +12,7 @@ namespace YourDay.DAL.Dtos
 
         //public UserDto? Manager { get; set; }
 
-        public Statuses StatusId { get; set; }
+        public Status StatusId { get; set; }
 
         public string OrderName { get; set; }
 
