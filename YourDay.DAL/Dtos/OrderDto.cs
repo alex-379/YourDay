@@ -6,9 +6,11 @@ namespace YourDay.DAL.Dtos
     {
         public int Id { get; set; }
 
-        public UserDto ClientId { get; set; }
+        public UserDto? User { get; set; }
 
-        public UserDto ManagerId { get; set; }
+        //public UserDto? Client { get; set; }
+
+        //public UserDto? Manager { get; set; }
 
         public Statuses StatusId { get; set; }
 
@@ -26,6 +28,6 @@ namespace YourDay.DAL.Dtos
 
         public List<TaskDto>? Tasks { get; set; }
 
-        public HistoryDto? Histories { get; set; }
+        public HistoryDto? History { get; set; }
     }
 }
