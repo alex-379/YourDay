@@ -6,7 +6,7 @@ namespace YourDay.DAL.Dtos
     {
         public int Id { get; set; }
 
-        public OrderDto OrderId { get; set; }
+        public OrderDto? OrderId { get; set; }
 
         public Specializations SpecizlizationId { get; set; }
 
