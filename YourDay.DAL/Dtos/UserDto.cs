@@ -18,10 +18,10 @@ namespace YourDay.DAL.Dtos
 
         public bool IsDeleted { get; set; }
 
-        public List<OrderDto> ClientOrders { get; set; }
+        public List<OrderDto>? ClientOrders { get; set; }
 
-        public List<OrderDto> ManagerOrders { get; set; }
+        public List<OrderDto>? ManagerOrders { get; set; }
 
-        public List<TaskDto> WorkerTasks { get; set; }
+        public List<TaskDto>? WorkerTasks { get; set; }
     }
 }
