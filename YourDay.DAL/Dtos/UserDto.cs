@@ -6,7 +6,11 @@ namespace YourDay.DAL.Dtos
     {
         public int Id { get; set; }
 
-        public int RoleId { get; set; }
+        public List<OrderDto>? Oders { get; set; }
+
+        public Roles? Role { get; set; }
+
+        public List<Specializations>? Specializations { get; set; }
 
         public string UserName { get; set; }
 
@@ -18,9 +22,9 @@ namespace YourDay.DAL.Dtos
 
         public bool IsDeleted { get; set; }
 
-        public List<OrderDto>? ClientOrders { get; set; }
+        //public List<OrderDto>? ClientOrders { get; set; }
 
-        public List<OrderDto>? ManagerOrders { get; set; }
+        //public List<OrderDto>? ManagerOrders { get; set; }
 
         public List<TaskDto>? WorkerTasks { get; set; }
     }
