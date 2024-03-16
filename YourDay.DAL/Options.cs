@@ -8,7 +8,9 @@ namespace YourDay.DAL
         {
             get
             {
-                return "Server=.;Database=Cats; User=SA; Trusted_Connection=True; TrustServerCertificate=true";
+                //return "Server=.;Database=Cats; User=SA; Trusted_Connection=True; TrustServerCertificate=true";
+                return "Data Source=.;Initial Catalog=YourDay2; User ID ='test'; Password='test'; TrustServerCertificate=true";
+                //return Environment.GetEnvironmentVariable("YourDayLocalDB");
             }
         }
     }

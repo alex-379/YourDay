@@ -2,7 +2,7 @@
 
 namespace YourDay.DAL.Enums
 {
-    public enum Statuses
+    public enum Status
     {
         [Display(Name = "Получен")]
         Received,

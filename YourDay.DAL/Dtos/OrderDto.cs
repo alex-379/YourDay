@@ -6,14 +6,6 @@ namespace YourDay.DAL.Dtos
     {
         public int Id { get; set; }
 
-        public UserDto? User { get; set; }
-
-        //public UserDto? Client { get; set; }
-
-        //public UserDto? Manager { get; set; }
-
-        public Status StatusId { get; set; }
-
         public string OrderName { get; set; }
 
         public string Address { get; set; }
@@ -26,8 +18,16 @@ namespace YourDay.DAL.Dtos
 
         public int Еvaluation { get; set; }
 
-        public List<TaskDto>? Tasks { get; set; }
+        //public UserDto? Client { get; set; }
 
-        public HistoryDto? History { get; set; }
+        //public UserDto? Manager { get; set; }
+
+        public UserDto? User { get; set; }
+
+        public Status? Status { get; set; }
+
+        public IEnumerable<TaskDto>? Tasks { get; set; }
+
+        public IEnumerable<HistoryDto>? Histories { get; set; }
     }
 }

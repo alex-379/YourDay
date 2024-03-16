@@ -2,7 +2,7 @@
 
 namespace YourDay.DAL.Enums
 {
-    public enum Specializations
+    public enum Specialization
     {
         [Display(Name = "Флорист")]
         Florist,

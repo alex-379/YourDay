@@ -6,12 +6,6 @@ namespace YourDay.DAL.Dtos
     {
         public int Id { get; set; }
 
-        public OrderDto? OrderId { get; set; }
-
-        public Specialization SpecizlizationId { get; set; }
-
-        public Status StatusId { get; set; }
-
         public string Title { get; set; }
 
         public string Description { get; set; }
@@ -20,6 +14,12 @@ namespace YourDay.DAL.Dtos
 
         public DateTime TimeEnd { get; set; }
 
-        public List<UserDto>? Workers { get; set; }
+        public IEnumerable<UserDto>? Workers { get; set; }
+
+        public OrderDto? OrderId { get; set; }
+
+        public IEnumerable<Specialization>? Specializations { get; set; }
+
+        public Status? Status { get; set; }
     }
 }
