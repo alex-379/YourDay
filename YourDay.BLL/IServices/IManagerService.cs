@@ -1,6 +1,4 @@
-﻿
-
-using YourDay.BLL.Models.MenagerModels.OutputModel;
+﻿using YourDay.BLL.Models.MenagerModels.OutputModel;
 
 namespace YourDay.BLL.IServices
 {

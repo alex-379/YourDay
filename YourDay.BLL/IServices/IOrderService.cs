@@ -1,7 +1,6 @@
 using YourDay.BLL.Models.OrderModels.InputModels;
 using YourDay.BLL.Models.OrderModels.OutputModels;
 
-
 namespace YourDay.BLL.IServices
 {
     public interface IOrderService

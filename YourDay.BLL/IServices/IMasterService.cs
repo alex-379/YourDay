@@ -8,7 +8,7 @@ namespace YourDay.BLL.IServices
         public List<TaskOutputModel> GetAllTask();
 
         public TaskOutputModel UpdateStatusTask(TaskInputModel model);
+
         public TaskOutputModel GetTaskById(int id);
-       
     }
 }

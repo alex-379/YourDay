@@ -1,0 +1,12 @@
+﻿<a href="./registration/@user.Id">
+    <div class="product-card">
+        <p>@user.UserName</p>
+        <p>@user.Mail</p>
+        <p>@user.Phone</p>
+    </div>
+</a>
+
+@code {
+    [Parameter]
+    public UserOutputModel user { get; set; }
+}
