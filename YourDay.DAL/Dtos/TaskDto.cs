@@ -20,6 +20,6 @@
 
         public DateTime TimeEnd { get; set; }
 
-        public List<UserDto> Workers { get; set; }
+        public List<UserDto>? Workers { get; set; }
     }
 }
