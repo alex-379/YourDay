@@ -3,12 +3,9 @@
     public class TaskOutputModel
     {
         public int Id { get; set; }
-
-        public int OrderId { get; set; }
-
         public string Title { get; set; }
 
-        public TimeOnly Date { get; set; }
+        public int OrderId { get; set; }
 
         public DateTime TimeStart { get; set; }
 

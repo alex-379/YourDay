@@ -15,35 +15,35 @@ namespace YourDay.BLL
                 new TaskOutputModel()
                 {
                     Id = 1,
-                    Title = "Букет роз",
                     OrderId = 1,
-                    Date="12/02/2024",
-                    TimeStart="12:00",
-                    TimeEnd="13:00",
+                    Title = "Букет роз",
+                    TimeStart= DateTime.ParseExact("2024-01-12 12:00", "yyyy-MM-dd HH:mm", System.Globalization.CultureInfo.InvariantCulture),
+                    TimeEnd =DateTime.ParseExact("2024-01-12 13:00", "yyyy-MM-dd HH:mm", System.Globalization.CultureInfo.InvariantCulture),
+                    Descriptions ="букет из 10 красных роз, в прозрачной упаковке",
                     SpecializationId = 1,
-                    Status ="В работе",
+                    StatusId =1,
                 },
                 new TaskOutputModel()
                 {
-                   Id = 2,
+                    Id = 2,
+                    OrderId = 1,
                     Title = "Букет тюльпанов",
-                    OrderId = 2,
-                    Date="03/02/2024",
-                    TimeStart="16:00",
-                    TimeEnd="17:00",
+                    TimeStart=DateTime.ParseExact("2024-01-07 10:00", "yyyy-MM-dd HH:mm", System.Globalization.CultureInfo.InvariantCulture),
+                    TimeEnd=DateTime.ParseExact("2024-01-07 12:00", "yyyy-MM-dd HH:mm", System.Globalization.CultureInfo.InvariantCulture),
+                    Descriptions="букет из 10 фиолетовых тюльпанов,в корзинке",
                     SpecializationId = 1,
-                    Status ="Завершен",
+                    StatusId =2,
                 },
                 new TaskOutputModel()
                 {
-                    Id = 3,
+                    Id = 2,
+                    OrderId = 2,
                     Title = "Живые цветы(фотозона)",
-                    OrderId = 3,
-                    Date="01/02/2024",
-                    TimeStart="10:00",
-                    TimeEnd="13:00",
+                    TimeStart= DateTime.ParseExact("2024-01-20 13:00", "yyyy-MM-dd HH:mm", System.Globalization.CultureInfo.InvariantCulture),
+                    TimeEnd= DateTime.ParseExact("2024-01-20 16:00", "yyyy-MM-dd HH:mm", System.Globalization.CultureInfo.InvariantCulture),
+                    Descriptions="Цветы:хризантема, роза,кипарис ",
                     SpecializationId = 1,
-                    Status ="В работе",
+                    StatusId =3,
                 }
             };
         }
@@ -57,15 +57,13 @@ namespace YourDay.BLL
         {
             return new TaskOutputModel()
             {
-                Id = 1,
-                Title = model.Title,
-                OrderId = model.OrderId,
-                Date = model.Date,
-                TimeStart = model.TimeStart,
-                TimeEnd = model.TimeEnd,
-                SpecializationId = model.SpecializationId,
-                Status= model.Status,
-
+               Title = model.Title,
+               OrderId= model.OrderId,
+              TimeStart=model.TimeStart,
+              TimeEnd=model.TimeEnd,
+              Descriptions=model.Descriptions,
+              SpecializationId = model.SpecializationId,
+              StatusId = model.StatusId,
             };
         }
         public TaskOutputModel GetTaskById(int id)

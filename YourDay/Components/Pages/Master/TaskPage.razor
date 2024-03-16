@@ -1,11 +1,12 @@
 ﻿@page "/taskMaster/task/{Id:int}"
 
-<p>@_title</p>
+@* <p>@_title</p>
 <h1>@Id</h1>
 <h1>@_date</h1>
 <h1>@_timeStart</h1>
 <h1>@_timeEnd</h1>
 <h1>@_status</h1>
+<h1>@_description</h1> *@
 
 @code {
     [Parameter]
@@ -17,13 +18,15 @@
 
     private string _date;
 
-    private string _timeStart;
+    private DateTime _timeStart;
 
-    private string _timeEnd;
+    private DateTime _timeEnd;
 
     private int _specializationId;
 
     private string _status;
+
+    private string _description;
 
     private List<TaskOutputModel> _tasks;
     private IMasterService _masters;
@@ -38,12 +41,35 @@
         Id = task.Id;
         _title = task.Title;
         _orderId = task.OrderId;
-        _date = task.Date;
-        _specializationId = task.SpecializationId;
-        _status = task.Status;
+        _status = task.StatusId.ToString();
         _timeStart = task.TimeStart;
         _timeEnd = task.TimeEnd;
+        _description = task.Descriptions;
     }
  }
+<section>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Название</th>
+                <th>Номер заказа</th>
+                <th>Статус заказа</th>
+                <th>Время начала заказа</th>
+                <th>Время окончания заказа</th>
+                <th>Описание заказа</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@_title</td>
+                <td>@_orderId</td>
+                <td>@_status</td>
+                <td>@_timeStart</td>
+                <td>@_timeEnd</td>
+                <td>@_description</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+ 
   
-
