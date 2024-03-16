@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
 
-        public int OrderId { get; set; }
+        public List<OrderDto>? Order { get; set; }
 
         public DateTime DateTime { get; set; }
 

@@ -1,4 +1,6 @@
-﻿namespace YourDay.DAL
+﻿using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace YourDay.DAL
 {
     public class Options
     {
@@ -6,7 +8,7 @@
         {
             get
             {
-                return Environment.GetEnvironmentVariable("YourDayDB");
+                return "Server=.;Database=Cats; User=SA; Trusted_Connection=True; TrustServerCertificate=true";
             }
         }
     }
