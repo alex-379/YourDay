@@ -7,7 +7,14 @@ namespace YourDay.DAL
     {
         private SingletoneStorage _context;
 
-        public DbSet<UserDto> Users { get; set; }
+        public DbSet<UserDto> User { get; set; }
+
+        public DbSet<HistoryDto> History { get; set; }
+
+        public DbSet<TaskDto> TaskD { get; set; }
+
+        public DbSet<OrderDto> Order { get; set; }
+
 
         public Context()
         {
