@@ -2,7 +2,7 @@
 
 namespace YourDay.DAL.Enums
 {
-    public enum Roles
+    public enum Role
     {
         [Display(Name = "Менеджер")]
         Manager,
