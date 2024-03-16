@@ -1,14 +1,16 @@
-﻿namespace YourDay.DAL.Dtos
+﻿using YourDay.DAL.Enums;
+
+namespace YourDay.DAL.Dtos
 {
     public class OrderDto
     {
         public int Id { get; set; }
 
-        public int ClientId { get; set; }
+        public UserDto ClientId { get; set; }
 
-        public int ManagerId { get; set; }
+        public UserDto ManagerId { get; set; }
 
-        public int StatusId { get; set; }
+        public Statuses StatusId { get; set; }
 
         public string OrderName { get; set; }
 
@@ -24,6 +26,6 @@
 
         public List<TaskDto>? Tasks { get; set; }
 
-        public List<HistoryDto>? Histories { get; set; }
+        public HistoryDto? Histories { get; set; }
     }
 }
