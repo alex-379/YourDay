@@ -1,6 +1,7 @@
 ﻿@page "/manager"
 @rendermode InteractiveServer
 @inject NavigationManager NavigationManager 
+@using YourDay.Components.Templates;
 
 <PageTitle>Manager</PageTitle>
 
@@ -33,6 +34,15 @@
     {
         NavigationManager.NavigateTo("/newOrder");
     }
+
+    private void Test()
+    {
+        NavigationManager.NavigateTo("/p");
+    }
+    private void Applications()
+    {
+        NavigationManager.NavigateTo("/applications");
+    }
 }
 
 <body>
@@ -51,7 +61,8 @@
             <button class="purple-button" @onclick="NewOrder"> Создать заказ </button>
             <button class="green-button"> Наши заказы </button>
             <button class="blue-button" @onclick="CountLastCelebrates"> Прошлые заказы </button>
-            <button class="pink-button"> Другое </button>
+                <button class="pink-button" @onclick="Applications"> Заявки  </button>
+                <button class="purple-button" @onclick="Test"> ТЕСТЫ  </button>
         </div>
     </section>
 
@@ -61,8 +72,7 @@
        
                 @foreach (var i in _orders)
                 {
-                    
-                    <button class="celebrate-buttons"> <OrderCard order=i> </OrderCard> </button>
+                    <button class="order-button"> <OrderCard order=i> </OrderCard> </button>
                 }
         </div>
     </section>
@@ -74,7 +84,7 @@
                 <h2> Прошлые заказы:</h2>
                 @foreach (var s in lastCelebrates)
                 {
-                    <button class="last-celebrate-button" @onclick="NavigateToPage"> @s <br> 16.02 </button>
+                    <button class="last-order-button" @onclick="NavigateToPage"> @s <br> 16.02 </button>
                 }
             }
         </div>
