@@ -31,8 +31,7 @@ namespace YourDay.BLL
                     Comments="Очень далеко",
                     StatusId = 1,
                     Price = 999,
-                    Evaluation = 1,
-                    IsDeleted = false
+
                 },
                 new OrderOutputModel()
                 {
@@ -46,8 +45,7 @@ namespace YourDay.BLL
                     Comments="Какой новый год сейчас лето",
                     StatusId = 1,
                     Price = 3456,
-                    Evaluation = 1,
-                    IsDeleted = false,
+
 
                 },
                 new OrderOutputModel()
@@ -62,8 +60,7 @@ namespace YourDay.BLL
                     Comments="Очень много людей",
                     StatusId = 1,
                     Price = 999,
-                    Evaluation = 1,
-                    IsDeleted = false
+
 
                 },
             };
@@ -83,8 +80,7 @@ namespace YourDay.BLL
                 Comments = order.Comments,
                 StatusId = order.StatusId,
                 Price = order.Price,
-                Evaluation = order.Evaluation,
-                IsDeleted = order.IsDeleted
+
             };
         }
 

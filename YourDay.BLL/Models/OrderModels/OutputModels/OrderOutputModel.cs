@@ -20,10 +20,7 @@
 
         public int Price { get; set; }
 
-        public int Evaluation { get; set; }
+        public string? Comments { get; set; }
 
-        public string Comments { get; set; }
-
-        public bool IsDeleted { get; set; }
     }
 }

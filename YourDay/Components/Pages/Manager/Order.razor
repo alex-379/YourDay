@@ -2,14 +2,6 @@
 @rendermode InteractiveServer
 @attribute [StreamRendering]
 @inject NavigationManager NavigationManager
-@* 
-<p>@Id</p>
-<h1>@_orderName</h1>
-<h2>@_clientName</h2>
-<h2>@_date</h2>
-<h2>@_countPeople</h2>
-<h2>@_adress</h2>
-<h2>@_comments</h2>  *@
 
 @code
 {
@@ -18,13 +10,21 @@
 
     private string _orderName;
 
-    private string _clientName;
+    private int _clientId;
+
+    private int _managerId;
+
+    private int _statusId;
 
     private string _date;
 
+    private string _adress;
+
     private int _countPeople;
 
-    private string _adress;
+    private int _price;
+
+    private int _evaluation;
 
     private string _comments;
 
@@ -45,10 +45,13 @@
 
         var p = _orderService.GetOrderById(Id);
         _orderName = p.OrderName;
-        _clientName = p.ClientName;
+        _clientId = p.ClientId;
+        _managerId = p.ManagerId;
+        _statusId = p.StatusId;
         _date = p.Date;
-        _countPeople = p.CountPeople;
         _adress = p.Adress;
+        _countPeople = p.CountPeople;
+        _price = p.Price;
         _comments = p.Comments;
 
     }
@@ -77,19 +80,23 @@
                 <tr>
                     <th>Праздник</th>
                     <th>Клиент</th>
+                    <th>Статус</th>
                     <th>Дата</th>
-                    <th>Количество гостей</th>
                     <th>Адрес</th>
+                    <th>Количество гостей</th>
+                    <th>Цена</th>
                     <th>Комментарии</th>
                 </tr>
             </thead>
             <tbody>
                     <tr>
                     <td>@_orderName</td>
-                    <td>@_clientName</td>
-                    <td>@_date</td>
-                    <td> @_countPeople</td>
+                    <td>@_clientId</td>
+                    <td>@_statusId</td>
+                    <td> @_date</td>
                     <td>@_adress</td>
+                    <td>@_countPeople</td>
+                    <td>@_price</td>
                     <td>@_comments</td>
                     </tr>
             </tbody>

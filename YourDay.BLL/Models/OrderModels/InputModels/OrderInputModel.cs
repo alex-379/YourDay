@@ -21,7 +21,5 @@
         public int Evaluation { get; set; }
 
         public string Comments { get; set; }
-
-        public bool IsDeleted { get; set; }
     }
 }
