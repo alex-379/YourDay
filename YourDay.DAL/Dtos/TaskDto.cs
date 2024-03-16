@@ -16,7 +16,7 @@ namespace YourDay.DAL.Dtos
 
         public IEnumerable<UserDto>? Workers { get; set; }
 
-        public OrderDto? OrderId { get; set; }
+        public OrderDto? Order { get; set; }
 
         public IEnumerable<Specialization>? Specializations { get; set; }
 

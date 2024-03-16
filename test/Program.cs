@@ -1,7 +1,5 @@
-﻿using System;
-using YourDay.DAL;
+﻿using YourDay.DAL;
 using YourDay.DAL.Dtos;
-using YourDay.DAL.Enums;
 
 Context context = new Context();
 

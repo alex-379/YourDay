@@ -5,16 +5,13 @@ namespace YourDay.DAL
 {
     public class Context : DbContext
     {
-        private SingletoneStorage _context;
+        public DbSet<UserDto> Users { get; set; }
 
-        public DbSet<UserDto> User { get; set; }
+        public DbSet<HistoryDto> Histories { get; set; }
 
-        public DbSet<HistoryDto> History { get; set; }
+        public DbSet<TaskDto> Tasks { get; set; }
 
-        public DbSet<TaskDto> TaskD { get; set; }
-
-        public DbSet<OrderDto> Order { get; set; }
-
+        public DbSet<OrderDto> Orders { get; set; }
 
         public Context()
         {

@@ -4,11 +4,11 @@
     {
         private static SingletoneStorage _object = null;
 
-        public Context context { get; private set; }
+        public Context Сontext { get; private set; }
 
         private SingletoneStorage()
         {
-            context = new Context();
+            Сontext = new Context();
         }
 
         public static SingletoneStorage GetStorage()
@@ -17,6 +17,7 @@
             {
                 _object = new SingletoneStorage();
             }
+
             return _object;
         }
     }
