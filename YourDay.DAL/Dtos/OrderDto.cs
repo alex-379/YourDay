@@ -16,14 +16,14 @@
 
         public DateTime Date { get; set; }
 
-        public int CountPeople { get; set; }
+        public int? CountPeople { get; set; }
 
         public int Price { get; set; }
 
         public int Еvaluation { get; set; }
 
-        public List<TaskDto> Tasks { get; set; }
+        public List<TaskDto>? Tasks { get; set; }
 
-        public List<HistoryDto> Histories { get; set; }
+        public List<HistoryDto>? Histories { get; set; }
     }
 }
