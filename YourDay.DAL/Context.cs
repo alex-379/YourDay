@@ -16,8 +16,7 @@ namespace YourDay.DAL
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string connectionString = "";
-            optionsBuilder.UseSqlServer(connectionString);
+            optionsBuilder.UseSqlServer(Options.connectionString);
         }
     }
 }
