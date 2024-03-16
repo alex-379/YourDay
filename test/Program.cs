@@ -1,7 +1,7 @@
 ﻿using YourDay.DAL;
 using YourDay.DAL.Dtos;
 
-Context context = new Context();
+Context context = SingletoneStorage.GetStorage().Сontext;
 
 var t = new UserDto() { UserName = "Анна", Mail = "asd@gmail.com", Phone = "+9212975643", Password = "1234", IsDeleted = false };
 //context.CatTypes.Add(t);
