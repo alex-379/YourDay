@@ -4,6 +4,6 @@ namespace YourDay.BLL.IServices
 {
     public interface IManagerService
     {
-        public List<MenagerNameAndPhoneOutputModel> GetAllMenagers();
+        public List<ManagerNameAndPhoneOutputModel> GetAllMenagers();
     }
 }
