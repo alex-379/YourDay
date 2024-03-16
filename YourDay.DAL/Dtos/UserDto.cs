@@ -8,9 +8,9 @@ namespace YourDay.DAL.Dtos
 
         public List<OrderDto>? Oders { get; set; }
 
-        public Roles? Role { get; set; }
+        public Role? Role { get; set; }
 
-        public List<Specializations>? Specializations { get; set; }
+        public List<Specialization>? Specializations { get; set; }
 
         public string UserName { get; set; }
 
