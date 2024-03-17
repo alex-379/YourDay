@@ -22,5 +22,13 @@ namespace YourDay.DAL
         {
             optionsBuilder.UseSqlServer(Options.connectionString);
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<UserDto>()
+                .HasMany(u => u.Orders)
+                .WithOne(o => o.Manager)
+                .OnDelete(DeleteBehavior.NoAction);
+        }
     }
 }
