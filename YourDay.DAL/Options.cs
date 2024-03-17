@@ -1,6 +1,4 @@
-﻿using static System.Runtime.InteropServices.JavaScript.JSType;
-
-namespace YourDay.DAL
+﻿namespace YourDay.DAL
 {
     public class Options
     {
@@ -8,7 +6,7 @@ namespace YourDay.DAL
         {
             get
             {
-                return Environment.GetEnvironmentVariable("YourDayLocalDB");
+                return Environment.GetEnvironmentVariable("YourDayDB");
             }
         }
     }

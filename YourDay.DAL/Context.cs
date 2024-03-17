@@ -13,6 +13,8 @@ namespace YourDay.DAL
 
         public DbSet<OrderDto> Orders { get; set; }
 
+        public DbSet<SpecializationDto> Specializations { get; set; }
+
         public Context()
         {
             Database.EnsureCreated();
