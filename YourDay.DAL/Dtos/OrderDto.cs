@@ -18,11 +18,9 @@ namespace YourDay.DAL.Dtos
 
         public int Еvaluation { get; set; }
 
-        //public UserDto? Client { get; set; }
+        public UserDto? Client { get; set; }
 
-        //public UserDto? Manager { get; set; }
-
-        public UserDto? User { get; set; }
+        public UserDto? Manager { get; set; }
 
         public Status? Status { get; set; }
 
