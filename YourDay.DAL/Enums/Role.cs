@@ -5,12 +5,12 @@ namespace YourDay.DAL.Enums
     public enum Role
     {
         [Display(Name = "Менеджер")]
-        Manager,
+        Manager = 0,
 
         [Display(Name = "Работник")]
-        Worker,
+        Worker = 1,
 
         [Display(Name = "Клиент")]
-        Client
+        Client = 2
     }
 }

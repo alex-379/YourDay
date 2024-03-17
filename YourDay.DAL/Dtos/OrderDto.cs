@@ -1,4 +1,6 @@
-﻿using YourDay.DAL.Enums;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using YourDay.DAL.Enums;
 
 namespace YourDay.DAL.Dtos
 {
@@ -6,10 +8,13 @@ namespace YourDay.DAL.Dtos
     {
         public int Id { get; set; }
 
+        [MaxLength(255)]
         public string OrderName { get; set; }
 
+        [MaxLength(255)]
         public string Address { get; set; }
 
+        [Column(TypeName = "DateTime")]
         public DateTime Date { get; set; }
 
         public int? CountPeople { get; set; }

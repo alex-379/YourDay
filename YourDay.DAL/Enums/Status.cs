@@ -5,15 +5,15 @@ namespace YourDay.DAL.Enums
     public enum Status
     {
         [Display(Name = "Получен")]
-        Received,
+        Received = 0,
 
         [Display(Name = "В работе")]
-        InProgress,
+        InProgress = 1,
 
         [Display(Name = "Завершён")]
-        Completed,
+        Completed = 2,
 
         [Display(Name = "Отменён")]
-        Cancelled
+        Cancelled = 3
     }
 }

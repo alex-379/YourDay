@@ -3,8 +3,23 @@ using YourDay.DAL.Dtos;
 
 Context context = SingletoneStorage.GetStorage().Сontext;
 
-var t = new UserDto() { UserName = "Анна", Mail = "asd@gmail.com", Phone = "+9212975643", Password = "1234", IsDeleted = false };
-//context.CatTypes.Add(t);
+var t = new UserDto()
+{
+    UserName = "Анна",
+    Mail = "asd@gmail.com",
+    Phone = "+9212975643",
+    Password = "1234",
+    IsDeleted = false,
+    Role = 0,
+    Specializations = null
+};
+
+var s = new SpecializationDto()
+{
+    Name = "Аниматор"
+};
+
+context.Specializations.Add(s);
 
 
 //t.Name = "SuperSiamsky";
