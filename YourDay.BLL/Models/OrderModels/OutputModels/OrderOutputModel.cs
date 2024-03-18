@@ -6,13 +6,13 @@
 
         public string OrderName { get; set; }
 
-        public int ClientId { get; set; }
+        //public int Client { get; set; }
 
-        public int ManagerId { get; set; }
+        //public int Manager { get; set; }
 
-        public int StatusId { get; set; }
+        //public int Status { get; set; }
 
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
 
         public string Adress { get; set; }
 
@@ -20,7 +20,6 @@
 
         public int Price { get; set; }
 
-        public string? Comments { get; set; }
 
     }
 }
