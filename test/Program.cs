@@ -67,21 +67,28 @@ var manager = context.Users.Where(m => m.Role == Role.Manager).Single();
 
 var s = context.Specializations.Where(s => s.Id == 1).Single();
 var o = context.Orders.Where(o => o.Id == 1).Single();
-var w = context.Users.Where(u => u.Role == Role.Worker);
-
+var w = context.Users.Where(u => u.Role == Role.Worker && u.Id == 3).ToList();
 
 var t = new TaskDto()
 {
     Order = o,
     Specialization = s,
     Status = Status.InProgress,
-    TimeEnd = new DateTime(2024, 5, 5, 1, 17, 0),
-    TimeStart = new DateTime(2024, 5, 5, 1, 15, 0),
-    //Workers = w,
-    Description = "Привезти букет из 10 роз, в прозрачной упаковке",
-    Title = "Букет из роз"
+    TimeEnd = new DateTime(2024, 6, 15, 1, 17, 0),
+    TimeStart = new DateTime(2024, 6, 12, 1, 12, 0),
+    Workers = w,
+    Description = "Украсить зал",
+    Title = "Декорация"
 };
 
+
+//var t = context.Tasks.Where(t => t.Id == 1).Single();
+//t.Description = "Привезти букет из 5 роз";
+
+//t.Workers = w;
+
 context.Tasks.Add(t);
+
+//context.Tasks.Update(t);
 
 context.SaveChanges();
