@@ -66,8 +66,8 @@ var manager = context.Users.Where(m => m.Role == Role.Manager).Single();
 //context.Users.Add(w2);
 
 var s = context.Specializations.Where(s => s.Id == 1).Single();
-var o = context.Orders.Where(o => o.Id == 1).Single();
-var w = context.Users.Where(u => u.Role == Role.Worker && u.Id == 3).ToList();
+var o = context.Orders.Where(o => o.Id == 2).Single();
+var w = context.Users.Where(u => u.Role == Role.Worker /*&& u.Id == 4*/).ToList();
 
 var t = new TaskDto()
 {
