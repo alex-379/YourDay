@@ -1,5 +1,4 @@
-﻿using YourDay.BLL.Models.TaskModels.InputModels;
-using YourDay.BLL.Models.TaskModels.OutputModels;
+﻿using YourDay.BLL.Models.TaskModels.OutputModels;
 
 namespace YourDay.BLL.IServices
 {
