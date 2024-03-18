@@ -1,39 +1,46 @@
 ﻿using YourDay.DAL;
 using YourDay.DAL.Dtos;
+using YourDay.DAL.Enums;
 
 Context context = SingletoneStorage.GetStorage().Сontext;
 
-var t = new UserDto()
+var u = new UserDto()
 {
     UserName = "Анна",
     Mail = "asd@gmail.com",
     Phone = "+9212975643",
     Password = "1234",
     IsDeleted = false,
-    Role = 0,
-    Specializations = null
+    Role = Role.Manager
 };
+//context.Users.Add(u);
 
-var s = new SpecializationDto()
+var client = context.Users.Where(c => c.Role == Role.Client).Single();
+var manager = context.Users.Where(m => m.Role == Role.Manager).Single();
+
+var o = new OrderDto()
 {
-    Name = "Аниматор"
+    OrderName = "День рождения",
+    Address = "Москва",
+    Date =  new DateTime(2024,5,5),
+    CountPeople = 12,
+    Price = 10000,
+    //Еvaluation = 1,
+    Status = Status.Received,
+    Client = client,
+    Manager = manager
 };
 
-context.Specializations.Add(s);
+
+string d = o.Date.ToShortDateString();
+Console.WriteLine(d);
 
 
-//t.Name = "SuperSiamsky";
+context.Orders.Add(o);
+
 context.SaveChanges();
 
-
-
-//var type = context.CatTypes.Where(a => a.Id == 1).Single();
-//context.Cats.Add(new CatDto() { Name = "Ivan", CostPerHour = 10, Type = type });
-//context.SaveChanges();
-//Console.WriteLine();
-
-
-
-//var type = context.CatTypes.Include(ct => ct.Cats).Where(a => a.Cats[0].Id == 3).Single();
-
 Console.WriteLine();
+
+//o.Client = client;
+//o.Manager = manager;

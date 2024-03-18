@@ -21,7 +21,7 @@ namespace YourDay.DAL.Dtos
 
         public int Price { get; set; }
 
-        public int Еvaluation { get; set; }
+        public int? Еvaluation { get; set; }
 
         public UserDto? Client { get; set; }
 
