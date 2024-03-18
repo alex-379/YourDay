@@ -6,7 +6,7 @@
         {
             get
             {
-                return Environment.GetEnvironmentVariable("YourDayDB");
+                return "Server=.;Database=pypypy; User=SA; Trusted_Connection=True; TrustServerCertificate=true";
             }
         }
     }
