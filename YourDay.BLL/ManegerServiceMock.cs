@@ -6,30 +6,30 @@ namespace YourDay.BLL
 {
     public class ManegerServiceMock : IManagerService
     {
-        private List<MenagerNameAndPhoneOutputModel> _managers;
+        private List<ManagerNameAndPhoneOutputModel> _managers;
 
         public ManegerServiceMock() 
         {
-            _managers = new List<MenagerNameAndPhoneOutputModel>()
+            _managers = new List<ManagerNameAndPhoneOutputModel>()
             {
-                new MenagerNameAndPhoneOutputModel
+                new ManagerNameAndPhoneOutputModel
                 {
                     Name="Александр",
                     Phone="2345"
                 },
-                new MenagerNameAndPhoneOutputModel
+                new ManagerNameAndPhoneOutputModel
                 {
                     Name="Екатерина",
                     Phone="7806"
                 },
-                new MenagerNameAndPhoneOutputModel
+                new ManagerNameAndPhoneOutputModel
                 {
                     Name="Тимофей",
                     Phone="454657"
                 }
             };
         }
-        public List<MenagerNameAndPhoneOutputModel> GetAllMenagers()
+        public List<ManagerNameAndPhoneOutputModel> GetAllMenagers()
         {
             return _managers;
         }

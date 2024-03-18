@@ -1,0 +1,18 @@
+﻿.task-button {
+    color: #54494B;
+    background-color: #fff252;
+    border: 1px solid #fff252;
+    /*         height: 100px;
+        line-height: 30px;
+        align-items: baseline; */
+    padding: 40px 40px;
+    margin: 10px 10px;
+    height: 220px;
+    line-height: 30px;
+    border-radius: 30px;
+}
+
+h3 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 40px;
+}

@@ -1,5 +1,4 @@
-﻿using YourDay.BLL.Models.TaskModels.InputModels;
-using YourDay.BLL.Models.TaskModels.OutputModels;
+﻿using YourDay.BLL.Models.TaskModels.OutputModels;
 
 namespace YourDay.BLL.IServices
 {
@@ -7,7 +6,7 @@ namespace YourDay.BLL.IServices
     {
         public List<TaskOutputModel> GetAllTask();
 
-        public TaskOutputModel UpdateStatusTask(TaskInputModel model);
+        //public TaskOutputModel UpdateStatusTask(TaskInputModel model);
 
         public TaskOutputModel GetTaskById(int id);
     }

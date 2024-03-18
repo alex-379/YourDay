@@ -1,6 +1,11 @@
-﻿using YourDay.BLL.IServices;
+﻿using System.Diagnostics;
+using System.Net;
+using System.Xml.Linq;
+using System.Xml;
+using YourDay.BLL.IServices;
 using YourDay.BLL.Models.OrderModels.InputModels;
 using YourDay.BLL.Models.OrderModels.OutputModels;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace YourDay.BLL
 {
@@ -18,31 +23,45 @@ namespace YourDay.BLL
                 {
                     Id = 1,
                     OrderName = "День рожения",
-                    ClientName="Анна",
+                    ClientId =2,
+                    ManagerId = 1,
                     Date="20.11.2022",
                     CountPeople=13,
                     Adress="Новосибирск",
-                    Comments="Очень далеко"
+                    Comments="Очень далеко",
+                    StatusId = 1,
+                    Price = 999,
+
                 },
                 new OrderOutputModel()
                 {
                     Id = 2,
                     OrderName = "Новый год",
-                    ClientName="Иван Васильевич",
+                    ClientId =5,
+                    ManagerId = 1,
                     Date="20.06.2024",
                     CountPeople=4,
                     Adress="Лесная поляна",
-                    Comments="Какой новый год сейчас лето"
+                    Comments="Какой новый год сейчас лето",
+                    StatusId = 1,
+                    Price = 3456,
+
+
                 },
                 new OrderOutputModel()
                 {
                     Id = 3,
                     OrderName = "Выпускной",
-                    ClientName="Юлия Эдуардовна",
+                    ClientId =4,
+                    ManagerId = 1,
                     Date="11.09.2023",
                     CountPeople=45,
                     Adress="Школа",
-                    Comments="Очень много людей"
+                    Comments="Очень много людей",
+                    StatusId = 1,
+                    Price = 999,
+
+
                 },
             };
         }
@@ -53,11 +72,15 @@ namespace YourDay.BLL
             {
                 Id = 1,
                 OrderName = order.OrderName,
-                ClientName = order.ClientName,
+                ClientId = order.ClientId,
+                ManagerId = order.ManagerId,
                 Date = order.Date,
                 CountPeople = order.CountPeople,
                 Adress = order.Adress,
-                Comments = order.Comments
+                Comments = order.Comments,
+                StatusId = order.StatusId,
+                Price = order.Price,
+
             };
         }
 
