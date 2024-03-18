@@ -1,14 +1,7 @@
 ﻿@page "/order/{Id:int}"
 @rendermode InteractiveServer
+@attribute [StreamRendering]
 @inject NavigationManager NavigationManager
-@* 
-<p>@Id</p>
-<h1>@_orderName</h1>
-<h2>@_clientName</h2>
-<h2>@_date</h2>
-<h2>@_countPeople</h2>
-<h2>@_adress</h2>
-<h2>@_comments</h2>  *@
 
 @code
 {
@@ -17,13 +10,21 @@
 
     private string _orderName;
 
-    private string _clientName;
+    private int _clientId;
+
+    private int _managerId;
+
+    private int _statusId;
 
     private string _date;
 
+    private string _adress;
+
     private int _countPeople;
 
-    private string _adress;
+    private int _price;
+
+    private int _evaluation;
 
     private string _comments;
 
@@ -32,6 +33,10 @@
     public Order()
     {
         _orderService = new OrderServiceMock();
+
+        _masters = new MasterServiceMock();
+
+        _tasks = _masters.GetAllTask();
     }
 
     protected override void OnInitialized()
@@ -40,10 +45,13 @@
 
         var p = _orderService.GetOrderById(Id);
         _orderName = p.OrderName;
-        _clientName = p.ClientName;
+        _clientId = p.ClientId;
+        _managerId = p.ManagerId;
+        _statusId = p.StatusId;
         _date = p.Date;
-        _countPeople = p.CountPeople;
         _adress = p.Adress;
+        _countPeople = p.CountPeople;
+        _price = p.Price;
         _comments = p.Comments;
 
     }
@@ -54,6 +62,12 @@
     {
         NavigationManager.NavigateTo("/newTask");
     }
+
+
+    private List<TaskOutputModel> _tasks;
+    private IMasterService _masters;
+
+    
 }
 
 
@@ -66,36 +80,56 @@
                 <tr>
                     <th>Праздник</th>
                     <th>Клиент</th>
+                    <th>Статус</th>
                     <th>Дата</th>
-                    <th>Количество гостей</th>
                     <th>Адрес</th>
+                    <th>Количество гостей</th>
+                    <th>Цена</th>
                     <th>Комментарии</th>
                 </tr>
             </thead>
             <tbody>
                     <tr>
                     <td>@_orderName</td>
-                    <td>@_clientName</td>
-                    <td>@_date</td>
-                    <td> @_countPeople</td>
+                    <td>@_clientId</td>
+                    <td>@_statusId</td>
+                    <td> @_date</td>
                     <td>@_adress</td>
+                    <td>@_countPeople</td>
+                    <td>@_price</td>
                     <td>@_comments</td>
                     </tr>
             </tbody>
         </table>
     </section>
 
+    <dialog id="task" aria-labelledby="heading">
+        <h2 id="heading">Что сделать с таской? &#128054 </h2>
 
-   
+        <form method="dialog">
 
+            <button>
+                Изменить
+            </button>
+            <button>
+                Установить статус: 
+            </button>
+            <button>
+                Архивировать
+            </button>
+        </form>
+    </dialog>
 
     <section>
-
         <h2> Задачи:</h2>
-        @foreach (var s in tasks){
-            <button class="task-button"> <h4>@s </h4> работник: Аня <br> дата: 10.11.2004 <br> статус: получено </button>
-        }
-        <button class="task-button" @onclick="NavigateToPage"> <h4>Добавить задачу</h4> </button>
+        <div class="container-task">
+            @foreach (var i in _tasks)
+            {
+
+                <MasterTaskCard task="i" ></MasterTaskCard>
+               
+            }
+        </div>
     </section>
 
     <section>

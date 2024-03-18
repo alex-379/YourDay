@@ -10,13 +10,13 @@
         NavigationMaster.NavigateTo("/contactTheManager");
     }
 
-    private List<MenagerNameAndPhoneOutputModel> _models;
+    private List<ManagerNameAndPhoneOutputModel> _models;
     private IManagerService _managers;
 
     public ContactTheManager()
     {
         _managers = new ManegerServiceMock();
-        _models =_managers.GetAllMenagers();
+         _models =_managers.GetAllMenagers();
     }
 
 }

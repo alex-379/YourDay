@@ -17,25 +17,40 @@
                             </div>
                             <div class="conteiner-for-text">
                                 <label class="text" >Клиент:</label>
-                                <input @bind="_inputModel.ClientName" class="field" type="name" placeholder="Введите имя клиента">
+                                <input @bind="_inputModel.ClientId" class="field"   placeholder="Выберите имя клиента" type="number"> 
+                            </div>
+                            <div class="conteiner-for-text">
+                                <label class="text" >Менеджер:</label>
+                                <input @bind="_inputModel.ManagerId" class="field"  type="number" placeholder="Выберите имя менеджера">
+                            </div>
+                            <div class="conteiner-for-text">
+                                <label class="text" >Статус:</label>
+                                <input @bind="_inputModel.StatusId" class="field" type="number" placeholder="Выберите статус:">
                             </div>
                             <div class="conteiner-for-text">
                                 <label class="text" >Дата:</label>
                                 <input @bind="_inputModel.Date" class="field"  type="text"  placeholder="Введите дату праздника">
                             </div>
                             <div class="conteiner-for-text">
+                                <label class="text" >Адрес;</label>
+                                <input @bind="_inputModel.Adress" class="field"  type="text"  placeholder="Введите адрем вашего события">
+                            </div>
+                            <div class="conteiner-for-text">
                                 <label class="text" >Количество человек:</label>
                                 <input @bind="_inputModel.CountPeople" class="field"  type="number"  placeholder="Введите сколько будет людей на празднике">
                             </div>
                             <div class="conteiner-for-text">
-                                <label class="text" >Адрес;</label>
-                                <input @bind="_inputModel.Adress" class="field"  type="text"  placeholder="Введите адрем вашего события">
+                                <label class="text" >Цена:</label>
+                                <input @bind="_inputModel.Price" class="field"  type="number"  placeholder="Введите цену">
+                            </div>
+                            <div class="conteiner-for-text">
+                                <label class="text" >Оценка:</label>
+                                <input @bind="_inputModel.Evaluation" class="field"  type="number"  placeholder="Введите дополнительную информацию">
                             </div>
                             <div class="conteiner-for-text">
                                 <label class="text" >Комментарии:</label>
                                 <input @bind="_inputModel.Comments" class="field"  type="text"  placeholder="Введите дополнительную информацию">
                             </div>
-                
                             
                         </form>
 
@@ -85,6 +100,6 @@
 
     private void Main()
     {
-        NavigationManager.NavigateTo("/");
+        NavigationManager.NavigateTo("/manager");
     }
 }
