@@ -21,22 +21,16 @@
     private string _description;
 
     private List<TaskOutputModel> _tasks;
-    private IMasterService _masters;
+    private MasterClient _masters;
 
     public TaskPage()
     {
-        _masters = new MasterServiceMock();
+        _masters = new MasterClient();
     }
     protected override void OnInitialized()
     {
-        var task = _masters.GetTaskById(Id);
-        Id = task.Id;
-        _title = task.Title;
-        _orderId = task.OrderId;
-        _status = task.StatusId.ToString();
-        _timeStart = task.TimeStart;
-        _timeEnd = task.TimeEnd;
-        _description = task.Description;
+        var task = _masters.GetTaskByMasterId;
+       
     }
  }
 <section>
