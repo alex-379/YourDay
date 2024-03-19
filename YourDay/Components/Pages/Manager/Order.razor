@@ -2,6 +2,7 @@
 @rendermode InteractiveServer
 @attribute [StreamRendering]
 @inject NavigationManager NavigationManager
+@using YourDay.BLL.Clients;
 
 @code
 {
@@ -10,13 +11,7 @@
 
     private string _orderName;
 
-    private int _clientId;
-
-    private int _managerId;
-
-    private int _statusId;
-
-    private string _date;
+    private DateTime _date;
 
     private string _adress;
 
@@ -24,15 +19,18 @@
 
     private int _price;
 
-    private int _evaluation;
+    private OrderClient _orderClient;
 
-    private string _comments;
-
-    private IOrderService _orderService;
+    private List<OrderOutputModel> _orders;
 
     public Order()
     {
-        _orderService = new OrderServiceMock();
+        Id = 2;
+        _orderClient = new OrderClient();
+
+        _orders = _orderClient.GetOrderById(Id);
+
+
 
         _masters = new MasterServiceMock();
 
@@ -41,18 +39,13 @@
 
     protected override void OnInitialized()
     {
-        //     _productService = new ProductServiceMock();
 
-        // var p = _orderService.GetOrderById(Id);
-        // _orderName = p.OrderName;
-        // _clientId = p.ClientId;
-        // _managerId = p.ManagerId;
-        // _statusId = p.StatusId;
-        // _date = p.Date;
-        // _adress = p.Adress;
-        // _countPeople = p.CountPeople;
-        // _price = p.Price;
-        // _comments = p.Comments;
+        var p = _orders[0];
+        _orderName = p.OrderName;
+        _date = p.Date;
+        _adress = p.Address;
+        _countPeople = p.CountPeople;
+        _price = p.Price;
 
     }
 
@@ -91,13 +84,10 @@
             <tbody>
                     <tr>
                     <td>@_orderName</td>
-                    <td>@_clientId</td>
-                    <td>@_statusId</td>
                     <td> @_date</td>
                     <td>@_adress</td>
                     <td>@_countPeople</td>
                     <td>@_price</td>
-                    <td>@_comments</td>
                     </tr>
             </tbody>
         </table>

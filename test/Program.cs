@@ -4,14 +4,39 @@ using YourDay.DAL.Enums;
 using YourDay.DAL.Repositories;
 
 
+Context context = SingletoneStorage.GetStorage().Сontext;
+
+
+var order3 = context.Orders.Where(order3 => order3.Id == 3).Single();
+var order2 = context.Orders.Where(m => m.Id == 2).Single();
+
+
+var s = context.Specializations.Where(s => s.Id == 2).Single();
+//var o = context.Orders.Where(o => o.Id == 2).Single();
+var w = context.Users.Where(m => m.Id == 4).ToList();
+
+var t = new TaskDto()
+{
+    Order = order3,
+    Specialization = s,
+    Status = Status.InProgress,
+    TimeEnd = new DateTime(2024, 6, 15, 1, 17, 0),
+    TimeStart = new DateTime(2024, 6, 12, 1, 12, 0),
+    Workers = w,
+    Description = "много много цветов",
+    Title = "цветы"
+};
+//context.Tasks.Add(t);
+
+
+var tasks = context.Tasks.Where(m => m.OrderId == 2).ToList();
 
 
 
-Console.WriteLine("a");
+context.SaveChanges();
 
 
-
-//Context context = SingletoneStorage.GetStorage().Сontext;
+Console.WriteLine(1);
 
 //var u = new UserDto()
 //{
@@ -24,16 +49,6 @@ Console.WriteLine("a");
 //};
 //context.Users.Add(u);
 
-//var w2 = new UserDto()
-//{
-//    UserName = "Евгения",
-//    Mail = "murodw@mail.ru",
-//    Phone = "+921297123",
-//    Password = "gd1",
-//    IsDeleted = false,
-//    Role = Role.Client
-//};
-//context.Users.Add(w2);
 
 
 
@@ -57,38 +72,10 @@ Console.WriteLine("a");
 
 //var orders = context.Orders; //можем вывести все зака
 
-//context.SaveChanges();
 
 
-//var w1 = new UserDto()
-//{
-//    UserName = "Алексей",
-//    Mail = "alex@gmail.com",
-//    Phone = "+92129756431",
-//    Password = "32432",
-//    IsDeleted = false,
-//    Role = Role.Worker
-//};
 
 
-//context.Users.Add(w1);
-//context.Users.Add(w2);
-
-//var s = context.Specializations.Where(s => s.Id == 1).Single();
-////var o = context.Orders.Where(o => o.Id == 2).Single();
-//var w = context.Users.Where(u => u.Role == Role.Worker /*&& u.Id == 4*/).ToList();
-
-//var t = new TaskDto()
-//{
-//    Order = o,
-//    Specialization = s,
-//    Status = Status.InProgress,
-//    TimeEnd = new DateTime(2024, 6, 15, 1, 17, 0),
-//    TimeStart = new DateTime(2024, 6, 12, 1, 12, 0),
-//    Workers = w,
-//    Description = "Украсить зал",
-//    Title = "Декорация"
-//};
 
 
 ////var t = context.Tasks.Where(t => t.Id == 1).Single();
@@ -96,7 +83,7 @@ Console.WriteLine("a");
 
 ////t.Workers = w;
 
-//context.Tasks.Add(t);
+
 
 ////context.Tasks.Update(t);
 

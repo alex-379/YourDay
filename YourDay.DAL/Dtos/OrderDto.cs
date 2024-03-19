@@ -32,5 +32,9 @@ namespace YourDay.DAL.Dtos
         public IEnumerable<TaskDto>? Tasks { get; set; }
 
         public IEnumerable<HistoryDto>? Histories { get; set; }
+
+        public int? ClientId { get; set; }
+
+        public int? ManagerId { get; set; }
     }
 }
