@@ -2,6 +2,9 @@
 @rendermode InteractiveServer
 @inject NavigationManager NavigationManager 
 @using YourDay.Components.Templates;
+@using YourDay.BLL.Mapping;
+@using YourDay.BLL.Models;
+@using YourDay.BLL.Clients;
 
 <PageTitle>Manager</PageTitle>
 
@@ -11,13 +14,13 @@
 
     private List<OrderOutputModel> _orders;
 
-    private IOrderService _orderService;
+    private OrderClient _orderClient;
 
     public Manager()
     {
-        _orderService = new OrderServiceMock();
+        _orderClient = new OrderClient();
 
-        _orders = _orderService.GetAllOrders();
+        _orders = _orderClient.GetAllOrders();
     }  
 
     private void CountLastCelebrates()

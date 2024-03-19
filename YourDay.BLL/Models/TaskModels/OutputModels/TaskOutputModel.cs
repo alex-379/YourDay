@@ -11,7 +11,7 @@
 
         public DateTime TimeEnd { get; set; }
 
-        public string Descriptions { get; set; }
+        public string Description { get; set; }
 
         public int SpecializationId { get; set; }
 
