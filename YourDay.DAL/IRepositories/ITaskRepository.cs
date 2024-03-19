@@ -7,9 +7,8 @@ using YourDay.DAL.Dtos;
 
 namespace YourDay.DAL.IRepositories
 {
-    internal interface IMasterRepository
+    public interface ITaskRepository
     {
-        public List<TaskDto> GetAllTasks();
-        
+        public void UpdateTaskStatus(TaskStatusDto taskStatus);
     }
 }
