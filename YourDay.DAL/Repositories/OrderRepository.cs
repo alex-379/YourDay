@@ -1,4 +1,4 @@
-﻿using YourDay.DAL.Dtos;
+using YourDay.DAL.Dtos;
 namespace YourDay.DAL.Repositories
 {
     public class OrderRepository
@@ -8,7 +8,7 @@ namespace YourDay.DAL.Repositories
 
             Context context = SingletoneStorage.GetStorage().Сontext;
         }
-        public List<OrderDto> GetAllOrders()
+        public IEnumerable<OrderDto> GetAllOrders()
         {
             Context context = SingletoneStorage.GetStorage().Сontext;
             List<OrderDto> orders = context.Orders.ToList();
