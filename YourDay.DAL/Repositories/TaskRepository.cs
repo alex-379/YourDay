@@ -10,7 +10,7 @@ namespace YourDay.DAL.Repositories
 {
     public class TaskRepository:ITaskRepository
     {
-            Context context = SingletoneStorage.GetStorage().Сontext;
+        Context context = SingletoneStorage.GetStorage().Сontext;
         
         public List<TaskDto> GetTaskByOrderId(int Id)
         {
@@ -19,7 +19,7 @@ namespace YourDay.DAL.Repositories
             return tasks;
         }
 
-        public void UpdateTaskStatus(TaskStatusDto taskStatus)
+        public TaskStatusDto UpdateTaskStatus(TaskStatusDto taskStatus)
         {
             Context context = SingletoneStorage.GetStorage().Сontext;
 
@@ -29,12 +29,16 @@ namespace YourDay.DAL.Repositories
             {
                 task.Status = taskStatus.Status;
                 context.SaveChanges();
+                return taskStatus;
             }
+            return taskStatus;
         }
-
-        public void UpdateTaskStatus(TaskDto taskDto)
+        public List<TaskDto> GetAllTasks()
         {
-            throw new NotImplementedException();
+            Context context = SingletoneStorage.GetStorage().Сontext;
+            List<TaskDto> tasks = context.Tasks.ToList();
+            return tasks;
         }
+        
     }
 }

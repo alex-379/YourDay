@@ -13,7 +13,7 @@
 
         public static SingletoneStorage GetStorage()
         {
-            if (_object is null)
+            if (_object == null)
             {
                 _object = new SingletoneStorage();
             }
