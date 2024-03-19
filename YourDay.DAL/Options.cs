@@ -6,7 +6,7 @@
         {
             get
             {
-                return "Data Source=.;Initial Catalog=YourDay; User ID ='test'; Password='test'; TrustServerCertificate=true";
+                return Environment.GetEnvironmentVariable("YourDayDB"); ;
             }
         }
     }
