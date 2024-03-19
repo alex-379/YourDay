@@ -1,0 +1,12 @@
+﻿@* @page "/Login"
+
+<EditForm Model="loginModel" FormName="Login">
+    <InputText @bind-Value="lo"></InputText>
+
+</EditForm>
+
+@code {
+    [SupplyParameterFromForm]
+    public LoginModel loginModel { get; set }
+
+} *@
