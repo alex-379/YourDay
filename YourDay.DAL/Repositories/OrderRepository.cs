@@ -11,7 +11,14 @@ namespace YourDay.DAL.Repositories
         public List<OrderDto> GetAllOrders()
         {
             Context context = SingletoneStorage.GetStorage().Сontext;
-            var orders = context.Orders.ToList();
+            List<OrderDto> orders = context.Orders.ToList();
+            return orders;
+        }
+
+        public List<OrderDto> GetOrderById(int Id)
+        {
+            Context context = SingletoneStorage.GetStorage().Сontext;
+            List<OrderDto> orders = context.Orders.Where(m => m.Id == Id).ToList();
             return orders;
         }
     }
