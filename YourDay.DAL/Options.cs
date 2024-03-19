@@ -6,7 +6,7 @@
         {
             get
             {
-                return "Server=.;Database=pypypy; User=SA; Trusted_Connection=True; TrustServerCertificate=true";
+                return "Data Source=.;Initial Catalog=YourDay; User ID ='test'; Password='test'; TrustServerCertificate=true";
             }
         }
     }

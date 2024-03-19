@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\YourDay.BLL\YourDay.BLL.csproj" />
     <ProjectReference Include="..\YourDay.DAL\YourDay.DAL.csproj" />
     <ProjectReference Include="..\YourDay\YourDay.csproj" />
