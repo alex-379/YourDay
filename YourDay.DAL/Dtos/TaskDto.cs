@@ -8,6 +8,12 @@ namespace YourDay.DAL.Dtos
     {
         public int Id { get; set; }
 
+        public int? OrderId { get; set; }
+
+        public int? SpecializationId { get; set; }
+
+        //public int? WorkerId { get; set; }
+
         [MaxLength(255)]
         public string Title { get; set; }
 

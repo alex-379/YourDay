@@ -1,14 +1,15 @@
 ﻿using YourDay.BLL.Models.TaskModels.OutputModels;
+using YourDay.DAL.Dtos;
 
 namespace YourDay.BLL.IServices
 {
     public interface IMasterService
     {
-        public List<TaskOutputModel> GetAllTask();
+        public List<TaskDto> GetAllTask();
 
-        public TaskOutputModel GetTaskById(int id);
+        public TaskOutputModel GetTaskByMasterId(int id);
 
-        public void UpdateStatusTaskById(int id,TaskOutputModel model);
+        public void UpdateTasksStatusByTaskId(UpdateTaskStatusOutputModel model);
 
         public TaskOutputModel AddTask();
 
