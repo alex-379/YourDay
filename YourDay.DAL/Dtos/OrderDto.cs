@@ -33,8 +33,8 @@ namespace YourDay.DAL.Dtos
 
         public IEnumerable<HistoryDto>? Histories { get; set; }
 
-        public int? ClientId { get; set; }
+        //public int? ClientId { get; set; }
 
-        public int? ManagerId { get; set; }
+        //public int? ManagerId { get; set; }
     }
 }

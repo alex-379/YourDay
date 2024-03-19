@@ -1,27 +1,58 @@
-﻿using Microsoft.Data.SqlClient;
-using System.Data;
+﻿using System.Data;
 using YourDay.DAL.Dtos;
 using YourDay.DAL.Enums;
 using YourDay.DAL.IRepositories;
 
 namespace YourDay.DAL.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository:IUserRepository
     {
-        Context context = SingletoneStorage.GetStorage().Сontext;
+        readonly Context context = SingletoneStorage.GetStorage().Сontext;
 
-        public int? AddUser(TaskDto user)
+        public UserDto AddUser(UserDto user)
         {
-            Console.WriteLine(this);
-            context.Users.Update(user);
+            context.Users.Add(user);
             context.SaveChanges();
-            return user.Id;
-            user.Status = 0;
+            return user;
         }
 
         public IEnumerable<UserDto> GetAllUsers()
         {
-            throw new NotImplementedException();
+            var users = context.Users.ToList();
+            return users;
+        }
+
+        public UserDto GetUserById(int id)
+        {
+            var user = context.Users.Where(u => u.Id == id).Single();
+            return user;
+        }
+
+        public UserDto UpdateUser(UserDto user)
+        {
+            context.Users.Update(user);
+            context.SaveChanges();
+            return user;
+        }
+
+        public UserDto DeleteUser(UserDto user)
+        {
+            user.IsDeleted = true;
+            context.Users.Update(user);
+            context.SaveChanges();
+            return user;
+        }
+
+        public IEnumerable<UserDto> GetAllUsersByRole(Role role)
+        {
+            var users = context.Users.Where(u => u.Role == role).ToList();
+            return users;
+        }
+
+        public IEnumerable<UserDto> GetAllUsersWith(Role role)
+        {
+            var users = context.Users.Where(u => u.Role == role).ToList();
+            return users;
         }
     }
 }
