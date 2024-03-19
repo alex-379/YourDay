@@ -1,4 +1,4 @@
-﻿@page "/Login"
+﻿@* @page "/Login"
 
 <EditForm Model="loginModel" FormName="Login">
     <InputText @bind-Value="lo"></InputText>
@@ -9,4 +9,4 @@
     [SupplyParameterFromForm]
     public LoginModel loginModel { get; set }
 
-}
+} *@
