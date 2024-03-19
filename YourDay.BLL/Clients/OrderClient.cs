@@ -22,7 +22,7 @@ namespace YourDay.BLL.Clients
 
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile(new OrderMappingProfile());
+                cfg.AddProfile(new MappingProfilecs());
             });
             _mapper = new Mapper(config);
         }
