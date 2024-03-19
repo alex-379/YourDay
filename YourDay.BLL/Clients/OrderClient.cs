@@ -9,7 +9,7 @@ using YourDay.BLL.Models.OrderModels.OutputModels;
 using YourDay.DAL.Dtos;
 using YourDay.DAL.Repositories;
 
-namespace YourDay.BLL
+namespace YourDay.BLL.Clients
 {
     public class OrderClient
     {
@@ -20,17 +20,27 @@ namespace YourDay.BLL
         {
             _orderRepository = new OrderRepository();
 
-            var config = new MapperConfiguration(cfg => {
-                cfg.AddProfile(new OrderMappingProfile()); 
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new OrderMappingProfile());
             });
             _mapper = new Mapper(config);
         }
 
-        public List<OrderOutputModel> GetAllOrdersMap()
+        public List<OrderOutputModel> GetAllOrders()
         {
             List<OrderDto> clientDtos = _orderRepository.GetAllOrders();
 
-            var result = _mapper.Map<List<OrderOutputModel>>(clientDtos); 
+            var result = _mapper.Map<List<OrderOutputModel>>(clientDtos);
+
+            return result;
+        }
+
+        public List<OrderOutputModel> GetOrderById(int Id)
+        {
+            List<OrderDto> clientDtos = _orderRepository.GetOrderById(Id);
+
+            var result = _mapper.Map<List<OrderOutputModel>>(clientDtos);
 
             return result;
         }
