@@ -4,10 +4,11 @@ using YourDay.DAL.Dtos;
 using YourDay.DAL.Repositories;
 using YourDay.BLL.Mapping;
 using YourDay.BLL.Models.TaskModels.InputModels;
+using YourDay.BLL.IServices;
 
 namespace YourDay.BLL.Clients
 {
-    public class TaskClient
+    public class TaskClient:ITaskService
     {
         private TaskRepository _taskRepository;
         private Mapper _mapper;
@@ -33,8 +34,20 @@ namespace YourDay.BLL.Clients
         }
         public void UpdateStatusTaskByTaskId(UpdateTaskStatusInputModel taskStatus) 
         {
-            TaskDto taskDto = this._mapper.Map<TaskDto>(taskStatus);
-            this._taskRepository.UpdateTaskStatus(taskDto);
+            //List<TaskDto> taskDto = this._taskRepository.UpdateTaskStatus();
+            //List<UpdateTaskStatusInputModel> result= this._taskRepository.UpdateTaskStatus(taskDto);
+
+            throw new NotImplementedException();
+        }
+        public void RemoveTask(int id)
+        {
+            throw new NotImplementedException();
+        }
+        public List<TaskMasterOutputModel> GetAllTask()
+        {
+            List<TaskDto> tasks = _taskRepository.GetAllTasks();
+            List<TaskMasterOutputModel> result = _mapper.Map<List<TaskMasterOutputModel>>(tasks);
+            return result;
         }
     }
 }
