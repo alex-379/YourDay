@@ -4,7 +4,7 @@
 @code {
     [Parameter]
     public int Id{ get; set;}
-
+    
     private TaskClient taskClinet = new TaskClient();
     private List<TaskOutputModel> _tasks;
 
@@ -16,7 +16,7 @@
 
     protected override void OnInitialized()
     {
-        List<TaskOutputModel> _task = taskClinet.GetAllTask();
+        List<TaskOutputModel> _task = taskClinet.GetTaskById(Id);
         taskClinet.UpdateStatusTaskByTaskId(Id, Status.Cancelled);
     }
 
@@ -47,18 +47,16 @@
                 break;
         }
 
-        taskClinet.UpdateStatusTaskByTaskId(Id, newStatus);
     }
  }
  <div class="task-container">
-
-    @foreach (TaskOutputModel task in _tasks)
+     @foreach(TaskOutputModel model in _tasks)
     {
         <div class="taskMaster-card">
-            <p class="task-id">Id:@task.Id</p>
-            <p class="task-title"> Название: @task.Description</p>
-            <p class="task-date">Дата: @task.TimeStart - @task.TimeEnd</p>
-            <select @onchange="@(() =>  Console.WriteLine("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA!!!!!!!!!!!!!!!!!!!"))">
+            <p class="task-id">Id:@Id</p>
+            <p class="task-title"> Название: @model.Description</p>
+            <p class="task-date">Дата: @model.TimeStart - @model.TimeEnd</p>
+            <select @onchange="@UpdateStatusTask">
                 <option value="0">Получен</option>
                 <option value="1">В работе</option>
                 <option value="2">Завершен</option>
@@ -66,7 +64,6 @@
             </select>
         </div>
     }
-
  </div>
 
   
