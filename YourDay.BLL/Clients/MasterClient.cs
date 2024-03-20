@@ -30,10 +30,10 @@ namespace YourDay.BLL.Clients
             return result;
         }
 
-        public List<TaskMasterOutputModel> GetTaskByMasterId(int id)
+        public List<MasterOutputModel> GetTaskByMasterId(int id)
         {
             List<TaskDto> taskDtos = _masterRepository.GetTaskByMasterId(id);
-            List<TaskMasterOutputModel> result = _mapper.Map<List<TaskMasterOutputModel>>(taskDtos);
+            List<MasterOutputModel> result = _mapper.Map<List<MasterOutputModel>>(taskDtos);
             return result;
         }
 
