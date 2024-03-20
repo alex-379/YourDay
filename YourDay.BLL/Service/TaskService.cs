@@ -5,6 +5,7 @@ using YourDay.DAL.Repositories;
 using YourDay.BLL.Mapping;
 using YourDay.BLL.Models.TaskModels.InputModels;
 using YourDay.BLL.IServices;
+using YourDay.DAL.Enums;
 
 namespace YourDay.BLL.Clients
 {
@@ -32,12 +33,9 @@ namespace YourDay.BLL.Clients
 
             return result;
         }
-        public void UpdateStatusTaskByTaskId(UpdateTaskStatusInputModel taskStatus) 
+        public void UpdateStatusTaskByTaskId(int taskId, Status newTaskStatus) 
         {
-            //List<TaskDto> taskDto = this._taskRepository.UpdateTaskStatus();
-            //List<UpdateTaskStatusInputModel> result = this._taskRepository.UpdateTaskStatus(taskDto);
-
-            throw new NotImplementedException();
+            _taskRepository.UpdateTaskStatus(taskId, newTaskStatus);
         }
         public void RemoveTask(int id)
         {
@@ -48,6 +46,13 @@ namespace YourDay.BLL.Clients
             List<TaskDto> tasks = _taskRepository.GetAllTasks();
             List<TaskOutputModel> result = _mapper.Map<List<TaskOutputModel>>(tasks);
             return result;
+        }
+        public List<TaskOutputModel> GetTaskById(int Id)
+        {
+            List<TaskDto> taskDtos = _taskRepository.GetTaskById(Id);
+            List<TaskOutputModel> result =_mapper.Map<List<TaskOutputModel>>(taskDtos);
+            return result;
+
         }
 
 
