@@ -1,4 +1,4 @@
-﻿namespace YourDay.BLL.Models.MenagerModels.OutputModel
+﻿namespace YourDay.BLL.Models.ManagerModels.OutputModel
 {
     public class ManagerNameAndPhoneOutputModel
     {

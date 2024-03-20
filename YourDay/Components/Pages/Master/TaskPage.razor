@@ -1,9 +1,9 @@
 @page "/taskMaster/task/{Id:int}"
 @using YourDay.DAL.Enums;
 
-@code {
+@* @code {
     [Parameter]
-    public int Id{ get; set;}
+    public int Id { get; set;}
     
     private TaskClient taskClinet = new TaskClient();
     private List<TaskOutputModel> _tasks;
@@ -54,6 +54,7 @@
         _masters = new MasterService();
     }
  }
+
 <div class="client-button">
     <div class="client-button">
       @foreach(TaskOutputModel task in _tasks)
@@ -71,7 +72,5 @@
             </div>
         }
    </div>
- </div>
-
-
-       
+ </div> *@
+ 
