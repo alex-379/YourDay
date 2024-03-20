@@ -41,9 +41,9 @@ namespace YourDay.DAL.Repositories
             List<TaskDto> tasks = context.Tasks.ToList();
             return tasks;
         }
-        public List<TaskDto> GetTaskById(int taskId)
+        public List<TaskDto> GetTaskById(int Id)
         {
-            List<TaskDto> dtos=context.Tasks.Where(task=>task.Id == taskId).ToList();
+            List<TaskDto> dtos=context.Tasks.Where(task=>task.Id == Id).ToList();
             return dtos;
         }
 

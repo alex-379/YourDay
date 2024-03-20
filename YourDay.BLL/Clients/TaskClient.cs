@@ -47,9 +47,9 @@ namespace YourDay.BLL.Clients
             List<TaskOutputModel> result = _mapper.Map<List<TaskOutputModel>>(tasks);
             return result;
         }
-        public List<TaskOutputModel> GetTaskById(int taskId)
+        public List<TaskOutputModel> GetTaskById(int Id)
         {
-            List<TaskDto> taskDtos = _taskRepository.GetTaskById(taskId);
+            List<TaskDto> taskDtos = _taskRepository.GetTaskById(Id);
             List<TaskOutputModel> result =_mapper.Map<List<TaskOutputModel>>(taskDtos);
             return result;
 
