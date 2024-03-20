@@ -9,6 +9,7 @@ Context context = SingletoneStorage.GetStorage().Сontext;
 
 UserRepository userRepository = new UserRepository();
 OrderRepository orderRepository = new OrderRepository();
+TaskRepository taskRepository = new TaskRepository();
 
 //var u = new UserDto()
 //{
@@ -24,7 +25,7 @@ OrderRepository orderRepository = new OrderRepository();
 
 //Console.WriteLine();
 
-var o = orderRepository.GetOrderByIdWithClientWithManagerWithStatus(4);
+var t = taskRepository.GetTaskByMasterId(4);
 //u.UserName = "Филипп";
 //u.Password = "testpassws";
 //var tmp = rep.DeleteUser(u);
