@@ -1,60 +1,72 @@
 @page "/taskMaster/task/{Id:int}"
+@using YourDay.DAL.Enums;
 
 @code {
     [Parameter]
-    public int Id{ get; set; }
-
-    private string _title;
-
-    private int _orderId;
-
-    private DateTime _date;
-
-    private DateTime _timeStart;
-
-    private DateTime _timeEnd;
-
-    private int _specializationId;
-
-    private string _status;
-
-    private string _description;
-
+    public int Id{ get; set;}
+    
+    private TaskClient taskClinet = new TaskClient();
     private List<TaskOutputModel> _tasks;
-    private MasterClient _masters;
+
 
     public TaskPage()
     {
-        _masters = new MasterClient();
+        _tasks = taskClinet.GetTaskById(Id);
     }
+
     protected override void OnInitialized()
     {
-        var task = _masters.GetTaskByMasterId;
+        List<TaskOutputModel> _task = taskClinet.GetTaskById(Id);
+        taskClinet.UpdateStatusTaskByTaskId(Id, Status.Cancelled);
+    }
+
+    public void UpdateStatusTask(ChangeEventArgs e)
+    {
+
+        int newStatusInt = int.Parse(e.Value.ToString());
+
+        Status newStatus = Status.Received;
+
+        switch (newStatusInt)
+        {
+            case 0:
+                newStatus = Status.Received;
+
+                break;
+            case 1:
+                newStatus = Status.InProgress;
+
+                break;
+            case 2:
+                newStatus = Status.Completed;
+
+                break;
+            case 3:
+                newStatus = Status.Cancelled;
+
+                break;
+        }
+
     }
  }
-<section>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Название</th>
-                <th>Номер заказа</th>
-                <th>Статус заказа</th>
-                <th>Время начала заказа</th>
-                <th>Время окончания заказа</th>
-                <th>Описание заказа</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>@_title</td>
-                <td>@_orderId</td>
-                <td>@_status</td>
-                <td>@_timeStart</td>
-                <td>@_timeEnd</td>
-                <td>@_description</td>
-            </tr>
-        </tbody>
-    </table>
-</section>
- 
-  
+<div class="taskMaster-card">
+  <div class="order-button">
+      @foreach(TaskOutputModel task in _tasks)
+        {
+            <div class="container-task">
+                <p class="task-id"> Номер задачи :@Id</p>
+                <p class="task- description">Описание задачи : @task.Description</p>
+                <p class="task-time">Время :@task.TimeStart-@task.TimeEnd</p>
+                <select @onchange="UpdateStatusTask">
+                    <option value="0">Получен</option>
+                    <option value="1">В работе</option>
+                    <option value="2">Завершен</option>
+                    <option value="3">Отменен</option>
+                </select>
+            </div>
+        }
+   </div>
+ </div>
+
+
+       
