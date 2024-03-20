@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using YourDay.BLL.Models.OrderModels.InputModels;
 using YourDay.BLL.Models.OrderModels.OutputModels;
 using YourDay.BLL.Models.TaskModels.OutputModels;
+using YourDay.BLL.Models.UserModels.InputModels;
+using YourDay.BLL.Models.UserModels.OutputModels;
 using YourDay.DAL.Dtos;
 
 namespace YourDay.BLL.Mapping
@@ -15,6 +17,10 @@ namespace YourDay.BLL.Mapping
     {
         public MappingProfile() 
         {
+            CreateMap<UserRegistrationInputModel, UserDto>();
+
+            CreateMap<UserDto, UserOutputModel>();
+
             CreateMap<OrderForManagerInputModel, OrderDto>();
 
             CreateMap<OrderDto, OrderOutputModel>();

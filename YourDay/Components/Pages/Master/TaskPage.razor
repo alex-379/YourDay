@@ -21,11 +21,11 @@
     private string _description;
 
     private List<TaskOutputModel> _tasks;
-    private MasterClient _masters;
+    private MasterService _masters;
 
     public TaskPage()
     {
-        _masters = new MasterClient();
+        _masters = new MasterService();
     }
     protected override void OnInitialized()
     {

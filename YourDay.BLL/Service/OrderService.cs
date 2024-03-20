@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using YourDay.BLL.IServices;
 using YourDay.BLL.Mapping;
 using YourDay.BLL.Models.OrderModels.InputModels;
 using YourDay.BLL.Models.OrderModels.OutputModels;
@@ -7,12 +8,12 @@ using YourDay.DAL.Repositories;
 
 namespace YourDay.BLL.Clients
 {
-    public class OrderClient
+    public class OrderService: IOrderService
     {
         private OrderRepository _orderRepository;
         private Mapper _mapper;
 
-        public OrderClient()
+        public OrderService()
         {
             _orderRepository = new OrderRepository();
 
@@ -36,7 +37,6 @@ namespace YourDay.BLL.Clients
         public IEnumerable<OrderOutputModel> GetAllOrders()
         {
             var orderDtos = _orderRepository.GetAllOrders();
-
             var orders = _mapper.Map<IEnumerable<OrderOutputModel>>(orderDtos);
 
             return orders;
@@ -45,7 +45,6 @@ namespace YourDay.BLL.Clients
         public IEnumerable<OrderNameDateOutputModel> GetAllOrdersForCard()
         {
             var orderDtos = _orderRepository.GetAllOrders();
-
             var orders = _mapper.Map<IEnumerable<OrderNameDateOutputModel>>(orderDtos);
 
             return orders;
@@ -54,7 +53,6 @@ namespace YourDay.BLL.Clients
         public OrderOutputModel GetOrderById(int id)
         {
             OrderDto orderDto = _orderRepository.GetOrderById(id);
-
             OrderOutputModel order = _mapper.Map<OrderOutputModel>(orderDto);
 
             return order;

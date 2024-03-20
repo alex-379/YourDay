@@ -7,7 +7,7 @@ namespace YourDay.BLL.IServices
     {
         public OrderOutputModel AddOrder(OrderForManagerInputModel order);
 
-        public List<OrderOutputModel> GetAllOrders();
+        public IEnumerable<OrderOutputModel> GetAllOrders();
 
         public OrderOutputModel GetOrderById(int id);
     }
