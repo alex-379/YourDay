@@ -1,10 +1,6 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using YourDay.BLL.Mapping;
+using YourDay.BLL.Models.OrderModels.InputModels;
 using YourDay.BLL.Models.OrderModels.OutputModels;
 using YourDay.DAL.Dtos;
 using YourDay.DAL.Repositories;
@@ -22,27 +18,46 @@ namespace YourDay.BLL.Clients
 
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile(new MappingProfilecs());
+                cfg.AddProfile(new MappingProfile());
             });
+
             _mapper = new Mapper(config);
         }
 
-        public List<OrderOutputModel> GetAllOrders()
+        public OrderOutputModel AddOrder(OrderForManagerInputModel order)
         {
-            List<OrderDto> clientDtos = (List<OrderDto>)_orderRepository.GetAllOrders();
+            OrderDto orderDtoOutput = _orderRepository.AddOrder(_mapper.Map<OrderDto>(order));
+            OrderOutputModel orderOutput = _mapper.Map<OrderOutputModel>(orderDtoOutput);
 
-            var result = _mapper.Map<List<OrderOutputModel>>(clientDtos);
-
-            return result;
+            return orderOutput;
         }
 
-        public List<OrderOutputModel> GetOrderById(int Id)
+
+        public IEnumerable<OrderOutputModel> GetAllOrders()
         {
-            List<OrderDto> clientDtos = _orderRepository.GetOrderById(Id);
+            var orderDtos = _orderRepository.GetAllOrders();
 
-            var result = _mapper.Map<List<OrderOutputModel>>(clientDtos);
+            var orders = _mapper.Map<IEnumerable<OrderOutputModel>>(orderDtos);
 
-            return result;
+            return orders;
+        }
+
+        public IEnumerable<OrderNameDateOutputModel> GetAllOrdersForCard()
+        {
+            var orderDtos = _orderRepository.GetAllOrders();
+
+            var orders = _mapper.Map<IEnumerable<OrderNameDateOutputModel>>(orderDtos);
+
+            return orders;
+        }
+
+        public OrderOutputModel GetOrderById(int id)
+        {
+            OrderDto orderDto = _orderRepository.GetOrderById(id);
+
+            OrderOutputModel order = _mapper.Map<OrderOutputModel>(orderDto);
+
+            return order;
         }
     }
 }

@@ -21,7 +21,7 @@ namespace YourDay.DAL.Dtos
 
         public bool IsDeleted { get; set; }
 
-        public Role? Role { get; set; }
+        public Role Role { get; set; }
 
         public IEnumerable<SpecializationDto>? Specializations { get; set; }
 

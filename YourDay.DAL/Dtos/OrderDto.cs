@@ -23,18 +23,14 @@ namespace YourDay.DAL.Dtos
 
         public int? Еvaluation { get; set; }
 
+        public Status Status { get; set; }
+
         public UserDto? Client { get; set; }
 
         public UserDto? Manager { get; set; }
 
-        public Status? Status { get; set; }
-
         public IEnumerable<TaskDto>? Tasks { get; set; }
 
         public IEnumerable<HistoryDto>? Histories { get; set; }
-
-        //public int? ClientId { get; set; }
-
-        //public int? ManagerId { get; set; }
     }
 }
