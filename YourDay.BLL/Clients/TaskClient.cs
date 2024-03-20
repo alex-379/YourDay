@@ -1,13 +1,9 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using YourDay.BLL.Models.TaskModels.OutputModels;
 using YourDay.DAL.Dtos;
 using YourDay.DAL.Repositories;
 using YourDay.BLL.Mapping;
+using YourDay.BLL.Models.TaskModels.InputModels;
 
 namespace YourDay.BLL.Clients
 {
@@ -22,7 +18,7 @@ namespace YourDay.BLL.Clients
 
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile(new TaskMappingProfile());
+                cfg.AddProfile(new MappingProfilecs());
             });
             _mapper = new Mapper(config);
         }
@@ -34,6 +30,11 @@ namespace YourDay.BLL.Clients
             var result = _mapper.Map<List<TaskOutputModel>>(clientDtos);
 
             return result;
+        }
+        public void UpdateStatusTaskByTaskId(UpdateTaskStatusInputModel taskStatus) 
+        {
+            TaskDto taskDto = this._mapper.Map<TaskDto>(taskStatus);
+            this._taskRepository.UpdateTaskStatus(taskDto);
         }
     }
 }
