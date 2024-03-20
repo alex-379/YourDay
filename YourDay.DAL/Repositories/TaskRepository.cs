@@ -16,9 +16,9 @@ namespace YourDay.DAL.Repositories
             return tasks;
         }
 
-        public List<TaskDto> GetTaskByMasterId(int id)
+        public IEnumerable<TaskDto> GetTaskByMasterId(int id)
         {
-            List<TaskDto> tasks = context.Tasks
+            var tasks = context.Tasks
                 .Include(t => t.Workers.Where(u => u.Role == Role.Worker && u.Id == id))
                 .ToList();
             return tasks;
