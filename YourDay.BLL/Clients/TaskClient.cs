@@ -1,17 +1,14 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using YourDay.BLL.Models.TaskModels.OutputModels;
 using YourDay.DAL.Dtos;
 using YourDay.DAL.Repositories;
 using YourDay.BLL.Mapping;
+using YourDay.BLL.Models.TaskModels.InputModels;
+using YourDay.BLL.IServices;
 
 namespace YourDay.BLL.Clients
 {
-    public class TaskClient
+    public class TaskClient:ITaskService
     {
         private TaskRepository _taskRepository;
         private Mapper _mapper;
@@ -22,7 +19,7 @@ namespace YourDay.BLL.Clients
 
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile(new TaskMappingProfile());
+                cfg.AddProfile(new MappingProfilecs());
             });
             _mapper = new Mapper(config);
         }
@@ -35,5 +32,23 @@ namespace YourDay.BLL.Clients
 
             return result;
         }
+        public void UpdateStatusTaskByTaskId(UpdateTaskStatusInputModel taskStatus) 
+        {
+            //List<TaskDto> taskDto = this._taskRepository.UpdateTaskStatus();
+            //List<UpdateTaskStatusInputModel> result = this._taskRepository.UpdateTaskStatus(taskDto);
+
+            throw new NotImplementedException();
+        }
+        public void RemoveTask(int id)
+        {
+            throw new NotImplementedException();
+        }
+        public List<TaskOutputModel> GetAllTask()
+        {
+            List<TaskDto> tasks = _taskRepository.GetAllTasks();
+            List<TaskOutputModel> result = _mapper.Map<List<TaskOutputModel>>(tasks);
+            return result;
+        }
+
     }
 }
