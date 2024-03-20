@@ -50,48 +50,42 @@
 
 <body>
     <div class="manager-container">
+        <section class="navbar">
+            <nav class="menu-yellow">
+                <ul>
+                    <li><a href="" @onclick="NewOrder">Создать заказ</a></li>
+                    <li><a href="/manager" @onclick="CountLastCelebrates">История</a></li>
+                    <li><a href="" @onclick="Applications">Заявки</a></li>
+                </ul>
+            </nav>
+        </section>
+    
 
-    <header class="site-header">
-        <div class="container">
-            <h1>ТвойДень</h1>
-            <p>Добро пожаловать в ваш личный кабинет!</p>
-            
-        </div>
-    </header>
 
-    <section>
-        <div class="button-container">
-            <button class="purple-button" @onclick="NewOrder"> Создать заказ </button>
-            <button class="green-button"> Наши заказы </button>
-            <button class="blue-button" @onclick="CountLastCelebrates"> Прошлые заказы </button>
-                <button class="pink-button" @onclick="Applications"> Заявки  </button>
-                <button class="purple-button" @onclick="Test"> ТЕСТЫ  </button>
-        </div>
-    </section>
+        <section>
+            <div class="manager-blok">
+                <h2 class="manager-h1"> Наши заказы:</h2>
+                <div class="manager-button-contaiber">
+                    @foreach (var i in _orders)
+                    {
+                        <button class="order-button"> <OrderCard order=i> </OrderCard> </button>
+                    }
+                </div>
+            </div>
+        </section>
 
-    <section>
-        <div class="с">
-                <h2> Наши заказы:</h2>
-       
-                @foreach (var i in _orders)
+        <section>
+            <div class="manager-blok">
+                @if (lc % 2 != 0)
                 {
-                    <button class="order-button"> <OrderCard order=i> </OrderCard> </button>
+                    <h2 class="manager-h1"> Прошлые заказы:</h2>
+                    @foreach (var s in lastCelebrates)
+                    {
+                            <button class="order-button" @onclick="NavigateToPage"> @s <br> 16.02 </button>
+                    }
                 }
-        </div>
-    </section>
-
-    <section>
-        <div class="с">
-            @if (lc % 2 != 0)
-            {
-                <h2> Прошлые заказы:</h2>
-                @foreach (var s in lastCelebrates)
-                {
-                    <button class="last-order-button" @onclick="NavigateToPage"> @s <br> 16.02 </button>
-                }
-            }
-        </div>
-    </section>
+            </div>
+        </section>
     </div>
 </body>
 
