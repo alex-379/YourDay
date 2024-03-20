@@ -1,48 +1,224 @@
-html, body {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 20px;
-    line-height: 20px;
-    color: #54494B;
-    background-image: url("images/back.jpg");
-    background-size: cover;
-    background-position: center;
+
+@font-face {
+    font-family: 'Dela Gothic One';
+    src: url('C:\Users\dns\Desktop\YourDay\YourDay\wwwroot\images\DelaGothicOne-Regular.ttf') format('ttf');
+   font-weight: normal;
+    font-style: normal;
 }
 
-radio {
-    width: 20px;
-    height: 10px;
-}
-
-h1 {
-    width: 255px;
-    margin: 0 auto 8px;
-    font-family: 'Montserrat', sans-serif;
-    text-align: center;
+@font-face {
+    font-family: 'Manrope-VariableFont_wght';
+    src: url('C:\Users\dns\Desktop\YourDay\YourDay\wwwroot\images\Manrope-VariableFont_wght.ttf') format('ttf');
     font-weight: normal;
-    font-size: 56px;
-    line-height: 64px;
+    font-style: normal;
 }
 
-h3 {
-    font-family: 'Montserrat';
-    font-size: 40px;
+.footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.box-footer{
+    margin: auto 50px;
+}
+
+p {
+    font-size: 20px;
 }
 
 a {
-    color: #006bb7;
+    color: #54494B;
+}    
+
+html, body {
+    display: flex;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 20px;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    font-family: 'Dela Gothic One', sans-serif;
+    font-size: 20px;
+    line-height: 20px;
+    color: #54494B;
+    background-color: #AF8DFE;
+}
+.text-style {
+    font-family: 'Manrope-VariableFont_wght', sans-serif;
+    font-size: 20px;
+    line-height: 20px;
 }
 
-.center {
-    text-align: center;
-    align-self: center;
+
+button {
+    background-color: #FFFEFF;
+    border-radius: 15px;
+    padding: 15px 15px;
+    margin: 20px 20px 20px 20px;
+}
+/*обычная кнопка*/
+.purple-button {
+    color: #AF8DFE;
+    border: none;
+}
+.button {
+    background-color: #FFFEFF;
+    border-radius: 30px;
+    padding: 15px 60px 15px 60px;
+    margin: 40px 20px 140px 20px;
+    font-family: 'Dela Gothic One', sans-serif;
+    font-size: 25px;
+    line-height: 20px;
+    color: #AF8DFE;
+    border: none;
+    height: 100px;
 }
 
+/*карточки*/
+.order-button {
+    border: 1px solid #92dea8;
+    height: 100px;
+    line-height: 30px;
+    align-items: baseline;
+    padding: 10px 40px;
+    margin: 10px 10px;
+    border-radius: 20px;
+    color: #AF8DFE;
+}
+
+/*карточки клиентов*/
+.client-button {
+    border: 1px solid #92dea8;
+    height: 150px;
+    line-height: 30px;
+    align-items: baseline;
+    padding: 10px 40px;
+    margin: 10px 10px;
+    border-radius: 20px;
+    color: #AF8DFE;
+}
+
+.background {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-color: #f0f0f0; /* Цвет фона */
+}
+
+.top-right {
+    position: absolute;
+    top: 10px; /* Отступ сверху */
+    right: 10px; /* Отступ справа */
+    max-width: 100px; /* Максимальная ширина картинки */
+    max-height: 100px; /* Максимальная высота картинки */
+}
+
+.block {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    background-color: #AF8DFE;
+}
+.box-button-tekst {
+    justify-content: space-around;
+    flex-direction: row;
+    flex wrap: nowrap;
+}
+
+
+.h {
+    font-family: 'Dela Gothic One', sans-serif;
+    font-size: 80px;
+    color: #FFFEFF;
+}
+
+
+h3 {
+    color: #FFFEFF;
+    font-size: 30px;
+    font-family: 'Manrope-VariableFont_wght', sans-serif;
+}
+
+h1 {
+    font-family: 'Dela Gothic One', sans-serif;
+    font-size: 40px;
+    color: #FFFEFF;
+}
+
+
+
+.manager-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+/*ВОТ ЭТО ДЛЯ ЗАГОЛОВКОВ ТЕКСТА НА СТРАНИЦЕ*/
+.manager-h1 {
+    font-family: 'Dela Gothic One', sans-serif;
+    font-size: 40px;
+    color: #FFFEFF;
+}
+
+.manager-blok {
+    display: flex;
+    flex-direction: column;
+    margin: 20px auto;
+}
+
+.manager-button-contaiber {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    color: #54494B;
+}
+
+
+
+/*ФОРМА ВВОДА ЧЕГО-ТО*/
+.text {
+    margin: 20px 20px 5px 20px;
+}
+
+.field {
+    margin: 10px 20px;
+    border-radius: 10px;
+    padding: 10px 10px 10px 10px;
+    max-width: 1000px;
+    border: none;
+}
+
+.field-purple {
+    margin: 10px 20px;
+    border-radius: 10px;
+    padding: 10px 10px 10px 10px;
+    max-width: 1000px;
+    color: #AF8DFE;
+    border: none;
+}
+
+.text-purple {
+    margin: 20px 20px 5px 20px;
+    color: #FFFEFF;
+}
+
+.conteiner-for-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.container-add-order {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+
+/*ШАПКА СТРАНИЦЫ */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -53,141 +229,80 @@ a {
     display: flex;
     list-style: none;
 }
-
+    .navbar .menu-yellow ul {
+        display: flex;
+        list-style: none;
+    }
 .navbar .menu ul li {
-    margin: 20px 100px;
+    margin: 20px 20px;
 }
 
-.navbar .menu ul a {
-    text-transform: uppercase;
-    text-decoration: none;
-    font-weight: bold;
-    color: black;
-}
+    .navbar .menu-yellow ul li {
+        margin: 20px 20px;
+    }
 
-.navbar .login ul {
-    display: flex;
-    list-style: none;
-}
+    .navbar .menu ul a {
+       
+        color: #FFFEFF;
+    }
 
-.navbar .login ul li {
-    margin: 0px 10px;
-}
+    .navbar .menu-yellow ul a {
+        color: #FDD551
+    }
 
-.navbar .login ul a {
-    text-decoration: none;
-    color: blue;
-}
 
-.header-button {
-    font-size: 140%;
-    padding-right: 40px;
-}
 
-.button {
-    background-color: greenyellow;
-    border-radius: 20px;
-    padding: 5px;
-}
 
-.green-button {
-    color: white;
-    background-color: #5DA271;
-    border: 1px solid #5DA271;
-}
 
-.purple-button {
-    color: white;
-    background-color: #a28ae5;
-    border: 1px solid #a28ae5;
-}
-
-.blue-button {
-    color: white;
-    background-color: #408BC9;
-    border: 1px solid #D4A0A7;
-}
-
-.pink-button {
-    color: white;
-    background-color: #D4A0A7;
-    border: 1px solid #D4A0A7;
-}
-
-button {
-    flex: 1;
-    padding: 10px 40px;
-    margin: 5px 20px;
-    border: none;
-    border-radius: 20px;
-}
-
-.order-button {
-    color: #54494B;
-    background-color: #92dea8;
-    border: 1px solid #92dea8;
-    height: 100px;
-    line-height: 30px;
-    align-items: baseline;
-    padding: 10px 40px;
-    margin: 10px 10px;
-}
-
-.last-order-button {
-    color: #54494B;
-    background-color: #7eb7e5;
-    border: 1px solid #7eb7e5;
-    height: 100px;
-    line-height: 30px;
-    align-items: baseline;
-    padding: 10px 40px;
-    margin: 10px 10px;
-}
 
 .button-container {
     display: flex;
     height: 70px;
 }
 
-.container {
-    width: 310px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-.site-header {
-    min-width: 550px;
-    height: 186px;
-    margin-bottom: 50px;
-    padding-top: 30px;
-    background: #847462 no-repeat center url("https://i.pinimg.com/originals/3b/e9/3e/3be93eeb2ae57dec8bf1f91d9e2e719d.jpg");
-    background-size: cover;
-}
-
-.site-header p {
-    width: 255px;
-    margin: 0 auto 26px;
-    text-align: center;
-    font-size: 16px;
-    line-height: 24px;
-}
-
-.site-header img {
-    display: block;
-    margin: 0 auto;
+.yellow {
+    color: #FDD551
 }
 
 
-.a {
-    display: grid;
-    place-items: center;
-    margin: 20px auto;
+.button-quest:hover {
+    color: #fff;
+    background: #000;
+    padding: 1.2rem 2rem;
+    cursor: pointer;
+    user-select: none;
+    border: none;
+    outline: none;
+    transition: background 9999999s;
 }
 
-.c {
-    display: flex;
-    height: 100px;
+button:active {
+    background-color: #FDD551;
+    transition: background 0s;
 }
+
+
+
+@media screen and (max-width: 500px) {
+    .navbar {
+        flex-direction: column;
+    }
+
+        .navbar .menu ul {
+            flex-direction: column;
+            align-self: center;
+        }
+
+            .navbar .menu ul li {
+                margin: 5px;
+            }
+}
+
+
+
+
+
+/*
 
 .layout-container {
     position: fixed;
@@ -218,26 +333,8 @@ button {
     margin: 0 0 30px;
 }
 
-.inf {
-    display: flex;
-    weight: 200px;
-}
 
-.c {
-    display: flex;
-    height: 100px;
-}
 
-.task-button {
-    color: #54494B;
-    background-color: #fff252;
-    border: 1px solid #fff252;
-    padding: 40px 40px;
-    margin: 10px 10px;
-    height: 220px;
-    line-height: 30px;
-    border-radius: 30px;
-}
 .taskMaster-card {
     background-color: white;
     border: 2px solid black;
@@ -270,34 +367,4 @@ button {
     display: flex;
     flex-direction: column;
 }
-
-
-.button-quest:hover {
-    color: #fff;
-    background: #000;
-    padding: 1.2rem 2rem;
-    cursor: pointer;
-    user-select: none;
-    border: none;
-    outline: none;
-    transition: background 9999999s;
-}
-button:active {
-    background-color: lightgreen;
-    transition: background 0s;
-}
-
-@media screen and (max-width: 500px) {
-    .navbar {
-        flex-direction: column;
-    }
-
-        .navbar .menu ul {
-            flex-direction: column;
-            align-self: center;
-        }
-
-            .navbar .menu ul li {
-                margin: 5px;
-            }
-}
+*/

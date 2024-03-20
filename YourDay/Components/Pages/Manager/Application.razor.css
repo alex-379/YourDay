@@ -1,18 +1,24 @@
-﻿.task-button {
-    color: #54494B;
-    background-color: #fff252;
-    border: 1px solid #fff252;
-    /*         height: 100px;
-        line-height: 30px;
-        align-items: baseline; */
-    padding: 40px 40px;
-    margin: 10px 10px;
-    height: 220px;
-    line-height: 30px;
-    border-radius: 30px;
+﻿.manager-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
 }
 
-h3 {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+.manager-h1 {
+    font-family: 'Dela Gothic One', sans-serif;
     font-size: 40px;
+    color: #FFFEFF;
+}
+
+.manager-blok {
+    display: flex;
+    flex-direction: column;
+    margin: 20px auto;
+}
+
+.manager-button-contaiber {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    color: #54494B;
 }

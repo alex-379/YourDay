@@ -1,4 +1,4 @@
-﻿@page "/taskMaster"
+@page "/taskMaster"
 @attribute [StreamRendering]
 
 
@@ -39,6 +39,7 @@
 
     public TaskMaster()
     {
+       // _masters = new MasterServiceMock();
         _masterClient = new TaskClient();
         _tasks = _masterClient.GetAllTask();
     }

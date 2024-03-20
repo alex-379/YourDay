@@ -10,30 +10,33 @@
 
 
 
+<section class="text-style">
+    <dialog id="application" aria-labelledby="heading">
+        <h2 id="heading">Что сделать с заявкой?  </h2>
 
-<dialog id="application" aria-labelledby="heading">
-    <h2 id="heading">Что сделать с заявкой?  </h2>
+        <form method="dialog">
 
-    <form method="dialog">
-
-        <button>
-            Закрыть
-        </button>
-        <button>
-            Архивировать
-        </button>
-        <button>
-            Создать заказ
-        </button>
-    </form>
-</dialog>
+            <button>
+                Закрыть
+            </button>
+            <button>
+                Архивировать
+            </button>
+            <button>
+                Создать заказ
+            </button>
+        </form>
+    </dialog>
+</section>
 
 <section>
-
-    <h3> Наши заявки:</h3>
-    @foreach (var s in tasks)
-    {
-        <button class="task-button" onclick="window.application.showModal()"> <h4>@s </h4> клиент: Аня </button>
-    }
-    
+    <div class="manager-blok">
+        <h2 class="manager-h1"> Наши заявки:</h2>
+        <div class="manager-button-contaiber">
+            @foreach (var s in tasks)
+            {
+                <button class="order-button" onclick="window.application.showModal()"> @s </button>
+            }
+        </div>
+    </div>
 </section>
