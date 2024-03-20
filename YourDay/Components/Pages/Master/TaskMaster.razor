@@ -35,11 +35,11 @@
 @code 
 {
     private List<TaskOutputModel> _tasks;
-    private TaskClient _masterClient;
+    private TaskService _masterClient;
 
     public TaskMaster()
     {
-        _masterClient = new TaskClient();
+        _masterClient = new TaskService();
         _tasks = _masterClient.GetAllTask();
 
     }

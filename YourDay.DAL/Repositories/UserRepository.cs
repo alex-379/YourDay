@@ -48,11 +48,5 @@ namespace YourDay.DAL.Repositories
             var users = context.Users.Where(u => u.Role == role).ToList();
             return users;
         }
-
-        public IEnumerable<UserDto> GetAllUsersWith(Role role)
-        {
-            var users = context.Users.Where(u => u.Role == role).ToList();
-            return users;
-        }
     }
 }

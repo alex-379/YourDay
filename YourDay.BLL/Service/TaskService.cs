@@ -8,12 +8,12 @@ using YourDay.BLL.IServices;
 
 namespace YourDay.BLL.Clients
 {
-    public class TaskClient:ITaskService
+    public class TaskService:ITaskService
     {
         private TaskRepository _taskRepository;
         private Mapper _mapper;
 
-        public TaskClient()
+        public TaskService()
         {
             _taskRepository = new TaskRepository();
 
@@ -49,6 +49,8 @@ namespace YourDay.BLL.Clients
             List<TaskOutputModel> result = _mapper.Map<List<TaskOutputModel>>(tasks);
             return result;
         }
+
+
 
     }
 }

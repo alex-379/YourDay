@@ -1,7 +1,5 @@
 ﻿@page "/registration"
 @rendermode InteractiveServer
-@inject NavigationManager NavigationManager
-
 
 <div class="container-add-order">
     <div class="fields-add-order">
@@ -10,32 +8,31 @@
 
             <div class="conteiner-for-text">
                 <label class="text">Имя:</label>
-                <input class="field" type="name" placeholder="Введите имя">
+                <input @bind=_user.UserName class="field" type="name" placeholder="Введите имя">
             </div>
             <div class="conteiner-for-text">
                 <label class="text">Почта:</label>
-                <input class="field" type="text" placeholder="Введите почту">
+                <input @bind=_user.Mail class ="field" type="text" placeholder="Введите почту">
             </div>
             <div class="conteiner-for-text">
                 <label class="text">Телефон:</label>
-                <input class="field" type="text" placeholder="Введите телефон">
+                <input @bind=_user.Phone class ="field" type="text" placeholder="Введите телефон">
             </div>
             <div class="conteiner-for-text">
                 <label class="text">Пароль:</label>
-                <input class="field" type="text" placeholder="Введите пароль">
+                <input @bind=_user.Password class ="field" type="text" placeholder="Введите пароль">
             </div>
         </form>
 
         <div>
-            <button class="purple-button">Регистрация</button>
-            <button class="purple-button"> Отмена </button>
+            <button @onclick=AddUser class="purple-button">Регистрация</button>
+            <button class="purple-button">Отмена</button>
         </div>
     </div>
 </div>
 
 <div class="с">
     <h2> Пользователи:</h2>
-
     @foreach (var i in _users)
     {
         <button class="celebrate-buttons"> <UserCard user=i> </UserCard> </button>
@@ -44,14 +41,26 @@
 
 @code
 {
-    private List<UserOutputModel> _users;
+    private UserRegistrationInputModel _user;
+
+    private IEnumerable<UserOutputModel> _users;
 
     private IUserService _userService;
 
     public UserTests()
     {
-        _userService = new UserServiceMock();
+        _userService = new UserService();
+    }
 
+    protected override void OnInitialized()
+    {
         _users = _userService.GetAllUsers();
+
+        _user = new UserRegistrationInputModel();
+    }
+
+    public void AddUser()
+    {
+        _users.ToList().Add(_userService.AddUser(_user));
     }
 }

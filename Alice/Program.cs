@@ -4,7 +4,7 @@ using YourDay.BLL.Clients;
 OrderRepository r = new OrderRepository();
 var a = r.GetOrderById(2);
 
-OrderClient c = new OrderClient();
+OrderService c = new OrderService();
 var a1= c.GetOrderById(2);
 
 

@@ -10,11 +10,11 @@
 
     private IEnumerable<OrderNameDateOutputModel> _orders;
 
-    private OrderClient _orderClient;
+    private OrderService _orderClient;
 
     public Manager()
     {
-        _orderClient = new OrderClient();
+        _orderClient = new OrderService();
 
         _orders = _orderClient.GetAllOrdersForCard();
     }  
