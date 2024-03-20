@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using YourDay.DAL.Dtos;
 using YourDay.DAL.IRepositories;
+using YourDay.DAL.Enums;
 
 namespace YourDay.DAL.Repositories
 {
-    public class TaskRepository:ITaskRepository
+    public class TaskRepository : ITaskRepository
     {
         Context context = SingletoneStorage.GetStorage().Сontext;
         
@@ -19,7 +16,15 @@ namespace YourDay.DAL.Repositories
             return tasks;
         }
 
-        public TaskStatusDto UpdateTaskStatus(TaskStatusDto taskStatus)
+        public IEnumerable<TaskDto> GetTaskByMasterId(int id)
+        {
+            var tasks = context.Tasks
+                .Include(t => t.Workers.Where(u => u.Role == Role.Worker && u.Id == id))
+                .ToList();
+            return tasks;
+        }
+
+        public void UpdateTaskStatus(TaskStatusDto taskStatus)
         {
             Context context = SingletoneStorage.GetStorage().Сontext;
 
