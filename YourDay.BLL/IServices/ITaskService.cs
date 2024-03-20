@@ -13,6 +13,6 @@ namespace YourDay.BLL.IServices
         public List<TaskOutputModel> GetTaskByOrderId(int Id);
         public void UpdateStatusTaskByTaskId(UpdateTaskStatusInputModel taskStatus);
         public void RemoveTask(int id);
-        public List<TaskMasterOutputModel> GetAllTask();
+        public List<TaskOutputModel> GetAllTask();
     }
 }

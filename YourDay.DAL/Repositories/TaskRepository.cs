@@ -34,9 +34,8 @@ namespace YourDay.DAL.Repositories
             {
                 task.Status = taskStatus.Status;
                 context.SaveChanges();
-                return taskStatus;
+                
             }
-            return taskStatus;
         }
         public List<TaskDto> GetAllTasks()
         {

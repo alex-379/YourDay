@@ -33,7 +33,7 @@ namespace YourDay.BLL.Clients
         public List<TaskMasterOutputModel> GetTaskByMasterId(int id)
         {
             List<TaskDto> taskDtos = _masterRepository.GetTaskByMasterId(id);
-            List<TaskMasterOutputModel> result=_mapper.Map<List<TaskMasterOutputModel>>(taskDtos);
+            List<TaskMasterOutputModel> result = _mapper.Map<List<TaskMasterOutputModel>>(taskDtos);
             return result;
         }
 
