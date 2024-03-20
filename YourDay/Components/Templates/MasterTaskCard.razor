@@ -3,15 +3,12 @@
 
     <div class="taskMaster-card">
     <p>@task.Title </p>
-    <p>@task.StatusId</p>
-    
     <p>@task.TimeStart - @task.TimeEnd</p>
-    
     </div>
 </a>
  </div>
 @code {
     [Parameter]
-    public TaskOutputModel task { get; set; }
+    public TaskMasterOutputModel task { get; set; }
 
 }

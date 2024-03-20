@@ -9,6 +9,6 @@ namespace YourDay.DAL.IRepositories
 {
     public interface ITaskRepository
     {
-        public void UpdateTaskStatus(TaskStatusDto taskStatus);
+        public TaskStatusDto UpdateTaskStatus(TaskStatusDto taskStatus);
     }
 }

@@ -4,10 +4,7 @@ using AutoMapper;
 using YourDay.BLL.IServices;
 using YourDay.DAL.Dtos;
 using YourDay.BLL.Models.TaskModels.OutputModels;
-using YourDay.BLL.Models.TaskModels.InputModels;
-using YourDay.DAL.IRepositories;
-using AutoMapper;
-using System.Collections.Generic;
+using YourDay.BLL.Models.UserModels.OutputModels;
 
 namespace YourDay.BLL.Clients
 {
@@ -26,29 +23,25 @@ namespace YourDay.BLL.Clients
             });
             _mapper = new Mapper(config);
         }
-
-        public List<TaskOutputModel> GetAllTask()
+        public List<MasterOutputModel> GetAllMasters()
         {
-            List<TaskDto> task = _masterRepository.GetAllTasks();
-
-            List<TaskOutputModel> result = this._mapper.Map<List<TaskOutputModel>>(task);
-
-            return result; ;
+            List<UserDto> users = (List<UserDto>)_masterRepository.GetAllMasters(DAL.Enums.Role.Worker);
+            List<MasterOutputModel> result = _mapper.Map<List<MasterOutputModel>>(users);
+            return result;
         }
 
-        public TaskOutputModel GetTaskByMasterId(int id)
+        public List<TaskMasterOutputModel> GetTaskByMasterId(int id)
         {
-            throw new NotImplementedException();
+            List<TaskDto> taskDtos = _masterRepository.GetTaskByMasterId(id);
+            List<TaskMasterOutputModel> result=_mapper.Map<List<TaskMasterOutputModel>>(taskDtos);
+            return result;
         }
 
-        public void RemoveTask(int id)
+        public List<MasterOutputModel> GetUserByMasterId(int id)
         {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateTasksStatusByTaskId(UpdateTaskStatusInputModel model)
-        {
-            throw new NotImplementedException();
+            List<UserDto> users = _masterRepository.GetMasterById(id);
+            List<MasterOutputModel> result = _mapper.Map<List<MasterOutputModel>>(users);
+            return result;
         }
     }
 }
