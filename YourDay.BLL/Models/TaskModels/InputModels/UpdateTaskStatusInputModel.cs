@@ -1,8 +1,8 @@
 ﻿using YourDay.DAL.Enums;
 
-namespace YourDay.BLL.Models.TaskModels.OutputModels
+namespace YourDay.BLL.Models.TaskModels.InputModels
 {
-    public class UpdateTaskStatusOutputModel
+    public class UpdateTaskStatusInputModel
     {
         public Status Status { get; set; }
         public int TaskId { get; set; }
