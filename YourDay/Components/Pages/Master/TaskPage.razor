@@ -49,14 +49,14 @@
 
     }
  }
-<div class="taskMaster-card">
-  <div class="order-button">
+<div class="client-button">
+    <div class="client-button">
       @foreach(TaskOutputModel task in _tasks)
         {
             <div class="container-task">
-                <p class="task-id"> Номер задачи :@Id</p>
-                <p class="task- description">Описание задачи : @task.Description</p>
-                <p class="task-time">Время :@task.TimeStart-@task.TimeEnd</p>
+                <p class=".text"> Номер задачи :@Id</p>
+                <p class=".text">Описание задачи : @task.Description</p>
+                <p class=".text">Время :@task.TimeStart-@task.TimeEnd</p>
                 <select @onchange="UpdateStatusTask">
                     <option value="0">Получен</option>
                     <option value="1">В работе</option>
