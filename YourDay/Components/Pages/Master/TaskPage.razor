@@ -32,7 +32,23 @@
         var task = _masters.GetTaskByMasterId;
     }
  }
-<section>
+ <div class="taskMaster-card">
+     <p class="task-id">Id:@Id</p>
+     <p class="task-title">Название: @_description</p>
+     <p class="task-date">Дата: @_timeStart-@_timeEnd</p>
+     <select id="selectID">
+
+        <option value=”Received”>Получен</option>
+
+        <option value=”InProgress”>В работе</option>
+
+        <option value=”Done”>Завершен</option>
+
+        <option value="Canceled">Отменен</option>
+
+    </select>
+ </div>
+@* <section>
     <table class="table">
         <thead>
             <tr>
@@ -55,6 +71,6 @@
             </tr>
         </tbody>
     </table>
-</section>
+</section> *@
  
   
