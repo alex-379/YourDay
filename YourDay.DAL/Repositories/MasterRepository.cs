@@ -1,4 +1,7 @@
-﻿using YourDay.DAL.Dtos;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Immutable;
+using YourDay.DAL.Dtos;
+using YourDay.DAL.Enums;
 using YourDay.DAL.IRepositories;
 
 
@@ -13,15 +16,24 @@ namespace YourDay.DAL.Repositories
         {
             Context context = SingletoneStorage.GetStorage().Сontext;
         }
-        public  List<TaskDto> GetAllTasks()
+        
+        public List<UserDto> GetAllMasters(Role master) 
         {
-            Context context = SingletoneStorage.GetStorage().Сontext;
-            var tasks = context.Tasks.ToList();
-            return tasks;
+            List<UserDto> users = context.Users.Where(master=>master.Role==Role.Worker).ToList();
+            return users;
         }
-        public void UpdateTasksStatusByTaskId(TaskDto model)
+        public List<UserDto> GetMasterById(int id)
+        {
+            
+            List<UserDto> users = context.Users.Where(master=>master.Id==id).ToList();
+            return users;
+        }
+        public List<TaskDto> GetTaskByMasterId(int id)
         {
 
+            List<TaskDto> tasks = context.Tasks.Include(t=>t.Workers.Where(u =>u.Role == Role.Worker)).ToList();
+            return tasks;
         }
+
     }
 }

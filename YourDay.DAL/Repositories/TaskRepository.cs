@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using YourDay.DAL.Dtos;
 using YourDay.DAL.IRepositories;
 using YourDay.DAL.Enums;
@@ -8,7 +8,7 @@ namespace YourDay.DAL.Repositories
     public class TaskRepository : ITaskRepository
     {
         Context context = SingletoneStorage.GetStorage().Сontext;
-
+        
         public List<TaskDto> GetTaskByOrderId(int Id)
         {
             Context context = SingletoneStorage.GetStorage().Сontext;
@@ -34,12 +34,15 @@ namespace YourDay.DAL.Repositories
             {
                 task.Status = taskStatus.Status;
                 context.SaveChanges();
+                
             }
         }
-
-        public void UpdateTaskStatus(TaskDto taskDto)
+        public List<TaskDto> GetAllTasks()
         {
-            throw new NotImplementedException();
+            Context context = SingletoneStorage.GetStorage().Сontext;
+            List<TaskDto> tasks = context.Tasks.ToList();
+            return tasks;
         }
+        
     }
 }

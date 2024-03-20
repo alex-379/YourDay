@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using YourDay.DAL.Dtos;
+using YourDay.DAL.Enums;
 
 namespace YourDay.DAL.IRepositories
 {
-    internal interface IMasterRepository
+    public interface IMasterRepository
     {
-        public List<TaskDto> GetAllTasks();
-        
+        public List<UserDto> GetAllMasters(Role master);
+        public List<UserDto> GetMasterById(int id);
+        public List<TaskDto> GetTaskByMasterId(int id);
     }
 }
