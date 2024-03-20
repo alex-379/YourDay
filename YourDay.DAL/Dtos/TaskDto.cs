@@ -8,12 +8,6 @@ namespace YourDay.DAL.Dtos
     {
         public int Id { get; set; }
 
-        public int? OrderId { get; set; }
-
-        public int? SpecializationId { get; set; }
-
-        //public int? WorkersId { get; set; }
-
         [MaxLength(255)]
         public string Title { get; set; }
 
@@ -26,12 +20,12 @@ namespace YourDay.DAL.Dtos
         [Column(TypeName = "DateTime")]
         public DateTime TimeEnd { get; set; }
 
+        public Status Status { get; set; }
+
         public IEnumerable<UserDto>? Workers { get; set; }
 
         public OrderDto? Order { get; set; }
 
         public SpecializationDto? Specialization { get; set; }
-
-        public Status? Status { get; set; }
     }
 }

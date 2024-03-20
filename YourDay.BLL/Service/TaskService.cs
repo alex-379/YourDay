@@ -9,18 +9,18 @@ using YourDay.DAL.Enums;
 
 namespace YourDay.BLL.Clients
 {
-    public class TaskClient:ITaskService
+    public class TaskService:ITaskService
     {
         private TaskRepository _taskRepository;
         private Mapper _mapper;
 
-        public TaskClient()
+        public TaskService()
         {
             _taskRepository = new TaskRepository();
 
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile(new MappingProfilecs());
+                cfg.AddProfile(new MappingProfile());
             });
             _mapper = new Mapper(config);
         }
@@ -54,6 +54,8 @@ namespace YourDay.BLL.Clients
             return result;
 
         }
+
+
 
     }
 }

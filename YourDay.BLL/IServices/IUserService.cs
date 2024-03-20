@@ -7,7 +7,7 @@ namespace YourDay.BLL.IServices
     {
         public UserOutputModel AddUser(UserRegistrationInputModel user);
 
-        public List<UserOutputModel> GetAllUsers();
+        public IEnumerable<UserOutputModel> GetAllUsers();
 
         public UserOutputModel GetUserById(int id);
     }

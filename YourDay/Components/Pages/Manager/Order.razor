@@ -1,41 +1,34 @@
 @page "/order/{Id:int}"
 @rendermode InteractiveServer
-@attribute [StreamRendering]
+@* @attribute [StreamRendering] *@
 @inject NavigationManager NavigationManager
-@using YourDay.BLL.Clients;
 
 @code
 {
     [Parameter]
     public int Id { get; set; }
 
-    private OrderClient _orderClient;
+    [Parameter]
+    public OrderOutputModel OrderOutput { get; set; }
 
-
-    private List<OrderOutputModel> _orders;
+    private IOrderService _orderService;
 
     public Order()
     {
-        _orderClient = new OrderClient();
-
-        _orders = new List<OrderOutputModel>();
-
-
-
-        //_masters = new MasterServiceMock();
-
-        //_tasks = _masters.GetAllTask();
+        _orderService = new OrderService();
+        OrderOutput = new OrderOutputModel();
     }
 
     protected override void OnInitialized()
     {
-        int Id = 2;
-        var a = _orderClient.GetOrderById(Id);
-        //var p = _orders[0];
-        
-
+        OrderOutputModel orderOutput = _orderService.GetOrderById(Id);
+        OrderOutput.Id = orderOutput.Id;
+        OrderOutput.OrderName = orderOutput.OrderName;
+        OrderOutput.Date = orderOutput.Date;
+        OrderOutput.Address = orderOutput.Address;
+        OrderOutput.CountPeople = orderOutput.CountPeople;
+        OrderOutput.Price = orderOutput.Price;
     }
-
 
     List<string> tasks = new List<string>() { "Привезти красные розы", "Заказать торт", "Привезти оформление", "Нужна живая съемка", "Часовая фотосессия" };
     private void NavigateToPage()
@@ -43,15 +36,9 @@
         NavigationManager.NavigateTo("/newTask");
     }
 
-
     private List<TaskOutputModel> _tasks;
     private IMasterService _masters;
-
-    
 }
-
-
-
 
 <div class="body">
      <section>
@@ -67,11 +54,11 @@
             </thead>
             <tbody>
                     <tr>
-                    <td>@_orders[0].OrderName</td>
-                    <td> @_orders[0].Date</td>
-                    <td>@_orders[0].Address</td>
-                    <td>@_orders[0].CountPeople</td>
-                    <td>@_orders[0].Price</td>
+                    <td>@OrderOutput.OrderName</td>
+                    <td>@OrderOutput.Date</td>
+                    <td>@OrderOutput.Address</td>
+                    <td>@OrderOutput.CountPeople</td>
+                    <td>@OrderOutput.Price</td>
                     </tr>
             </tbody>
         </table>
@@ -81,7 +68,6 @@
         <h2 id="heading">Что сделать с таской? &#128054 </h2>
 
         <form method="dialog">
-
             <button>
                 Изменить
             </button>
@@ -99,9 +85,7 @@
         <div class="container-task">
             @foreach (var i in _tasks)
             {
-
                 <MasterTaskCard task="i" ></MasterTaskCard>
-               
             }
         </div>
     </section>

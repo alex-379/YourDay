@@ -1,19 +1,26 @@
-﻿namespace YourDay.BLL.Models.TaskModels.InputModels
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+using YourDay.DAL.Dtos;
+using YourDay.DAL.Enums;
+
+namespace YourDay.BLL.Models.TaskModels.InputModels
 {
     public class TaskInputModel
     {
         public string Title { get; set; }
 
-        public int OrderId { get; set; }
+        public string Description { get; set; }
 
         public DateTime TimeStart { get; set; }
 
         public DateTime TimeEnd { get; set; }
 
-        public string Descriptions { get; set; }
+        public IEnumerable<UserDto>? Workers { get; set; }
 
-        public int SpecializationId { get; set; }
+        public OrderDto? Order { get; set; }
 
-        public int StatusId { get; set; }
+        public SpecializationDto? Specialization { get; set; }
+
+        public Status? Status { get; set; }
     }
 }
