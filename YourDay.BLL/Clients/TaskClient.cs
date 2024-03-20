@@ -35,7 +35,7 @@ namespace YourDay.BLL.Clients
         public void UpdateStatusTaskByTaskId(UpdateTaskStatusInputModel taskStatus) 
         {
             //List<TaskDto> taskDto = this._taskRepository.UpdateTaskStatus();
-            //List<UpdateTaskStatusInputModel> result= this._taskRepository.UpdateTaskStatus(taskDto);
+            //List<UpdateTaskStatusInputModel> result = this._taskRepository.UpdateTaskStatus(taskDto);
 
             throw new NotImplementedException();
         }
@@ -43,11 +43,12 @@ namespace YourDay.BLL.Clients
         {
             throw new NotImplementedException();
         }
-        public List<TaskMasterOutputModel> GetAllTask()
+        public List<TaskOutputModel> GetAllTask()
         {
             List<TaskDto> tasks = _taskRepository.GetAllTasks();
-            List<TaskMasterOutputModel> result = _mapper.Map<List<TaskMasterOutputModel>>(tasks);
+            List<TaskOutputModel> result = _mapper.Map<List<TaskOutputModel>>(tasks);
             return result;
         }
+
     }
 }
