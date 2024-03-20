@@ -2,7 +2,6 @@
 @rendermode InteractiveServer
 @attribute [StreamRendering]
 @inject NavigationManager NavigationManager
-@using YourDay.BLL.Clients;
 
 @code
 {
@@ -21,25 +20,24 @@
 
     private OrderClient _orderClient;
 
-    private List<OrderOutputModel> _orders;
+    private OrderOutputModel _order;
 
     public Order()
     {
         Id = 2;
         _orderClient = new OrderClient();
 
-        _orders = _orderClient.GetOrderById(Id);
+        _order = _orderClient.GetOrderById(Id);
 
     }
 
     protected override void OnInitialized()
     {
-
-        var p = _orders[0];
+        var p = _order;
         _orderName = p.OrderName;
         _date = p.Date;
         _adress = p.Address;
-        _countPeople = p.CountPeople;
+        _countPeople = (int)p.CountPeople;
         _price = p.Price;
 
     }

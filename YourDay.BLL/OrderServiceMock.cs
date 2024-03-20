@@ -13,7 +13,7 @@ namespace YourDay.BLL
     {
         private List<OrderOutputModel> _outputModels;
 
-        private List<OrderNameDataOutputModel> _outputNewModels;
+        private List<OrderNameDateOutputModel> _outputNewModels;
 
         public OrderServiceMock()
         {
@@ -66,7 +66,7 @@ namespace YourDay.BLL
             };
         }
 
-        public OrderOutputModel AddOrder(OrderInputModel order)
+        public OrderOutputModel AddOrder(OrderForManagerInputModel order)
         {
             return new OrderOutputModel();
             //{
@@ -89,7 +89,7 @@ namespace YourDay.BLL
             return _outputModels;
         }
 
-        public List<OrderNameDataOutputModel> GetAllOrdersOnlyNameData()
+        public List<OrderNameDateOutputModel> GetAllOrdersOnlyNameData()
         {
             return _outputNewModels;
         }

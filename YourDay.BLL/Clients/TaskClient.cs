@@ -19,7 +19,7 @@ namespace YourDay.BLL.Clients
 
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile(new MappingProfilecs());
+                cfg.AddProfile(new MappingProfile());
             });
             _mapper = new Mapper(config);
         }
