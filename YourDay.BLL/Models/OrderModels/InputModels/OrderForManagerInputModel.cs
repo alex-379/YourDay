@@ -1,11 +1,10 @@
-﻿using YourDay.DAL.Enums;
+﻿using YourDay.DAL.Dtos;
+using YourDay.DAL.Enums;
 
-namespace YourDay.BLL.Models.OrderModels.OutputModels
+namespace YourDay.BLL.Models.OrderModels.InputModels
 {
-    public class OrderOutputModel
+    public class OrderForManagerInputModel
     {
-        public int Id { get; set; }
-
         public string OrderName { get; set; }
 
         public string Address { get; set; }

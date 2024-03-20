@@ -1,29 +1,29 @@
 ﻿@page "/registration/{Id:int}"
 @rendermode InteractiveServer
 
-
 @code
 {
     [Parameter]
     public int Id { get; set; }
 
     [Parameter]
-    public UserOutputModel user { get; set; }
+    public UserOutputModel UserOutput { get; set; }
 
     private IUserService _userService;
 
     public UserPage()
     {
-        _userService = new UserServiceMock();
-        user = new UserOutputModel();
+        _userService = new UserService();
+        UserOutput = new UserOutputModel();
     }
 
     protected override void OnInitialized()
     {
-        var p = _userService.GetUserById(Id);
-        user.UserName = p.UserName;
-        user.Mail = p.Mail;
-        user.Phone = p.Phone;
+        UserOutputModel userOutput = _userService.GetUserById(Id);
+        UserOutput.Id = userOutput.Id;
+        UserOutput.UserName = userOutput.UserName;
+        UserOutput.Mail = userOutput.Mail;
+        UserOutput.Phone = userOutput.Phone;
     }
 }
 
@@ -39,10 +39,10 @@
         </thead>
         <tbody>
             <tr>
-                <td>@Id</td>
-                <td>@user.UserName</td>
-                <td>@user.Mail</td>
-                <td> @user.Phone</td>
+                <td>@UserOutput.Id</td>
+                <td>@UserOutput.UserName</td>
+                <td>@UserOutput.Mail</td>
+                <td>@UserOutput.Phone</td>
             </tr>
         </tbody>
     </table>

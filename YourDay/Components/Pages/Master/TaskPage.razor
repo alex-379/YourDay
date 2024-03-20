@@ -39,6 +39,8 @@
                 break;
             case 2:
                 newStatus = Status.Completed;
+    private List<TaskOutputModel> _tasks;
+    private MasterService _masters;
 
                 break;
             case 3:
@@ -47,6 +49,9 @@
                 break;
         }
 
+    public TaskPage()
+    {
+        _masters = new MasterService();
     }
  }
 <div class="client-button">
