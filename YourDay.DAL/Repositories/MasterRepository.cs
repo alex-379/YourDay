@@ -18,20 +18,19 @@ namespace YourDay.DAL.Repositories
         
         public List<UserDto> GetAllMasters(Role master) 
         {
-            Context context = SingletoneStorage.GetStorage().Сontext;
             List<UserDto> users = context.Users.Where(master=>master.Role==Role.Worker).ToList();
             return users;
         }
         public List<UserDto> GetMasterById(int id)
         {
-            Context context = SingletoneStorage.GetStorage().Сontext;
+            
             List<UserDto> users = context.Users.Where(master=>master.Id==id).ToList();
             return users;
         }
         public List<TaskDto> GetTaskByMasterId(int id)
         {
-            Context context = SingletoneStorage.GetStorage().Сontext;
-            List<TaskDto> tasks=context.Tasks.Where(master=>master.WorkerId == id).ToList();
+          
+            List<TaskDto> tasks=context.Tasks.Where(master=>master.WorkersId.ToList().Contains(id)).ToList();
             return tasks;
         }
 
