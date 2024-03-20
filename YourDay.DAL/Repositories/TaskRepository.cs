@@ -19,7 +19,7 @@ namespace YourDay.DAL.Repositories
         public List<TaskDto> GetTaskByMasterId(int id)
         {
             List<TaskDto> tasks = context.Tasks
-                .Include(t => t.Workers.Where(w => w.Role == Role.Worker && w.Id == id))
+                .Include(t => t.Workers.Where(u => u.Role == Role.Worker && u.Id == id))
                 .ToList();
             return tasks;
         }
