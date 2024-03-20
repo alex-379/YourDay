@@ -25,9 +25,9 @@
 </div>
 
 <div class="container-task">
-    @foreach(var i in _tasks)
+    @foreach(TaskOutputModel task in _tasks)
     {
-        <MasterTaskCard task="i"></MasterTaskCard>
+        <MasterTaskCard task="task"></MasterTaskCard>
     }
 </div>
 
@@ -41,7 +41,6 @@
     {
         _masterClient = new TaskClient();
         _tasks = _masterClient.GetAllTask();
-
     }
 }
     

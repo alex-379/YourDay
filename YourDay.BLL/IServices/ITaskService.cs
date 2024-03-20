@@ -5,13 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using YourDay.BLL.Models.TaskModels.InputModels;
 using YourDay.BLL.Models.TaskModels.OutputModels;
+using YourDay.DAL.Enums;
 
 namespace YourDay.BLL.IServices
 {
     public interface ITaskService
     {
         public List<TaskOutputModel> GetTaskByOrderId(int Id);
-        public void UpdateStatusTaskByTaskId(UpdateTaskStatusInputModel taskStatus);
+        public void UpdateStatusTaskByTaskId(int taskId, Status newTaskStatus);
         public void RemoveTask(int id);
         public List<TaskOutputModel> GetAllTask();
     }
