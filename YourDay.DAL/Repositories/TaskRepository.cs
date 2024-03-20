@@ -11,8 +11,7 @@ namespace YourDay.DAL.Repositories
         
         public List<TaskDto> GetTaskByOrderId(int Id)
         {
-            Context context = SingletoneStorage.GetStorage().Сontext;
-            List<TaskDto> tasks = context.Tasks./*Where(m => m.OrderId == Id).*/ToList();
+            List<TaskDto> tasks = context.Tasks.Where(m => m.OrderId == Id).ToList();
             return tasks;
         }
 
@@ -24,25 +23,30 @@ namespace YourDay.DAL.Repositories
             return tasks;
         }
 
-        //public void UpdateTaskStatus(TaskStatusDto taskStatus)
-        //{
-        //    Context context = SingletoneStorage.GetStorage().Сontext;
+        public void UpdateTaskStatus(int taskId, Status newTaskStatus)
+        {
+            TaskDto task = context.Tasks.Single(task => task.Id == taskId); 
 
-        //    TaskDto task = context.Tasks.Single(task => task.Id == taskStatus.TaskId);
+            if (task != null)
+            {
+                task.Status = newTaskStatus;
+            }
+            
+            task.Status = newTaskStatus;
+            context.SaveChanges();
+        }
 
-        //    if (task != null)
-        //    {
-        //        task.Status = taskStatus.Status;
-        //        context.SaveChanges();
-                
-        //    }
-        //}
         public List<TaskDto> GetAllTasks()
         {
-            Context context = SingletoneStorage.GetStorage().Сontext;
             List<TaskDto> tasks = context.Tasks.ToList();
             return tasks;
         }
-        
+        public List<TaskDto> GetTaskById(int Id)
+        {
+            List<TaskDto> dtos=context.Tasks.Where(task=>task.Id == Id).ToList();
+            return dtos;
+        }
+
+
     }
 }

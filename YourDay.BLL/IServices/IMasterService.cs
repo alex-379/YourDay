@@ -9,7 +9,7 @@ namespace YourDay.BLL.IServices
     {
         public List<MasterOutputModel> GetAllMasters();
 
-        //public List<TaskMasterOutputModel> GetTaskByMasterId(int id);
+        public List<MasterOutputModel> GetTaskByMasterId(int id);
 
         public List<MasterOutputModel> GetUserByMasterId(int id);
     }

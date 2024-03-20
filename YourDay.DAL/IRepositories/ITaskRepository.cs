@@ -1,9 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using YourDay.DAL.Dtos;
+using YourDay.DAL.Enums;
 
 namespace YourDay.DAL.IRepositories
 {
@@ -12,7 +13,7 @@ namespace YourDay.DAL.IRepositories
        
         public List<TaskDto> GetTaskByOrderId(int Id);
         public IEnumerable<TaskDto> GetTaskByMasterId(int id);
-        //public void UpdateTaskStatus(TaskStatusDto taskStatus);
+        public void UpdateTaskStatus(int idTask, Status newTaskStatus);
         public List<TaskDto> GetAllTasks();
     }
 }
