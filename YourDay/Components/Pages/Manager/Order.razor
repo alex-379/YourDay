@@ -9,43 +9,30 @@
     [Parameter]
     public int Id { get; set; }
 
-    private string _orderName;
-
-    private DateTime _date;
-
-    private string _adress;
-
-    private int _countPeople;
-
-    private int _price;
-
     private OrderClient _orderClient;
+
 
     private List<OrderOutputModel> _orders;
 
     public Order()
     {
-        Id = 2;
         _orderClient = new OrderClient();
 
-        _orders = _orderClient.GetOrderById(Id);
+        _orders = new List<OrderOutputModel>();
 
 
 
-        _masters = new MasterServiceMock();
+        //_masters = new MasterServiceMock();
 
-        _tasks = _masters.GetAllTask();
+        //_tasks = _masters.GetAllTask();
     }
 
     protected override void OnInitialized()
     {
-
-        var p = _orders[0];
-        _orderName = p.OrderName;
-        _date = p.Date;
-        _adress = p.Address;
-        _countPeople = p.CountPeople;
-        _price = p.Price;
+        int Id = 2;
+        var a = _orderClient.GetOrderById(Id);
+        //var p = _orders[0];
+        
 
     }
 
@@ -72,22 +59,19 @@
             <thead>
                 <tr>
                     <th>Праздник</th>
-                    <th>Клиент</th>
-                    <th>Статус</th>
                     <th>Дата</th>
                     <th>Адрес</th>
                     <th>Количество гостей</th>
                     <th>Цена</th>
-                    <th>Комментарии</th>
                 </tr>
             </thead>
             <tbody>
                     <tr>
-                    <td>@_orderName</td>
-                    <td> @_date</td>
-                    <td>@_adress</td>
-                    <td>@_countPeople</td>
-                    <td>@_price</td>
+                    <td>@_orders[0].OrderName</td>
+                    <td> @_orders[0].Date</td>
+                    <td>@_orders[0].Address</td>
+                    <td>@_orders[0].CountPeople</td>
+                    <td>@_orders[0].Price</td>
                     </tr>
             </tbody>
         </table>

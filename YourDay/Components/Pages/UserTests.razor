@@ -6,7 +6,7 @@
 <div class="container-add-order">
     <div class="fields-add-order">
         <form>
-            <h2>Регистрация:</h2>
+            <h2 class="manager-h1">Регистрация:</h2>
 
             <div class="conteiner-for-text">
                 <label class="text">Имя:</label>
@@ -33,15 +33,18 @@
     </div>
 </div>
 
-<div class="с">
-    <h2> Пользователи:</h2>
 
-    @foreach (var i in _users)
-    {
-        <button class="celebrate-buttons"> <UserCard user=i> </UserCard> </button>
-    }
-</div>
-
+<section>
+    <div class="manager-blok">
+        <h2 class="manager-h1"> Пользователи:</h2>
+        <div class="manager-button-contaiber">
+            @foreach (var i in _users)
+            {
+                <button class="client-button"> <UserCard user=i> </UserCard> </button>
+            }
+        </div>
+    </div>
+</section>
 @code
 {
     private List<UserOutputModel> _users;
