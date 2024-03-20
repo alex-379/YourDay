@@ -1,5 +1,6 @@
-﻿@page "/taskMaster"
+@page "/taskMaster"
 @attribute [StreamRendering]
+
 
 <div class="conteiner-for-text">
     <label class="text" for="inputEmail4">Название задачи:</label>
@@ -34,11 +35,13 @@
 @code 
 {
     private List<TaskOutputModel> _tasks;
-    private IMasterService _masters;
+    private TaskClient _masterClient;
 
     public TaskMaster()
     {
        // _masters = new MasterServiceMock();
+        _masterClient = new TaskClient();
+        _tasks = _masterClient.GetAllTask();
 
        // _tasks = _masters.GetAllTask();
     }

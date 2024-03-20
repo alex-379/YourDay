@@ -12,7 +12,7 @@ namespace YourDay.DAL.Dtos
 
         public int? SpecializationId { get; set; }
 
-        //public int? WorkerId { get; set; }
+        //public int? WorkersId { get; set; }
 
         [MaxLength(255)]
         public string Title { get; set; }

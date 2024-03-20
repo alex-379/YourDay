@@ -1,18 +1,16 @@
-﻿using YourDay.BLL.Models.TaskModels.OutputModels;
+﻿using YourDay.BLL.Models.TaskModels.InputModels;
+using YourDay.BLL.Models.TaskModels.OutputModels;
+using YourDay.BLL.Models.UserModels.OutputModels;
+using YourDay.DAL.Dtos;
 
 namespace YourDay.BLL.IServices
 {
     public interface IMasterService
     {
-        public List<TaskOutputModel> GetAllTask();
+        public List<MasterOutputModel> GetAllMasters();
 
-        public TaskOutputModel GetTaskById(int id);
+        //public List<TaskMasterOutputModel> GetTaskByMasterId(int id);
 
-        public void UpdateStatusTaskById(int id,TaskOutputModel model);
-
-        public TaskOutputModel AddTask();
-
-        public void RemoveTask(int id);
-
+        public List<MasterOutputModel> GetUserByMasterId(int id);
     }
 }

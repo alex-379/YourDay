@@ -22,14 +22,14 @@ namespace YourDay.BLL.Clients
 
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile(new OrderMappingProfile());
+                cfg.AddProfile(new MappingProfilecs());
             });
             _mapper = new Mapper(config);
         }
 
         public List<OrderOutputModel> GetAllOrders()
         {
-            List<OrderDto> clientDtos = _orderRepository.GetAllOrders();
+            List<OrderDto> clientDtos = (List<OrderDto>)_orderRepository.GetAllOrders();
 
             var result = _mapper.Map<List<OrderOutputModel>>(clientDtos);
 

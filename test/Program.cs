@@ -1,4 +1,5 @@
-﻿using YourDay.DAL;
+﻿using Microsoft.EntityFrameworkCore;
+using YourDay.DAL;
 using YourDay.DAL.Dtos;
 using YourDay.DAL.Enums;
 using YourDay.DAL.Repositories;
@@ -6,48 +7,74 @@ using YourDay.DAL.Repositories;
 
 Context context = SingletoneStorage.GetStorage().Сontext;
 
-
-var order3 = context.Orders.Where(order3 => order3.Id == 3).Single();
-var order2 = context.Orders.Where(m => m.Id == 2).Single();
-
-
-var s = context.Specializations.Where(s => s.Id == 2).Single();
-//var o = context.Orders.Where(o => o.Id == 2).Single();
-var w = context.Users.Where(m => m.Id == 4).ToList();
-
-var t = new TaskDto()
-{
-    Order = order3,
-    Specialization = s,
-    Status = Status.InProgress,
-    TimeEnd = new DateTime(2024, 6, 15, 1, 17, 0),
-    TimeStart = new DateTime(2024, 6, 12, 1, 12, 0),
-    Workers = w,
-    Description = "много много цветов",
-    Title = "цветы"
-};
-//context.Tasks.Add(t);
-
-
-var tasks = context.Tasks.Where(m => m.OrderId == 2).ToList();
-
-
-
-context.SaveChanges();
-
-
-Console.WriteLine(1);
+UserRepository userRepository = new UserRepository();
+OrderRepository orderRepository = new OrderRepository();
+TaskRepository taskRepository = new TaskRepository();
 
 //var u = new UserDto()
 //{
-//    UserName = "Мирон",
+//    UserName = "Семён",
 //    Mail = "oxxy@gmail.com",
-//    Phone = "+9212975643",
+//    Phone = "+921246565",
 //    Password = "ghjhgf",
 //    IsDeleted = false,
 //    Role = Role.Manager
 //};
+
+//var tmp = rep.AddUser(u);
+
+//Console.WriteLine();
+
+var t = taskRepository.GetTaskByMasterId(4);
+//u.UserName = "Филипп";
+//u.Password = "testpassws";
+//var tmp = rep.DeleteUser(u);
+Console.WriteLine();
+
 //context.Users.Add(u);
+//context.SaveChanges();
+
+//var o = context.Orders.Where(o => o.Id == 2).Single();
+//var o2 = context.Orders
+//    .Include(o => o.Client)
+//    .Include(o => o.Manager)
+//    .Include(o => o.Histories)
+//    .Include(o => o.Tasks)
+//    .Where(o => o.Id == 4).Single();
+Console.WriteLine();
+
+//var order3 = context.Orders.Where(order3 => order3.Id == 3).Single();
+//var order2 = context.Orders.Where(m => m.Id == 2).Single();
+
+
+//var s = context.Specializations.Where(s => s.Id == 2).Single();
+//var o = context.Orders.Where(o => o.Id == 2).Single();
+//var w = context.Users.Where(m => m.Id == 4).ToList();
+
+//var t = new TaskDto()
+//{
+//    Order = order3,
+//    Specialization = s,
+//    Status = Status.InProgress,
+//    TimeEnd = new DateTime(2024, 6, 15, 1, 17, 0),
+//    TimeStart = new DateTime(2024, 6, 12, 1, 12, 0),
+//    Workers = w,
+//    Description = "много много цветов",
+//    Title = "цветы"
+//};
+//context.Tasks.Add(t);
+
+
+//var tasks = context.Tasks.Where(m => m.OrderId == 2).ToList();
+
+
+
+//context.SaveChanges();
+
+
+//Console.WriteLine(1);
+
+
 
 
 
