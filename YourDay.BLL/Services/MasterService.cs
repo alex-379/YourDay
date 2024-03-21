@@ -8,18 +8,18 @@ using YourDay.BLL.Models.UserModels.OutputModels;
 
 namespace YourDay.BLL.Clients
 {
-    public class MasterClient : IMasterService
+    public class MasterService : IMasterService
     {
         private MasterRepository _masterRepository;
         private Mapper _mapper;
 
-        public MasterClient() 
+        public MasterService() 
         {
             _masterRepository = new MasterRepository();
 
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile(new MappingProfilecs());
+                cfg.AddProfile(new MappingProfile());
             });
             _mapper = new Mapper(config);
         }

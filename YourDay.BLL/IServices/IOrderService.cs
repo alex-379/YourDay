@@ -5,9 +5,9 @@ namespace YourDay.BLL.IServices
 {
     public interface IOrderService
     {
-        public OrderOutputModel AddOrder(OrderInputModel order);
+        public OrderOutputModel AddOrder(OrderForManagerInputModel order);
 
-        public List<OrderOutputModel> GetAllOrders();
+        public IEnumerable<OrderOutputModel> GetAllOrders();
 
         public OrderOutputModel GetOrderById(int id);
     }
