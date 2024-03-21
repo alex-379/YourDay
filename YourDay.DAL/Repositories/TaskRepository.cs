@@ -46,5 +46,9 @@ namespace YourDay.DAL.Repositories
             throw new NotImplementedException();
         }
 
+        public List<TaskDto> FilterTasks(DateTime? startDate)
+        {
+            return context.Tasks.Where(task => task.TimeStart >= startDate).ToList();
+        }
     }
 }

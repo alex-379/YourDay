@@ -1,5 +1,6 @@
 @page "/taskMaster"
 @attribute [StreamRendering]
+@rendermode InteractiveServer
 
 
 
@@ -12,9 +13,9 @@
     <div>В период :</div>
     <div style="display: flex;">
         <div class="conteiner-for-text" style="width: 90px;">
-            <input class="field" type="number" id="inputName" placeholder="от" style="width: 90px;">
+            <input class="field" type="datetime" id="StartDateFrom" placeholder="от" @bind="@dateFrom">
         </div>
-        -
+
         <div class="conteiner-for-text" style="width: 90px;">
             <input class="field" type="number" id="inputName" placeholder="до" style="width: 90px;">
         </div>
@@ -22,7 +23,7 @@
 </div>
 
 <div class="button-quest">
-    <button>Поиск</button>
+    <button @onclick="QestTaskFilter">Поиск</button>
 </div>
 
 <div class="container-task">
@@ -37,11 +38,26 @@
 {
     private List<TaskOutputModel> _tasks;
     private TaskService _masterClient;
+    public DateTime dateFrom;
 
     public TaskMaster()
     {
         _masterClient = new TaskService();
         _tasks = _masterClient.GetAllTask();
     }
+
+    protected override void OnInitialized()
+    {
+        dateFrom = DateTime.Now;
+        
+    }
+
+    public void QestTaskFilter()
+    {
+       _tasks = _masterClient.FilterTasks(dateFrom);
+    }
+ 
+
+
 }
     
