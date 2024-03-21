@@ -213,6 +213,10 @@ h1 {
     justify-content: center;
     align-items: center;
 }
+//выравнивание по центру
+.aligncenter {
+    text-align: center;
+}
 
 
 
