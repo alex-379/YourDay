@@ -9,12 +9,6 @@ namespace YourDay.DAL.Repositories
     {
         Context context = SingletoneStorage.GetStorage().Сontext;
         
-        //public List<TaskDto> GetTaskByOrderId(int Id)
-        //{
-        //    List<TaskDto> tasks = context.Tasks.Where(m => m.OrderId == Id).ToList();
-        //    return tasks;
-        //}
-
         public IEnumerable<TaskDto> GetTaskByMasterId(int id)
         {
             var tasks = context.Tasks
@@ -47,5 +41,10 @@ namespace YourDay.DAL.Repositories
 
             return tasks;
         }
+        public List<TaskDto> GetTaskByOrderId(int Id)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

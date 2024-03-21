@@ -10,11 +10,10 @@ namespace YourDay.DAL.IRepositories
 {
     public interface ITaskRepository
     {
-       
-        public List<TaskDto> GetTaskByOrderId(int Id);
         public IEnumerable<TaskDto> GetTaskByMasterId(int id);
         public void UpdateTaskStatus(int idTask, Status newTaskStatus);
         public List<TaskDto> GetAllTasks();
         public TaskDto GetTaskById(int Id);
+        List<TaskDto> GetTaskByOrderId(int Id);
     }
 }

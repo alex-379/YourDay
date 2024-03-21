@@ -22,12 +22,8 @@
     [Parameter]
     public int Id { get; set; }
 
-    private TaskClient taskClinet = new TaskClient();
+    private TaskService taskClinet = new TaskService();
     private TaskOutputModel _task;
-
-    public TaskPage()
-    {
-    }
 
     protected override void OnInitialized()
     {
@@ -52,9 +48,7 @@
                 break;
             case 2:
                 newStatus = Status.Completed;
-    private List<TaskOutputModel> _tasks;
-    private MasterService _masters;
-
+   
                 break;
             case 3:
                 newStatus = Status.Cancelled;
