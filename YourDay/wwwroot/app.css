@@ -22,6 +22,9 @@
     margin: auto 50px;
 }
 
+.white {
+    color: #FFFEFF;
+}
 p {
     font-size: 20px;
 }
@@ -257,7 +260,6 @@ h1 {
 
 .button-container {
     display: flex;
-    height: 70px;
 }
 
 .yellow {
