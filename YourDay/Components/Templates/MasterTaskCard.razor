@@ -2,8 +2,9 @@
     <a href="./taskMaster/task/@task.Id">
 
     <div class="taskMaster-card">
-    <p>@task.Title </p>
-    <p>@task.TimeStart - @task.TimeEnd</p>
+        <p>@task.Title </p>
+        <p>@task.TimeStart - @task.TimeEnd</p>
+        <p>@getStatusNameByIndex(task.Status)</p>
     </div>
 </a>
  </div>
@@ -11,4 +12,30 @@
     [Parameter]
     public TaskOutputModel task { get; set; }
 
+    public string getStatusNameByIndex(int index)
+    {
+        string statusName = "";
+
+        switch (index)
+        {
+            case 0:
+                statusName = "Получен";
+
+                break;
+            case 1:
+                statusName = "В работе";
+
+                break;
+            case 2:
+                statusName = "Завершён";
+
+                break;
+            case 3:
+                statusName = "Отменена";
+
+                break;
+        }
+
+        return statusName;
+    }
 }

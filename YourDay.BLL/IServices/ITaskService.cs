@@ -15,5 +15,6 @@ namespace YourDay.BLL.IServices
         public void UpdateStatusTaskByTaskId(int taskId, Status newTaskStatus);
         public void RemoveTask(int id);
         public List<TaskOutputModel> GetAllTask();
+        public TaskOutputModel GetTaskById(int Id);
     }
 }

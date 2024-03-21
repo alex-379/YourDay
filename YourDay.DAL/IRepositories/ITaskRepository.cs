@@ -15,5 +15,6 @@ namespace YourDay.DAL.IRepositories
         public IEnumerable<TaskDto> GetTaskByMasterId(int id);
         public void UpdateTaskStatus(int idTask, Status newTaskStatus);
         public List<TaskDto> GetAllTasks();
+        public TaskDto GetTaskById(int Id);
     }
 }
