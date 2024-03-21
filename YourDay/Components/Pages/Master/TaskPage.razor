@@ -1,28 +1,37 @@
 @page "/taskMaster/task/{Id:int}"
 @using YourDay.DAL.Enums;
+@rendermode InteractiveServer
+<div >
+    <div >
+        <div class="container-task">
+            <MasterTaskCard task="_task"></MasterTaskCard>
+            <form>
+            <select  @onchange="UpdateStatusTask">
+                <option value="0">Получен</option>
+                <option value="1">В работе</option>
+                <option value="2">Завершен</option>
+                <option value="3">Отменен</option>
+            </select>
+            </form>
 
-@* @code {
+        </div>
+    </div>
+</div>
+
+@code {
     [Parameter]
-    public int Id { get; set;}
-    
-    private TaskClient taskClinet = new TaskClient();
-    private List<TaskOutputModel> _tasks;
+    public int Id { get; set; }
 
-
-    public TaskPage()
-    {
-        _tasks = taskClinet.GetTaskById(Id);
-    }
+    private TaskService taskClinet = new TaskService();
+    private TaskOutputModel _task;
 
     protected override void OnInitialized()
     {
-        List<TaskOutputModel> _task = taskClinet.GetTaskById(Id);
-        taskClinet.UpdateStatusTaskByTaskId(Id, Status.Cancelled);
+        _task = taskClinet.GetTaskById(Id);
     }
 
     public void UpdateStatusTask(ChangeEventArgs e)
     {
-
         int newStatusInt = int.Parse(e.Value.ToString());
 
         Status newStatus = Status.Received;
@@ -39,38 +48,19 @@
                 break;
             case 2:
                 newStatus = Status.Completed;
-    private List<TaskOutputModel> _tasks;
-    private MasterService _masters;
-
+   
                 break;
             case 3:
                 newStatus = Status.Cancelled;
 
                 break;
         }
+      
+        taskClinet.UpdateStatusTaskByTaskId(Id, newStatus);
 
-    public TaskPage()
-    {
-        _masters = new MasterService();
+
     }
- }
+}
 
-<div class="client-button">
-    <div class="client-button">
-      @foreach(TaskOutputModel task in _tasks)
-        {
-            <div class="container-task">
-                <p class=".text"> Номер задачи :@Id</p>
-                <p class=".text">Описание задачи : @task.Description</p>
-                <p class=".text">Время :@task.TimeStart-@task.TimeEnd</p>
-                <select @onchange="UpdateStatusTask">
-                    <option value="0">Получен</option>
-                    <option value="1">В работе</option>
-                    <option value="2">Завершен</option>
-                    <option value="3">Отменен</option>
-                </select>
-            </div>
-        }
-   </div>
- </div> *@
- 
+
+       
