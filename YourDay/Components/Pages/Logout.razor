@@ -1,4 +1,5 @@
-﻿<h3>Logout</h3>
+﻿@page "/Logout"
+@inject NavigationManager navManager
 
 @code {
     [CascadingParameter]
@@ -12,5 +13,6 @@
         {
             await HttpContext.SignOutAsync();
         }
+        navManager.NavigateTo("/");
     }
 }

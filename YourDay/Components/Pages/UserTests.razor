@@ -44,6 +44,19 @@
         </div>
     </div>
 </section>
+
+<AuthorizeView>
+    <Authorized>
+        Авторизован
+        @*         @claims.Where(c => c.Type == "Name") *@
+    </Authorized>
+
+</AuthorizeView>
+<AuthorizeView>
+    <NotAuthorized>Необходимо войти</NotAuthorized>
+
+</AuthorizeView>
+
 @code
 {
     private UserRegistrationInputModel _user;
@@ -67,5 +80,23 @@
     public void AddUser()
     {
         _users.ToList().Add(_userService.AddUser(_user));
+    }
+}
+
+@code {
+    [CascadingParameter]
+    public Task<AuthenticationState> State { get; set; }
+
+    private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
+
+    private async Task GetClaimsPrincipalData()
+    {
+        var authState = await State;
+        var user = authState.User;
+
+        if (user.Identity is not null && user.Identity.IsAuthenticated)
+        {
+            claims = user.Claims;
+        }
     }
 }
