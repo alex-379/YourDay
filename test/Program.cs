@@ -26,10 +26,11 @@ TaskRepository taskRepository = new TaskRepository();
 //Console.WriteLine();
 
 var t = taskRepository.GetTaskByMasterId(4);
+Console.WriteLine();
 //u.UserName = "Филипп";
 //u.Password = "testpassws";
 //var tmp = rep.DeleteUser(u);
-Console.WriteLine();
+
 
 //context.Users.Add(u);
 //context.SaveChanges();

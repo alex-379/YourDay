@@ -15,10 +15,10 @@ namespace YourDay.DAL
 
         public DbSet<SpecializationDto> Specializations { get; set; }
 
-        public Context()
-        {
-            Database.EnsureCreated();
-        }
+        //public Context()
+        //{
+        //    Database.EnsureCreated();
+        //}
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
