@@ -1,9 +1,4 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using YourDay.BLL.Models.OrderModels.InputModels;
 using YourDay.BLL.Models.OrderModels.OutputModels;
 using YourDay.BLL.Models.TaskModels.OutputModels;
@@ -15,7 +10,7 @@ namespace YourDay.BLL.Mapping
 {
     public class MappingProfile : Profile
     {
-        public MappingProfile() 
+        public MappingProfile()
         {
             CreateMap<UserRegistrationInputModel, UserDto>();
 
@@ -25,7 +20,8 @@ namespace YourDay.BLL.Mapping
 
             CreateMap<OrderDto, OrderOutputModel>();
 
-            CreateMap<OrderDto, OrderNameDateOutputModel>();
+            CreateMap<OrderDto, OrderNameDateOutputModel>()
+                .ForMember(d => d.Date, opt => opt.MapFrom(s => $"{s.Date.ToShortDateString()}"));
 
             CreateMap<TaskDto, TaskOutputModel>();
         }

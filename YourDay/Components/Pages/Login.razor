@@ -1,12 +1,34 @@
-﻿@* @page "/Login"
+﻿@page "/Login"
+@inject NavigationManager navManager
 
-<EditForm Model="loginModel" FormName="Login">
-    <InputText @bind-Value="lo"></InputText>
-
+<EditForm Model="LoginModel" FormName="Login" OnSubmit="StartLogin">
+    <InputText @bind-Value="LoginModel.Login"></InputText>
+    <InputText @bind-Value="LoginModel.Password"></InputText>
+    <button type="submit">LOGIN</button>
 </EditForm>
 
 @code {
     [SupplyParameterFromForm]
-    public LoginModel loginModel { get; set }
+    public LoginModel LoginModel { get; set; } = new LoginModel();
 
-} *@
+    [CascadingParameter]
+    public HttpContext HttpContext { get; set; }
+
+    public async Task StartLogin()
+    {
+        //получение инфы из базы
+
+        List<Claim> claims = new List<Claim>()
+        {
+            new Claim(ClaimTypes.Name, LoginModel.Login),
+            new Claim(ClaimTypes.Role, "Manager")
+        };
+
+        var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+        var pr = new ClaimsPrincipal(identity);
+
+        await HttpContext.SignInAsync(pr);
+
+        navManager.NavigateTo("/");
+    }
+}
