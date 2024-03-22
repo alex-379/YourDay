@@ -9,7 +9,7 @@ namespace YourDay.DAL.Repositories
     {
         Context context = SingletoneStorage.GetStorage().Сontext;
         
-        public IEnumerable<TaskDto> GetTaskByMasterId(int id)
+        public List<TaskDto> GetTaskByMasterId(int id)
         {
             var tasks = context.Tasks
                 .Include(t => t.Workers.Where(u => u.Role == Role.Worker && u.Id == id))
@@ -46,5 +46,12 @@ namespace YourDay.DAL.Repositories
             throw new NotImplementedException();
         }
 
+        public List<TaskDto> FilterTasks(DateTime? startDate,DateTime? endDate)
+        {
+            return context.Tasks.Where(task =>
+                (startDate != null ? task.TimeStart >= startDate : true)
+                && (endDate  != null ? task.TimeStart <= endDate : true)
+            ).ToList();
+        }
     }
 }

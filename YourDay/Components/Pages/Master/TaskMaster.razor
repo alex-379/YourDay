@@ -1,5 +1,6 @@
-@page "/taskMaster"
+@page "/taskMaster{Id:int}"
 @attribute [StreamRendering]
+@rendermode InteractiveServer
 
 
 
@@ -11,18 +12,25 @@
 <div style="display: flex;">
     <div>В период :</div>
     <div style="display: flex;">
-        <div class="conteiner-for-text" style="width: 90px;">
-            <input class="field" type="number" id="inputName" placeholder="от" style="width: 90px;">
+        <div class="conteiner-for-text" style="width: 190px;">
+            <input class="field" type="datetime" id="StartDateFrom" @bind="@dateFrom" placeholder="dd/mm/yyyy">
         </div>
-        -
-        <div class="conteiner-for-text" style="width: 90px;">
-            <input class="field" type="number" id="inputName" placeholder="до" style="width: 90px;">
+        <div class="conteiner-for-text" style="width: 190px;">
+            <input class="field" type="datetime" id="EndDateTo" @bind="dateTo" placeholder="dd/mm/yyyy">
         </div>
     </div>
 </div>
+<div style="display: flex;">
+    <div>Со статусом :</div>
+    <select>
+        <option></option>
+        <option></option>
+        <option></option>
+    </select>
+</div>
 
 <div class="button-quest">
-    <button>Поиск</button>
+    <button @onclick="QestTaskFilter">Поиск</button>
 </div>
 
 <div class="container-task">
@@ -35,13 +43,31 @@
 
 @code 
 {
+    [Parameter]
+    public int Id { get; set; }
     private List<TaskOutputModel> _tasks;
+    private const string Format = "hh:mm:ss";
     private TaskService _masterClient;
+    public DateTime? dateFrom;
+    public DateTime? dateTo;
 
     public TaskMaster()
     {
         _masterClient = new TaskService();
-        _tasks = _masterClient.GetAllTask();
+        _tasks = _masterClient.GetTaskByMasterId(Id);
+    }
+
+    protected override void OnInitialized()
+    {
+        dateFrom = null;
+
+        dateTo = null;
+
+    }
+
+    public void QestTaskFilter()
+    {
+        _tasks = _masterClient.FilterTasks(dateFrom, dateTo);
     }
 }
     
