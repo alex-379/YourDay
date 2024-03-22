@@ -61,7 +61,7 @@
 {
     private UserRegistrationInputModel _user;
 
-    private IEnumerable<UserOutputModel> _users;
+    private List<UserOutputModel> _users;
 
     private IUserService _userService;
 
@@ -72,14 +72,14 @@
 
     protected override void OnInitialized()
     {
-        _users = _userService.GetAllUsers();
+        _users = _userService.GetAllUsers().ToList();
 
         _user = new UserRegistrationInputModel();
     }
 
     public void AddUser()
     {
-        _users.ToList().Add(_userService.AddUser(_user));
+        _users.Add(_userService.AddUser(_user));
     }
 }
 
