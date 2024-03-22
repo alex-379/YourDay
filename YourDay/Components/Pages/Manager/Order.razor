@@ -75,15 +75,17 @@
                     <th>Адрес</th>
                     <th>Количество гостей</th>
                     <th>Цена</th>
+                    <th>Статус</th>
                 </tr>
             </thead>
             <tbody>
                     <tr>
                     <td>@OrderOutput.OrderName</td>
-                    <td>@OrderOutput.Date</td>
+                    <td>@OrderOutput.Date.ToShortDateString()</td>
                     <td>@OrderOutput.Address</td>
                     <td>@OrderOutput.CountPeople</td>
                     <td>@OrderOutput.Price</td>
+                    <td>@OrderOutput.Status</td>
                     </tr>
             </tbody>
         </table>

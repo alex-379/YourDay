@@ -7,9 +7,9 @@ using YourDay.DAL.Repositories;
 
 Context context = SingletoneStorage.GetStorage().Сontext;
 
-UserRepository userRepository = new UserRepository();
-OrderRepository orderRepository = new OrderRepository();
-TaskRepository taskRepository = new TaskRepository();
+//UserRepository userRepository = new UserRepository();
+//OrderRepository orderRepository = new OrderRepository();
+//TaskRepository taskRepository = new TaskRepository();
 
 //var u = new UserDto()
 //{
@@ -25,8 +25,8 @@ TaskRepository taskRepository = new TaskRepository();
 
 //Console.WriteLine();
 
-var t = taskRepository.GetTaskByMasterId(4);
-Console.WriteLine();
+//var t = taskRepository.GetTaskByMasterId(4);
+//Console.WriteLine();
 //u.UserName = "Филипп";
 //u.Password = "testpassws";
 //var tmp = rep.DeleteUser(u);
@@ -42,9 +42,9 @@ Console.WriteLine();
 //    .Include(o => o.Histories)
 //    .Include(o => o.Tasks)
 //    .Where(o => o.Id == 4).Single();
-Console.WriteLine();
+//Console.WriteLine();
 
-//var order3 = context.Orders.Where(order3 => order3.Id == 3).Single();
+//var order3 = context.Orders.Where(order3 => order3.Id == 5).Single();
 //var order2 = context.Orders.Where(m => m.Id == 2).Single();
 
 
@@ -60,8 +60,8 @@ Console.WriteLine();
 //    TimeEnd = new DateTime(2024, 6, 15, 1, 17, 0),
 //    TimeStart = new DateTime(2024, 6, 12, 1, 12, 0),
 //    Workers = w,
-//    Description = "много много цветов",
-//    Title = "цветы"
+//    Description = "большой и маленький формат",
+//    Title = "сделать вывеску"
 //};
 //context.Tasks.Add(t);
 
@@ -80,8 +80,8 @@ Console.WriteLine();
 
 
 
-//var client = context.Users.Where(c => c.Id == 10).Single();
-//var manager = context.Users.Where(m => m.Id == 9).Single();
+//var client = context.Users.Where(c => c.Id == 2).Single();
+//var manager = context.Users.Where(m => m.Id == 5).Single();
 
 //var o = new OrderDto()
 //{
@@ -89,7 +89,7 @@ Console.WriteLine();
 //    Address = "Москва",
 //    Date = new DateTime(2024, 5, 5),
 //    CountPeople = 120,
-//    Price = 100000,
+//    Price = 113456,
 //    Еvaluation = 1,
 //    Status = Status.Received,
 //    Client = client,
@@ -97,6 +97,7 @@ Console.WriteLine();
 //};
 
 //context.Orders.Add(o);
+//context.SaveChanges();
 
 //var orders = context.Orders; //можем вывести все зака
 
@@ -115,4 +116,13 @@ Console.WriteLine();
 
 ////context.Tasks.Update(t);
 
-//context.SaveChanges();
+var order3 = context.Orders.Where(order3 => order3.Id == 5).Single();
+var o = context.Tasks.Where(o => o.Order == order3).Single();
+//var o2 = context.Orders
+//    .Include(o => o.Client)
+//    .Include(o => o.Manager)
+//    .Include(o => o.Histories)
+//    .Include(o => o.Tasks)
+//    .Where(o => o.Id == 4).Single();
+
+Console.WriteLine(1);

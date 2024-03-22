@@ -1,16 +1,11 @@
 
 @font-face {
-    font-family: 'Dela Gothic One';
-    src: url('C:\Users\dns\Desktop\YourDay\YourDay\wwwroot\images\DelaGothicOne-Regular.ttf') format('ttf');
-   font-weight: normal;
-    font-style: normal;
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com"> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap" rel="stylesheet">
 }
 
 @font-face {
-    font-family: 'Manrope-VariableFont_wght';
-    src: url('C:\Users\dns\Desktop\YourDay\YourDay\wwwroot\images\Manrope-VariableFont_wght.ttf') format('ttf');
-    font-weight: normal;
-    font-style: normal;
+    <link rel="preconnect" href="https://fonts.googleapis.com"> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
 }
 
 .footer {
