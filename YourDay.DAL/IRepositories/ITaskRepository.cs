@@ -15,5 +15,6 @@ namespace YourDay.DAL.IRepositories
         public List<TaskDto> GetAllTasks();
         public TaskDto GetTaskById(int Id);
         List<TaskDto> GetTaskByOrderId(int Id);
+        public List<TaskDto> FilterTasks(DateTime? startDate, DateTime? endDate);
     }
 }
