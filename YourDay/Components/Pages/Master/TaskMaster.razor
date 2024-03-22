@@ -12,14 +12,21 @@
 <div style="display: flex;">
     <div>В период :</div>
     <div style="display: flex;">
-        <div class="conteiner-for-text" style="width: 90px;">
-            <input class="field" type="datetime" id="StartDateFrom" placeholder="от" @bind="@dateFrom">
+        <div class="conteiner-for-text" style="width: 190px;">
+            <input class="field" type="datetime" id="StartDateFrom" @bind="@dateFrom" placeholder="dd/mm/yyyy">
         </div>
-
-        <div class="conteiner-for-text" style="width: 90px;">
-            <input class="field" type="number" id="inputName" placeholder="до" style="width: 90px;">
+        <div class="conteiner-for-text" style="width: 190px;">
+            <input class="field" type="datetime" id="EndDateTo" @bind="dateTo" placeholder="dd/mm/yyyy">
         </div>
     </div>
+</div>
+<div style="display: flex;">
+    <div>Со статусом :</div>
+    <select>
+        <option></option>
+        <option></option>
+        <option></option>
+    </select>
 </div>
 
 <div class="button-quest">
@@ -37,8 +44,10 @@
 @code 
 {
     private List<TaskOutputModel> _tasks;
+    private const string Format = "hh:mm:ss";
     private TaskService _masterClient;
-    public DateTime dateFrom;
+    public DateTime? dateFrom;
+    public DateTime? dateTo;
 
     public TaskMaster()
     {
@@ -48,16 +57,15 @@
 
     protected override void OnInitialized()
     {
-        dateFrom = DateTime.Now;
-        
+        dateFrom = null;
+
+        dateTo = null;
+
     }
 
     public void QestTaskFilter()
     {
-       _tasks = _masterClient.FilterTasks(dateFrom);
+        _tasks = _masterClient.FilterTasks(dateFrom, dateTo);
     }
- 
-
-
 }
     

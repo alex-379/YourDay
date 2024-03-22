@@ -55,9 +55,9 @@ namespace YourDay.BLL.Clients
 
             return result;
         }
-        public List<TaskOutputModel> FilterTasks( DateTime? startDate)
+        public List<TaskOutputModel> FilterTasks( DateTime? startDate,DateTime? endDate)
         {
-            List<TaskDto> task = _taskRepository.FilterTasks(startDate);
+            List<TaskDto> task = _taskRepository.FilterTasks(startDate, endDate);
             List<TaskOutputModel> result = _mapper.Map<List<TaskOutputModel>>(task);
             return result;
         }
