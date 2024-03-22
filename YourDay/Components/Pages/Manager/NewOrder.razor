@@ -13,7 +13,7 @@
             
                             <div class="conteiner-for-text">
                                 <label class="text" >Название праздника:</label>
-                                <input @bind="_inputModel.OrderName" class="field" type="name"  placeholder="Введите название праздника">
+                        <input @bind="orderInputModel.OrderName" class="field" type="name" placeholder="Введите название праздника">
                             </div>
 @*                             <div class="conteiner-for-text">
                                 <label class="text" >Клиент:</label>
@@ -28,25 +28,30 @@
                                 <input @bind="_inputModel.StatusId" class="field" type="number" placeholder="Выберите статус:">
                             </div> *@
                             <div class="conteiner-for-text">
+                                <label class="text">Выберите статус:</label>
+                                <select @bind="orderInputModel.Status">
+                                    <option value=0>Получен</option>
+                                    <option value=1>В работе</option>
+                                    <option value=2>Сделан</option>
+                                </select>
+                            </div>
+
+                            <div class="conteiner-for-text">
                                 <label class="text" >Дата:</label>
-                                <input @bind="_inputModel.Date" class="field"  type="text"  placeholder="Введите дату праздника">
+                        <input @bind="orderInputModel.Date" class="field" type="text" placeholder="Введите дату праздника">
                             </div>
                             <div class="conteiner-for-text">
                                 <label class="text" >Адрес;</label>
-                                <input @bind="_inputModel.Address" class="field"  type="text"  placeholder="Введите адрем вашего события">
+                        <input @bind="orderInputModel.Address" class="field" type="text" placeholder="Введите адрем вашего события">
                             </div>
                             <div class="conteiner-for-text">
                                 <label class="text" >Количество человек:</label>
-                                <input @bind="_inputModel.CountPeople" class="field"  type="number"  placeholder="Введите сколько будет людей на празднике">
+                        <input @bind="orderInputModel.CountPeople" class="field" type="number" placeholder="Введите сколько будет людей на празднике">
                             </div>
                             <div class="conteiner-for-text">
                                 <label class="text" >Цена:</label>
-                                <input @bind="_inputModel.Price" class="field"  type="number"  placeholder="Введите цену">
+                        <input @bind="orderInputModel.Price" class="field" type="number" placeholder="Введите цену">
                             </div>
-@*                             <div class="conteiner-for-text">
-                                <label class="text" >Оценка:</label>
-                                <input @bind="_inputModel.Evaluation" class="field"  type="number"  placeholder="Введите дополнительную информацию">
-                            </div> *@
 @*                             <div class="conteiner-for-text">
                                 <label class="text" >Комментарии:</label>
                                 <input @bind="_inputModel.Comments" class="field"  type="text"  placeholder="Введите дополнительную информацию">
@@ -54,48 +59,38 @@
                             
                         </form>
 
-@*                         <div>
+                        <div>
                                     <button @onclick="AddOrder" class="purple-button">Создать</button>
                                     <button class="purple-button" @onclick="Main"> Назад </button>
-                        </div> *@
+                        </div>
                </div>
         </div>
     </section>
 
-    <section>
-        
-        <p>@_inputModel.OrderName  @_inputModel.Date</p>
-        <div style="display:flex; flex-wrap: wrap">
-            @foreach(var i in _orders)
-            {
-                @* <ProductCard ProductName=@i.Name Cost=i.Cost/> *@
-                <OrderCard order=i></OrderCard>
-            }
-        </div>
-    </section>
+
 </div>
 
 @code
 {
-    private OrderForManagerInputModel _inputModel;
+    private OrderForManagerInputModel orderInputModel;
 
     private IEnumerable<OrderNameDateOutputModel> _orders;
 
     private IOrderService _orderService;
 
-    // public NewOrder()
-    // {
-    //     _orderService = new OrderServiceMock();
+    public NewOrder()
+    {
+        _orderService = new OrderService();
 
-    //     _orders = _orderService.GetAllOrders();
+        orderInputModel = new OrderForManagerInputModel();
+    }
 
-    //     _inputModel = new OrderInputModel();
-    // }
+    public void AddOrder()
+    {
+        _orderService.AddOrder(orderInputModel);
 
-    // public void AddOrder()
-    // {
-    //     _orders.Add(_orderService.AddOrder(_inputModel));
-    // }
+        NavigationManager.NavigateTo("/manager");
+    }
 
     private void Main()
     {

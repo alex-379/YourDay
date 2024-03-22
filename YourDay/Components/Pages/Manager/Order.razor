@@ -11,38 +11,52 @@
     [Parameter]
     public OrderOutputModel OrderOutput { get; set; }
 
+    public TaskOutputModel TaskOutput { get; set; }
+
     private IOrderService _orderService;
+
+    private ITaskService _taskService;
+
+    public List<TaskOutputModel> task;
 
     public Order()
     {
         _orderService = new OrderService();
+
+        _taskService = new TaskService();
+
         OrderOutput = new OrderOutputModel();
+
+        TaskOutput = new TaskOutputModel();
+
+        List<TaskOutputModel> task = new List<TaskOutputModel>();
+
     }
 
     protected override void OnInitialized()
     {
-        OrderOutputModel orderOutput = _orderService.GetOrderById(Id);
-        OrderOutput.Id = orderOutput.Id;
-        OrderOutput.OrderName = orderOutput.OrderName;
-        OrderOutput.Date = orderOutput.Date;
-        OrderOutput.Address = orderOutput.Address;
-        OrderOutput.CountPeople = orderOutput.CountPeople;
-        OrderOutput.Price = orderOutput.Price;
+        OrderOutputModel order = _orderService.GetOrderById(Id);
+        OrderOutput.Id = order.Id;
+        OrderOutput.OrderName = order.OrderName;
+        OrderOutput.Date = order.Date;
+        OrderOutput.Address = order.Address;
+        OrderOutput.CountPeople = order.CountPeople;
+        OrderOutput.Price = order.Price;
+
+        task = _taskService.GetAllTask();
+
     }
 
-    List<string> tasks = new List<string>() { "Привезти красные розы", "Заказать торт", "Привезти оформление", "Нужна живая съемка", "Часовая фотосессия" };
     private void NavigateToPage()
     {
         NavigationManager.NavigateTo("/newTask");
     }
 
-    private List<TaskOutputModel> _tasks;
-    private IMasterService _masters;
 }
 
 <div class="body">
-     <section>
-        <table class="table">
+    <section class="white">
+        <table class="table white">
             <thead>
                 <tr>
                     <th>Праздник</th>
@@ -50,15 +64,17 @@
                     <th>Адрес</th>
                     <th>Количество гостей</th>
                     <th>Цена</th>
+                    <th>Статус</th>
                 </tr>
             </thead>
             <tbody>
                     <tr>
                     <td>@OrderOutput.OrderName</td>
-                    <td>@OrderOutput.Date</td>
+                    <td>@OrderOutput.Date.ToShortDateString()</td>
                     <td>@OrderOutput.Address</td>
                     <td>@OrderOutput.CountPeople</td>
                     <td>@OrderOutput.Price</td>
+                    <td>@OrderOutput.Status</td>
                     </tr>
             </tbody>
         </table>
@@ -81,20 +97,20 @@
     </dialog>
 
     <section>
-        <h2> Задачи:</h2>
+        <h2 class="manager-h1"> Задачи:</h2>
         <div class="container-task">
-            @foreach (var i in _tasks)
+            @foreach (var i in task)
             {
-                <MasterTaskCard task="i" ></MasterTaskCard>
+                <button class="task-button"><MasterTaskCard task="i"> </MasterTaskCard> </button>
             }
         </div>
     </section>
 
     <section>
         <div class="button-container">
-            <button class="green-button"> История заказа </button>
-            <button class="green-button"> Завершить заказ </button>
-            <button class="green-button"> Другое </button>
+            <button class="purple-button"> История заказа </button>
+            <button class="purple-button"> Завершить заказ </button>
+            <button class="purple-button"> Другое </button>
         </div>
     </section>
 </div>

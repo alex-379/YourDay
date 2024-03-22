@@ -1,16 +1,10 @@
 
 @font-face {
-    font-family: 'Dela Gothic One';
-    src: url('C:\Users\dns\Desktop\YourDay\YourDay\wwwroot\images\DelaGothicOne-Regular.ttf') format('ttf');
-   font-weight: normal;
-    font-style: normal;
+    <link rel="preconnect" href="https://fonts.googleapis.com"> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap" rel="stylesheet">
 }
 
 @font-face {
-    font-family: 'Manrope-VariableFont_wght';
-    src: url('C:\Users\dns\Desktop\YourDay\YourDay\wwwroot\images\Manrope-VariableFont_wght.ttf') format('ttf');
-    font-weight: normal;
-    font-style: normal;
+    <link rel="preconnect" href="https://fonts.googleapis.com"> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
 }
 
 .footer {
@@ -21,7 +15,13 @@
 .box-footer{
     margin: auto 50px;
 }
+.white {
+    color: #FFFEFF;
+}
 
+.table {
+    color: #FFFEFF;
+}
 p {
     font-size: 20px;
 }
@@ -86,7 +86,16 @@ button {
     border-radius: 20px;
     color: #AF8DFE;
 }
-
+.task-button {
+    border: 1px solid #92dea8;
+    height: 150px;
+    line-height: 30px;
+    align-items: baseline;
+    padding: 10px 40px;
+    margin: 10px 10px;
+    border-radius: 20px;
+    color: #AF8DFE;
+}
 /*карточки клиентов*/
 .client-button {
     border: 1px solid #92dea8;
@@ -261,7 +270,7 @@ h1 {
 
 .button-container {
     display: flex;
-    height: 70px;
+
 }
 
 .yellow {
