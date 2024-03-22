@@ -1,6 +1,8 @@
-@page "/taskMaster{Id:int}"
+@page "/taskMaster"
+@using YourDay.DAL.Enums
 @attribute [StreamRendering]
 @rendermode InteractiveServer
+
 
 
 
@@ -20,13 +22,19 @@
         </div>
     </div>
 </div>
-<div style="display: flex;">
+
+<div style="display: flex;width: 190px;">
     <div>Со статусом :</div>
-    <select>
-        <option></option>
-        <option></option>
-        <option></option>
+    <form>
+    <select @bind="@status">
+        <option value="0">Получен</option>
+        <option value="1">В работе</option>
+        <option value="2">Завершен</option>
+        <option value="3">Отменен</option>
+
     </select>
+
+    </form>
 </div>
 
 <div class="button-quest">
@@ -43,31 +51,30 @@
 
 @code 
 {
-    [Parameter]
-    public int Id { get; set; }
     private List<TaskOutputModel> _tasks;
     private const string Format = "hh:mm:ss";
     private TaskService _masterClient;
     public DateTime? dateFrom;
     public DateTime? dateTo;
+    public Status? status;
 
     public TaskMaster()
     {
         _masterClient = new TaskService();
-        _tasks = _masterClient.GetTaskByMasterId(Id);
+        _tasks = _masterClient.GetTaskByMasterId(3);
     }
 
     protected override void OnInitialized()
     {
         dateFrom = null;
-
         dateTo = null;
+        status = null;
 
     }
 
     public void QestTaskFilter()
     {
-        _tasks = _masterClient.FilterTasks(dateFrom, dateTo);
+        _tasks = _masterClient.FilterTasks(dateFrom, dateTo,status);
     }
 }
     
