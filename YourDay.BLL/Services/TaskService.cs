@@ -27,7 +27,7 @@ namespace YourDay.BLL.Clients
 
         public List<TaskOutputModel> GetTaskByOrderId(int Id)
         {
-            List<TaskDto> clientDtos = _taskRepository.GetTaskByOrderId(Id);
+            IEnumerable<TaskDto> clientDtos = _taskRepository.GetTaskByOrderId(Id);
 
             var result = _mapper.Map<List<TaskOutputModel>>(clientDtos);
 

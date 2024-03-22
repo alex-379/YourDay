@@ -43,7 +43,7 @@
         OrderOutput.CountPeople = order.CountPeople;
         OrderOutput.Price = order.Price;
 
-        task = _taskService.GetAllTask();
+        task = _taskService.GetTaskByOrderId(Id);
 
     }
 

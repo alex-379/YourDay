@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using YourDay.DAL.Dtos;
 using YourDay.DAL.IRepositories;
 using YourDay.DAL.Enums;
+using System.Collections.Generic;
 
 namespace YourDay.DAL.Repositories
 {
@@ -11,9 +12,15 @@ namespace YourDay.DAL.Repositories
         
         public List<TaskDto> GetTaskByMasterId(int id)
         {
-            var tasks = context.Tasks
-                .Include(t => t.Workers.Where(u => u.Role == Role.Worker && u.Id == id))
-                .ToList();
+
+            var tasks = context.Tasks.Where(t => t.Order.Id == id).ToList();
+            return tasks;
+        }
+
+        public IEnumerable<TaskDto> GetTaskByOrderId(int id)
+        {
+            var tasks = context.Tasks.Where(t => t.Order.Id == id).ToList();
+
             return tasks;
         }
 
@@ -41,10 +48,7 @@ namespace YourDay.DAL.Repositories
 
             return tasks;
         }
-        public List<TaskDto> GetTaskByOrderId(int Id)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public List<TaskDto> FilterTasks(DateTime? startDate,DateTime? endDate)
         {
