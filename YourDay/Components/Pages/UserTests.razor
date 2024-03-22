@@ -1,4 +1,5 @@
 @page "/registration"
+@attribute [StreamRendering]
 @rendermode InteractiveServer
 
 <div class="container-add-order">
@@ -43,11 +44,24 @@
         </div>
     </div>
 </section>
+
+<AuthorizeView>
+    <Authorized>
+        Авторизован
+        @*         @claims.Where(c => c.Type == "Name") *@
+    </Authorized>
+
+</AuthorizeView>
+<AuthorizeView>
+    <NotAuthorized>Необходимо войти</NotAuthorized>
+
+</AuthorizeView>
+
 @code
 {
     private UserRegistrationInputModel _user;
 
-    private IEnumerable<UserOutputModel> _users;
+    private List<UserOutputModel> _users;
 
     private IUserService _userService;
 
@@ -58,13 +72,31 @@
 
     protected override void OnInitialized()
     {
-        _users = _userService.GetAllUsers();
+        _users = _userService.GetAllUsers().ToList();
 
         _user = new UserRegistrationInputModel();
     }
 
     public void AddUser()
     {
-        _users.ToList().Add(_userService.AddUser(_user));
+        _users.Add(_userService.AddUser(_user));
+    }
+}
+
+@code {
+    [CascadingParameter]
+    public Task<AuthenticationState> State { get; set; }
+
+    private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
+
+    private async Task GetClaimsPrincipalData()
+    {
+        var authState = await State;
+        var user = authState.User;
+
+        if (user.Identity is not null && user.Identity.IsAuthenticated)
+        {
+            claims = user.Claims;
+        }
     }
 }
