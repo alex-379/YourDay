@@ -1,4 +1,4 @@
-@page "/taskMaster"
+@page "/taskMaster{Id:int}"
 @attribute [StreamRendering]
 @rendermode InteractiveServer
 
@@ -43,6 +43,8 @@
 
 @code 
 {
+    [Parameter]
+    public int Id { get; set; }
     private List<TaskOutputModel> _tasks;
     private const string Format = "hh:mm:ss";
     private TaskService _masterClient;
@@ -52,7 +54,7 @@
     public TaskMaster()
     {
         _masterClient = new TaskService();
-        _tasks = _masterClient.GetAllTask();
+        _tasks = _masterClient.GetTaskByMasterId(Id);
     }
 
     protected override void OnInitialized()

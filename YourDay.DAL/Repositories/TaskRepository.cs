@@ -9,7 +9,7 @@ namespace YourDay.DAL.Repositories
     {
         Context context = SingletoneStorage.GetStorage().Сontext;
         
-        public IEnumerable<TaskDto> GetTaskByMasterId(int id)
+        public List<TaskDto> GetTaskByMasterId(int id)
         {
             var tasks = context.Tasks
                 .Include(t => t.Workers.Where(u => u.Role == Role.Worker && u.Id == id))
