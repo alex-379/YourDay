@@ -46,12 +46,12 @@ namespace YourDay.DAL.Repositories
             throw new NotImplementedException();
         }
 
-        public List<TaskDto> FilterTasks(DateTime? startDate,DateTime? endDate)
+        public List<TaskDto> FilterTasks(DateTime? startDate,DateTime? endDate,Status? status)
         {
             return context.Tasks.Where(task =>
                 (startDate != null ? task.TimeStart >= startDate : true)
                 && (endDate  != null ? task.TimeStart <= endDate : true)
-            ).ToList();
+                && (status != null ? task.Status== status : true)).ToList();
         }
     }
 }
