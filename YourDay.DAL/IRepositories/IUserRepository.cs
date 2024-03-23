@@ -7,6 +7,8 @@ namespace YourDay.DAL.IRepositories
     {
         public UserDto AddUser(UserDto person);
 
+        public void AddWorker(UserDto person);
+
         public IEnumerable<UserDto> GetAllUsers();
 
         public UserDto GetUserById(int id);
@@ -14,6 +16,8 @@ namespace YourDay.DAL.IRepositories
         public UserDto UpdateUser(UserDto user);
 
         public UserDto DeleteUser(UserDto user);
+
+        public void DeleteWorkerById(int id);
 
         public IEnumerable<UserDto> GetAllUsersByRole(Role role);
     }

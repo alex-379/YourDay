@@ -17,6 +17,15 @@ namespace YourDay.DAL.Repositories
             return user;
         }
 
+        public void AddWorker(UserDto worker)
+        {
+            if (worker.Role == Role.Worker)
+            {
+                context.Users.Add(worker);
+            }
+            context.SaveChanges();
+        }
+
         public IEnumerable<UserDto> GetAllUsers()
         {
             var users = context.Users.ToList();
@@ -44,11 +53,23 @@ namespace YourDay.DAL.Repositories
             return user;
         }
 
+        public void DeleteWorkerById(int id)
+        {
+            UserDto user = context.Users.Where(c => c.Id == id).Single();
+            if (user.Role == Role.Worker)
+            {
+                user.IsDeleted = true;
+                context.Users.Update(user);
+            }
+            context.SaveChanges();
+        }
+
         public IEnumerable<UserDto> GetAllUsersByRole(Role role)
         {
             var users = context.Users
                 .Include(c => c.Specializations)
-                .Where(u => u.Role == role).ToList();
+                .Where(u => u.Role == role)
+                .Where(u => u.IsDeleted == false).ToList();
             return users;
         }
         

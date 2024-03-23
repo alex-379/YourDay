@@ -3,15 +3,18 @@
 @attribute [StreamRendering]
 @rendermode InteractiveServer
 @inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
 
 @code
 {
-    
+
     private UserService _userService;
 
     private IEnumerable<UserSpecializationOutputModel> _workers;
 
     public Role b;
+
+    private int selectedWorkerId;
 
     public Workers(){
 
@@ -22,35 +25,50 @@
         UserService _userService = new UserService();
 
         _workers = _userService.GetAllUsersSpecializationByRole(role);
-
-        
-
-        
     }
-    
+
 
     protected override void OnInitialized()
     {
-        
 
         //IEnumerable<UserOutputModel> workers = _userService.GetAllUsersByRole(role);
     }
+
+    private async Task ShowModal(int workerId)
+    {
+        selectedWorkerId = workerId;
+        await JSRuntime.InvokeVoidAsync("worker.showModal");
+        StateHasChanged();
+    }
+
+    private void DeleteWorker()
+    {
+        UserService _userService = new UserService();
+
+        _userService.DeleteWorkerById(selectedWorkerId);
+    }
+
+    
+
 }
 
 <div class="body">
     
-    <dialog id="task" aria-labelledby="heading">
-        <h2 id="heading">Что сделать с таской? &#128054 </h2>
+    <dialog id="worker" aria-labelledby="heading">
+        <h2 id="heading">Что вы хотите сделать? &#128056 </h2>
 
         <form method="dialog">
             <button>
+                Полная информация
+            </button>
+            <button>
                 Изменить
             </button>
-            <button>
-                Установить статус:
+            <button @onclick="DeleteWorker">
+                Удалить
             </button>
             <button>
-                Удалить
+                Закрыть
             </button>
         </form>
     </dialog>
@@ -60,7 +78,8 @@
         <div class="container-task">
             @foreach (var i in _workers)
             {
-                <button class="order-button"><WorkerCard worker="i"> </WorkerCard> </button>
+                //<button onclick="window.worker.showModal()" class="order-button"> <WorkerCard worker="i"> </WorkerCard> </button>
+                <button @onclick="() => ShowModal(i.Id)" class="worker-button"> <WorkerCard worker="i" OnOpenModal="ShowModal"> </WorkerCard> </button>
             }
         </div>
     </section>

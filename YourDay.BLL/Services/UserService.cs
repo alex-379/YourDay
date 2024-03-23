@@ -65,5 +65,10 @@ namespace YourDay.BLL.Service
 
             return user;
         }
+
+        public void DeleteWorkerById(int id)
+        {
+             _userRepository.DeleteWorkerById(id);
+        }
     }
 }

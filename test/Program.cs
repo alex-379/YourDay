@@ -12,40 +12,40 @@ UserRepository userRepository = new UserRepository();
 OrderRepository orderRepository = new OrderRepository();
 TaskRepository taskRepository = new TaskRepository();
 
-//var u = new UserDto()
-//{
-//    UserName = "Семён",
-//    Mail = "oxxy@gmail.com",
-//    Phone = "+921246565",
-//    Password = "ghjhgf",
-//    IsDeleted = false,
-//    Role = Role.Manager
-//};
+var u = new UserDto()
+{
+    UserName = "qqwqerwq",
+    Mail = "cat@gmail.com",
+    Phone = "+921246565",
+    Password = "catcat",
+    IsDeleted = false,
+    Role = Role.Worker
+};
 
-//var tmp = rep.AddUser(u);
+userRepository.AddWorker(u);
 
-//Console.WriteLine();
+Console.WriteLine();
 
-var t = taskRepository.GetTaskByMasterId(4);
+//var t = taskRepository.GetTaskByMasterId(4);
 //u.UserName = "Филипп";
 //u.Password = "testpassws";
 //var tmp = rep.DeleteUser(u);
-Console.WriteLine();
+//Console.WriteLine();
 
 //context.Users.Add(u);
 //context.SaveChanges();
 
-Role role = Role.Worker;
-var users = context.Users
-                .Include(c => c.Specializations)
-                .Where(u => u.Role == role).ToList();
+//Role role = Role.Worker;
+//var users = context.Users
+//                .Include(c => c.Specializations)
+//                .Where(u => u.Role == role).ToList();
 
-var o2 = context.Orders
-    .Include(o => o.Client)
-    .Include(o => o.Manager)
-    .Include(o => o.Histories)
-    .Include(o => o.Tasks)
-    .Where(o => o.Id == 5).Single();
+//var o2 = context.Orders
+//    .Include(o => o.Client)
+//    .Include(o => o.Manager)
+//    .Include(o => o.Histories)
+//    .Include(o => o.Tasks)
+//    .Where(o => o.Id == 5).Single();
 Console.WriteLine();
 
 //var order3 = context.Orders.Where(order3 => order3.Id == 3).Single();
