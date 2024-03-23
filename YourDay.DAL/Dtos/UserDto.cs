@@ -7,14 +7,13 @@ namespace YourDay.DAL.Dtos
     {
         public int Id { get; set; }
 
-
-        [StringLength(100, MinimumLength = 2, ErrorMessage = "Имя должно быть не менее 2-х символов и не более 50-ти")]
+        [MaxLength(100)]
         public string UserName { get; set; }
 
         [MaxLength(100)]
         public string Mail { get; set; }
 
-        [MaxLength(20)]
+        [MaxLength(100)]
         public string Phone { get; set; }
 
         [MaxLength(100)]
@@ -29,5 +28,7 @@ namespace YourDay.DAL.Dtos
         public IEnumerable<OrderDto>? Orders { get; set; }
 
         public IEnumerable<TaskDto>? WorkerTasks { get; set; }
+
+        public UserProfilesPictureDto Picture { get; set; }
     }
 }

@@ -15,9 +15,11 @@ namespace YourDay.DAL
 
         public DbSet<SpecializationDto> Specializations { get; set; }
 
+        public DbSet<UserProfilesPictureDto> UserProfilesPictures { get; set; }
+
         public Context()
         {
-            Database.EnsureCreated();
+            //Database.EnsureCreated();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

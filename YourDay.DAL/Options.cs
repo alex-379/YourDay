@@ -7,6 +7,7 @@
             get
             {
                 return Environment.GetEnvironmentVariable("YourDayLocalDB");
+                //return "";
             }
         }
     }
