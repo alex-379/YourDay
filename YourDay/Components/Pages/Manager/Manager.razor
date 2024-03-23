@@ -43,8 +43,12 @@
     {
         NavigationManager.NavigateTo("/applications");
     }
+    private void SeeWorkers()
+    {
+        NavigationManager.NavigateTo("/workers");
+    }
 }
-
+workers
 <body>
     <div class="manager-container">
         <section class="navbar">
@@ -53,11 +57,12 @@
                     <li><a href="" @onclick="NewOrder">Создать заказ</a></li>
                     <li><a href="/manager" @onclick="CountLastCelebrates">История</a></li>
                     <li><a href="" @onclick="Applications">Заявки</a></li>
+                    <li><a href="" @onclick="SeeWorkers">Сотрудники</a></li>
                 </ul>
             </nav>
         </section>
-    
 
+        
 
         <section>
             <div class="manager-blok">

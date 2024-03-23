@@ -24,6 +24,11 @@ namespace YourDay.BLL.Mapping
                 .ForMember(d => d.Date, opt => opt.MapFrom(s => $"{s.Date.ToShortDateString()}"));
 
             CreateMap<TaskDto, TaskOutputModel>();
+
+            CreateMap<UserDto, UserSpecializationOutputModel>();
+
+            CreateMap<SpecializationDto, SpecializationOutputModel>();
+
         }
     }
 }

@@ -1,0 +1,69 @@
+﻿@page "/workers"
+@using YourDay.DAL.Enums;
+@attribute [StreamRendering]
+@rendermode InteractiveServer
+@inject NavigationManager NavigationManager
+
+@code
+{
+    
+    private UserService _userService;
+
+    private IEnumerable<UserSpecializationOutputModel> _workers;
+
+    public Role b;
+
+    public Workers(){
+
+        Role role = new Role();
+
+        role = Role.Worker;
+
+        UserService _userService = new UserService();
+
+        _workers = _userService.GetAllUsersSpecializationByRole(role);
+
+        
+
+        
+    }
+    
+
+    protected override void OnInitialized()
+    {
+        
+
+        //IEnumerable<UserOutputModel> workers = _userService.GetAllUsersByRole(role);
+    }
+}
+
+<div class="body">
+    
+    <dialog id="task" aria-labelledby="heading">
+        <h2 id="heading">Что сделать с таской? &#128054 </h2>
+
+        <form method="dialog">
+            <button>
+                Изменить
+            </button>
+            <button>
+                Установить статус:
+            </button>
+            <button>
+                Удалить
+            </button>
+        </form>
+    </dialog>
+
+    <section>
+        <h2 class="manager-h1"> Сотрудники:</h2>
+        <div class="container-task">
+            @foreach (var i in _workers)
+            {
+                <button class="order-button"><WorkerCard worker="i"> </WorkerCard> </button>
+            }
+        </div>
+    </section>
+</div>
+
+

@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Data;
 using YourDay.DAL.Dtos;
 using YourDay.DAL.Enums;
 using YourDay.DAL.IRepositories;
@@ -45,8 +46,11 @@ namespace YourDay.DAL.Repositories
 
         public IEnumerable<UserDto> GetAllUsersByRole(Role role)
         {
-            var users = context.Users.Where(u => u.Role == role).ToList();
+            var users = context.Users
+                .Include(c => c.Specializations)
+                .Where(u => u.Role == role).ToList();
             return users;
         }
+        
     }
 }

@@ -4,6 +4,7 @@ using YourDay.BLL.Mapping;
 using YourDay.BLL.Models.UserModels.InputModels;
 using YourDay.BLL.Models.UserModels.OutputModels;
 using YourDay.DAL.Dtos;
+using YourDay.DAL.Enums;
 using YourDay.DAL.Repositories;
 
 namespace YourDay.BLL.Service
@@ -37,6 +38,22 @@ namespace YourDay.BLL.Service
         {
             var userDtos = _userRepository.GetAllUsers();
             var users = _mapper.Map<IEnumerable<UserOutputModel>>(userDtos);
+
+            return users;
+        }
+
+        public IEnumerable<UserOutputModel> GetAllUsersByRole(Role role)
+        {
+            var userDtos = _userRepository.GetAllUsersByRole(role);
+            var users = _mapper.Map<IEnumerable<UserOutputModel>>(userDtos);
+
+            return users;
+        }
+
+        public IEnumerable<UserSpecializationOutputModel> GetAllUsersSpecializationByRole(Role role)
+        {
+            var userDtos = _userRepository.GetAllUsersByRole(role);
+            var users = _mapper.Map<IEnumerable<UserSpecializationOutputModel>>(userDtos);
 
             return users;
         }

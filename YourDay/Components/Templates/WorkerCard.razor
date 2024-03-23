@@ -1,0 +1,15 @@
+﻿<a href="./registration/@worker.Id">
+    <div class="product-card">
+        <p>@worker.UserName</p>
+        @foreach (var i in @worker.Specializations)
+        {
+            <p>@i.Name</p>
+        }
+
+    </div>
+</a>
+
+@code {
+    [Parameter]
+    public UserSpecializationOutputModel worker { get; set; }
+}
