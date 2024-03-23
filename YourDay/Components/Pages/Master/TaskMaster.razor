@@ -4,13 +4,6 @@
 @rendermode InteractiveServer
 
 
-
-
-<div class="conteiner-for-text">
-    <label class="text" for="inputEmail4">Название задачи:</label>
-    <input class="field" type="name" id="inputName" placeholder="Введите название задачи">
-</div>
-
 <div style="display: flex;">
     <div>В период :</div>
     <div style="display: flex;">
@@ -61,7 +54,7 @@
     public TaskMaster()
     {
         _masterClient = new TaskService();
-        _tasks = _masterClient.GetTaskByMasterId(3);
+        _tasks = _masterClient.GetTaskByWorkerId(3);
     }
 
     protected override void OnInitialized()
