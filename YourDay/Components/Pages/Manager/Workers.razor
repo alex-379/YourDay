@@ -7,7 +7,6 @@
 
 @code
 {
-
     private UserService _userService;
 
     private IEnumerable<UserSpecializationOutputModel> _workers;
@@ -27,17 +26,17 @@
         _workers = _userService.GetAllUsersSpecializationByRole(role);
     }
 
-
     protected override void OnInitialized()
     {
-
-        //IEnumerable<UserOutputModel> workers = _userService.GetAllUsersByRole(role);
+      //что здесь писать 
     }
 
     private async Task ShowModal(int workerId)
     {
         selectedWorkerId = workerId;
+
         await JSRuntime.InvokeVoidAsync("worker.showModal");
+
         StateHasChanged();
     }
 
@@ -47,9 +46,6 @@
 
         _userService.DeleteWorkerById(selectedWorkerId);
     }
-
-    
-
 }
 
 <div class="body">
@@ -78,7 +74,6 @@
         <div class="container-task">
             @foreach (var i in _workers)
             {
-                //<button onclick="window.worker.showModal()" class="order-button"> <WorkerCard worker="i"> </WorkerCard> </button>
                 <button @onclick="() => ShowModal(i.Id)" class="worker-button"> <WorkerCard worker="i" OnOpenModal="ShowModal"> </WorkerCard> </button>
             }
         </div>

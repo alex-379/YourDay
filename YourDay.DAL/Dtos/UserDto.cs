@@ -19,9 +19,9 @@ namespace YourDay.DAL.Dtos
         [MaxLength(100)]
         public string Password { get; set; }
 
-        public bool IsDeleted { get; set; }
+        public bool? IsDeleted { get; set; }
 
-        public Role Role { get; set; }
+        public Role? Role { get; set; }
 
         public IEnumerable<SpecializationDto>? Specializations { get; set; }
 

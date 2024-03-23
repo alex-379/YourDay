@@ -19,10 +19,9 @@ namespace YourDay.DAL.Repositories
 
         public void AddWorker(UserDto worker)
         {
-            if (worker.Role == Role.Worker)
-            {
-                context.Users.Add(worker);
-            }
+            context.Users.Add(worker);
+            worker.Role= Role.Worker;
+            worker.IsDeleted = false;
             context.SaveChanges();
         }
 

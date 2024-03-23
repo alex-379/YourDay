@@ -34,6 +34,12 @@ namespace YourDay.BLL.Service
             return userOutput;
         }
 
+        public void AddWorker(UserRegistrationInputModel user)
+        {
+            UserDto a = _mapper.Map<UserDto>(user);
+            _userRepository.AddWorker(a);
+        }
+
         public IEnumerable<UserOutputModel> GetAllUsers()
         {
             var userDtos = _userRepository.GetAllUsers();

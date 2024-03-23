@@ -27,6 +27,8 @@ namespace YourDay.BLL.Mapping
 
             CreateMap<UserDto, UserSpecializationOutputModel>();
 
+            CreateMap<UserDto, WorkerRegistrationInputModel>();
+
             CreateMap<SpecializationDto, SpecializationOutputModel>();
 
         }

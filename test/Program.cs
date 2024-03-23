@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Data;
+using YourDay.BLL.Models.UserModels.InputModels;
+using YourDay.BLL.Service;
 using YourDay.DAL;
 using YourDay.DAL.Dtos;
 using YourDay.DAL.Enums;
@@ -9,22 +11,21 @@ using YourDay.DAL.Repositories;
 Context context = SingletoneStorage.GetStorage().Сontext;
 
 UserRepository userRepository = new UserRepository();
+UserService userService = new UserService();
 OrderRepository orderRepository = new OrderRepository();
 TaskRepository taskRepository = new TaskRepository();
 
-var u = new UserDto()
+var u = new UserRegistrationInputModel()
 {
-    UserName = "qqwqerwq",
+    UserName = "добавилось bll",
     Mail = "cat@gmail.com",
     Phone = "+921246565",
-    Password = "catcat",
-    IsDeleted = false,
-    Role = Role.Worker
+    Password = "catcat", 
 };
 
-userRepository.AddWorker(u);
+userService.AddWorker(u);
 
-Console.WriteLine();
+//Console.WriteLine();
 
 //var t = taskRepository.GetTaskByMasterId(4);
 //u.UserName = "Филипп";
@@ -46,7 +47,7 @@ Console.WriteLine();
 //    .Include(o => o.Histories)
 //    .Include(o => o.Tasks)
 //    .Where(o => o.Id == 5).Single();
-Console.WriteLine();
+//Console.WriteLine();
 
 //var order3 = context.Orders.Where(order3 => order3.Id == 3).Single();
 //var order2 = context.Orders.Where(m => m.Id == 2).Single();
