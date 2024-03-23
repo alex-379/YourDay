@@ -14,7 +14,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "test", "test\test.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YourDay.DAL", "YourDay.DAL\YourDay.DAL.csproj", "{D132CA57-6F0A-47AC-9574-B89C5E4F1FA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alice", "Alice\Alice.csproj", "{3FECF725-09CD-475E-B43D-F37D009797EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alice", "Alice\Alice.csproj", "{3FECF725-09CD-475E-B43D-F37D009797EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

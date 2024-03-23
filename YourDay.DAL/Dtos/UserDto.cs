@@ -7,7 +7,8 @@ namespace YourDay.DAL.Dtos
     {
         public int Id { get; set; }
 
-        [MaxLength(100)]
+
+        [StringLength(100, MinimumLength = 2, ErrorMessage = "Имя должно быть не менее 2-х символов и не более 50-ти")]
         public string UserName { get; set; }
 
         [MaxLength(100)]
@@ -17,7 +18,7 @@ namespace YourDay.DAL.Dtos
         public string Phone { get; set; }
 
         [MaxLength(100)]
-        public string Password { get; set; }
+        public byte[] Password { get; set; }
 
         public bool IsDeleted { get; set; }
 

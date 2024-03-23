@@ -1,9 +1,25 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using System.Text;
+using XSystem.Security.Cryptography;
 using YourDay.DAL;
 using YourDay.DAL.Dtos;
 using YourDay.DAL.Enums;
 using YourDay.DAL.Repositories;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
+string password = "12321321321";
+
+var data = Encoding.ASCII.GetBytes(password);
+
+var md5 = new MD5CryptoServiceProvider();
+var md5data = md5.ComputeHash(data);
+
+var sha1 = new SHA1CryptoServiceProvider();
+var sha1data = sha1.ComputeHash(data);
+
+//Console.WriteLine(md5data);
+//Console.WriteLine(sha1data);
 
 Context context = SingletoneStorage.GetStorage().Сontext;
 
@@ -11,19 +27,25 @@ UserRepository userRepository = new UserRepository();
 OrderRepository orderRepository = new OrderRepository();
 TaskRepository taskRepository = new TaskRepository();
 
+var user = userRepository.GetUserById(1050);
+//if (user.Password == md5data)
+//{
+//    Console.WriteLine("sadasdsadsa");
+//}
+
 //var u = new UserDto()
 //{
 //    UserName = "Семён",
 //    Mail = "oxxy@gmail.com",
 //    Phone = "+921246565",
-//    Password = "ghjhgf",
+//    Password = md5data,
 //    IsDeleted = false,
-//    Role = Role.Manager
+//    Role = Role.Client
 //};
 
-//var tmp = rep.AddUser(u);
+    //var tmp = userRepository.AddUser(u);
 
-//Console.WriteLine();
+    //Console.WriteLine();
 
 var t = taskRepository.GetTaskByMasterId(4);
 //u.UserName = "Филипп";

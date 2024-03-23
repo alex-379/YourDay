@@ -13,18 +13,21 @@ namespace YourDay.DAL.Repositories
         {
             context.Users.Add(user);
             context.SaveChanges();
+
             return user;
         }
 
         public IEnumerable<UserDto> GetAllUsers()
         {
             var users = context.Users.ToList();
+
             return users;
         }
 
         public UserDto GetUserById(int id)
         {
             var user = context.Users.Where(u => u.Id == id).Single();
+
             return user;
         }
 
@@ -32,6 +35,7 @@ namespace YourDay.DAL.Repositories
         {
             context.Users.Update(user);
             context.SaveChanges();
+
             return user;
         }
 
@@ -40,12 +44,14 @@ namespace YourDay.DAL.Repositories
             user.IsDeleted = true;
             context.Users.Update(user);
             context.SaveChanges();
+
             return user;
         }
 
         public IEnumerable<UserDto> GetAllUsersByRole(Role role)
         {
             var users = context.Users.Where(u => u.Role == role).ToList();
+
             return users;
         }
     }

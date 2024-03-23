@@ -1,0 +1,93 @@
+﻿<div class="@ModalClass modal-bg" tabindex="-1" style="display: @DisplayMode;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Информация об услуге</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @onclick="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <div class="card-body">
+                        <form>
+                            <h2 class="manager-h1">Регистрация:</h2>
+
+                            <div class="conteiner-for-text">
+                                <label class="text">Имя:</label>
+                                <input @bind=_user.UserName class="field" type="name" placeholder="Введите имя">
+                            </div>
+                            <div class="conteiner-for-text">
+                                <label class="text">Почта:</label>
+                                <input @bind=_user.Mail class="field" type="text" placeholder="Введите почту">
+                            </div>
+                            <div class="conteiner-for-text">
+                                <label class="text">Телефон:</label>
+                                <input @bind=_user.Phone class="field" type="text" placeholder="Введите телефон">
+                            </div>
+                            <div class="conteiner-for-text">
+                                <label class="text">Пароль:</label>
+                                <input @bind=_user.Password class="field" type="text" placeholder="Введите пароль">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button @onclick=AddUser class="purple-button">Регистрация</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@* @code {
+    [Parameter] public ServiceOutputModel Service { get; set; }
+
+    private ServiceInputModel _inputService;
+
+    [Parameter] public Action<ServiceInputModel> AddService { get; set; }
+
+    public AddServiceModal()
+    {
+        _inputService = new ServiceInputModel();
+
+    }
+
+    public void Add()
+    {
+        AddService(_inputService);
+    }
+} *@
+
+
+
+
+@code {
+    [Parameter] public Action? Close { get; set; }
+
+    [Parameter] public string? ModalClass { get; set; }
+
+    [Parameter] public string? DisplayMode { get; set; }
+
+    private UserRegistrationInputModel _user;
+
+    private List<UserOutputModel> _users;
+
+    private IUserService _userService;
+
+    public AuthenticationModalForm()
+    {
+        _userService = new UserService();
+    }
+
+    protected override void OnInitialized()
+    {
+        _users = _userService.GetAllUsers().ToList();
+
+        _user = new UserRegistrationInputModel();
+    }
+
+    public void AddUser()
+    {
+        _users.Add(_userService.RegisterClient(_user));
+    }
+}

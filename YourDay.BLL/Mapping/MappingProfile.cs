@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using System.Text;
 using YourDay.BLL.Models.OrderModels.InputModels;
 using YourDay.BLL.Models.OrderModels.OutputModels;
 using YourDay.BLL.Models.TaskModels.OutputModels;
@@ -12,7 +13,8 @@ namespace YourDay.BLL.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<UserRegistrationInputModel, UserDto>();
+            CreateMap<UserRegistrationInputModel, UserDto>()
+                           .ForMember(u => u.Password, opt => opt.MapFrom(u => Encoding.ASCII.GetBytes(u.Password)));
 
             CreateMap<UserDto, UserOutputModel>();
 

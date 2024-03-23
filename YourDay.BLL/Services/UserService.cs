@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
+using System.Text;
+using XSystem.Security.Cryptography;
 using YourDay.BLL.IServices;
 using YourDay.BLL.Mapping;
 using YourDay.BLL.Models.UserModels.InputModels;
 using YourDay.BLL.Models.UserModels.OutputModels;
 using YourDay.DAL.Dtos;
+using YourDay.DAL.Enums;
 using YourDay.DAL.Repositories;
 
 namespace YourDay.BLL.Service
@@ -25,12 +28,44 @@ namespace YourDay.BLL.Service
             _mapper = new Mapper(config);
         }
 
-        public UserOutputModel AddUser(UserRegistrationInputModel user)
+        public UserOutputModel RegisterClient(UserRegistrationInputModel client)
         {
-            UserDto userDtoOutput = _userRepository.AddUser(_mapper.Map<UserDto>(user));
-            UserOutputModel userOutput = _mapper.Map<UserOutputModel>(userDtoOutput);
+            UserDto userDtoInput = _mapper.Map<UserDto>(client);
+            userDtoInput.Role = Role.Client;
+            userDtoInput.IsDeleted = false;
 
-            return userOutput;
+            string password = userDtoInput.Password;
+            var data = Encoding.ASCII.GetBytes(password);
+            var md5 = new MD5CryptoServiceProvider();
+            var md5data = md5.ComputeHash(data);
+
+            UserDto userDtoOutput = _userRepository.AddUser(userDtoInput);
+            UserOutputModel clientOutput = _mapper.Map<UserOutputModel>(userDtoOutput);
+
+            return clientOutput;
+        }
+
+        public UserOutputModel AddClientForManager(UserRegistrationInputModel client)
+        {
+            UserDto userDtoInput = _mapper.Map<UserDto>(client);
+
+            userDtoInput.Role = Role.Client;
+            userDtoInput.IsDeleted = false;
+            UserDto userDtoOutput = _userRepository.AddUser(userDtoInput);
+            UserOutputModel clientOutput = _mapper.Map<UserOutputModel>(userDtoOutput);
+
+            return clientOutput;
+        }
+
+        public UserOutputModel AddWorkerForManager(UserRegistrationInputModel client)
+        {
+            UserDto userDtoInput = _mapper.Map<UserDto>(client);
+            userDtoInput.Role = Role.Client;
+            userDtoInput.IsDeleted = false;
+            UserDto userDtoOutput = _userRepository.AddUser(userDtoInput);
+            UserOutputModel clientOutput = _mapper.Map<UserOutputModel>(userDtoOutput);
+
+            return clientOutput;
         }
 
         public IEnumerable<UserOutputModel> GetAllUsers()

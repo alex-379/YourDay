@@ -1,3 +1,5 @@
+@rendermode InteractiveServer
+
 <header class="navbar">
     <div>
         <a href="/"><img src="/images/logo.png" alt=""></a>
@@ -20,15 +22,68 @@
         </ul>
     </nav>
 
-    
-
     <nav class="menu-yellow">
         <ul>
-           
-            <li><a href="#">Вход</a></li>
-            <li><a href="/registration">Регистрация</a></li>
+            <li>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#authentication" style="background-color: #4340D2">
+                    <i class="bi bi-plus"></i>
+                    Вход
+                </button>
+            </li>
+            <li>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registration" style="background-color: #4340D2">
+                    <i class="bi bi-plus"></i>
+                    Регистрация
+                </button>
+            </li>
+            <li>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#infoRegistration" style="background-color: #4340D2">
+                    <i class="bi bi-plus"></i>
+                    Инфо
+                </button>
+            </li>
             <li><a href="./login">login</a></li>
             <li><a href="./logout">logout</a></li>
         </ul>
     </nav>
 </header>
+
+<div class="modal fade" id="authentication" tabindex="-1" aria-hidden="true">
+    <AuthenticationModalForm />
+</div>
+
+<div class="modal fade" id="registration" tabindex="-1" aria-hidden="true">
+    <RegistrationModalForm AddUser="AddClient" />
+</div>
+
+
+<div class="modal fade" id="infoRegistration" tabindex="-1" aria-labelledby="infoRegistration" aria-hidden="true">
+    <InfoRegistrationModalForm />
+</div>
+
+@code {
+    [Parameter] 
+    public List<UserOutputModel> Users { get; set; }
+
+    private UserRegistrationInputModel _user;
+
+    private IUserService _userService;
+
+    public NavMenu()
+    {
+        _userService = new UserService();
+        _user = new UserRegistrationInputModel();
+    }
+
+    protected override void OnInitialized()
+    {
+        Users = _userService.GetAllUsers().ToList();
+    }
+
+    public void AddClient(UserRegistrationInputModel input)
+    {
+        var u = _userService.RegisterClient(input);
+        Users.Add(u);
+        StateHasChanged();
+    }
+}

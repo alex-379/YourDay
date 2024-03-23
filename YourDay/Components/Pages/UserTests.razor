@@ -1,6 +1,49 @@
 @page "/registration"
 @attribute [StreamRendering]
 @rendermode InteractiveServer
+@* 
+
+
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="background-color: #4340D2">
+        <i class="bi bi-plus"></i>
+        Добавить
+    </button>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <AuthenticationModalForm AddService="AddService" />
+</div>
+@code
+{
+    [Parameter] public int Id { get; set; }
+    [Parameter] public string? Name { get; set; }
+    [Parameter] public string? Description { get; set; }
+    [Parameter] public int Cost { get; set; }
+
+    [Parameter] public List<ServiceOutputModel> Services { get; set; }
+    private IServiceClient _serviceClient;
+
+    private ServiceInputModel _inputService;
+
+    public MyServicesPage()
+    {
+        _serviceClient = new ServiceMock();
+        Services = _serviceClient.GetAllServices();
+        _inputService = new ServiceInputModel();
+    }
+
+    public void AddService(ServiceInputModel input)
+    {
+        var s = _serviceClient.AddService(input);
+        Services.Add(s);
+        StateHasChanged();
+    }
+
+    public void DeleteService(ServiceOutputModel service)
+    {
+        Services.Remove(service);
+    }
+}
+ *@
 
 <div class="container-add-order">
     <div class="fields-add-order">
@@ -79,7 +122,7 @@
 
     public void AddUser()
     {
-        _users.Add(_userService.AddUser(_user));
+        _users.Add(_userService.RegisterClient(_user));
     }
 }
 
