@@ -16,8 +16,9 @@ namespace YourDay.DAL.Dtos
         [MaxLength(100)]
         public string Phone { get; set; }
 
-        [MaxLength(100)]
-        public byte[] Password { get; set; }
+        public byte[] Hash { get; set; }
+
+        public byte[] Salt { get; set; }
 
         public bool IsDeleted { get; set; }
 

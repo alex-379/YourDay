@@ -17,11 +17,6 @@ namespace YourDay.DAL
 
         public DbSet<UserProfilesPictureDto> UserProfilesPictures { get; set; }
 
-        public Context()
-        {
-            //Database.EnsureCreated();
-        }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(Options.connectionString);
