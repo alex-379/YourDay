@@ -13,11 +13,12 @@ namespace YourDay.DAL.Dtos
         [MaxLength(100)]
         public string Mail { get; set; }
 
-        [MaxLength(20)]
+        [MaxLength(100)]
         public string Phone { get; set; }
 
-        [MaxLength(100)]
-        public string Password { get; set; }
+        public byte[] Hash { get; set; }
+
+        public byte[] Salt { get; set; }
 
         public bool IsDeleted { get; set; }
 
@@ -28,5 +29,7 @@ namespace YourDay.DAL.Dtos
         public IEnumerable<OrderDto>? Orders { get; set; }
 
         public IEnumerable<TaskDto>? WorkerTasks { get; set; }
+
+        public UserProfilesPictureDto Picture { get; set; }
     }
 }

@@ -57,5 +57,12 @@ namespace YourDay.BLL.Clients
 
             return order;
         }
+
+        public static string? GetDateStringForOrder(DateTime? date)
+        {
+            string? dateString = date?.ToString("dd/MM/yyyy");
+
+            return dateString;
+        }
     }
 }

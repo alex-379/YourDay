@@ -1,0 +1,43 @@
+﻿<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title">Авторизация</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <EditForm Model="@_inputService" OnValidSubmit="@Add">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Почта:</label>
+                    <InputText class="form-control" @bind-Value="@_inputService.Mail" type="email" pattern="{8}" />
+                </div>
+                <div class="form-group">
+                    <label>Пароль:</label>
+                    <InputText class="form-control" @bind-Value="@_inputService.Password" type="password" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="purple-button" data-bs-toggle="modal" data-bs-target="#infoRegistration">Вход</button>
+                <button type="button" class="purple-button" data-bs-dismiss="modal">Отмена</button>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    private UserRegistrationInputModel _inputService;
+
+    [Parameter]
+    public Action<UserRegistrationInputModel> AddUser { get; set; }
+
+    public AuthenticationModalForm()
+    {
+        _inputService = new UserRegistrationInputModel();
+    }
+
+    private void Add()
+    {
+        AddUser(_inputService);
+    }
+}

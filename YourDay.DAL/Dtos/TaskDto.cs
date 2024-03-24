@@ -12,7 +12,7 @@ namespace YourDay.DAL.Dtos
         public string Title { get; set; }
 
         [MaxLength(4000)]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         [Column(TypeName = "DateTime")]
         public DateTime TimeStart { get; set; }
