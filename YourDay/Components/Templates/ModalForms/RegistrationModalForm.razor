@@ -8,9 +8,11 @@
             <DataAnnotationsValidator />
             <ValidationSummary />
             <div class="modal-body">
+
                 <div class="form-group">
                     <label>Ваше имя:</label>
                     <InputText class="form-control" @bind-Value="@_inputService.UserName" type="name" />
+                    <ValidationMessage For="@(() => _inputService.UserName)" />
                 </div>
                 <div class="form-group">
                     <label>Почта:</label>
@@ -30,17 +32,11 @@
             <div class="modal-footer">
                 <button type="submit" class="purple-button" data-bs-toggle="modal" data-bs-target="#infoRegistration">Регистрация</button>
                 <button type="button" class="purple-button" data-bs-dismiss="modal">Отмена</button>
-
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#infoRegistration">
-                    Инфо
-                </button>
             </div>
-            
-
-        </EditForm>
+        </EditForm> 
     </div>
 </div>
-
+ 
 
 
 @code {
@@ -54,7 +50,7 @@
         _inputService = new UserRegistrationInputModel();
     }
 
-    public void Add()
+    private void Add()
     {
         AddUser(_inputService);
     }

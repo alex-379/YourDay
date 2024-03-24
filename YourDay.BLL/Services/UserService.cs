@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using System.Runtime.Intrinsics.Arm;
 using System.Security.Cryptography;
 using System.Text;
 using YourDay.BLL.IServices;
@@ -8,7 +7,6 @@ using YourDay.BLL.Models.UserModels.InputModels;
 using YourDay.BLL.Models.UserModels.OutputModels;
 using YourDay.DAL.Dtos;
 using YourDay.DAL.Enums;
-using YourDay.DAL.Migrations;
 using YourDay.DAL.Repositories;
 
 namespace YourDay.BLL.Service
@@ -35,12 +33,6 @@ namespace YourDay.BLL.Service
             UserDto userDtoInput = _mapper.Map<UserDto>(client);
             userDtoInput.Role = Role.Client;
             userDtoInput.IsDeleted = false;
-
-            //string password = userDtoInput.Password;
-            //var data = Encoding.ASCII.GetBytes(password);
-            //var md5 = new MD5CryptoServiceProvider();
-            //var md5data = md5.ComputeHash(data);
-
             UserDto userDtoOutput = _userRepository.AddUser(userDtoInput);
             UserOutputModel clientOutput = _mapper.Map<UserOutputModel>(userDtoOutput);
 
@@ -62,7 +54,7 @@ namespace YourDay.BLL.Service
         public UserOutputModel AddWorkerForManager(UserRegistrationInputModel client)
         {
             UserDto userDtoInput = _mapper.Map<UserDto>(client);
-            userDtoInput.Role = Role.Client;
+            userDtoInput.Role = Role.Worker;
             userDtoInput.IsDeleted = false;
             UserDto userDtoOutput = _userRepository.AddUser(userDtoInput);
             UserOutputModel clientOutput = _mapper.Map<UserOutputModel>(userDtoOutput);
@@ -96,7 +88,7 @@ namespace YourDay.BLL.Service
             return salt;
         }
 
-        public static Tuple <byte[], byte[]> GetSaltHash(string password)
+        public static Tuple<byte[], byte[]> GetSaltHash(string password)
         {
             byte[] salt = GetSalt();
             byte[] passwordByte = Encoding.UTF8.GetBytes(password);
@@ -105,6 +97,12 @@ namespace YourDay.BLL.Service
 
             return Tuple.Create(salt, hash);
         }
+
+        //public bool ConfirmPassword(UserModel)
+        //{
+
+        //}
+
 
         //public static bool ConfirmPassword(string password, byte[] hash, byte[] salt)
         //{

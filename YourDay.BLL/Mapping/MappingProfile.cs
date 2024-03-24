@@ -16,7 +16,7 @@ namespace YourDay.BLL.Mapping
         {
             CreateMap<UserRegistrationInputModel, UserDto>()
                 .ForMember(d => d.Salt, opt => opt.MapFrom(s => UserService.GetSaltHash(s.Password).Item1))
-                .ForMember(d => d.Salt, opt => opt.MapFrom(s => UserService.GetSaltHash(s.Password).Item2));
+                .ForMember(d => d.Hash, opt => opt.MapFrom(s => UserService.GetSaltHash(s.Password).Item2));
 
             CreateMap<UserDto, UserOutputModel>();
 

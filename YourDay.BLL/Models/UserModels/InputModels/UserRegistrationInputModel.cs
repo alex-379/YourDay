@@ -1,4 +1,6 @@
-﻿namespace YourDay.BLL.Models.UserModels.InputModels
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace YourDay.BLL.Models.UserModels.InputModels
 {
     public class UserRegistrationInputModel
     {
