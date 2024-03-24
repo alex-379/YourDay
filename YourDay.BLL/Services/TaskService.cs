@@ -7,6 +7,7 @@ using YourDay.BLL.Models.TaskModels.InputModels;
 using YourDay.BLL.IServices;
 using YourDay.DAL.Enums;
 
+
 namespace YourDay.BLL.Clients
 {
     public class TaskService:ITaskService
@@ -55,13 +56,13 @@ namespace YourDay.BLL.Clients
 
             return result;
         }
-        public List<TaskOutputModel> FilterTasks( DateTime? startDate,DateTime? endDate)
+        public List<TaskOutputModel> FilterTasks( DateTime? startDate,DateTime? endDate,Status? status)
         {
-            List<TaskDto> task = _taskRepository.FilterTasks(startDate, endDate);
+            List<TaskDto> task = _taskRepository.FilterTasks(startDate, endDate,status);
             List<TaskOutputModel> result = _mapper.Map<List<TaskOutputModel>>(task);
             return result;
         }
-        public List<TaskOutputModel> GetTaskByMasterId(int MasterId)
+        public List<TaskOutputModel> GetTaskByWorkerId(int MasterId)
         {
             List<TaskDto> tasks = _taskRepository.GetTaskByMasterId(MasterId);
             List<TaskOutputModel> result = _mapper.Map<List<TaskOutputModel>>(tasks).ToList();
