@@ -26,7 +26,8 @@ namespace ConsoleApp1
             UserService userService = new UserService();
             TaskService taskService = new TaskService();
 
-            //string password1 = "123213213211";
+            UserService.GetSaltHash("231312");
+
             //string password2 = "123213213211";
 
             //var p1 = UserService.GetHashPassword(password1);

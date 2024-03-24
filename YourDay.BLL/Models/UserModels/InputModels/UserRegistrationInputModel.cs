@@ -15,5 +15,9 @@ namespace YourDay.BLL.Models.UserModels.InputModels
 
         [Required(ErrorMessage = "Введите значение в поле")]
         public string Password { get; set; }
+
+        public byte[] Hash { get; set; }
+
+        public byte[] Salt { get; set; }
     }
 }

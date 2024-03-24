@@ -49,22 +49,18 @@
         var userDb = UserService.FindUser(LoginModel, mails);
         var hash = UserService.GetHash(LoginModel.Password, userDb.Salt);
         bool result = UserService.ConfirmPassword(hash, userDb.Hash);
-        //получение инфы из базы
 
-        List<Claim> claims = new List<Claim>()
+        if (result){
+            List<Claim> claims = new List<Claim>()
         {
             new Claim(ClaimTypes.Name, LoginModel.Mail),
-            new Claim(ClaimTypes.Role, "1")
+            new Claim(ClaimTypes.Role, nameof(userDb.Role))
         };
 
-        // var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-        // var pr = new ClaimsPrincipal(identity);
+            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var principial = new ClaimsPrincipal(identity);
 
-        // await HttpContext.SignInAsync(pr);
+            await HttpContext.SignInAsync(principial);
+        }
     }
-
-    // private void Add()
-    // {
-    //     AddUser(LoginModel);
-    // }
 }
