@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using System;
 using System.Security.Cryptography;
 using System.Text;
 using YourDay.BLL.IServices;
@@ -70,6 +71,22 @@ namespace YourDay.BLL.Service
             return users;
         }
 
+        public IEnumerable<UserMailOutputModel> GetAllMailBoxes()
+        {
+            var userDtos = _userRepository.GetAllUsers();
+            var mails = _mapper.Map<IEnumerable<UserMailOutputModel>>(userDtos);
+
+            return mails;
+        }
+
+        public IEnumerable<UserAuthorizationOutputModel> GetAllMailBoxesWithPasswords()
+        {
+            var userDtos = _userRepository.GetAllUsers();
+            var users = _mapper.Map<IEnumerable<UserAuthorizationOutputModel>>(userDtos);
+
+            return users;
+        }
+
         public UserOutputModel GetUserById(int id)
         {
             UserDto userDto = _userRepository.GetUserById(id);
@@ -96,6 +113,36 @@ namespace YourDay.BLL.Service
             byte[] hash = SHA256.HashData(saltedPassword);
 
             return Tuple.Create(salt, hash);
+        }
+
+        public static byte[] GetHash(string password, byte[] salt)
+        {
+            byte[] passwordByte = Encoding.UTF8.GetBytes(password);
+            byte[] saltedPassword = passwordByte.Concat(salt).ToArray();
+            byte[] hash = SHA256.HashData(saltedPassword);
+
+            return hash;
+        }
+
+        public static bool ConfirmMail(UserRegistrationInputModel client, IEnumerable<UserMailOutputModel> mails)
+        {
+            bool result = mails.Any(u => u.Mail == client.Mail);
+
+            return result;
+        }
+
+        public static UserAuthorizationOutputModel FindUser(UserAutenthicationInputModel client, IEnumerable<UserAuthorizationOutputModel> users)
+        {
+            UserAuthorizationOutputModel user = users.Where(u => u.Mail == client.Mail).Single();
+
+            return user;
+        }
+
+        public static bool ConfirmPassword(byte[] userInputHash, byte[] userDbHash)
+        {
+            bool result = (userInputHash.SequenceEqual(userDbHash));
+
+            return result;
         }
 
         //public bool ConfirmPassword(UserModel)

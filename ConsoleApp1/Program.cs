@@ -1,4 +1,7 @@
 ﻿using YourDay.BLL.Clients;
+using YourDay.BLL.IServices;
+using YourDay.BLL.Models.UserModels.InputModels;
+using YourDay.BLL.Models.UserModels.OutputModels;
 using YourDay.BLL.Service;
 using YourDay.DAL;
 using YourDay.DAL.Repositories;
@@ -13,10 +16,6 @@ namespace ConsoleApp1
             //var a = birthdate?.ToString("dd/MM/yyyy");
             //Console.WriteLine();
 
-
-            Console.WriteLine();
-            Console.WriteLine();
-
             Context context = SingletoneStorage.GetStorage().Сontext;
 
             UserRepository userRepository = new UserRepository();
@@ -27,13 +26,13 @@ namespace ConsoleApp1
             UserService userService = new UserService();
             TaskService taskService = new TaskService();
 
-            string password1 = "123213213211";
-            string password2 = "123213213211";
+            //string password1 = "123213213211";
+            //string password2 = "123213213211";
 
             //var p1 = UserService.GetHashPassword(password1);
             //var p2 = UserService.GetHashPassword(password2);
 
-            string password = "123213213211";
+            //string password = "123213213211";
 
             //var salt = UserService.GetSalt();
             //var hash = UserService.GetHash(password, salt);
@@ -50,9 +49,15 @@ namespace ConsoleApp1
             //Console.WriteLine(c);
             //Console.WriteLine(d);
 
+            //UserRegistrationInputModel client = new()
+            //{
+            //    Mail = ""
+            //};
 
+            //var mails = userService.GetAllMailBoxes();
+            //var m = UserService.ConfirmMail(client, mails);
 
-
+            //Console.WriteLine(m);
 
             //var user = userRepository.GetUserById(1050);
             //if (user.Password == md5data)

@@ -20,6 +20,10 @@ namespace YourDay.BLL.Mapping
 
             CreateMap<UserDto, UserOutputModel>();
 
+            CreateMap<UserDto, UserMailOutputModel>();
+
+            CreateMap<UserDto, UserAuthorizationOutputModel>();
+
             CreateMap<OrderForManagerInputModel, OrderDto>();
 
             CreateMap<OrderDto, OrderOutputModel>();

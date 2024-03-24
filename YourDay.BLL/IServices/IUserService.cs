@@ -9,6 +9,10 @@ namespace YourDay.BLL.IServices
 
         public IEnumerable<UserOutputModel> GetAllUsers();
 
+        public IEnumerable<UserMailOutputModel> GetAllMailBoxes();
+
+        public IEnumerable<UserAuthorizationOutputModel> GetAllMailBoxesWithPasswords();
+
         public UserOutputModel GetUserById(int id);
     }
 }
