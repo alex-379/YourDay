@@ -4,17 +4,17 @@
             <h1 class="modal-title">Авторизация</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
-        <EditForm Model="@_inputService" OnValidSubmit="@Add">
+        <EditForm Model="LoginModel" FormName="Login" OnValidSubmit="@StartLogin">
             <DataAnnotationsValidator />
             <ValidationSummary />
             <div class="modal-body">
                 <div class="form-group">
                     <label>Почта:</label>
-                    <InputText class="form-control" @bind-Value="@_inputService.Mail" type="email" pattern="{8}" />
+                    <InputText class="form-control" @bind-Value="LoginModel.Mail" type="email" pattern="{8}" />
                 </div>
                 <div class="form-group">
                     <label>Пароль:</label>
-                    <InputText class="form-control" @bind-Value="@_inputService.Password" type="password" />
+                    <InputText class="form-control" @bind-Value="LoginModel.Password" type="password" />
                 </div>
             </div>
             <div class="modal-footer">
@@ -26,18 +26,41 @@
 </div>
 
 @code {
-    private UserRegistrationInputModel _inputService;
+    [SupplyParameterFromForm]
+    public UserAutenthicationInputModel LoginModel { get; set; }
 
-    [Parameter]
-    public Action<UserRegistrationInputModel> AddUser { get; set; }
+    [CascadingParameter]
+    public HttpContext HttpContext { get; set; }
+
+    private IUserService _userService;
+
+    // [Parameter]
+    // public Action<UserRegistrationInputModel> AddUser { get; set; }
 
     public AuthenticationModalForm()
     {
-        _inputService = new UserRegistrationInputModel();
+        LoginModel = new UserAutenthicationInputModel();
+        _userService = new UserService();
     }
 
-    private void Add()
+    public async Task StartLogin()
     {
-        AddUser(_inputService);
+        var mails = _userService.GetAllMailBoxesWithPasswords();
+        var userDb = UserService.FindUser(LoginModel, mails);
+        var hash = UserService.GetHash(LoginModel.Password, userDb.Salt);
+        bool result = UserService.ConfirmPassword(hash, userDb.Hash);
+
+        if (result){
+            List<Claim> claims = new List<Claim>()
+        {
+            new Claim(ClaimTypes.Name, LoginModel.Mail),
+            new Claim(ClaimTypes.Role, nameof(userDb.Role))
+        };
+
+            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var principial = new ClaimsPrincipal(identity);
+
+            await HttpContext.SignInAsync(principial);
+        }
     }
 }
