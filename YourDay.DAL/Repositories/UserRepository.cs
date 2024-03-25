@@ -1,4 +1,4 @@
-using System.Data;
+﻿using System.Data;
 using YourDay.DAL.Dtos;
 using YourDay.DAL.Enums;
 using YourDay.DAL.IRepositories;
@@ -37,22 +37,6 @@ namespace YourDay.DAL.Repositories
             context.SaveChanges();
 
             return user;
-        }
-
-        public UserDto DeleteUser(UserDto user)
-        {
-            user.IsDeleted = true;
-            context.Users.Update(user);
-            context.SaveChanges();
-
-            return user;
-        }
-
-        public List<UserDto> GetAllUsersByRole(Role role)
-        {
-            var users = context.Users.Where(u => u.Role == role);
-
-            return users;
         }
     }
 }
