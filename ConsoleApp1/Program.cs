@@ -1,4 +1,5 @@
 using YourDay.BLL.Clients;
+using YourDay.BLL.Models.UserModels.InputModels;
 using YourDay.BLL.Services;
 using YourDay.DAL;
 using YourDay.DAL.Repositories;
@@ -18,6 +19,15 @@ namespace ConsoleApp1
             OrderService orderService = new OrderService();
             UserService userService = new UserService();
             TaskService taskService = new TaskService();
+
+            //UserRegistrationInputModel model = new UserRegistrationInputModel()
+            //{
+            //    UserName = "Андрей",
+            //    Mail = "andrew.mail@m.ru",
+            //    Password = "231232112",
+            //    Phone = "9095461232"
+            //};
+            //userService.AddUser(model);
 
             //var a = PasswordService.GetSalt();
             //Console.WriteLine(a);

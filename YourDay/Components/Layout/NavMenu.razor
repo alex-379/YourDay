@@ -57,8 +57,8 @@
 </div>
 
 @code {
-    [Parameter] 
-    public List<UserOutputModel> Users { get; set; }
+    // [Parameter] 
+    // public List<UserOutputModel> Users { get; set; }
 
     private UserRegistrationInputModel _user;
 
@@ -72,8 +72,8 @@
 
     public void AddClient(UserRegistrationInputModel input)
     {
-        var u = _userService.RegisterClient(input);
-        Users.Add(u);
+        var u = _userService.AddUser(input);
+        // Users.Add(u);
         StateHasChanged();
     }
 

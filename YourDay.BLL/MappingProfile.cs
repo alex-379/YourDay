@@ -5,7 +5,6 @@ using YourDay.BLL.Models.OrderModels.OutputModels;
 using YourDay.BLL.Models.TaskModels.OutputModels;
 using YourDay.BLL.Models.UserModels.InputModels;
 using YourDay.BLL.Models.UserModels.OutputModels;
-using YourDay.BLL.Service;
 using YourDay.DAL.Dtos;
 
 namespace YourDay.BLL

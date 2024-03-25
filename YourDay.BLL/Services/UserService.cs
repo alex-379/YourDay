@@ -30,23 +30,53 @@ namespace YourDay.BLL.Services
             _rng = RandomNumberGenerator.Create();
         }
 
-        public UserOutputModel RegisterClient(UserRegistrationInputModel client)
+        public UserRegistrationInputModel GetSaltHash(UserRegistrationInputModel user)
         {
+            user.Salt = PasswordService.GetSalt();
+            user.Hash = PasswordService.GetHash(user.Password, user.Salt);
+
+            return user;
+        }
+
+        public UserDto SetRoleClient(UserDto user)
+        {
+            user.Role = Role.Client;
+
+            return user;
+        }
+
+        public UserDto SetRoleWorker(UserDto user)
+        {
+            user.Role = Role.Worker;
+
+            return user;
+        }
+
+        public UserDto SetIsUndeleted(UserDto user)
+        {
+            user.IsDeleted = false;
+
+            return user;
+        }
+
+        public UserOutputModel AddUser(UserRegistrationInputModel user)
+        {
+            this.GetSaltHash(user);
+            UserDto userDtoInput = _mapper.Map<UserDto>(user);
+            this.SetRoleClient(userDtoInput);
+            this.SetRoleClient(userDtoInput);
+            UserDto userDtoOutput = _userRepository.AddUser(userDtoInput);
+            UserOutputModel userOutput = _mapper.Map<UserOutputModel>(userDtoOutput);
+
+            return userOutput;
+        }
+
+        public UserOutputModel AddClientForManager(UserRegistrationInputModel client)
+        {
+            client.Password = PasswordService.GetRandomPassword();
             client.Salt = PasswordService.GetSalt();
             client.Hash = PasswordService.GetHash(client.Password, client.Salt);
             UserDto userDtoInput = _mapper.Map<UserDto>(client);
-            userDtoInput.Role = Role.Client;
-            userDtoInput.IsDeleted = false;
-            UserDto userDtoOutput = _userRepository.AddUser(userDtoInput);
-            UserOutputModel clientOutput = _mapper.Map<UserOutputModel>(userDtoOutput);
-
-            return clientOutput;
-        }
-
-        public UserOutputModel AddClientForManager(UserAddForManagerInputModel client)
-        {
-            RNGCryptoServiceProvider.Create().GetBytes(client.Salt);
-            UserDto userDtoInput = _mapper.Map<UserDto>(client);
 
             userDtoInput.Role = Role.Client;
             userDtoInput.IsDeleted = false;
@@ -56,7 +86,7 @@ namespace YourDay.BLL.Services
             return clientOutput;
         }
 
-        public UserOutputModel AddWorkerForManager(UserAddForManagerInputModel worker)
+        public UserOutputModel AddWorkerForManager(UserRegistrationInputModel worker)
         {
             UserDto userDtoInput = _mapper.Map<UserDto>(worker);
             userDtoInput.Role = Role.Worker;
