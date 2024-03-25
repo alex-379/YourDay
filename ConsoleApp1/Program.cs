@@ -28,9 +28,7 @@ namespace ConsoleApp1
                 Password = "123456",
             };
 
-            bool result = userService.ConfirmPassword(model);
-
-            string b = model.Role.ToString();
+            var result = userService.GetAllUsers();
 
             Console.WriteLine();
 

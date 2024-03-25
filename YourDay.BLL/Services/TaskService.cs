@@ -1,16 +1,18 @@
 ﻿using AutoMapper;
 using YourDay.BLL.IServices;
+using YourDay.BLL.Models.TaskModels.InputModels;
 using YourDay.BLL.Models.TaskModels.OutputModels;
 using YourDay.DAL.Dtos;
 using YourDay.DAL.Enums;
+using YourDay.DAL.IRepositories;
 using YourDay.DAL.Repositories;
 
 namespace YourDay.BLL.Clients
 {
     public class TaskService : ITaskService
     {
-        private TaskRepository _taskRepository;
-        private Mapper _mapper;
+        private readonly ITaskRepository _taskRepository;
+        private readonly Mapper _mapper;
 
         public TaskService()
         {
@@ -23,51 +25,71 @@ namespace YourDay.BLL.Clients
             _mapper = new Mapper(config);
         }
 
-        public List<TaskOutputModel> GetTaskByOrderId(int Id)
+        public TaskOutputModel AddTask(TaskInputModel task)
         {
-            List<TaskDto> clientDtos = _taskRepository.GetTaskByOrderId(Id);
+            TaskDto taskDtoInput = _mapper.Map<TaskDto>(task);
+            TaskOutputModel taskOutput = _mapper.Map<TaskOutputModel>(taskDtoInput);
 
-            var result = _mapper.Map<List<TaskOutputModel>>(clientDtos);
+            return taskOutput;
+        }
+
+        public IEnumerable<TaskOutputModel> GetAllTasks()
+        {
+            var taskDtos = _taskRepository.GetAllTasks();
+            var tasks = _mapper.Map<IEnumerable<TaskOutputModel>>(taskDtos);
+
+            return tasks;
+        }
+
+        public TaskOutputModel GetTaskById(int id)
+        {
+            TaskDto taskDto = _taskRepository.GetTaskById(id);
+            TaskOutputModel task = _mapper.Map<TaskOutputModel>(taskDto);
+
+            return task;
+        }
+
+        public IEnumerable<TaskInOrderOutputModel> GetTasksByOrderId(int orderId)
+        {
+            var taskDtos = _taskRepository.GetTasksByOrderId(orderId);
+            var tasks = _mapper.Map<IEnumerable<TaskInOrderOutputModel>>(taskDtos);
+
+            return tasks;
+        }
+
+        public IEnumerable<TaskInOrderOutputModel> GetTasksByWorkerId(int workerId)
+        {
+            var taskDtos = _taskRepository.GetTasksByWorkerId(workerId);
+            var tasks = _mapper.Map<IEnumerable<TaskInOrderOutputModel>>(taskDtos);
+
+            return tasks;
+        }
+
+        public void UpdateTaskStatusByTaskId(int taskId, Status newTaskStatus)
+        {
+            TaskOutputModel task = this.GetTaskById(taskId);
+
+            if (task != null)
+            {
+                task.Status = newTaskStatus;
+            }
+
+            TaskInputModel taskUpdate = _mapper.Map<TaskInputModel>(task);
+            UpdateTask(taskUpdate);
+        }
+
+        public IEnumerable<TaskOutputModel> FilterTasks(DateTime? startDate, DateTime? endDate, Status? status)
+        {
+            var tasks = _taskRepository.FilterTasks(startDate, endDate, status);
+            var result = _mapper.Map<IEnumerable<TaskOutputModel>>(tasks);
 
             return result;
         }
 
-        public void UpdateStatusTaskByTaskId(int taskId, Status newTaskStatus)
+        private void UpdateTask(TaskInputModel task)
         {
-            _taskRepository.UpdateTaskStatus(taskId, newTaskStatus);
-        }
-
-        public void RemoveTask(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<TaskOutputModel> GetAllTask()
-        {
-            List<TaskDto> tasks = _taskRepository.GetAllTasks();
-            List<TaskOutputModel> result = _mapper.Map<List<TaskOutputModel>>(tasks);
-
-            return result;
-        }
-
-        public TaskOutputModel GetTaskById(int Id)
-        {
-            TaskDto tasks = _taskRepository.GetTaskById(Id);
-            TaskOutputModel result = _mapper.Map<TaskOutputModel>(tasks);
-
-            return result;
-        }
-        public List<TaskOutputModel> FilterTasks(DateTime? startDate, DateTime? endDate, Status? status)
-        {
-            List<TaskDto> task = _taskRepository.FilterTasks(startDate, endDate, status);
-            List<TaskOutputModel> result = _mapper.Map<List<TaskOutputModel>>(task);
-            return result;
-        }
-        public List<TaskOutputModel> GetTaskByWorkerId(int WorkerId)
-        {
-            List<TaskDto> tasks = _taskRepository.GetTaskByWorkerId(WorkerId);
-            List<TaskOutputModel> result = _mapper.Map<List<TaskOutputModel>>(tasks).ToList();
-            return result;
+            TaskDto taskDto = _mapper.Map<TaskDto>(task);
+            _taskRepository.UpdateTask(taskDto);
         }
     }
 }

@@ -1,16 +1,22 @@
-﻿using YourDay.BLL.Models.TaskModels.OutputModels;
+﻿using YourDay.BLL.Models.TaskModels.InputModels;
+using YourDay.BLL.Models.TaskModels.OutputModels;
 using YourDay.DAL.Enums;
 
 namespace YourDay.BLL.IServices
 {
     public interface ITaskService
     {
-        public List<TaskOutputModel> GetTaskByOrderId(int Id);
-        public void UpdateStatusTaskByTaskId(int taskId, Status newTaskStatus);
-        public void RemoveTask(int id);
-        public List<TaskOutputModel> GetAllTask();
-        public TaskOutputModel GetTaskById(int Id);
-        public List<TaskOutputModel> FilterTasks(DateTime? startDate, DateTime? endDate, Status? status);
-        public List<TaskOutputModel> GetTaskByWorkerId(int WorkerId);
+        public TaskOutputModel AddTask(TaskInputModel task);
+        public IEnumerable<TaskOutputModel> GetAllTasks();
+
+        public TaskOutputModel GetTaskById(int id);
+
+        public IEnumerable<TaskInOrderOutputModel> GetTasksByOrderId(int orderId);
+
+        public IEnumerable<TaskInOrderOutputModel> GetTasksByWorkerId(int workerId);
+
+        public void UpdateTaskStatusByTaskId(int taskId, Status newTaskStatus);
+
+        public IEnumerable<TaskOutputModel> FilterTasks(DateTime? startDate, DateTime? endDate, Status? status);
     }
 }

@@ -9,51 +9,58 @@ namespace YourDay.DAL.Repositories
     {
         readonly Context context = SingletoneStorage.GetStorage().Сontext;
 
-        public List<TaskDto> GetTaskByWorkerId(int id)
+        public TaskDto AddTask(TaskDto task)
         {
-            var tasks = context.Tasks
-                .Include(t => t.Workers.Where(u => u.Role == Role.Worker && u.Id == id))
-                .ToList();
-            return tasks;
-        }
-
-        public void UpdateTaskStatus(int taskId, Status newTaskStatus)
-        {
-            TaskDto task = context.Tasks.Single(task => task.Id == taskId); 
-
-            if (task != null)
-            {
-                task.Status = newTaskStatus;
-            }
-            
+            context.Tasks.Add(task);
             context.SaveChanges();
+
+            return task;
         }
 
-        public List<TaskDto> GetAllTasks()
+        public IEnumerable<TaskDto> GetAllTasks()
         {
-            List<TaskDto> tasks = context.Tasks.ToList();
+            var tasks = context.Tasks;
 
             return tasks;
         }
 
-        public TaskDto GetTaskById(int Id)
+        public TaskDto GetTaskById(int id)
         {
-           TaskDto tasks = context.Tasks.Single(task => task.Id == Id);
+            TaskDto tasks = context.Tasks.Single(task => task.Id == id);
 
             return tasks;
         }
 
-        public List<TaskDto> GetTaskByOrderId(int Id)
+        public IEnumerable<TaskDto> GetTasksByOrderId(int orderId)
         {
-            throw new NotImplementedException();
+            var tasks = context.Tasks.Where(t => t.Order.Id == orderId);
+
+            return tasks;
         }
 
-        public List<TaskDto> FilterTasks(DateTime? startDate,DateTime? endDate,Status? status)
+        public IEnumerable<TaskDto> GetTasksByWorkerId(int workerId)
         {
-            return context.Tasks.Where(task =>
+            var tasks = context.Tasks.Include(t => t.Workers.Where(u => u.Role == Role.Worker && u.Id == workerId));
+
+            return tasks;
+        }
+
+        public TaskDto UpdateTask(TaskDto task)
+        {
+            context.Tasks.Update(task);
+            context.SaveChanges();
+
+            return task;
+        }
+
+        public IEnumerable<TaskDto> FilterTasks(DateTime? startDate, DateTime? endDate, Status? status)
+        {
+            var filterdTasks = context.Tasks.Where(task =>
                 (startDate != null ? task.TimeStart >= startDate : true)
-                && (endDate  != null ? task.TimeStart <= endDate : true)
-                && (status != null ? task.Status== status : true)).ToList();
+                && (endDate != null ? task.TimeStart <= endDate : true)
+                && (status != null ? task.Status == status : true));
+
+            return filterdTasks;
         }
     }
 }

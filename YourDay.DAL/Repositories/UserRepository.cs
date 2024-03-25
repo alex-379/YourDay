@@ -16,9 +16,9 @@ namespace YourDay.DAL.Repositories
             return user;
         }
 
-        public List<UserDto> GetAllUsers()
+        public IEnumerable<UserDto> GetAllUsers()
         {
-            List<UserDto> users = context.Users.ToList();
+            var users = context.Users;
 
             return users;
         }

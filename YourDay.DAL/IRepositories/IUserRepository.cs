@@ -6,7 +6,7 @@ namespace YourDay.DAL.IRepositories
     {
         public UserDto AddUser(UserDto person);
 
-        public List<UserDto> GetAllUsers();
+        public IEnumerable<UserDto> GetAllUsers();
 
         public UserDto GetUserById(int id);
 
