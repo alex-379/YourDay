@@ -6,7 +6,7 @@
         {
             get
             {
-                return Environment.GetEnvironmentVariable("YourDayLocalDB");
+                return Environment.GetEnvironmentVariable("YourDayDB");
             }
         }
     }
