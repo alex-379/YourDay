@@ -19,7 +19,7 @@ namespace YourDay.DAL.Repositories
 
         public IEnumerable<UserDto> GetAllUsers()
         {
-            var users = context.Users.ToList();
+            var users = context.Users;
 
             return users;
         }
@@ -50,7 +50,7 @@ namespace YourDay.DAL.Repositories
 
         public IEnumerable<UserDto> GetAllUsersByRole(Role role)
         {
-            var users = context.Users.Where(u => u.Role == role).ToList();
+            var users = context.Users.Where(u => u.Role == role);
 
             return users;
         }
