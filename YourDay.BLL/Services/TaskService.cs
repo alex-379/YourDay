@@ -2,6 +2,7 @@
 using YourDay.BLL.IServices;
 using YourDay.BLL.Models.TaskModels.InputModels;
 using YourDay.BLL.Models.TaskModels.OutputModels;
+using YourDay.BLL.Models.UserModels.OutputModels;
 using YourDay.DAL.Dtos;
 using YourDay.DAL.Enums;
 using YourDay.DAL.IRepositories;
@@ -35,9 +36,30 @@ namespace YourDay.BLL.Clients
             return taskOutput;
         }
 
-        public IEnumerable<TaskOutputModel> GetAllTasks()
+        public TaskOutputModel AddWorkerForTask(int taskId, int workerId)
         {
-            var taskDtos = _taskRepository.GetAllTasks();
+            TaskOutputModel task = this.GetTaskById(taskId);
+
+            List<UserDto> users = (List<UserDto>)_workerRepository.GetAllWorkers(DAL.Enums.Role.Worker);
+            List<WorkerOutputModel> result = _mapper.Map<List<WorkerOutputModel>>(users);
+
+            return result;
+        }
+
+
+                public void UpdateTaskStatusByTaskId(int taskId, Status newTaskStatus)
+        {
+            TaskOutputModel task = this.GetTaskByIdWithOrderWithSpecialization(taskId);
+            TaskInputModel taskUpdate = _mapper.Map<TaskInputModel>(task);
+            SetStatus(taskUpdate, newTaskStatus);
+            UpdateTask(taskUpdate);
+        }
+
+
+
+        public IEnumerable<TaskOutputModel> GetAllTasksWithOrderWithSpecialization()
+        {
+            var taskDtos = _taskRepository.GetAllTasksWithOrderWithSpecialization();
             var tasks = _mapper.Map<IEnumerable<TaskOutputModel>>(taskDtos);
 
             return tasks;
@@ -51,17 +73,25 @@ namespace YourDay.BLL.Clients
             return task;
         }
 
-        public IEnumerable<TaskInOrderOutputModel> GetTasksByOrderId(int orderId)
+        public TaskOutputModel GetTaskByIdWithOrderWithSpecialization(int id)
         {
-            var taskDtos = _taskRepository.GetTasksByOrderId(orderId);
+            TaskDto taskDto = _taskRepository.GetTaskByIdWithOrderWithSpecialization(id);
+            TaskOutputModel task = _mapper.Map<TaskOutputModel>(taskDto);
+
+            return task;
+        }
+
+        public IEnumerable<TaskInOrderOutputModel> GetTasksByOrderIdWithSpecialization(int orderId)
+        {
+            var taskDtos = _taskRepository.GetTasksByOrderIdWithSpecialization(orderId);
             var tasks = _mapper.Map<IEnumerable<TaskInOrderOutputModel>>(taskDtos);
 
             return tasks;
         }
 
-        public IEnumerable<TaskInOrderOutputModel> GetTasksByWorkerId(int workerId)
+        public IEnumerable<TaskInOrderOutputModel> GetTasksByWorkerIdWithOrderWithSpecialization(int workerId)
         {
-            var taskDtos = _taskRepository.GetTasksByWorkerId(workerId);
+            var taskDtos = _taskRepository.GetTasksByWorkerIdWithOrderWithSpecialization(workerId);
             var tasks = _mapper.Map<IEnumerable<TaskInOrderOutputModel>>(taskDtos);
 
             return tasks;
@@ -69,7 +99,7 @@ namespace YourDay.BLL.Clients
 
         public void UpdateTaskStatusByTaskId(int taskId, Status newTaskStatus)
         {
-            TaskOutputModel task = this.GetTaskById(taskId);
+            TaskOutputModel task = this.GetTaskByIdWithOrderWithSpecialization(taskId);
             TaskInputModel taskUpdate = _mapper.Map<TaskInputModel>(task);
             SetStatus(taskUpdate, newTaskStatus);
             UpdateTask(taskUpdate);

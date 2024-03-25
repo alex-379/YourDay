@@ -17,9 +17,9 @@ namespace YourDay.DAL.Repositories
             return task;
         }
 
-        public IEnumerable<TaskDto> GetAllTasks()
+        public IEnumerable<TaskDto> GetAllTasksWithOrderWithSpecialization()
         {
-            var tasks = context.Tasks;
+            var tasks = context.Tasks.Include(t=>t.Order).Include(t=>t.Specialization);
 
             return tasks;
         }
@@ -31,16 +31,26 @@ namespace YourDay.DAL.Repositories
             return tasks;
         }
 
-        public IEnumerable<TaskDto> GetTasksByOrderId(int orderId)
+        public TaskDto GetTaskByIdWithOrderWithSpecialization(int id)
         {
-            var tasks = context.Tasks.Where(t => t.Order.Id == orderId);
+            TaskDto tasks = context.Tasks.Include(t => t.Order).Include(t => t.Specialization).Single(t => t.Id == id);
 
             return tasks;
         }
 
-        public IEnumerable<TaskDto> GetTasksByWorkerId(int workerId)
+        public IEnumerable<TaskDto> GetTasksByOrderIdWithSpecialization(int orderId)
         {
-            var tasks = context.Tasks.Include(t => t.Workers.Where(u => u.Role == Role.Worker && u.Id == workerId));
+            var tasks = context.Tasks.Include(t => t.Specialization).Where(t => t.Order.Id == orderId);
+
+            return tasks;
+        }
+
+        public IEnumerable<TaskDto> GetTasksByWorkerIdWithOrderWithSpecialization(int workerId)
+        {
+            var tasks = context.Tasks
+                .Include(t => t.Order)
+                .Include(t => t.Specialization)
+                .Include(t => t.Workers.Where(u => u.Role == Role.Worker && u.Id == workerId));
 
             return tasks;
         }
