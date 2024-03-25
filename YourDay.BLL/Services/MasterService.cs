@@ -8,12 +8,12 @@ namespace YourDay.BLL.Clients
 {
     public class WorkerService : IWorkerService
     {
-        private WorkerRepository _WorkerRepository;
+        private WorkerRepository _workerRepository;
         private Mapper _mapper;
 
         public WorkerService()
         {
-            _WorkerRepository = new WorkerRepository();
+            _workerRepository = new WorkerRepository();
 
             var config = new MapperConfiguration(cfg =>
             {
@@ -23,7 +23,7 @@ namespace YourDay.BLL.Clients
         }
         public List<WorkerOutputModel> GetAllWorkers()
         {
-            List<UserDto> users = (List<UserDto>)_WorkerRepository.GetAllWorkers(DAL.Enums.Role.Worker);
+            List<UserDto> users = (List<UserDto>)_workerRepository.GetAllWorkers(DAL.Enums.Role.Worker);
             List<WorkerOutputModel> result = _mapper.Map<List<WorkerOutputModel>>(users);
 
             return result;
@@ -31,7 +31,7 @@ namespace YourDay.BLL.Clients
 
         public List<WorkerOutputModel> GetTaskByWorkerId(int id)
         {
-            List<TaskDto> taskDtos = _WorkerRepository.GetTaskByWorkerId(id);
+            List<TaskDto> taskDtos = _workerRepository.GetTaskByWorkerId(id);
             List<WorkerOutputModel> result = _mapper.Map<List<WorkerOutputModel>>(taskDtos);
 
             return result;
@@ -39,7 +39,7 @@ namespace YourDay.BLL.Clients
 
         public List<WorkerOutputModel> GetUserByWorkerId(int id)
         {
-            List<UserDto> users = _WorkerRepository.GetWorkerById(id);
+            List<UserDto> users = _workerRepository.GetWorkerById(id);
             List<WorkerOutputModel> result = _mapper.Map<List<WorkerOutputModel>>(users);
 
             return result;
