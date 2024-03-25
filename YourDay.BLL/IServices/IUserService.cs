@@ -7,9 +7,9 @@ namespace YourDay.BLL.IServices
     {
         public UserOutputModel RegisterClient(UserRegistrationInputModel client);
 
-        public UserOutputModel AddClientForManager(UserRegistrationInputModel client);
+        public UserOutputModel AddClientForManager(UserAddForManagerInputModel client);
 
-        public UserOutputModel AddWorkerForManager(UserRegistrationInputModel client);
+        public UserOutputModel AddWorkerForManager(UserAddForManagerInputModel client);
 
         public IEnumerable<UserOutputModel> GetAllUsers();
 

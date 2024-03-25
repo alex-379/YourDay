@@ -1,11 +1,10 @@
 ﻿using System.Data;
 using YourDay.DAL.Dtos;
-using YourDay.DAL.Enums;
 using YourDay.DAL.IRepositories;
 
 namespace YourDay.DAL.Repositories
 {
-    public class UserRepository:IUserRepository
+    public class UserRepository : IUserRepository
     {
         readonly Context context = SingletoneStorage.GetStorage().Сontext;
 

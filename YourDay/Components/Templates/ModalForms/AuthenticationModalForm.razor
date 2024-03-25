@@ -47,7 +47,7 @@
     {
         var mails = _userService.GetAllMailBoxesWithPasswords();
         var userDb = UserService.FindUser(LoginModel, mails);
-        var hash = UserService.GetHash(LoginModel.Password, userDb.Salt);
+        var hash = PasswordService.GetHash(LoginModel.Password, userDb.Salt);
         bool result = UserService.ConfirmPassword(hash, userDb.Hash);
 
         if (result){

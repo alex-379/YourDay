@@ -8,12 +8,13 @@ using YourDay.DAL.Dtos;
 using YourDay.DAL.Enums;
 using YourDay.DAL.Repositories;
 
-namespace YourDay.BLL.Service
+namespace YourDay.BLL.Services
 {
     public class UserService : IUserService
     {
         private readonly UserRepository _userRepository;
         private readonly Mapper _mapper;
+        private RandomNumberGenerator _rng;
 
         public UserService()
         {
@@ -25,13 +26,14 @@ namespace YourDay.BLL.Service
             });
 
             _mapper = new Mapper(config);
+
+            _rng = RandomNumberGenerator.Create();
         }
 
         public UserOutputModel RegisterClient(UserRegistrationInputModel client)
         {
-            client.Salt = UserService.GetSalt();
-            client.Hash = UserService.GetHash(client.Password, client.Salt);
-
+            client.Salt = PasswordService.GetSalt();
+            client.Hash = PasswordService.GetHash(client.Password, client.Salt);
             UserDto userDtoInput = _mapper.Map<UserDto>(client);
             userDtoInput.Role = Role.Client;
             userDtoInput.IsDeleted = false;
@@ -41,8 +43,9 @@ namespace YourDay.BLL.Service
             return clientOutput;
         }
 
-        public UserOutputModel AddClientForManager(UserRegistrationInputModel client)
+        public UserOutputModel AddClientForManager(UserAddForManagerInputModel client)
         {
+            RNGCryptoServiceProvider.Create().GetBytes(client.Salt);
             UserDto userDtoInput = _mapper.Map<UserDto>(client);
 
             userDtoInput.Role = Role.Client;
@@ -53,9 +56,9 @@ namespace YourDay.BLL.Service
             return clientOutput;
         }
 
-        public UserOutputModel AddWorkerForManager(UserRegistrationInputModel client)
+        public UserOutputModel AddWorkerForManager(UserAddForManagerInputModel worker)
         {
-            UserDto userDtoInput = _mapper.Map<UserDto>(client);
+            UserDto userDtoInput = _mapper.Map<UserDto>(worker);
             userDtoInput.Role = Role.Worker;
             userDtoInput.IsDeleted = false;
             UserDto userDtoOutput = _userRepository.AddUser(userDtoInput);
@@ -94,25 +97,6 @@ namespace YourDay.BLL.Service
             UserOutputModel user = _mapper.Map<UserOutputModel>(userDto);
 
             return user;
-        }
-
-        private static byte[] GetSalt()
-        {
-            const int SaltLength = 64;
-            Byte[] salt = new Byte[SaltLength];
-            RandomNumberGenerator rng = RandomNumberGenerator.Create();
-            rng.GetBytes(salt);
-
-            return salt;
-        }
-
-        public static byte[] GetHash(string password, byte[] salt)
-        {
-            byte[] passwordByte = Encoding.UTF8.GetBytes(password);
-            byte[] saltedPassword = passwordByte.Concat(salt).ToArray();
-            byte[] hash = SHA256.HashData(saltedPassword);
-
-            return hash;
         }
 
         public static bool ConfirmMail(UserRegistrationInputModel client, IEnumerable<UserMailOutputModel> mails)
