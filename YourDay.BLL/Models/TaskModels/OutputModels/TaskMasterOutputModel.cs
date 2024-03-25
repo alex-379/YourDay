@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YourDay.BLL.Models.TaskModels.OutputModels
 {
-    public class TaskMasterOutputModel
+    public class TaskWorkerOutputModel
     {
         public int Id { get; set; }
         public string Title { get; set; }
@@ -22,6 +22,6 @@ namespace YourDay.BLL.Models.TaskModels.OutputModels
         public int SpecializationId { get; set; }
 
         public int StatusId { get; set; }
-        public int MasterId {  get; set; }
+        public int WorkerId {  get; set; }
     }
 }

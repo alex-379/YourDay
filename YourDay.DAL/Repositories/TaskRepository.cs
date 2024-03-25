@@ -7,9 +7,9 @@ namespace YourDay.DAL.Repositories
 {
     public class TaskRepository : ITaskRepository
     {
-        Context context = SingletoneStorage.GetStorage().Сontext;
-        
-        public List<TaskDto> GetTaskByMasterId(int id)
+        readonly Context context = SingletoneStorage.GetStorage().Сontext;
+
+        public List<TaskDto> GetTaskByWorkerId(int id)
         {
             var tasks = context.Tasks
                 .Include(t => t.Workers.Where(u => u.Role == Role.Worker && u.Id == id))
@@ -35,12 +35,14 @@ namespace YourDay.DAL.Repositories
 
             return tasks;
         }
+
         public TaskDto GetTaskById(int Id)
         {
            TaskDto tasks = context.Tasks.Single(task => task.Id == Id);
 
             return tasks;
         }
+
         public List<TaskDto> GetTaskByOrderId(int Id)
         {
             throw new NotImplementedException();

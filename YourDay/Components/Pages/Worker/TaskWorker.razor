@@ -1,4 +1,4 @@
-@page "/taskMaster"
+@page "/taskWorker"
 @using YourDay.DAL.Enums
 @attribute [StreamRendering]
 @rendermode InteractiveServer
@@ -37,7 +37,7 @@
 <div class="container-task">
     @foreach(TaskOutputModel task in _tasks)
     {
-        <MasterTaskCard task="task"></MasterTaskCard>
+        <WorkerTaskCard task="task"></WorkerTaskCard>
     }
 </div>
 
@@ -46,15 +46,15 @@
 {
     private List<TaskOutputModel> _tasks;
     private const string Format = "hh:mm:ss";
-    private TaskService _masterClient;
+    private TaskService _WorkerClient;
     public DateTime? dateFrom;
     public DateTime? dateTo;
     public Status? status;
 
-    public TaskMaster()
+    public TaskWorker()
     {
-        _masterClient = new TaskService();
-        _tasks = _masterClient.GetTaskByWorkerId(3);
+        _WorkerClient = new TaskService();
+        _tasks = _WorkerClient.GetTaskByWorkerId(3);
     }
 
     protected override void OnInitialized()
@@ -67,7 +67,7 @@
 
     public void QestTaskFilter()
     {
-        _tasks = _masterClient.FilterTasks(dateFrom, dateTo,status);
+        _tasks = _WorkerClient.FilterTasks(dateFrom, dateTo,status);
     }
 }
     

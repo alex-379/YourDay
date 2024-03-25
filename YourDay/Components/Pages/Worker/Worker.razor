@@ -1,17 +1,17 @@
-﻿@page "/master"
+﻿@page "/Worker"
 @rendermode InteractiveServer
-@inject NavigationManager NavigationMaster
+@inject NavigationManager NavigationWorker
 
-<PageTitle>Master</PageTitle>
+<PageTitle>Worker</PageTitle>
 @code
 {
     private void TaskWorker()
     {
-        NavigationMaster.NavigateTo("/taskMaster");
+        NavigationWorker.NavigateTo("/taskWorker");
     }
     private void ContactTheManager()
     {
-        NavigationMaster.NavigateTo("/contactTheManager");
+        NavigationWorker.NavigateTo("/contactTheManager");
     }
    
 }

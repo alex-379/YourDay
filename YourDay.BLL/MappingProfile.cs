@@ -8,15 +8,15 @@ using YourDay.BLL.Models.UserModels.OutputModels;
 using YourDay.BLL.Service;
 using YourDay.DAL.Dtos;
 
-namespace YourDay.BLL.Mapping
+namespace YourDay.BLL
 {
     public class MappingProfile : Profile
     {
         public MappingProfile()
         {
             CreateMap<UserRegistrationInputModel, UserDto>();
-                                //.ForMember(d => d.Salt, opt => opt.MapFrom(s => UserService.GetSaltHash(s.Password)[0]));
-                                ////.ForMember(d => d.Hash, opt => opt.MapFrom(s => UserService.GetSaltHash(s.Password)[1]));
+            //.ForMember(d => d.Salt, opt => opt.MapFrom(s => UserService.GetSaltHash(s.Password)[0]));
+            ////.ForMember(d => d.Hash, opt => opt.MapFrom(s => UserService.GetSaltHash(s.Password)[1]));
 
             CreateMap<UserDto, UserOutputModel>();
 

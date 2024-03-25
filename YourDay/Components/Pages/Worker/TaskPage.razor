@@ -1,10 +1,10 @@
-@page "/taskMaster/task/{Id:int}"
+@page "/taskWorker/task/{Id:int}"
 @using YourDay.DAL.Enums;
 @rendermode InteractiveServer
 <div >
     <div >
         <div class="container-task">
-            <MasterTaskCard task="_task"></MasterTaskCard>
+            <WorkerTaskCard task="_task"></WorkerTaskCard>
             <form>
             <select  @onchange="UpdateStatusTask">
                 <option value="0">Получен</option>

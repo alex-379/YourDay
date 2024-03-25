@@ -37,7 +37,7 @@
     }
 
     private List<TaskOutputModel> _tasks;
-    private IMasterService _masters;
+    private IWorkerService _Workers;
 }
 
 <div class="body">
@@ -85,7 +85,7 @@
         <div class="container-task">
             @foreach (var i in _tasks)
             {
-                <MasterTaskCard task="i" ></MasterTaskCard>
+                <WorkerTaskCard task="i" ></WorkerTaskCard>
             }
         </div>
     </section>

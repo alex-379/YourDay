@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using YourDay.BLL.IServices;
-using YourDay.BLL.Mapping;
 using YourDay.BLL.Models.OrderModels.InputModels;
 using YourDay.BLL.Models.OrderModels.OutputModels;
 using YourDay.DAL.Dtos;
@@ -8,7 +7,7 @@ using YourDay.DAL.Repositories;
 
 namespace YourDay.BLL.Clients
 {
-    public class OrderService: IOrderService
+    public class OrderService : IOrderService
     {
         private OrderRepository _orderRepository;
         private Mapper _mapper;
