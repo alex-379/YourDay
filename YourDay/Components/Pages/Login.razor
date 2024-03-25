@@ -1,35 +1,40 @@
-﻿@* @page "/Login"
+﻿@page "/Login"
 @inject NavigationManager navManager
 
-<EditForm Model="LoginModel" FormName="Login" OnSubmit="StartLogin">
-    <InputText @bind-Value="LoginModel.Login"></InputText>
-    <InputText @bind-Value="LoginModel.Password"></InputText>
+<EditForm Model="login" FormName="login123213" OnSubmit="StartLogin">
+    <InputText @bind-Value="login.Mail"></InputText>
+    <InputText @bind-Value="login.Password"></InputText>
     <button type="submit">LOGIN</button>
 </EditForm>
 
 @code {
     [SupplyParameterFromForm]
-    public LoginModel LoginModel { get; set; } = new LoginModel();
+    public UserAutenthicationInputModel login { get; set; }
 
     [CascadingParameter]
     public HttpContext HttpContext { get; set; }
+
+    protected override void OnInitialized()
+    {
+        login = new UserAutenthicationInputModel();
+    }
+
 
     public async Task StartLogin()
     {
         //получение инфы из базы
 
-        List<Claim> claims = new List<Claim>()
-        {
-            new Claim(ClaimTypes.Name, LoginModel.Login),
-            new Claim(ClaimTypes.Role, "Manager")
-        };
+        // List<Claim> claims = new List<Claim>()
+        // {
+        //     new Claim(ClaimTypes.Name, LoginModel.Login),
+        //     new Claim(ClaimTypes.Role, "Manager")
+        // };
 
-        var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-        var pr = new ClaimsPrincipal(identity);
+        // var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+        // var pr = new ClaimsPrincipal(identity);
 
-        await HttpContext.SignInAsync(pr);
+        // await HttpContext.SignInAsync(pr);
 
-        navManager.NavigateTo("/");
+        // navManager.NavigateTo("/");
     }
 }
- *@

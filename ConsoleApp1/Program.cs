@@ -1,11 +1,7 @@
-﻿using YourDay.BLL.Clients;
-using YourDay.BLL.IServices;
+using YourDay.BLL.Clients;
 using YourDay.BLL.Models.UserModels.InputModels;
-using YourDay.BLL.Models.UserModels.OutputModels;
-using YourDay.BLL.Service;
+using YourDay.BLL.Services;
 using YourDay.DAL;
-using YourDay.DAL.Dtos;
-using YourDay.DAL.Enums;
 using YourDay.DAL.Repositories;
 
 namespace ConsoleApp1
@@ -24,14 +20,25 @@ namespace ConsoleApp1
             UserService userService = new UserService();
             TaskService taskService = new TaskService();
 
-            //var b = taskService.GetAllTask();
-            //Console.WriteLine();
+            //UserRegistrationInputModel model = new UserRegistrationInputModel()
+            //{
+            //    UserName = "Андрей",
+            //    Mail = "andrew.mail@m.ru",
+            //    Password = "231232112",
+            //    Phone = "9095461232"
+            //};
+            //userService.AddUser(model);
 
-            //DateTime? birthdate = null;
-            //var a = birthdate?.ToString("dd/MM/yyyy");
-            //Console.WriteLine();
+            //var a = PasswordService.GetSalt();
+            //Console.WriteLine(a);
+
+            //int a = (int)Length.PasswordLength;
+            //Console.WriteLine(a);
 
             //UserService.GetSaltHash("231312");
+
+            //userRepository.GetAllUsers();
+            //Console.WriteLine();
 
             //string password2 = "123213213211";
 

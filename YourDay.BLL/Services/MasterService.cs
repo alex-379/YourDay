@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using YourDay.BLL.IServices;
 using YourDay.BLL.Models.UserModels.OutputModels;
 using YourDay.DAL.Dtos;
@@ -21,6 +21,7 @@ namespace YourDay.BLL.Clients
             });
             _mapper = new Mapper(config);
         }
+
         public List<WorkerOutputModel> GetAllWorkers()
         {
             List<UserDto> users = (List<UserDto>)_workerRepository.GetAllWorkers(DAL.Enums.Role.Worker);

@@ -15,6 +15,7 @@ namespace YourDay.DAL.Repositories
 
             return users;
         }
+
         public List<UserDto> GetWorkerById(int id)
         {
 
@@ -22,6 +23,7 @@ namespace YourDay.DAL.Repositories
 
             return users;
         }
+
         public List<TaskDto> GetTaskByWorkerId(int id)
         {
             List<TaskDto> tasks = context.Tasks.Include(t => t.Workers.Where(u => u.Role == Role.Worker)).ToList();

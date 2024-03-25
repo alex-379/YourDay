@@ -1,15 +1,20 @@
 ﻿using YourDay.BLL.Models.UserModels.InputModels;
 using YourDay.BLL.Models.UserModels.OutputModels;
+using YourDay.DAL.Dtos;
 
 namespace YourDay.BLL.IServices
 {
     public interface IUserService
     {
-        public UserOutputModel RegisterClient(UserRegistrationInputModel client);
+        public UserDto SetRoleClient(UserDto user);
+
+        public UserDto SetRoleWorker(UserDto user);
+
+        public UserOutputModel AddUser(UserRegistrationInputModel client);
 
         public UserOutputModel AddClientForManager(UserRegistrationInputModel client);
 
-        public UserOutputModel AddWorkerForManager(UserRegistrationInputModel client);
+        public UserOutputModel AddWorkerForManager(UserRegistrationInputModel worker);
 
         public IEnumerable<UserOutputModel> GetAllUsers();
 
