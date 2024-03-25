@@ -45,16 +45,18 @@
 
     public async Task StartLogin()
     {
-        var mails = _userService.GetAllMailBoxesWithPasswords();
-        var userDb = UserService.FindUser(LoginModel, mails);
-        var hash = PasswordService.GetHash(LoginModel.Password, userDb.Salt);
-        bool result = UserService.ConfirmPassword(hash, userDb.Hash);
+        // var mails = _userService.GetAllMailBoxesWithPasswords();
+        // var userDb = UserService.FindUser(LoginModel, mails);
+        // var hash = PasswordService.GetHash(LoginModel.Password, userDb.Salt);
+        // bool result = UserService.ConfirmPassword(hash, userDb.Hash);
+
+        bool result = _userService.ConfirmPassword(LoginModel);
 
         if (result){
             List<Claim> claims = new List<Claim>()
         {
             new Claim(ClaimTypes.Name, LoginModel.Mail),
-            new Claim(ClaimTypes.Role, nameof(userDb.Role))
+            new Claim(ClaimTypes.Role, nameof(LoginModel.Role))
         };
 
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
