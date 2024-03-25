@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using YourDay.DAL.Dtos;
+using YourDay.DAL.Enums;
 using YourDay.DAL.IRepositories;
 
 namespace YourDay.DAL.Repositories
@@ -34,6 +35,20 @@ namespace YourDay.DAL.Repositories
         {
             context.Users.Update(user);
             context.SaveChanges();
+
+            return user;
+        }
+
+        public IEnumerable<UserDto> GetAllUsersByRole(Role role)
+        {
+            var users = context.Users.Where(u => u.Role == role);
+
+            return users;
+        }
+
+        public UserDto GetUserByIdByRole(int userId, Role role)
+        {
+            var user = context.Users.Where(u => u.Role == role && u.Id == userId).Single();
 
             return user;
         }

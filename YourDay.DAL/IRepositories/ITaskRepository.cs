@@ -7,13 +7,15 @@ namespace YourDay.DAL.IRepositories
     {
         public TaskDto AddTask(TaskDto task);
 
-        public IEnumerable<TaskDto> GetAllTasks();
+        public IEnumerable<TaskDto> GetAllTasksWithOrderWithSpecialization();
 
-        public TaskDto GetTaskById(int Id);
+        public TaskDto GetTaskById(int id);
 
-        public IEnumerable<TaskDto> GetTasksByOrderId(int orderId);
+        public TaskDto GetTaskByIdWithOrderWithSpecialization(int Id);
 
-        public IEnumerable<TaskDto> GetTasksByWorkerId(int workerId);
+        public IEnumerable<TaskDto> GetTasksByOrderIdWithSpecialization(int orderId);
+
+        public IEnumerable<TaskDto> GetTasksByWorkerIdWithOrderWithSpecialization(int workerId);
 
         public TaskDto UpdateTask(TaskDto task);
 

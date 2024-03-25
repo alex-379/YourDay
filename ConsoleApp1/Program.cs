@@ -37,20 +37,21 @@ namespace ConsoleApp1
             //specializationService.AddSpecialization(specialization);
             //SpecializationDto specialization = specializationRepository.GetSpecializationById(1);
 
-            OrderDto order = orderRepository.GetOrderById(3);
-            SpecializationDto specialization = specializationRepository.GetSpecializationById(2);
+            //OrderDto order = orderRepository.GetOrderById(2);
+            //SpecializationDto specialization = specializationRepository.GetSpecializationById(1);
 
-            TaskInputModel model = new()
-            {
-                Description = "привезти цветы",
-                Order = order,
-                TimeStart = DateTime.Now,
-                TimeEnd = new DateTime(2024, 5, 5, 17, 0, 0),
-                Specialization = specialization,
-                Title = "Цветы",
-            };
+            //TaskInputModel model = new()
+            //{
+            //    Description = "оформить помещение",
+            //    Order = order,
+            //    TimeStart = DateTime.Now,
+            //    TimeEnd = new DateTime(2024, 6, 6, 12, 0, 0),
+            //    Specialization = specialization,
+            //    Title = "Оформление",
+            //};
+            //taskService.AddTask(model);
 
-            var result = taskService.AddTask(model);
+            var result = taskService.GetTasksByWorkerIdWithOrderWithSpecialization(1);
             
 
             Console.WriteLine();

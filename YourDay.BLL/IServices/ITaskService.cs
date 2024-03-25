@@ -8,13 +8,15 @@ namespace YourDay.BLL.IServices
     {
         public TaskOutputModel AddTask(TaskInputModel task);
 
-        public IEnumerable<TaskOutputModel> GetAllTasks();
+        public IEnumerable<TaskOutputModel> GetAllTasksWithOrderWithSpecialization();
 
         public TaskOutputModel GetTaskById(int id);
 
-        public IEnumerable<TaskInOrderOutputModel> GetTasksByOrderId(int orderId);
+        public TaskOutputModel GetTaskByIdWithOrderWithSpecialization(int id);
 
-        public IEnumerable<TaskInOrderOutputModel> GetTasksByWorkerId(int workerId);
+        public IEnumerable<TaskInOrderOutputModel> GetTasksByOrderIdWithSpecialization(int orderId);
+
+        public IEnumerable<TaskInOrderOutputModel> GetTasksByWorkerIdWithOrderWithSpecialization(int workerId);
 
         public void UpdateTaskStatusByTaskId(int taskId, Status newTaskStatus);
 
