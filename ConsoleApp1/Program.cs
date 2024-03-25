@@ -1,4 +1,6 @@
+using System;
 using YourDay.BLL.Clients;
+using YourDay.BLL.IServices;
 using YourDay.BLL.Models.UserModels.InputModels;
 using YourDay.BLL.Services;
 using YourDay.DAL;
@@ -19,6 +21,21 @@ namespace ConsoleApp1
             OrderService orderService = new OrderService();
             UserService userService = new UserService();
             TaskService taskService = new TaskService();
+
+            UserAutenthicationInputModel model = new UserAutenthicationInputModel()
+            {
+                Mail = "sergio@mail.ru",
+                Password = "123456",
+            };
+
+            bool result = userService.ConfirmPassword(model);
+
+            string b = model.Role.ToString();
+
+            Console.WriteLine();
+
+            //var a = userService.GetAllMailBoxesWithPasswords();
+            //Console.WriteLine();
 
             //UserRegistrationInputModel model = new UserRegistrationInputModel()
             //{
