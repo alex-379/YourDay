@@ -7,6 +7,7 @@ namespace YourDay.BLL.IServices
     public interface ITaskService
     {
         public TaskOutputModel AddTask(TaskInputModel task);
+
         public IEnumerable<TaskOutputModel> GetAllTasks();
 
         public TaskOutputModel GetTaskById(int id);

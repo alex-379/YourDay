@@ -1,9 +1,13 @@
 using System;
 using YourDay.BLL.Clients;
 using YourDay.BLL.IServices;
+using YourDay.BLL.Models.SpecializationModels.InputModels;
+using YourDay.BLL.Models.TaskModels.InputModels;
 using YourDay.BLL.Models.UserModels.InputModels;
 using YourDay.BLL.Services;
 using YourDay.DAL;
+using YourDay.DAL.Dtos;
+using YourDay.DAL.IRepositories;
 using YourDay.DAL.Repositories;
 
 namespace ConsoleApp1
@@ -14,23 +18,48 @@ namespace ConsoleApp1
         {
             Context context = SingletoneStorage.GetStorage().Сontext;
 
-            UserRepository userRepository = new UserRepository();
-            OrderRepository orderRepository = new OrderRepository();
-            TaskRepository taskRepository = new TaskRepository();
+            IUserRepository userRepository = new UserRepository();
+            IOrderRepository orderRepository = new OrderRepository();
+            ITaskRepository taskRepository = new TaskRepository();
+            ISpecializationRepository specializationRepository = new SpecializationRepository();
 
-            OrderService orderService = new OrderService();
-            UserService userService = new UserService();
-            TaskService taskService = new TaskService();
+            IOrderService orderService = new OrderService();
+            IUserService userService = new UserService();
+            ITaskService taskService = new TaskService();
+            ISpecializationService specializationService = new SpecializationService();
 
-            UserAutenthicationInputModel model = new UserAutenthicationInputModel()
+
+
+            //SpecializationInputModel specialization = new()
+            //{
+            //    Name = "Аниматор",
+            //};
+            //specializationService.AddSpecialization(specialization);
+            //SpecializationDto specialization = specializationRepository.GetSpecializationById(1);
+
+            OrderDto order = orderRepository.GetOrderById(3);
+            SpecializationDto specialization = specializationRepository.GetSpecializationById(2);
+
+            TaskInputModel model = new()
             {
-                Mail = "sergio@mail.ru",
-                Password = "123456",
+                Description = "привезти цветы",
+                Order = order,
+                TimeStart = DateTime.Now,
+                TimeEnd = new DateTime(2024, 5, 5, 17, 0, 0),
+                Specialization = specialization,
+                Title = "Цветы",
             };
 
-            var result = userService.GetAllUsers();
+            var result = taskService.AddTask(model);
+            
 
             Console.WriteLine();
+
+            //UserAutenthicationInputModel model = new UserAutenthicationInputModel()
+            //{
+            //    Mail = "sergio@mail.ru",
+            //    Password = "123456",
+            //};
 
             //var a = userService.GetAllMailBoxesWithPasswords();
             //Console.WriteLine();

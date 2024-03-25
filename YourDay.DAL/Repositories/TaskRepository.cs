@@ -26,7 +26,7 @@ namespace YourDay.DAL.Repositories
 
         public TaskDto GetTaskById(int id)
         {
-            TaskDto tasks = context.Tasks.Single(task => task.Id == id);
+            TaskDto tasks = context.Tasks.Single(t => t.Id == id);
 
             return tasks;
         }

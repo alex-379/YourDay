@@ -2,6 +2,8 @@
 using YourDay.BLL.Clients;
 using YourDay.BLL.Models.OrderModels.InputModels;
 using YourDay.BLL.Models.OrderModels.OutputModels;
+using YourDay.BLL.Models.SpecializationModels.InputModels;
+using YourDay.BLL.Models.SpecializationModels.OutputModels;
 using YourDay.BLL.Models.TaskModels.InputModels;
 using YourDay.BLL.Models.TaskModels.OutputModels;
 using YourDay.BLL.Models.UserModels.InputModels;
@@ -42,6 +44,10 @@ namespace YourDay.BLL
             CreateMap<TaskDto, TaskInOrderOutputModel>();
 
             CreateMap<TaskOutputModel, TaskInputModel>();
+
+            CreateMap<SpecializationInputModel, SpecializationDto>();
+
+            CreateMap<SpecializationDto, SpecializationOutputModel>();
 
 
 

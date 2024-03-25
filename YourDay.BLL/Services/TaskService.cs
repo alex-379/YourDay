@@ -27,8 +27,10 @@ namespace YourDay.BLL.Clients
 
         public TaskOutputModel AddTask(TaskInputModel task)
         {
+            SetStatus(task, Status.Received);
             TaskDto taskDtoInput = _mapper.Map<TaskDto>(task);
-            TaskOutputModel taskOutput = _mapper.Map<TaskOutputModel>(taskDtoInput);
+            TaskDto taskDtoOutput = _taskRepository.AddTask(taskDtoInput);
+            TaskOutputModel taskOutput = _mapper.Map<TaskOutputModel>(taskDtoOutput);
 
             return taskOutput;
         }
@@ -68,13 +70,8 @@ namespace YourDay.BLL.Clients
         public void UpdateTaskStatusByTaskId(int taskId, Status newTaskStatus)
         {
             TaskOutputModel task = this.GetTaskById(taskId);
-
-            if (task != null)
-            {
-                task.Status = newTaskStatus;
-            }
-
             TaskInputModel taskUpdate = _mapper.Map<TaskInputModel>(task);
+            SetStatus(taskUpdate, newTaskStatus);
             UpdateTask(taskUpdate);
         }
 
@@ -90,6 +87,11 @@ namespace YourDay.BLL.Clients
         {
             TaskDto taskDto = _mapper.Map<TaskDto>(task);
             _taskRepository.UpdateTask(taskDto);
+        }
+
+        private static void SetStatus(TaskInputModel task, Status status)
+        {
+            task.Status = status;
         }
     }
 }
