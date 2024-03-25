@@ -1,159 +1,161 @@
-﻿//using YourDay.BLL.Clients;
-//using YourDay.BLL.IServices;
-//using YourDay.BLL.Models.UserModels.InputModels;
-//using YourDay.BLL.Models.UserModels.OutputModels;
-//using YourDay.BLL.Service;
-//using YourDay.DAL;
-//using YourDay.DAL.Repositories;
+﻿using YourDay.BLL.Clients;
+using YourDay.BLL.IServices;
+using YourDay.BLL.Models.UserModels.InputModels;
+using YourDay.BLL.Models.UserModels.OutputModels;
+using YourDay.BLL.Service;
+using YourDay.DAL;
+using YourDay.DAL.Dtos;
+using YourDay.DAL.Enums;
+using YourDay.DAL.Repositories;
 
-//namespace ConsoleApp1
-//{
-//    internal class Program
-//    {
-//        static void Main(string[] args)
-//        {
-//            DateTime? birthdate = null;
-//            var a = birthdate?.ToString("dd/MM/yyyy");
-//            Console.WriteLine();
+namespace ConsoleApp1
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Context context = SingletoneStorage.GetStorage().Сontext;
 
-//            Context context = SingletoneStorage.GetStorage().Сontext;
+            UserRepository userRepository = new UserRepository();
+            OrderRepository orderRepository = new OrderRepository();
+            TaskRepository taskRepository = new TaskRepository();
 
-//            UserRepository userRepository = new UserRepository();
-//            OrderRepository orderRepository = new OrderRepository();
-//            TaskRepository taskRepository = new TaskRepository();
+            OrderService orderService = new OrderService();
+            UserService userService = new UserService();
+            TaskService taskService = new TaskService();
 
-//            OrderService orderService = new OrderService();
-//            UserService userService = new UserService();
-//            TaskService taskService = new TaskService();
+            //var b = taskService.GetAllTask();
+            //Console.WriteLine();
 
-//            UserService.GetSaltHash("231312");
+            //DateTime? birthdate = null;
+            //var a = birthdate?.ToString("dd/MM/yyyy");
+            //Console.WriteLine();
 
-//            string password2 = "123213213211";
+            //UserService.GetSaltHash("231312");
 
-//            var p1 = UserService.GetHashPassword(password1);
-//            var p2 = UserService.GetHashPassword(password2);
+            //string password2 = "123213213211";
 
-//            string password = "123213213211";
+            //var p1 = UserService.GetHashPassword(password1);
+            //var p2 = UserService.GetHashPassword(password2);
 
-//            var salt = UserService.GetSalt();
-//            var hash = UserService.GetHash(password, salt);
-//            var hash1 = UserService.GetHash(password1, salt);
-//            var hash2 = UserService.GetHash(password2, salt);
+            //string password = "123213213211";
 
-//            var a = hash.SequenceEqual(hash1);
-//            var b = hash.SequenceEqual(hash2);
-//            var c = hash1.SequenceEqual(hash2);
-//            var d = hash2.SequenceEqual(hash1);
+            //var salt = UserService.GetSalt();
+            //var hash = UserService.GetHash(password, salt);
+            //var hash1 = UserService.GetHash(password1, salt);
+            //var hash2 = UserService.GetHash(password2, salt);
 
-//            Console.WriteLine(a);
-//            Console.WriteLine(b);
-//            Console.WriteLine(c);
-//            Console.WriteLine(d);
+            //var a = hash.SequenceEqual(hash1);
+            //var b = hash.SequenceEqual(hash2);
+            //var c = hash1.SequenceEqual(hash2);
+            //var d = hash2.SequenceEqual(hash1);
 
-//            UserRegistrationInputModel client = new()
-//            {
-//                Mail = ""
-//            };
+            //Console.WriteLine(a);
+            //Console.WriteLine(b);
+            //Console.WriteLine(c);
+            //Console.WriteLine(d);
 
-//            var mails = userService.GetAllMailBoxes();
-//            var m = UserService.ConfirmMail(client, mails);
+            //UserRegistrationInputModel client = new()
+            //{
+            //    Mail = ""
+            //};
 
-//            Console.WriteLine(m);
+            //var mails = userService.GetAllMailBoxes();
+            //var m = UserService.ConfirmMail(client, mails);
 
-//            var user = userRepository.GetUserById(1050);
-//            if (user.Password == md5data)
-//            {
-//                Console.WriteLine("sadasdsadsa");
-//            }
+            //Console.WriteLine(m);
 
-//            var u = new UserDto()
-//            {
-//                UserName = "Семён",
-//                Mail = "oxxy@gmail.com",
-//                Phone = "+921246565",
-//                Password = md5data,
-//                IsDeleted = false,
-//                Role = Role.Client
-//            };
+            //var user = userRepository.GetUserById(1050);
+            //if (user.Password == md5data)
+            //{
+            //    Console.WriteLine("sadasdsadsa");
+            //}
 
-//            var tmp = userRepository.AddUser(u);
+            //var u = new UserDto()
+            //{
+            //    UserName = "Семён",
+            //    Mail = "oxxy@gmail.com",
+            //    Phone = "+921246565",
+            //    Password = md5data,
+            //    IsDeleted = false,
+            //    Role = Role.Client
+            //};
 
-//            Console.WriteLine();
+            //var tmp = userRepository.AddUser(u);
 
-//            var t = taskRepository.GetTaskByWorkerId(4);
-//            u.UserName = "Филипп";
-//            u.Password = "testpassws";
-//            var tmp = rep.DeleteUser(u);
-//            Console.WriteLine();
+            //Console.WriteLine();
 
-//            context.Users.Add(u);
-//            context.SaveChanges();
+            //var t = taskRepository.GetTaskByWorkerId(4);
+            //u.UserName = "Филипп";
+            //u.Password = "testpassws";
+            //var tmp = rep.DeleteUser(u);
+            //Console.WriteLine();
 
-//            var o = context.Orders.Where(o => o.Id == 2).Single();
-//            var o2 = context.Orders
-//                .Include(o => o.Client)
-//                .Include(o => o.Manager)
-//                .Include(o => o.Histories)
-//                .Include(o => o.Tasks)
-//                .Where(o => o.Id == 4).Single();
-//            Console.WriteLine();
+            //context.Users.Add(u);
+            //context.SaveChanges();
 
-//            var order3 = context.Orders.Where(order3 => order3.Id == 3).Single();
-//            var order2 = context.Orders.Where(m => m.Id == 2).Single();
+            //var o = context.Orders.Where(o => o.Id == 2).Single();
+            //var o2 = context.Orders
+            //    .Include(o => o.Client)
+            //    .Include(o => o.Manager)
+            //    .Include(o => o.Histories)
+            //    .Include(o => o.Tasks)
+            //    .Where(o => o.Id == 4).Single();
+            //Console.WriteLine();
 
-
-//            var s = context.Specializations.Where(s => s.Id == 2).Single();
-//            var o = context.Orders.Where(o => o.Id == 2).Single();
-//            var w = context.Users.Where(m => m.Id == 4).ToList();
-
-//            var t = new TaskDto()
-//            {
-//                Order = order3,
-//                Specialization = s,
-//                Status = Status.InProgress,
-//                TimeEnd = new DateTime(2024, 6, 15, 1, 17, 0),
-//                TimeStart = new DateTime(2024, 6, 12, 1, 12, 0),
-//                Workers = w,
-//                Description = "много много цветов",
-//                Title = "цветы"
-//            };
-//            context.Tasks.Add(t);
+            //var order3 = context.Orders.Where(order3 => order3.Id == 3).Single();
+            //var order2 = context.Orders.Where(m => m.Id == 2).Single();
 
 
-//            var tasks = context.Tasks.Where(m => m.OrderId == 2).ToList();
+            //var s = context.Specializations.Where(s => s.Id == 2).Single();
+            //var o = context.Orders.Where(o => o.Id == 2).Single();
+            //var w = context.Users.Where(m => m.Id == 4).ToList();
 
-//            context.SaveChanges();
+            //var t = new TaskDto()
+            //{
+            //    Status = Status.InProgress,
+            //    TimeEnd = new DateTime(2024, 6, 16, 1, 18, 0),
+            //    TimeStart = new DateTime(2024, 6, 17, 1, 13, 0),
+            //    Description = "подготовка зала",
+            //    Title = "зал"
+            //};
+            //context.Tasks.Add(t);
+            //context.SaveChanges();
 
-//            Console.WriteLine(1);
+            //var tasks = context.Tasks.Where(m => m.OrderId == 2).ToList();
 
-//            var client = context.Users.Where(c => c.Id == 10).Single();
-//            var manager = context.Users.Where(m => m.Id == 9).Single();
+            //context.SaveChanges();
 
-//            var o = new OrderDto()
-//            {
-//                OrderName = "Концерт",
-//                Address = "Москва",
-//                Date = new DateTime(2024, 5, 5),
-//                CountPeople = 120,
-//                Price = 100000,
-//                Еvaluation = 1,
-//                Status = Status.Received,
-//                Client = client,
-//                Manager = manager
-//            };
+            //Console.WriteLine(1);
 
-//            context.Orders.Add(o);
+            //var client = context.Users.Where(c => c.Id == 10).Single();
+            //var manager = context.Users.Where(m => m.Id == 9).Single();
 
-//            var orders = context.Orders; //можем вывести все зака
+            //var o = new OrderDto()
+            //{
+            //    OrderName = "Концерт",
+            //    Address = "Москва",
+            //    Date = new DateTime(2024, 5, 5),
+            //    CountPeople = 120,
+            //    Price = 100000,
+            //    Еvaluation = 1,
+            //    Status = Status.Received,
+            //    Client = client,
+            //    Manager = manager
+            //};
 
-//            //var t = context.Tasks.Where(t => t.Id == 1).Single();
-//            //t.Description = "Привезти букет из 5 роз";
+            //context.Orders.Add(o);
 
-//            //t.Workers = w;
+            //var orders = context.Orders; //можем вывести все зака
 
-//            //context.Tasks.Update(t);
+            ////var t = context.Tasks.Where(t => t.Id == 1).Single();
+            ////t.Description = "Привезти букет из 5 роз";
 
-//            context.SaveChanges();
-//        }
-//    }
-//}
+            ////t.Workers = w;
+
+            ////context.Tasks.Update(t);
+
+            //context.SaveChanges();
+        }
+    }
+}
