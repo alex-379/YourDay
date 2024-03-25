@@ -1,4 +1,4 @@
-﻿using System.Data;
+using System.Data;
 using YourDay.DAL.Dtos;
 using YourDay.DAL.Enums;
 using YourDay.DAL.IRepositories;
@@ -17,16 +17,16 @@ namespace YourDay.DAL.Repositories
             return user;
         }
 
-        public IEnumerable<UserDto> GetAllUsers()
+        public List<UserDto> GetAllUsers()
         {
-            var users = context.Users;
+            List<UserDto> users = context.Users.ToList();
 
             return users;
         }
 
         public UserDto GetUserById(int id)
         {
-            var user = context.Users.Where(u => u.Id == id).Single();
+            UserDto user = context.Users.Where(u => u.Id == id).Single();
 
             return user;
         }
@@ -48,7 +48,7 @@ namespace YourDay.DAL.Repositories
             return user;
         }
 
-        public IEnumerable<UserDto> GetAllUsersByRole(Role role)
+        public List<UserDto> GetAllUsersByRole(Role role)
         {
             var users = context.Users.Where(u => u.Role == role);
 

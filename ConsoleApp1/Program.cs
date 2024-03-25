@@ -1,9 +1,11 @@
-﻿using YourDay.BLL.Clients;
+using YourDay.BLL.Clients;
 using YourDay.BLL.IServices;
 using YourDay.BLL.Models.UserModels.InputModels;
 using YourDay.BLL.Models.UserModels.OutputModels;
 using YourDay.BLL.Service;
 using YourDay.DAL;
+using YourDay.DAL.Dtos;
+using YourDay.DAL.Enums;
 using YourDay.DAL.Repositories;
 
 namespace ConsoleApp1
@@ -12,10 +14,6 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            //DateTime? birthdate = null;
-            //var a = birthdate?.ToString("dd/MM/yyyy");
-            //Console.WriteLine();
-
             Context context = SingletoneStorage.GetStorage().Сontext;
 
             UserRepository userRepository = new UserRepository();
@@ -83,7 +81,7 @@ namespace ConsoleApp1
 
             //Console.WriteLine();
 
-            //var t = taskRepository.GetTaskByMasterId(4);
+            //var t = taskRepository.GetTaskByWorkerId(4);
             //u.UserName = "Филипп";
             //u.Password = "testpassws";
             //var tmp = rep.DeleteUser(u);
@@ -111,31 +109,20 @@ namespace ConsoleApp1
 
             //var t = new TaskDto()
             //{
-            //    Order = order3,
-            //    Specialization = s,
             //    Status = Status.InProgress,
-            //    TimeEnd = new DateTime(2024, 6, 15, 1, 17, 0),
-            //    TimeStart = new DateTime(2024, 6, 12, 1, 12, 0),
-            //    Workers = w,
-            //    Description = "много много цветов",
-            //    Title = "цветы"
+            //    TimeEnd = new DateTime(2024, 6, 16, 1, 18, 0),
+            //    TimeStart = new DateTime(2024, 6, 17, 1, 13, 0),
+            //    Description = "подготовка зала",
+            //    Title = "зал"
             //};
             //context.Tasks.Add(t);
-
+            //context.SaveChanges();
 
             //var tasks = context.Tasks.Where(m => m.OrderId == 2).ToList();
 
-
-
             //context.SaveChanges();
 
-
             //Console.WriteLine(1);
-
-
-
-
-
 
             //var client = context.Users.Where(c => c.Id == 10).Single();
             //var manager = context.Users.Where(m => m.Id == 9).Single();
@@ -157,23 +144,14 @@ namespace ConsoleApp1
 
             //var orders = context.Orders; //можем вывести все зака
 
-
-
-
-
-
-
             ////var t = context.Tasks.Where(t => t.Id == 1).Single();
             ////t.Description = "Привезти букет из 5 роз";
 
             ////t.Workers = w;
 
-
-
             ////context.Tasks.Update(t);
 
             //context.SaveChanges();
-
         }
     }
 }

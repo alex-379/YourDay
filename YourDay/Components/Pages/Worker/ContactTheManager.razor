@@ -1,13 +1,13 @@
 ﻿@page "/contactTheManager"
 @attribute [StreamRendering]
-@inject NavigationManager NavigationMaster
+@inject NavigationManager NavigationWorker
 
 <PageTitle>ContactTheManager</PageTitle>
 @code {
 
     private void ContactTheManagers()
     {
-        NavigationMaster.NavigateTo("/contactTheManager");
+        NavigationWorker.NavigateTo("/contactTheManager");
     }
 
     private List<ManagerNameAndPhoneOutputModel> _models;

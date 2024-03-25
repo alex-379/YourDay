@@ -1,21 +1,19 @@
-﻿using YourDay.DAL.Repositories;
-using YourDay.BLL.Mapping;
-using AutoMapper;
+﻿using AutoMapper;
 using YourDay.BLL.IServices;
-using YourDay.DAL.Dtos;
-using YourDay.BLL.Models.TaskModels.OutputModels;
 using YourDay.BLL.Models.UserModels.OutputModels;
+using YourDay.DAL.Dtos;
+using YourDay.DAL.Repositories;
 
 namespace YourDay.BLL.Clients
 {
-    public class MasterService : IMasterService
+    public class WorkerService : IWorkerService
     {
-        private MasterRepository _masterRepository;
+        private WorkerRepository _WorkerRepository;
         private Mapper _mapper;
 
-        public MasterService() 
+        public WorkerService()
         {
-            _masterRepository = new MasterRepository();
+            _WorkerRepository = new WorkerRepository();
 
             var config = new MapperConfiguration(cfg =>
             {
@@ -23,24 +21,27 @@ namespace YourDay.BLL.Clients
             });
             _mapper = new Mapper(config);
         }
-        public List<MasterOutputModel> GetAllMasters()
+        public List<WorkerOutputModel> GetAllWorkers()
         {
-            List<UserDto> users = (List<UserDto>)_masterRepository.GetAllMasters(DAL.Enums.Role.Worker);
-            List<MasterOutputModel> result = _mapper.Map<List<MasterOutputModel>>(users);
+            List<UserDto> users = (List<UserDto>)_WorkerRepository.GetAllWorkers(DAL.Enums.Role.Worker);
+            List<WorkerOutputModel> result = _mapper.Map<List<WorkerOutputModel>>(users);
+
             return result;
         }
 
-        public List<MasterOutputModel> GetTaskByMasterId(int id)
+        public List<WorkerOutputModel> GetTaskByWorkerId(int id)
         {
-            List<TaskDto> taskDtos = _masterRepository.GetTaskByMasterId(id);
-            List<MasterOutputModel> result = _mapper.Map<List<MasterOutputModel>>(taskDtos);
+            List<TaskDto> taskDtos = _WorkerRepository.GetTaskByWorkerId(id);
+            List<WorkerOutputModel> result = _mapper.Map<List<WorkerOutputModel>>(taskDtos);
+
             return result;
         }
 
-        public List<MasterOutputModel> GetUserByMasterId(int id)
+        public List<WorkerOutputModel> GetUserByWorkerId(int id)
         {
-            List<UserDto> users = _masterRepository.GetMasterById(id);
-            List<MasterOutputModel> result = _mapper.Map<List<MasterOutputModel>>(users);
+            List<UserDto> users = _WorkerRepository.GetWorkerById(id);
+            List<WorkerOutputModel> result = _mapper.Map<List<WorkerOutputModel>>(users);
+
             return result;
         }
     }

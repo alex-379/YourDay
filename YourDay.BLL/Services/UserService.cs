@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
-using System;
 using System.Security.Cryptography;
 using System.Text;
 using YourDay.BLL.IServices;
-using YourDay.BLL.Mapping;
 using YourDay.BLL.Models.UserModels.InputModels;
 using YourDay.BLL.Models.UserModels.OutputModels;
 using YourDay.DAL.Dtos;
@@ -33,7 +31,7 @@ namespace YourDay.BLL.Service
         {
             client.Salt = UserService.GetSalt();
             client.Hash = UserService.GetHash(client.Password, client.Salt);
-            
+
             UserDto userDtoInput = _mapper.Map<UserDto>(client);
             userDtoInput.Role = Role.Client;
             userDtoInput.IsDeleted = false;
@@ -108,35 +106,6 @@ namespace YourDay.BLL.Service
             return salt;
         }
 
-        private static List<byte[]> _saltHash = new List<byte[]>();
-
-        public static List<byte[]> GetSaltHash(string password)
-        {
-            byte[] salt = GetSalt();
-            byte[] passwordByte = Encoding.UTF8.GetBytes(password);
-            byte[] saltedPassword = passwordByte.Concat(salt).ToArray();
-            byte[] hash = SHA256.HashData(saltedPassword);
-            _saltHash.Add(hash);
-            _saltHash.Add(salt);
-
-
-            _saltHash[0] = salt;
-            _saltHash[1] = salt;
-
-            return _saltHash;
-        }
-
-        //public static byte[] GetSaltHash(string password, out byte[] salt)
-        //{
-        //    salt = GetSalt();
-        //    byte[] passwordByte = Encoding.UTF8.GetBytes(password);
-        //    byte[] saltedPassword = passwordByte.Concat(salt).ToArray();
-        //    byte[] hash = SHA256.HashData(saltedPassword);
-
-        //    return hash;
-        //}
-
-
         public static byte[] GetHash(string password, byte[] salt)
         {
             byte[] passwordByte = Encoding.UTF8.GetBytes(password);
@@ -166,19 +135,5 @@ namespace YourDay.BLL.Service
 
             return result;
         }
-
-        //public bool ConfirmPassword(UserModel)
-        //{
-
-        //}
-
-
-        //public static bool ConfirmPassword(string password, byte[] hash, byte[] salt)
-        //{
-        //    byte[] passwordHash = Hash(password, _passwordSalt);
-
-        //    return _passwordHash.SequenceEqual(passwordHash);
-        //}
-
     }
 }

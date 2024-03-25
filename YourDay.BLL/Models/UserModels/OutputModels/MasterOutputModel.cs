@@ -7,13 +7,13 @@ using YourDay.DAL.Enums;
 
 namespace YourDay.BLL.Models.UserModels.OutputModels
 {
-    public class MasterOutputModel
+    public class WorkerOutputModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Mail { get; set; }
         public string Phone { get; set; }
-        public Role   Master {  get; set; }
+        public Role   Worker {  get; set; }
 
 
     }
