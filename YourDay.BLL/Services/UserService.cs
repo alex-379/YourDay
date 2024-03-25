@@ -8,12 +8,13 @@ using YourDay.DAL.Dtos;
 using YourDay.DAL.Enums;
 using YourDay.DAL.Repositories;
 
-namespace YourDay.BLL.Service
+namespace YourDay.BLL.Services
 {
     public class UserService : IUserService
     {
         private readonly UserRepository _userRepository;
         private readonly Mapper _mapper;
+        private RandomNumberGenerator _rng;
 
         public UserService()
         {
@@ -25,24 +26,56 @@ namespace YourDay.BLL.Service
             });
 
             _mapper = new Mapper(config);
+
+            _rng = RandomNumberGenerator.Create();
         }
 
-        public UserOutputModel RegisterClient(UserRegistrationInputModel client)
+        public UserRegistrationInputModel GetSaltHash(UserRegistrationInputModel user)
         {
-            client.Salt = UserService.GetSalt();
-            client.Hash = UserService.GetHash(client.Password, client.Salt);
+            user.Salt = PasswordService.GetSalt();
+            user.Hash = PasswordService.GetHash(user.Password, user.Salt);
 
-            UserDto userDtoInput = _mapper.Map<UserDto>(client);
-            userDtoInput.Role = Role.Client;
-            userDtoInput.IsDeleted = false;
+            return user;
+        }
+
+        public UserDto SetRoleClient(UserDto user)
+        {
+            user.Role = Role.Client;
+
+            return user;
+        }
+
+        public UserDto SetRoleWorker(UserDto user)
+        {
+            user.Role = Role.Worker;
+
+            return user;
+        }
+
+        public UserDto SetIsUndeleted(UserDto user)
+        {
+            user.IsDeleted = false;
+
+            return user;
+        }
+
+        public UserOutputModel AddUser(UserRegistrationInputModel user)
+        {
+            this.GetSaltHash(user);
+            UserDto userDtoInput = _mapper.Map<UserDto>(user);
+            this.SetRoleClient(userDtoInput);
+            this.SetRoleClient(userDtoInput);
             UserDto userDtoOutput = _userRepository.AddUser(userDtoInput);
-            UserOutputModel clientOutput = _mapper.Map<UserOutputModel>(userDtoOutput);
+            UserOutputModel userOutput = _mapper.Map<UserOutputModel>(userDtoOutput);
 
-            return clientOutput;
+            return userOutput;
         }
 
         public UserOutputModel AddClientForManager(UserRegistrationInputModel client)
         {
+            client.Password = PasswordService.GetRandomPassword();
+            client.Salt = PasswordService.GetSalt();
+            client.Hash = PasswordService.GetHash(client.Password, client.Salt);
             UserDto userDtoInput = _mapper.Map<UserDto>(client);
 
             userDtoInput.Role = Role.Client;
@@ -53,9 +86,9 @@ namespace YourDay.BLL.Service
             return clientOutput;
         }
 
-        public UserOutputModel AddWorkerForManager(UserRegistrationInputModel client)
+        public UserOutputModel AddWorkerForManager(UserRegistrationInputModel worker)
         {
-            UserDto userDtoInput = _mapper.Map<UserDto>(client);
+            UserDto userDtoInput = _mapper.Map<UserDto>(worker);
             userDtoInput.Role = Role.Worker;
             userDtoInput.IsDeleted = false;
             UserDto userDtoOutput = _userRepository.AddUser(userDtoInput);
@@ -94,25 +127,6 @@ namespace YourDay.BLL.Service
             UserOutputModel user = _mapper.Map<UserOutputModel>(userDto);
 
             return user;
-        }
-
-        private static byte[] GetSalt()
-        {
-            const int SaltLength = 64;
-            Byte[] salt = new Byte[SaltLength];
-            RandomNumberGenerator rng = RandomNumberGenerator.Create();
-            rng.GetBytes(salt);
-
-            return salt;
-        }
-
-        public static byte[] GetHash(string password, byte[] salt)
-        {
-            byte[] passwordByte = Encoding.UTF8.GetBytes(password);
-            byte[] saltedPassword = passwordByte.Concat(salt).ToArray();
-            byte[] hash = SHA256.HashData(saltedPassword);
-
-            return hash;
         }
 
         public static bool ConfirmMail(UserRegistrationInputModel client, IEnumerable<UserMailOutputModel> mails)

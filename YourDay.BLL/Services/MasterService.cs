@@ -21,8 +21,10 @@ namespace YourDay.BLL.Clients
             });
             _mapper = new Mapper(config);
         }
+
         public List<WorkerOutputModel> GetAllWorkers()
         {
+
             List<UserDto> users = (List<UserDto>)_WorkerRepository.GetAllWorkers(DAL.Enums.Role.Worker);
             List<WorkerOutputModel> result = _mapper.Map<List<WorkerOutputModel>>(users);
 

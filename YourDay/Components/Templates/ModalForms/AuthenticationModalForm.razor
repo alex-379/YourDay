@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="purple-button" data-bs-toggle="modal" data-bs-target="#infoRegistration">Вход</button>
+                <button type="submit" class="purple-button" data-bs-toggle="modal">Вход</button>
                 <button type="button" class="purple-button" data-bs-dismiss="modal">Отмена</button>
             </div>
         </EditForm>
@@ -47,7 +47,7 @@
     {
         var mails = _userService.GetAllMailBoxesWithPasswords();
         var userDb = UserService.FindUser(LoginModel, mails);
-        var hash = UserService.GetHash(LoginModel.Password, userDb.Salt);
+        var hash = PasswordService.GetHash(LoginModel.Password, userDb.Salt);
         bool result = UserService.ConfirmPassword(hash, userDb.Hash);
 
         if (result){
