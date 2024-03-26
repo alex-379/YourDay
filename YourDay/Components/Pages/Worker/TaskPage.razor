@@ -22,13 +22,13 @@
     [Parameter]
     public int Id { get; set; }
 
-    private TaskService taskClinet = new TaskService();
-    private TaskOutputModel _task;
+    private TaskService taskClient = new TaskService();
+    private TaskOutputModelAllInfo _task;
    
 
     protected override void OnInitialized()
     {
-        _task = taskClinet.GetTaskById(Id);
+        _task = taskClient.GetTaskByIdWithAll(Id);
     }
 
     public void UpdateStatusTask(ChangeEventArgs e)
@@ -57,7 +57,7 @@
                 break;
         }
       
-        taskClinet.UpdateStatusTaskByTaskId(Id, newStatus);
+        taskClient.UpdateTaskStatusByTaskId(Id, newStatus);
 
 
     }

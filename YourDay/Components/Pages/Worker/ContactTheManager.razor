@@ -14,12 +14,12 @@
         NavigationWorker.NavigateTo("/contactTheManager");
     }
 
-    private List<ManagerNameAndPhoneOutputModel> _models;
-    private ManagerService _managers = new ManagerService();
+    private IEnumerable<ManagerNameAndPhoneOutputModel> _models;
+    private IManagerService _managers = new ManagerService();
 
     public ContactTheManager()
     {
-        _models = _managers.GetAllManagers(Manager);
+        _models = _managers.GetAllManagers();
     }
 
 }

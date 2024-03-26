@@ -4,13 +4,13 @@
     <div class="taskWorker-card">
         <p>@task.Title </p>
         <p>@task.TimeStart - @task.TimeEnd</p>
-        <p>@getStatusNameByIndex(task.Status)</p>
+        <p>@getStatusNameByIndex((int)task.Status)</p>
     </div>
 </a>
  </div>
 @code {
     [Parameter]
-    public TaskOutputModel task { get; set; }
+    public TaskOutputModelAllInfo task { get; set; }
 
     public string getStatusNameByIndex(int index)
     {

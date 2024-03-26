@@ -1,35 +1,36 @@
 ﻿using AutoMapper;
 using YourDay.BLL.IServices;
 using YourDay.BLL.Models.ManagerModels.OutputModel;
-using YourDay.DAL;
-using YourDay.DAL.Dtos;
+using YourDay.BLL.Models.UserModels.OutputModels;
 using YourDay.DAL.Enums;
+using YourDay.DAL.IRepositories;
 using YourDay.DAL.Repositories;
 
 namespace YourDay.BLL.Services
 {
-    public class ManagerService : IManagerService
+    public class ManagerService:IManagerService
     {
-        private ManagerRepository _workerManagerRepository;
-        private Mapper _mapper;
+        private readonly IUserRepository _managerRepository;
+        private readonly Mapper _mapper;
 
         public ManagerService()
         {
-            _workerManagerRepository = new ManagerRepository();
+            _managerRepository = new UserRepository();
 
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new MappingProfile());
             });
+
             _mapper = new Mapper(config);
         }
 
-        public List<ManagerNameAndPhoneOutputModel> GetAllManagers(Role Manager)
+        public IEnumerable<ManagerNameAndPhoneOutputModel> GetAllManagers()
         {
-            List<UserDto> userManager = _workerManagerRepository.GetAllManagers(Manager);
-            List<ManagerNameAndPhoneOutputModel> result = _mapper.Map<List<ManagerNameAndPhoneOutputModel>>(userManager);
-            return result;
+            var usersDtoManager = _managerRepository.GetAllUsersByRole(Role.Manager);
+            var managers = _mapper.Map<IEnumerable<ManagerNameAndPhoneOutputModel>>(usersDtoManager);
 
+            return managers;
         }
     }
 }

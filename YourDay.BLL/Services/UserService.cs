@@ -1,16 +1,18 @@
 ﻿using AutoMapper;
 using YourDay.BLL.IServices;
+using YourDay.BLL.Models.ManagerModels.OutputModel;
 using YourDay.BLL.Models.UserModels.InputModels;
 using YourDay.BLL.Models.UserModels.OutputModels;
 using YourDay.DAL.Dtos;
 using YourDay.DAL.Enums;
+using YourDay.DAL.IRepositories;
 using YourDay.DAL.Repositories;
 
 namespace YourDay.BLL.Services
 {
     public class UserService : IUserService
     {
-        private readonly UserRepository _userRepository;
+        private readonly IUserRepository _userRepository;
         private readonly Mapper _mapper;
 
         public UserService()
@@ -66,12 +68,20 @@ namespace YourDay.BLL.Services
             return users;
         }
 
-        public UserOutputModel GetUserById(int id)
+        public UserOutputModel GetUserById(int userId)
         {
-            UserDto userDto = _userRepository.GetUserById(id);
+            UserDto userDto = _userRepository.GetUserById(userId);
             UserOutputModel user = _mapper.Map<UserOutputModel>(userDto);
 
             return user;
+        }
+
+        public IEnumerable<UserOutputModel> GetAllUsersByRole(Role role)
+        {
+            var usersDtoRole = _userRepository.GetAllUsersByRole(role);
+            var usersRole = _mapper.Map<IEnumerable<UserOutputModel>>(usersDtoRole);
+
+            return usersRole;
         }
 
         public bool ConfirmMail(UserRegistrationInputModel user)

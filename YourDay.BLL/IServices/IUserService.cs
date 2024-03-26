@@ -1,5 +1,6 @@
 ﻿using YourDay.BLL.Models.UserModels.InputModels;
 using YourDay.BLL.Models.UserModels.OutputModels;
+using YourDay.DAL.Enums;
 
 namespace YourDay.BLL.IServices
 {
@@ -13,7 +14,9 @@ namespace YourDay.BLL.IServices
 
         public IEnumerable<UserOutputModel> GetAllUsers();
 
-        public UserOutputModel GetUserById(int id);
+        public UserOutputModel GetUserById(int userId);
+
+        public IEnumerable<UserOutputModel> GetAllUsersByRole(Role role);
 
         public bool ConfirmMail(UserRegistrationInputModel user);
 

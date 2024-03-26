@@ -5,16 +5,20 @@ namespace YourDay.DAL.IRepositories
 {
     public interface ITaskRepository
     {
-        public List<TaskDto> GetTaskByWorkerId(int id);
+        public TaskDto AddTask(TaskDto task);
 
-        public void UpdateTaskStatus(int idTask, Status newTaskStatus);
+        public IEnumerable<TaskDto> GetAllTasksWithOrderWithSpecialization();
 
-        public List<TaskDto> GetAllTasks();
+        public IEnumerable<TaskDto> GetAllTasksWithAll();
 
-        public TaskDto GetTaskById(int Id);
+        public TaskDto GetTaskByIdWithAll(int taskId);
 
-        List<TaskDto> GetTaskByOrderId(int Id);
+        public IEnumerable<TaskDto> GetTasksByOrderIdWithSpecialization(int orderId);
 
-        public List<TaskDto> FilterTasks(DateTime? startDate, DateTime? endDate, Status? status);
+        public IEnumerable<TaskDto> GetTasksByWorkerIdWithOrderWithSpecialization(int workerId);
+
+        public TaskDto UpdateTask(TaskDto task);
+
+        public IEnumerable<TaskDto> FilterTasks(DateTime? startDate, DateTime? endDate, Status? status);
     }
 }

@@ -1,8 +1,9 @@
-﻿using YourDay.DAL.Enums;
+﻿using YourDay.DAL.Dtos;
+using YourDay.DAL.Enums;
 
 namespace YourDay.BLL.Models.TaskModels.OutputModels
 {
-    public class TaskOutputModel
+    public class TaskOutputModelWithSpecialization
     {
         public int Id { get; set; }
 
@@ -15,5 +16,7 @@ namespace YourDay.BLL.Models.TaskModels.OutputModels
         public DateTime TimeEnd { get; set; }
 
         public Status? Status { get; set; }
+
+        public SpecializationDto? Specialization { get; set; }
     }
 }

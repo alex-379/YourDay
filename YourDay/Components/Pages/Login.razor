@@ -24,17 +24,50 @@
     {
         //получение инфы из базы
 
-        // List<Claim> claims = new List<Claim>()
-        // {
-        //     new Claim(ClaimTypes.Name, LoginModel.Login),
-        //     new Claim(ClaimTypes.Role, "Manager")
-        // };
+        List<Claim> claims = new List<Claim>()
+        {
+            new Claim(ClaimTypes.Name, "Manager"),
+            new Claim(ClaimTypes.Role, "Manager")
+        };
 
-        // var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-        // var pr = new ClaimsPrincipal(identity);
+        var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+        var pr = new ClaimsPrincipal(identity);
 
-        // await HttpContext.SignInAsync(pr);
+        await HttpContext.SignInAsync(pr);
 
         // navManager.NavigateTo("/");
     }
 }
+
+
+
+
+@code {
+    [CascadingParameter]
+    public Task<AuthenticationState> State { get; set; }
+
+    private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
+
+    private async Task GetClaimsPrincipalData()
+    {
+        var authState = await State;
+        var user = authState.User;
+
+        if (user.Identity is not null && user.Identity.IsAuthenticated)
+        {
+            claims = user.Claims;
+        }
+    }
+    }
+
+<AuthorizeView>
+    <Authorized>
+        Авторизован
+        @*         @claims.Where(c => c.Type == "Name") *@
+    </Authorized>
+
+</AuthorizeView>
+<AuthorizeView>
+    <NotAuthorized>Необходимо войти</NotAuthorized>
+
+</AuthorizeView>

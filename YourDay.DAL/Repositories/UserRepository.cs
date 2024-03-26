@@ -1,5 +1,7 @@
-﻿using System.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Data;
 using YourDay.DAL.Dtos;
+using YourDay.DAL.Enums;
 using YourDay.DAL.IRepositories;
 
 namespace YourDay.DAL.Repositories
@@ -16,16 +18,23 @@ namespace YourDay.DAL.Repositories
             return user;
         }
 
-        public List<UserDto> GetAllUsers()
+        public IEnumerable<UserDto> GetAllUsers()
         {
-            List<UserDto> users = context.Users.ToList();
+            var users = context.Users;
 
             return users;
         }
 
-        public UserDto GetUserById(int id)
+        public UserDto GetUserById(int userId)
         {
-            UserDto user = context.Users.Where(u => u.Id == id).Single();
+            UserDto user = context.Users.Where(u => u.Id == userId).Single();
+
+            return user;
+        }
+
+        public UserDto GetTestUserById(int userId)
+        {
+            UserDto user = context.Users.Include(u=>u.Specializations).Where(u => u.Id == userId).Single();
 
             return user;
         }
@@ -36,6 +45,13 @@ namespace YourDay.DAL.Repositories
             context.SaveChanges();
 
             return user;
+        }
+
+        public IEnumerable<UserDto> GetAllUsersByRole(Role role)
+        {
+            var users = context.Users.Where(u => u.Role == role);
+
+            return users;
         }
     }
 }
