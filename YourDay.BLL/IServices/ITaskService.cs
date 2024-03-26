@@ -10,18 +10,22 @@ namespace YourDay.BLL.IServices
 
         public TaskOutputModelAllInfo AddWorkerForTask(int taskId, int workerId);
 
-        public IEnumerable<TaskOutputModel> GetAllTasksWithOrderWithSpecialization();
+        public IEnumerable<TaskOutputModelWithOrderWithSpecialization> GetAllTasksWithOrderWithSpecialization();
 
-        public TaskOutputModel GetTaskById(int taskId);
+        public IEnumerable<TaskOutputModelAllInfo> GetAllTasksWithAll();
 
-        public TaskOutputModel GetTaskByIdWithOrderWithSpecialization(int taskId);
+        public TaskOutputModelAllInfo GetTaskByIdWithAll(int taskId);
 
-        public IEnumerable<TaskInOrderOutputModel> GetTasksByOrderIdWithSpecialization(int orderId);
+        public IEnumerable<TaskOutputModelWithSpecialization> GetTasksByOrderIdWithSpecialization(int orderId);
 
-        public IEnumerable<TaskInOrderOutputModel> GetTasksByWorkerIdWithOrderWithSpecialization(int workerId);
+        public IEnumerable<TaskOutputModelWithOrderWithSpecialization> GetTasksByWorkerIdWithOrderWithSpecialization(int workerId);
 
-        public void UpdateTaskStatusByTaskId(int taskId, Status newTaskStatus);
+        public TaskOutputModelAllInfo UpdateTaskStatusByTaskId(int taskId, Status newTaskStatus);
 
-        public IEnumerable<TaskOutputModel> FilterTasks(DateTime? startDate, DateTime? endDate, Status? status);
+        public List<TaskOutputModelAllInfo> FilterTasks(DateTime? startDate, DateTime? endDate, Status? status);
+
+        //public IEnumerable<TaskOutputModel> FilterTasks(DateTime? startDate, DateTime? endDate, Status? status);
+
+        public TaskOutputModelAllInfo UpdateTask(TaskUpdateInputModelAllInfo task);
     }
 }

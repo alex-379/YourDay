@@ -35,7 +35,7 @@
 </div>
 
 <div class="container-task">
-    @foreach(TaskOutputModel task in _tasks)
+    @foreach (TaskOutputModelAllInfo task in _tasks)
     {
         <WorkerTaskCard task="task"></WorkerTaskCard>
     }
@@ -44,7 +44,9 @@
 
 @code 
 {
-    private List<TaskOutputModel> _tasks;
+    private IEnumerable<TaskOutputModelAllInfo> _tasks;
+    private IEnumerable<TaskOutputModel> _tasksFilter;
+    private IEnumerable<TaskOutputModelWithOrderWithSpecialization> _tasksWorker;
     private const string Format = "hh:mm:ss";
     private TaskService _WorkerClient;
     public DateTime? dateFrom;
@@ -54,7 +56,7 @@
     public TaskWorker()
     {
         _WorkerClient = new TaskService();
-        _tasks = _WorkerClient.GetTaskByWorkerId(3);
+        _tasks = _WorkerClient.GetAllTasksWithAll();
     }
 
     protected override void OnInitialized()
@@ -67,7 +69,7 @@
 
     public void QestTaskFilter()
     {
-        _tasks = _WorkerClient.FilterTasks(dateFrom, dateTo,status);
+        _tasks = _WorkerClient.FilterTasks(dateFrom, dateTo, status);
     }
 }
     

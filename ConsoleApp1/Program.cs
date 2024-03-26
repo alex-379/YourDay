@@ -19,9 +19,9 @@ namespace ConsoleApp1
         {
             Context context = SingletoneStorage.GetStorage().Сontext;
 
-            IUserRepository userRepository = new UserRepository();
+            UserRepository userRepository = new UserRepository();
             IOrderRepository orderRepository = new OrderRepository();
-            ITaskRepository taskRepository = new TaskRepository();
+            TaskRepository taskRepository = new TaskRepository();
             ISpecializationRepository specializationRepository = new SpecializationRepository();
 
             IOrderService orderService = new OrderService();
@@ -29,21 +29,29 @@ namespace ConsoleApp1
             ITaskService taskService = new TaskService();
             ISpecializationService specializationService = new SpecializationService();
 
-            var w = userRepository.GetUserById(10);
-            var t = taskRepository.GetTaskById(2);
-            if (t.Workers == null)
-            {
-                t.Workers = new List<UserDto>() { w };
+            //var b = taskService.GetTasksByWorkerIdWithOrderWithSpecialization(9);
+            //var b = taskRepository.GetTaskByIdWithAll(10);
+            //var t = userRepository.GetTestUserById()
+            //Console.WriteLine();
 
-            }
-            else
-            {
-                var b = t.Workers.ToList();
-                b.Add(w);
-            }
-            taskRepository.UpdateTask(t);
+            //var w = userRepository.GetUserById(9);
+            //var t = taskRepository.GetTaskByIdWithAll(3);
+            //var s = new List<UserDto>();
+            //if (t.Workers == null)
+            //{
+            //    t.Workers = new List<UserDto>() { w };
 
-            Console.WriteLine();
+            //}
+            //else
+            //{
+            //    t.Workers.A = t.Workers.ToList();
+            //    s.Add(w);
+
+
+            //}
+            //taskRepository.UpdateTask(t);
+
+            //Console.WriteLine();
 
             //OrderDto order = orderRepository.GetOrderById(2);
             //SpecializationDto specialization = specializationRepository.GetSpecializationById(4);

@@ -3,7 +3,7 @@ using YourDay.DAL.Enums;
 
 namespace YourDay.BLL.Models.TaskModels.OutputModels
 {
-    internal class TaskOutputModelWithSpecialization
+    public class TaskOutputModelWithSpecialization
     {
         public int Id { get; set; }
 

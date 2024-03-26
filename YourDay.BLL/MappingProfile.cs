@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using YourDay.BLL.Clients;
+using YourDay.BLL.Models.ManagerModels.OutputModel;
 using YourDay.BLL.Models.OrderModels.InputModels;
 using YourDay.BLL.Models.OrderModels.OutputModels;
 using YourDay.BLL.Models.SpecializationModels.InputModels;
@@ -24,6 +25,8 @@ namespace YourDay.BLL
 
             CreateMap<UserDto, UserAuthorizationOutputModel>();
 
+            CreateMap<UserDto, ManagerNameAndPhoneOutputModel>();
+
 
 
 
@@ -37,29 +40,22 @@ namespace YourDay.BLL
 
 
 
+
             CreateMap<TaskInputModel, TaskDto>();
 
-            CreateMap<TaskInputModelWorkers, TaskDto>();
+            CreateMap<TaskUpdateInputModelAllInfo, TaskDto>();
 
-            CreateMap<TaskDto, TaskOutputModel>();
+            CreateMap<TaskDto, TaskOutputModelWithOrderWithSpecialization>();
 
             CreateMap<TaskDto, TaskOutputModelAllInfo>();
 
             CreateMap<TaskDto, TaskOutputModelWithSpecialization>();
 
-            CreateMap<TaskDto, TaskOutputModelWithOrderWithSpecialization>();
-
-            CreateMap<TaskDto, TaskInOrderOutputModel>();
-
-            CreateMap<TaskOutputModelAllInfo, TaskInputModelWorkers>();
+            CreateMap<TaskDto, TaskOutputModel>();
 
             CreateMap<SpecializationInputModel, SpecializationDto>();
 
             CreateMap<SpecializationDto, SpecializationOutputModel>();
-
-
-
-
         }
     }
 }

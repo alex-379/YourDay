@@ -24,18 +24,22 @@ namespace YourDay.DAL.Repositories
             return tasks;
         }
 
-        public TaskDto GetTaskById(int taskId)
+        public IEnumerable<TaskDto> GetAllTasksWithAll()
         {
-            TaskDto tasks = context.Tasks.Single(t => t.Id == taskId);
+            var tasks = context.Tasks.Include(t => t.Order).Include(t => t.Specialization).Include(t => t.Workers);
 
             return tasks;
         }
 
-        public TaskDto GetTaskByIdWithOrderWithSpecialization(int taskId)
+        public TaskDto GetTaskByIdWithAll(int taskId)
         {
-            TaskDto tasks = context.Tasks.Include(t => t.Order).Include(t => t.Specialization).Single(t => t.Id == taskId);
+            TaskDto task = context.Tasks
+                .Include(t => t.Workers).Where(t => t.Id == taskId).Single();
+                //.Include(t => t.Order)
+                //.Include(t => t.Specialization)
+                //.Include(t=>t.Workers).Where(t => t.Id == taskId).Single();
 
-            return tasks;
+            return task;
         }
 
         public IEnumerable<TaskDto> GetTasksByOrderIdWithSpecialization(int orderId)
@@ -51,6 +55,16 @@ namespace YourDay.DAL.Repositories
                 .Include(t => t.Order)
                 .Include(t => t.Specialization)
                 .Include(t => t.Workers.Where(u => u.Role == Role.Worker && u.Id == workerId));
+
+            return tasks;
+        }
+
+        public List<TaskDto> GetTasksTestTest(int workerId)
+        {
+            var tasks = context.Tasks
+                .Include(t => t.Order)
+                .Include(t => t.Specialization)
+                .Include(t => t.Workers.Where(u => u.Role == Role.Worker && u.Id == workerId)).ToList();
 
             return tasks;
         }
