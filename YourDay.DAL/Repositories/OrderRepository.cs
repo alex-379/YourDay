@@ -1,7 +1,9 @@
 using YourDay.DAL.Dtos;
+using YourDay.DAL.IRepositories;
+
 namespace YourDay.DAL.Repositories
 {
-    public class OrderRepository
+    public class OrderRepository:IOrderRepository
     {
         readonly Context context = SingletoneStorage.GetStorage().Сontext;
 
@@ -9,18 +11,21 @@ namespace YourDay.DAL.Repositories
         {
             context.Orders.Add(order);
             context.SaveChanges();
+
             return order;
         }
 
-        public IEnumerable<OrderDto> GetAllOrders()
+        public List<OrderDto> GetAllOrders()
         {
-            var orders = context.Orders.ToList();
+            List<OrderDto> orders = context.Orders.ToList();
+
             return orders;
         }
 
         public OrderDto GetOrderById(int id)
         {
             OrderDto order = context.Orders.Where(o => o.Id == id).Single();
+
             return order;
         }
     }

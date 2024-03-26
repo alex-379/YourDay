@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System.Data;
 using YourDay.DAL.Dtos;
 using YourDay.DAL.Enums;
@@ -6,7 +6,7 @@ using YourDay.DAL.IRepositories;
 
 namespace YourDay.DAL.Repositories
 {
-    public class UserRepository:IUserRepository
+    public class UserRepository : IUserRepository
     {
         readonly Context context = SingletoneStorage.GetStorage().Сontext;
 
@@ -14,6 +14,7 @@ namespace YourDay.DAL.Repositories
         {
             context.Users.Add(user);
             context.SaveChanges();
+
             return user;
         }
 
@@ -27,13 +28,22 @@ namespace YourDay.DAL.Repositories
 
         public IEnumerable<UserDto> GetAllUsers()
         {
-            var users = context.Users.ToList();
+            var users = context.Users;
+
             return users;
         }
 
-        public UserDto GetUserById(int id)
+        public UserDto GetUserById(int userId)
         {
-            var user = context.Users.Where(u => u.Id == id).Single();
+            UserDto user = context.Users.Where(u => u.Id == userId).Single();
+
+            return user;
+        }
+
+        public UserDto GetTestUserById(int userId)
+        {
+            UserDto user = context.Users.Include(u=>u.Specializations).Where(u => u.Id == userId).Single();
+
             return user;
         }
 
@@ -41,14 +51,7 @@ namespace YourDay.DAL.Repositories
         {
             context.Users.Update(user);
             context.SaveChanges();
-            return user;
-        }
 
-        public UserDto DeleteUser(UserDto user)
-        {
-            user.IsDeleted = true;
-            context.Users.Update(user);
-            context.SaveChanges();
             return user;
         }
 

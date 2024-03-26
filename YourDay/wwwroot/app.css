@@ -392,7 +392,7 @@ h4 {
 
 
 
-.taskMaster-card {
+.taskWorker-card {
     background-color: white;
     border: 2px solid black;
     margin: 10px 10px;
@@ -404,7 +404,7 @@ h4 {
     padding: 10px;
 }
 
-.taskMaster-card {
+.taskWorker-card {
     font-size: 20px;
     color: #54494B;
     background-color: #fff252;

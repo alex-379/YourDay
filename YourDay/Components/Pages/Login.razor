@@ -1,18 +1,24 @@
 ﻿@page "/Login"
 @inject NavigationManager navManager
 
-<EditForm Model="LoginModel" FormName="Login" OnSubmit="StartLogin">
-    <InputText @bind-Value="LoginModel.Login"></InputText>
-    <InputText @bind-Value="LoginModel.Password"></InputText>
+<EditForm Model="login" FormName="login123213" OnSubmit="StartLogin">
+    <InputText @bind-Value="login.Mail"></InputText>
+    <InputText @bind-Value="login.Password"></InputText>
     <button type="submit">LOGIN</button>
 </EditForm>
 
 @code {
     [SupplyParameterFromForm]
-    public LoginModel LoginModel { get; set; } = new LoginModel();
+    public UserAutenthicationInputModel login { get; set; }
 
     [CascadingParameter]
     public HttpContext HttpContext { get; set; }
+
+    protected override void OnInitialized()
+    {
+        login = new UserAutenthicationInputModel();
+    }
+
 
     public async Task StartLogin()
     {
@@ -20,7 +26,7 @@
 
         List<Claim> claims = new List<Claim>()
         {
-            new Claim(ClaimTypes.Name, LoginModel.Login),
+            new Claim(ClaimTypes.Name, "Manager"),
             new Claim(ClaimTypes.Role, "Manager")
         };
 
@@ -29,6 +35,39 @@
 
         await HttpContext.SignInAsync(pr);
 
-        navManager.NavigateTo("/");
+        // navManager.NavigateTo("/");
     }
 }
+
+
+
+
+@code {
+    [CascadingParameter]
+    public Task<AuthenticationState> State { get; set; }
+
+    private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
+
+    private async Task GetClaimsPrincipalData()
+    {
+        var authState = await State;
+        var user = authState.User;
+
+        if (user.Identity is not null && user.Identity.IsAuthenticated)
+        {
+            claims = user.Claims;
+        }
+    }
+    }
+
+<AuthorizeView>
+    <Authorized>
+        Авторизован
+        @*         @claims.Where(c => c.Type == "Name") *@
+    </Authorized>
+
+</AuthorizeView>
+<AuthorizeView>
+    <NotAuthorized>Необходимо войти</NotAuthorized>
+
+</AuthorizeView>

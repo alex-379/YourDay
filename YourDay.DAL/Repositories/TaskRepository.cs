@@ -30,36 +30,47 @@ namespace YourDay.DAL.Repositories
 
         public void UpdateTaskStatus(int taskId, Status newTaskStatus)
         {
-            TaskDto task = context.Tasks.Single(task => task.Id == taskId); 
-
-            if (task != null)
-            {
-                task.Status = newTaskStatus;
-            }
-            
-            context.SaveChanges();
-        }
-
-        public List<TaskDto> GetAllTasks()
-        {
-            List<TaskDto> tasks = context.Tasks.ToList();
+            var tasks = context.Tasks.Include(t => t.Order).Include(t => t.Specialization).Include(t => t.Workers);
 
             return tasks;
         }
-        public TaskDto GetTaskById(int Id)
+
+        public TaskDto GetTaskByIdWithAll(int taskId)
         {
-           TaskDto tasks = context.Tasks.Single(task => task.Id == Id);
+            TaskDto task = context.Tasks
+                .Include(t => t.Order)
+                .Include(t => t.Specialization)
+                .Include(t => t.Workers).Where(t => t.Id == taskId).Single();
+
+            return task;
+        }
+
+        public IEnumerable<TaskDto> GetTasksByOrderIdWithSpecialization(int orderId)
+        {
+            var tasks = context.Tasks.Include(t => t.Specialization).Where(t => t.Order.Id == orderId);
+
+            return tasks;
+        }
+
+        public IEnumerable<TaskDto> GetTasksByWorkerIdWithOrderWithSpecialization(int workerId)
+        {
+            var tasks = context.Tasks
+                .Include(t => t.Order)
+                .Include(t => t.Specialization)
+                .Include(t => t.Workers).Where(t => t.Workers.Any(u => u.Id == 9));
 
             return tasks;
         }
         
 
-        public List<TaskDto> FilterTasks(DateTime? startDate,DateTime? endDate)
+        public IEnumerable<TaskDto> FilterTasks(DateTime? startDate, DateTime? endDate, Status? status)
         {
-            return context.Tasks.Where(task =>
+            var filterdTasks = context.Tasks.Where(task =>
                 (startDate != null ? task.TimeStart >= startDate : true)
-                && (endDate  != null ? task.TimeStart <= endDate : true)
-            ).ToList();
+                && (endDate != null ? task.TimeStart <= endDate : true)
+                && (status != null ? task.Status == status : true));
+
+            return filterdTasks;
         }
 
         public void AddTask(TaskDto task, int orderId)

@@ -1,4 +1,5 @@
 @page "/"
+
 <style>
  
 </style>
@@ -53,3 +54,16 @@
 
     </footer>
 </section>
+
+
+<AuthorizeView>
+    <Authorized>
+        Авторизован
+        @*         @claims.Where(c => c.Type == "Name") *@
+    </Authorized>
+
+</AuthorizeView>
+<AuthorizeView>
+    <NotAuthorized>Необходимо войти</NotAuthorized>
+
+</AuthorizeView>

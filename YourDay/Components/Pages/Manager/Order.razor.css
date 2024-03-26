@@ -1,6 +1,14 @@
-﻿.task-button {
-    border: 1px solid #92dea8;
-    height: 150px;
+
+.taskWorker-card {
+
+
+
+    color: #54494B;
+    background-color: #fff252;
+    border: 1px solid #fff252;
+    padding: 40px 40px;
+    margin: 10px 10px;
+    height: 220px;
     line-height: 30px;
     align-items: baseline;
     padding: 10px 40px;
