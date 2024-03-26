@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using YourDay.DAL.Dtos;
 using YourDay.DAL.IRepositories;
 using YourDay.DAL.Enums;
+using System.Threading.Tasks;
 
 namespace YourDay.DAL.Repositories
 {
@@ -34,10 +35,9 @@ namespace YourDay.DAL.Repositories
         public TaskDto GetTaskByIdWithAll(int taskId)
         {
             TaskDto task = context.Tasks
+                .Include(t => t.Order)
+                .Include(t => t.Specialization)
                 .Include(t => t.Workers).Where(t => t.Id == taskId).Single();
-                //.Include(t => t.Order)
-                //.Include(t => t.Specialization)
-                //.Include(t=>t.Workers).Where(t => t.Id == taskId).Single();
 
             return task;
         }
@@ -54,17 +54,7 @@ namespace YourDay.DAL.Repositories
             var tasks = context.Tasks
                 .Include(t => t.Order)
                 .Include(t => t.Specialization)
-                .Include(t => t.Workers.Where(u => u.Role == Role.Worker && u.Id == workerId));
-
-            return tasks;
-        }
-
-        public List<TaskDto> GetTasksTestTest(int workerId)
-        {
-            var tasks = context.Tasks
-                .Include(t => t.Order)
-                .Include(t => t.Specialization)
-                .Include(t => t.Workers.Where(u => u.Role == Role.Worker && u.Id == workerId)).ToList();
+                .Include(t => t.Workers).Where(t => t.Workers.Any(u => u.Id == 9));
 
             return tasks;
         }

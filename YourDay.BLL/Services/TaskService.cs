@@ -110,21 +110,21 @@ namespace YourDay.BLL.Clients
             return taskOutput;
         }
 
-        //public IEnumerable<TaskOutputModel> FilterTasks(DateTime? startDate, DateTime? endDate, Status? status)
-        //{
-        //    var tasks = _taskRepository.FilterTasks(startDate, endDate, status);
-        //    var result = _mapper.Map<IEnumerable<TaskOutputModel>>(tasks);
-
-        //    return result;
-        //}
-
-        public List<TaskOutputModelAllInfo> FilterTasks(DateTime? startDate, DateTime? endDate, Status? status)
+        public IEnumerable<TaskOutputModelAllInfo> FilterTasks(DateTime? startDate, DateTime? endDate, Status? status)
         {
             var tasks = _taskRepository.FilterTasks(startDate, endDate, status);
-            var result = _mapper.Map<IEnumerable<TaskOutputModelAllInfo>>(tasks).ToList();
+            var result = _mapper.Map<IEnumerable<TaskOutputModelAllInfo>>(tasks);
 
             return result;
         }
+
+        //public List<TaskOutputModelAllInfo> FilterTasks(DateTime? startDate, DateTime? endDate, Status? status)
+        //{
+        //    var tasks = _taskRepository.FilterTasks(startDate, endDate, status);
+        //    var result = _mapper.Map<IEnumerable<TaskOutputModelAllInfo>>(tasks).ToList();
+
+        //    return result;
+        //}
 
         public TaskOutputModelAllInfo UpdateTask(TaskUpdateInputModelAllInfo task)
         {
