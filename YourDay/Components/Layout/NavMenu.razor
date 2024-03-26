@@ -1,4 +1,4 @@
-@* @rendermode InteractiveServer *@
+@rendermode InteractiveServer
 
 <header class="navbar">
     <div>
@@ -67,6 +67,6 @@
     public void AddClient(UserRegistrationInputModel input)
     {
         var u = _userService.AddUser(input);
-        // StateHasChanged();
+        //StateHasChanged();
     }
 }
