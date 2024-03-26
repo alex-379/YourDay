@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using System;
 using YourDay.BLL.Clients;
 using YourDay.BLL.IServices;
@@ -28,6 +29,9 @@ namespace ConsoleApp1
             IUserService userService = new UserService();
             ITaskService taskService = new TaskService();
             ISpecializationService specializationService = new SpecializationService();
+
+            //var a = taskService.GetTasksByWorkerIdWithOrderWithSpecialization(9);
+            //Console.WriteLine();
 
             //var b = taskService.GetTasksByWorkerIdWithOrderWithSpecialization(9);
             //var b = taskRepository.GetTaskByIdWithAll(10);

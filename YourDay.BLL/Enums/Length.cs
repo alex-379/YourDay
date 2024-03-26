@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace YourDay.DAL.Enums
+﻿namespace YourDay.DAL.Enums
 {
     public enum Length
     {
