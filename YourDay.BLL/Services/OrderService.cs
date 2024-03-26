@@ -57,5 +57,13 @@ namespace YourDay.BLL.Clients
 
             return order;
         }
+
+        public OrderInputModel GetOrderByIdForAddTask(int id)
+        {
+            OrderDto orderDto = _orderRepository.GetOrderById(id);
+            OrderInputModel order = _mapper.Map<OrderInputModel>(orderDto);
+
+            return order;
+        }
     }
 }

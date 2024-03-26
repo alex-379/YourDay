@@ -18,5 +18,7 @@ namespace YourDay.BLL.IServices
         public TaskOutputModel GetTaskById(int Id);
         public List<TaskOutputModel> FilterTasks(DateTime? startDate, DateTime? endDate);
         public List<TaskOutputModel> GetTaskByMasterId(int MasterId);
+
+        public void AddTask(TaskInputModel task, int orderId);
     }
 }

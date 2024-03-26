@@ -6,6 +6,9 @@ using YourDay.BLL.Mapping;
 using YourDay.BLL.Models.TaskModels.InputModels;
 using YourDay.BLL.IServices;
 using YourDay.DAL.Enums;
+using YourDay.BLL.Models.OrderModels.InputModels;
+using YourDay.BLL.Models.OrderModels.OutputModels;
+using YourDay.DAL.IRepositories;
 
 namespace YourDay.BLL.Clients
 {
@@ -68,6 +71,10 @@ namespace YourDay.BLL.Clients
             return result;
         }
 
+        public void AddTask(TaskInputModel task, int orderId)
+        {
+             _taskRepository.AddTask(_mapper.Map<TaskDto>(task), orderId);
+        }
 
     }
 }

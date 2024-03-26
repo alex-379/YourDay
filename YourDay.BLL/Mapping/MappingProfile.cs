@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using YourDay.BLL.Models.OrderModels.InputModels;
 using YourDay.BLL.Models.OrderModels.OutputModels;
+using YourDay.BLL.Models.TaskModels.InputModels;
 using YourDay.BLL.Models.TaskModels.OutputModels;
 using YourDay.BLL.Models.UserModels.InputModels;
 using YourDay.BLL.Models.UserModels.OutputModels;
@@ -20,6 +21,10 @@ namespace YourDay.BLL.Mapping
 
             CreateMap<OrderDto, OrderOutputModel>();
 
+            CreateMap<OrderDto, OrderInputModel>();
+
+            CreateMap<OrderInputModel, OrderDto>();
+
             CreateMap<OrderDto, OrderNameDateOutputModel>()
                 .ForMember(d => d.Date, opt => opt.MapFrom(s => $"{s.Date.ToShortDateString()}"));
 
@@ -30,6 +35,18 @@ namespace YourDay.BLL.Mapping
             CreateMap<UserDto, WorkerRegistrationInputModel>();
 
             CreateMap<SpecializationDto, SpecializationOutputModel>();
+
+            CreateMap<SpecializationIntputModel, SpecializationDto>();
+
+            CreateMap<TaskInputModel, TaskDto>();
+
+            CreateMap<UserDto, UserRegistrationInputModel>();
+
+            CreateMap<UserDto, UserInputModel>();
+
+            CreateMap<UserInputModel, UserDto>();
+
+            CreateMap<TaskInputModel, TaskDto>();
 
         }
     }

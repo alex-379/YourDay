@@ -22,7 +22,7 @@ namespace YourDay.DAL.Dtos
 
         public Status Status { get; set; }
 
-        public IEnumerable<UserDto>? Workers { get; set; }
+        public List<UserDto>? Workers { get; set; }
 
         public OrderDto? Order { get; set; }
 

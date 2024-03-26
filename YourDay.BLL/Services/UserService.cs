@@ -72,6 +72,15 @@ namespace YourDay.BLL.Service
             return user;
         }
 
+
+        public UserInputModel GetWorkerById(int id)
+        {
+            UserDto userDto = _userRepository.GetUserById(id);
+            UserInputModel user = _mapper.Map<UserInputModel>(userDto);
+
+            return user;
+        }
+
         public void DeleteWorkerById(int id)
         {
              _userRepository.DeleteWorkerById(id);

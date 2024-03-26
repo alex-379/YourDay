@@ -9,7 +9,11 @@ namespace YourDay.DAL.Repositories
     public class TaskRepository : ITaskRepository
     {
         Context context = SingletoneStorage.GetStorage().Сontext;
-        
+        public OrderRepository orderRepository = new OrderRepository();
+
+
+
+
         public List<TaskDto> GetTaskByMasterId(int id)
         {
 
@@ -56,6 +60,13 @@ namespace YourDay.DAL.Repositories
                 (startDate != null ? task.TimeStart >= startDate : true)
                 && (endDate  != null ? task.TimeStart <= endDate : true)
             ).ToList();
+        }
+
+        public void AddTask(TaskDto task, int orderId)
+        {
+            context.Tasks.Add(task);
+            task.Order= orderRepository.GetOrderById(orderId);
+            context.SaveChanges();
         }
     }
 }

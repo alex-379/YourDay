@@ -1,7 +1,9 @@
 ﻿@page "/newTask"
 @attribute [StreamRendering]
+@rendermode InteractiveServer
+@inject NavigationManager NavigationManager
 
-<section>
+
     <div class="back">
         <section>
             <div class="container-add-order">
@@ -10,41 +12,88 @@
                                 <h2>Добавить задачу:</h2>
             
                                 <div class="conteiner-for-text">
-                                    <label class="text" >Название задачи:</label>
-                                    <input  class="field" type="name"  placeholder="Введите название задачи">
+                                    <label class="text" >Название:</label>
+                            <input @bind="taskInputModel.Title" class="field" type="name" placeholder="Введите название:">
                                 </div>
+
                                 <div class="conteiner-for-text">
-                                    <label class="text" >Специализация:</label>
-                                    <input  class="field" type="name" placeholder="Введите специализацию">
+                                    <label class="text">Описание:</label>
+                            <input @bind="taskInputModel.Description" class="field" type="name" placeholder="Введите описание:">
                                 </div>
-                                <div class="conteiner-for-text">
-                                    <label class="text" >Мастер:</label>
-                                    <input  class="field"  type="text"  placeholder="Введите мастера">
-                                </div>
-                                <div class="conteiner-for-text">
-                                    <label class="text" >Дата:</label>
-                                    <input  class="field"  type="number"  placeholder="Введите дату">
-                                </div>
-                                <div class="conteiner-for-text">
-                                    <label class="text" for="fruits">Статус:</label>
-                                    <select class="field">
-                                        <option>Получено</option>
-                                        <option>Назначено</option>
-                                        <option>Сделано</option>
+
+                                @* <div class="conteiner-for-text">
+                                    <label class="text" Выберите специализацию:</label>
+                                    <select @bind="taskInputModel.Specialization">
+                                        <option value=@s1>Флорист</option>
+                                        <option value=@s2>Оформитель</option>
                                     </select>
-                                    
-                                </div>  
+                                </div> *@
+                                <div class="conteiner-for-text">
+                                    <label class="text" >Время начала:</label>
+                            <input @bind="taskInputModel.TimeStart" class="field" type="time" placeholder="Введите время">
+                                </div>
+                                <div class="conteiner-for-text">
+                                    <label class="text">Время конца:</label>
+                            <input @bind="taskInputModel.TimeEnd" class="field" type="time" placeholder="Введите время">
+                                </div>
+                                  
                             </form>
 
                             <div>
-                                <button  class="purple-button">Создать</button>
-                                <button class="purple-button" > Вернуться </button>
+                                    <button class="purple-button" @onclick="AddTask">Создать</button>
+                                    <button @onclick="Main"  class="purple-button"> Вернуться </button>
                             </div>
                    </div>
             </div>
         </section>
     </div>
 
-</section>
 
+
+
+@code
+{
+
+    // public SpecializationIntputModel s1; 
+    // public SpecializationIntputModel s2;
+    private TaskInputModel taskInputModel;
+
+    //private IEnumerable<OrderNameDateOutputModel> _orders;
+
+    private ITaskService _taskService;
+
+    private IOrderService _orderService;
+
+    public NewTask()
+    {
+        _taskService = new TaskService();
+
+        _orderService = new OrderService();
+
+        taskInputModel = new TaskInputModel();
+
+        // s1 = new SpecializationIntputModel()
+        // {
+        //     Name = "Кинолог"
+        // };
+
+        // s2 = new SpecializationIntputModel()
+        //     {
+        //         Name = "мяу"
+        //     };
+    }
+
+    private void AddTask()
+    {
+        taskInputModel.Order = _orderService.GetOrderByIdForAddTask(5);
+        _taskService.AddTask(taskInputModel, 8);
+
+        NavigationManager.NavigateTo("/manager");
+    }
+
+    private void Main()
+    {
+        NavigationManager.NavigateTo("/manager");
+    }
+}
 
