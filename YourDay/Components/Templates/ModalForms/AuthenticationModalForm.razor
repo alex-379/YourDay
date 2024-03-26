@@ -7,22 +7,23 @@
             <h1 class="modal-title">Авторизация</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
-        <EditForm Model="LoginModel" FormName="Login" OnValidSubmit="@StartLogin">
+        <EditForm Model="@LoginModel" FormName="Login" OnValidSubmit="@StartLogin">
             <DataAnnotationsValidator />
             <ValidationSummary />
             <div class="modal-body">
                 <div class="form-group">
                     <label>Почта:</label>
-                    <InputText class="form-control" @bind-Value="LoginModel.Mail" type="email" pattern="{8}" />
+                    <InputText class="form-control" @bind-Value="@LoginModel.Mail" type="email" pattern="{8}" />
                 </div>
                 <div class="form-group">
                     <label>Пароль:</label>
-                    <InputText class="form-control" @bind-Value="LoginModel.Password" type="password" />
+                    <InputText class="form-control" @bind-Value="@LoginModel.Password" type="password" />
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="submit" class="purple-button" data-bs-toggle="modal">Вход</button>
                 <button type="button" class="purple-button" data-bs-dismiss="modal">Отмена</button>
+                <p>@LoginModel.Mail</p>
             </div>
         </EditForm>
     </div>

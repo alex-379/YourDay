@@ -12,6 +12,8 @@ namespace YourDay.BLL.IServices
 
         public UserOutputModel AddWorkerForManager(UserRegistrationInputModel worker);
 
+        public UserOutputModel AddManager(UserRegistrationInputModel manager);
+
         public IEnumerable<UserOutputModel> GetAllUsers();
 
         public UserOutputModel GetUserById(int userId);
