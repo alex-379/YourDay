@@ -1,4 +1,4 @@
-@rendermode InteractiveServer
+@* @rendermode InteractiveServer *@
 
 <header class="navbar">
     <div>
@@ -33,7 +33,6 @@
             </li>
             <li>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registration" style="background-color: #4340D2">
-
                     Регистрация
                 </button>
             </li>
@@ -55,34 +54,19 @@
 
 <div class="modal fade" id="infoRegistration" tabindex="-1" aria-labelledby="infoRegistration" aria-hidden="true">
     <InfoRegistrationModalForm />
-</div>
+</div> 
 
 @code {
-    // [Parameter] 
-    // public List<UserOutputModel> Users { get; set; }
-
-    private UserRegistrationInputModel _user;
-
     private IUserService _userService;
 
     public NavMenu()
     {
         _userService = new UserService();
-        _user = new UserRegistrationInputModel();
     }
 
     public void AddClient(UserRegistrationInputModel input)
     {
         var u = _userService.AddUser(input);
-        // Users.Add(u);
-        StateHasChanged();
+        // StateHasChanged();
     }
-
-    //UserRegistrationInputModel client = new()
-    //{
-    //    Mail = ""
-    //};
-
-    //var mails = userService.GetAllMailBoxes();
-    //var m = UserService.ConfirmMail(client, mails);
 }

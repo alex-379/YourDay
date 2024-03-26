@@ -1,4 +1,5 @@
-﻿@using YourDay.BLL.Models.UserModels.InputModels;
+﻿@page "/y"
+@using YourDay.BLL.Models.UserModels.InputModels;
 @* <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
@@ -37,8 +38,6 @@
     </div>
 </div>  *@
 
-<div class="modal-dialog">
-    <div class="modal-content">
         <EditForm Model="@RegistrationModel" FormName="RegistrationModel" OnSubmit="@Add">
             <DataAnnotationsValidator />
             <ValidationSummary />
@@ -76,25 +75,32 @@
                 <p>@RegistrationModel.Mail</p>
             </div>
         </EditForm>
-    </div>
-</div>
-
 
 
 @code {
-    // [SupplyParameterFromForm]
-    private UserRegistrationInputModel RegistrationModel { get; set; }
+    [SupplyParameterFromForm]
+    public UserRegistrationInputModel RegistrationModel { get; set; }
 
     [Parameter]
     public Action<UserRegistrationInputModel> AddUser { get; set; }
 
-    public RegistrationModalForm()
+    private IUserService _userService;
+
+    public TestPage()
     {
         RegistrationModel = new UserRegistrationInputModel();
+        _userService = new UserService();
+
     }
 
-    private void Add()
+        private void Add()
     {
         AddUser(RegistrationModel);
+    }
+
+    public void AddClient(UserRegistrationInputModel input)
+    {
+        var u = _userService.AddUser(input);
+        // StateHasChanged();
     }
 }
