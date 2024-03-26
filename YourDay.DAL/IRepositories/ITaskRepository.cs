@@ -9,9 +9,9 @@ namespace YourDay.DAL.IRepositories
 
         public IEnumerable<TaskDto> GetAllTasksWithOrderWithSpecialization();
 
-        public TaskDto GetTaskById(int id);
+        public TaskDto GetTaskById(int taskId);
 
-        public TaskDto GetTaskByIdWithOrderWithSpecialization(int Id);
+        public TaskDto GetTaskByIdWithOrderWithSpecialization(int taskId);
 
         public IEnumerable<TaskDto> GetTasksByOrderIdWithSpecialization(int orderId);
 

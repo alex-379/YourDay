@@ -9,12 +9,10 @@ namespace YourDay.DAL.IRepositories
 
         public IEnumerable<UserDto> GetAllUsers();
 
-        public UserDto GetUserById(int id);
+        public UserDto GetUserById(int userId);
 
         public UserDto UpdateUser(UserDto user);
 
         public IEnumerable<UserDto> GetAllUsersByRole(Role role);
-
-        public UserDto GetUserByIdByRole(int userId, Role role);
     }
 }

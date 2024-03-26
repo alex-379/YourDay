@@ -24,9 +24,9 @@ namespace YourDay.DAL.Repositories
             return users;
         }
 
-        public UserDto GetUserById(int id)
+        public UserDto GetUserById(int userId)
         {
-            UserDto user = context.Users.Where(u => u.Id == id).Single();
+            UserDto user = context.Users.Where(u => u.Id == userId).Single();
 
             return user;
         }
@@ -44,13 +44,6 @@ namespace YourDay.DAL.Repositories
             var users = context.Users.Where(u => u.Role == role);
 
             return users;
-        }
-
-        public UserDto GetUserByIdByRole(int userId, Role role)
-        {
-            var user = context.Users.Where(u => u.Role == role && u.Id == userId).Single();
-
-            return user;
         }
     }
 }

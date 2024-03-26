@@ -6,13 +6,15 @@ namespace YourDay.BLL.IServices
 {
     public interface ITaskService
     {
-        public TaskOutputModel AddTask(TaskInputModel task);
+        public TaskOutputModelWithOrderWithSpecialization AddTask(TaskInputModel task);
+
+        public TaskOutputModelAllInfo AddWorkerForTask(int taskId, int workerId);
 
         public IEnumerable<TaskOutputModel> GetAllTasksWithOrderWithSpecialization();
 
-        public TaskOutputModel GetTaskById(int id);
+        public TaskOutputModel GetTaskById(int taskId);
 
-        public TaskOutputModel GetTaskByIdWithOrderWithSpecialization(int id);
+        public TaskOutputModel GetTaskByIdWithOrderWithSpecialization(int taskId);
 
         public IEnumerable<TaskInOrderOutputModel> GetTasksByOrderIdWithSpecialization(int orderId);
 

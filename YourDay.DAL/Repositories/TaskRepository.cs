@@ -24,16 +24,16 @@ namespace YourDay.DAL.Repositories
             return tasks;
         }
 
-        public TaskDto GetTaskById(int id)
+        public TaskDto GetTaskById(int taskId)
         {
-            TaskDto tasks = context.Tasks.Single(t => t.Id == id);
+            TaskDto tasks = context.Tasks.Single(t => t.Id == taskId);
 
             return tasks;
         }
 
-        public TaskDto GetTaskByIdWithOrderWithSpecialization(int id)
+        public TaskDto GetTaskByIdWithOrderWithSpecialization(int taskId)
         {
-            TaskDto tasks = context.Tasks.Include(t => t.Order).Include(t => t.Specialization).Single(t => t.Id == id);
+            TaskDto tasks = context.Tasks.Include(t => t.Order).Include(t => t.Specialization).Single(t => t.Id == taskId);
 
             return tasks;
         }

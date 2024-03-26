@@ -7,6 +7,7 @@ using YourDay.BLL.Models.UserModels.InputModels;
 using YourDay.BLL.Services;
 using YourDay.DAL;
 using YourDay.DAL.Dtos;
+using YourDay.DAL.Enums;
 using YourDay.DAL.IRepositories;
 using YourDay.DAL.Repositories;
 
@@ -28,7 +29,53 @@ namespace ConsoleApp1
             ITaskService taskService = new TaskService();
             ISpecializationService specializationService = new SpecializationService();
 
+            var w = userRepository.GetUserById(10);
+            var t = taskRepository.GetTaskById(2);
+            if (t.Workers == null)
+            {
+                t.Workers = new List<UserDto>() { w };
 
+            }
+            else
+            {
+                var b = t.Workers.ToList();
+                b.Add(w);
+            }
+            taskRepository.UpdateTask(t);
+
+            Console.WriteLine();
+
+            //OrderDto order = orderRepository.GetOrderById(2);
+            //SpecializationDto specialization = specializationRepository.GetSpecializationById(4);
+
+            //TaskInputModel model = new()
+            //{
+            //    Description = "оформить помещение 4",
+            //    Order = order,
+            //    TimeStart = DateTime.Now,
+            //    TimeEnd = new DateTime(2024, 6, 6, 12, 0, 0),
+            //    Specialization = specialization,
+            //    Title = "Оформление",
+            //};
+
+            //var a = taskService.AddTask(model);
+            //var b = taskService.AddWorkerForTask(1, 9);
+
+            //var c = userRepository.GetUserById(4);
+            //c.UserName = "Владимир";
+            //var d = userRepository.UpdateUser(c);
+            //Console.WriteLine();
+
+            //var u = new UserRegistrationInputModel()
+            //{
+            //    UserName = "Александра",
+            //    Mail = "al@gmail.com",
+            //    Phone = "+9212444556",
+            //    Password = "md5data",
+            //};
+
+            //var a = userService.GetUserByIdByRole(2, Role.Manager);
+            //Console.WriteLine();
 
             //SpecializationInputModel specialization = new()
             //{
@@ -37,24 +84,16 @@ namespace ConsoleApp1
             //specializationService.AddSpecialization(specialization);
             //SpecializationDto specialization = specializationRepository.GetSpecializationById(1);
 
-            //OrderDto order = orderRepository.GetOrderById(2);
-            //SpecializationDto specialization = specializationRepository.GetSpecializationById(1);
 
-            //TaskInputModel model = new()
-            //{
-            //    Description = "оформить помещение",
-            //    Order = order,
-            //    TimeStart = DateTime.Now,
-            //    TimeEnd = new DateTime(2024, 6, 6, 12, 0, 0),
-            //    Specialization = specialization,
-            //    Title = "Оформление",
-            //};
-            //taskService.AddTask(model);
 
-            var result = taskService.GetTasksByWorkerIdWithOrderWithSpecialization(1);
-            
+            //var a = taskService.AddTask(model);
 
-            Console.WriteLine();
+            //Console.WriteLine();
+
+            //var result = taskService.GetTasksByWorkerIdWithOrderWithSpecialization(1);
+
+
+            //Console.WriteLine();
 
             //UserAutenthicationInputModel model = new UserAutenthicationInputModel()
             //{
@@ -161,7 +200,7 @@ namespace ConsoleApp1
 
             //var s = context.Specializations.Where(s => s.Id == 2).Single();
             //var o = context.Orders.Where(o => o.Id == 2).Single();
-            //var w = context.Users.Where(m => m.Id == 4).ToList();
+            //var w = context.Users.Where(m => m.Id == 9).ToList();
 
             //var t = new TaskDto()
             //{
