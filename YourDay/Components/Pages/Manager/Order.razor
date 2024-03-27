@@ -49,7 +49,7 @@
 
     private void NavigateToPage()
     {
-        NavigationManager.NavigateTo("/newTask");
+        
     }
 
 }
@@ -70,7 +70,7 @@
             <tbody>
                     <tr>
                     <td>@OrderOutput.OrderName</td>
-                    <td>@OrderOutput.Date.ToShortDateString()</td>
+                    <td>@OrderOutput.Date</td>
                     <td>@OrderOutput.Address</td>
                     <td>@OrderOutput.CountPeople</td>
                     <td>@OrderOutput.Price</td>
@@ -110,8 +110,8 @@
         <div class="button-container">
             <button class="purple-button"> История заказа </button>
             <button class="purple-button"> Завершить заказ </button>
-            <button class="purple-button"> Другое </button>
-            <button class="purple-button" @onclick="NavigateToPage"> Новая таска </button>
+            <button class="purple-button"> Другое</button>
+            <button class="order-button"> <AddTaskCard order=OrderOutput> </AddTaskCard> </button>
         </div>
     </section>
 </div>

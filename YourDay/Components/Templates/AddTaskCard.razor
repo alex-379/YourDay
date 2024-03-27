@@ -1,0 +1,11 @@
+﻿@using YourDay.DAL.Repositories;
+<a href="./newTaskfororder/@order.Id"
+    <div class="product-card">
+        <p>Новая таска</p>
+    </div>
+</a>
+
+@code {
+    [Parameter]
+    public OrderOutputModel order { get; set; }
+}
