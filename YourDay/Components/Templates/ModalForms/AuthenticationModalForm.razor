@@ -1,4 +1,4 @@
-﻿@page "/v"
+﻿@inject NavigationManager navManager
 
 <div class="modal-dialog">
     <div class="modal-content">
@@ -27,17 +27,15 @@
     </div>
 </div>
 
+
 @code {
-    [SupplyParameterFromForm]
+    [SupplyParameterFromForm(FormName = "Login")]
     public UserAutenthicationInputModel LoginModel { get; set; }
 
     [CascadingParameter]
     public HttpContext HttpContext { get; set; }
 
     private IUserService _userService;
-
-    // [Parameter]
-    // public Action<UserRegistrationInputModel> AddUser { get; set; }
 
     public AuthenticationModalForm()
     {
@@ -63,16 +61,3 @@
         }
     }
 }
-
-
-<AuthorizeView>
-    <Authorized>
-        Авторизован
-        @*         @claims.Where(c => c.Type == "Name") *@
-    </Authorized>
-
-</AuthorizeView>
-<AuthorizeView>
-    <NotAuthorized>Необходимо войти</NotAuthorized>
-
-</AuthorizeView>

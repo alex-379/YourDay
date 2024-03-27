@@ -20,15 +20,24 @@ namespace ConsoleApp1
         {
             Context context = SingletoneStorage.GetStorage().Сontext;
 
-            UserRepository userRepository = new UserRepository();
+            IUserRepository userRepository = new UserRepository();
             IOrderRepository orderRepository = new OrderRepository();
-            TaskRepository taskRepository = new TaskRepository();
+            ITaskRepository taskRepository = new TaskRepository();
             ISpecializationRepository specializationRepository = new SpecializationRepository();
 
             IOrderService orderService = new OrderService();
             IUserService userService = new UserService();
             ITaskService taskService = new TaskService();
             ISpecializationService specializationService = new SpecializationService();
+
+            UserRegistrationInputModel model = new UserRegistrationInputModel()
+            {
+                UserName = "Андрей",
+                Mail = "worker1@yday.ru",
+                Phone = "999999"
+            };
+
+            var a = userService.AddWorkerForManager(model);
 
             //var a = taskService.GetTasksByWorkerIdWithOrderWithSpecialization(9);
             //Console.WriteLine();
