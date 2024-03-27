@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using YourDay.DAL.Repositories;
+using YourDay.BLL.Models.ManagerModels.OutputModel;
+
 
 
 namespace YourDay.BLL.Services
@@ -20,7 +22,10 @@ namespace YourDay.BLL.Services
 
             _mapper = new Mapper(config);
         }
-        List<Co>
+        //List<CompanyStatisticOutputModel> GetCompanyStatistics()
+        //{
+        //    List<>
+        //}
 
     }
 }

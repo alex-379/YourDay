@@ -26,10 +26,10 @@ namespace YourDay.BLL.Services
             _mapper = new Mapper(config);
         }
 
-        public IEnumerable<ManagerNameAndPhoneOutputModel> GetAllManagers()
+        public List<ManagerNameAndPhoneOutputModel> GetAllManagers()
         {
-            var usersDtoManager = _managerRepository.GetAllUsersByRole(Role.Manager);
-            var managers = _mapper.Map<IEnumerable<ManagerNameAndPhoneOutputModel>>(usersDtoManager);
+            List<UserDto> usersDtoManager = _managerRepository.GetAllUsersByRole(Role.Manager).ToList();
+            List<ManagerNameAndPhoneOutputModel> managers = _mapper.Map<List<ManagerNameAndPhoneOutputModel>>(usersDtoManager);
 
             return managers;
         }

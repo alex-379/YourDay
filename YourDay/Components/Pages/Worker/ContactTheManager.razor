@@ -1,12 +1,47 @@
 ﻿@page "/contactTheManager"
 @attribute [StreamRendering]
 @inject NavigationManager NavigationWorker
+@using Microsoft.EntityFrameworkCore.Metadata
+@using Microsoft.EntityFrameworkCore.Metadata.Internal
+@using YourDay.BLL.Models.ManagerModels.OutputModel;
 @using YourDay.BLL.Services;
 @using YourDay.DAL.Enums;
+@using static Microsoft.EntityFrameworkCore.DbLoggerCategory
 
+@inject IJSRuntime JsRuntime
 
 
 <PageTitle>ContactTheManager</PageTitle>
+
+<div>
+    <h2 class="manager-h1">Здесь вы можете связаться с менеджером:</h2>
+</div>
+
+<table>
+    <thead>
+        @foreach(Column column in Columns)
+        {
+            <th>
+                @column.LayoutHeader
+            </th>
+        }
+    </thead>
+    <tbody>
+        @foreach (ManagerNameAndPhoneOutputModel manager in _models)
+        {
+            <tr>
+                @foreach (Column column in Columns)
+                {
+                     <td>
+                        @typeof(ManagerNameAndPhoneOutputModel).GetProperty(column.Field).GetValue(manager)
+                     </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
+
 @code {
     private Role Manager;
     private void ContactTheManagers()
@@ -14,7 +49,49 @@
         NavigationWorker.NavigateTo("/contactTheManager");
     }
 
-    private IEnumerable<ManagerNameAndPhoneOutputModel> _models;
+    private List<Column> Columns { get; set; } = new List<Column>();
+    class Column
+    {
+        public string Field { get; set; }
+        public string LayoutHeader { get; set; }
+    }
+
+    protected override void OnInitialized()
+    {
+        Columns = new List<Column>();
+        Columns.AddRange(
+            new Column[]
+            {
+                // new Column()
+                // {
+                //     Field="SerialNumber",
+                //     LayoutHeader="Порядковый номер"
+                // },
+
+                new Column()
+                {
+                    Field="Name",
+                    LayoutHeader="Имя"
+                },
+
+                new Column()
+                {
+                    Field="Phone",
+                    LayoutHeader="Телефон"
+                }
+            });
+
+        List<ManagerNameAndPhoneOutputModel> _models = new List<ManagerNameAndPhoneOutputModel>();
+
+     
+    }
+    void OnRowClick()
+    {
+        JsRuntime.InvokeVoidAsync("alert", "Warning!");
+    }
+
+    private List<ManagerNameAndPhoneOutputModel> _models;
+
     private IManagerService _managers = new ManagerService();
 
     public ContactTheManager()
@@ -23,12 +100,4 @@
     }
 
 }
-<div>
-    <h2 class="manager-h1">Здесь вы можете связаться с менеджером:</h2>
-</div>
-<div class="display:flex;flex-wrap:wrap">
-    @foreach (ManagerNameAndPhoneOutputModel manager in _models)
-    {
-        <button class="purple-button">@manager.Name ,@manager.Phone</button>
-    }
-</div>
+

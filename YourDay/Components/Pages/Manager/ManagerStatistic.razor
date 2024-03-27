@@ -15,9 +15,9 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>@model.Name</td>
+                    @* <td>@model.Manager</td>
                     <td>@model.Orders</td>
-                    <td>@model.Orders.Select(order=>order.Status)</td>
+                    <td>@model.Orders.Select(order=>order.Status)</td> *@
                 </tr>
             </tbody>
         </table>
@@ -36,12 +36,12 @@
     public int Id{ get; set; }
 
 
-    public CompanyStatisticOutputModel model { get; set; }
+   // public CompanyStatisticOutputModel model { get; set; }
 
-    private ManagerService _manager = new ManagerService();
+    //private ManagerService _manager = new ManagerService();
 
     protected override void OnInitialized()
     {
-        model = _manager.GetManagerIdByOrders(Id);
+        //model = _manager.GetManagerIdByOrders(Id);
     }
 }

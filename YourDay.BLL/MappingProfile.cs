@@ -25,7 +25,9 @@ namespace YourDay.BLL
 
             CreateMap<UserDto, UserAuthorizationOutputModel>();
 
-            CreateMap<UserDto, ManagerNameAndPhoneOutputModel>();
+            CreateMap<UserDto, ManagerNameAndPhoneOutputModel>()
+                .ForMember(outputModel => outputModel.Name, name => name.MapFrom(userDto => userDto.UserName))
+                .ForMember(outputModel => outputModel.Phone, phone => phone.MapFrom(userDto => userDto.Phone));
 
             CreateMap<OrderForManagerInputModel, OrderDto>();
 
@@ -50,9 +52,9 @@ namespace YourDay.BLL
 
             CreateMap<SpecializationDto, SpecializationOutputModel>();
 
-            CreateMap<CompanyStatisticOutputModel, UserDto>()
-                .ForMember(manager=>manager.UserName,name=>name.MapFrom(w=>w.Name))
-                .ForMember(order => order.Orders, managerOrder => managerOrder.MapFrom(s => s.Orders.Select(order=>order.Status)));
+            //CreateMap<CompanyStatisticOutputModel, UserDto>()
+            //    .ForMember(manager=>manager.UserName,name=>name.MapFrom(w=>w.Name))
+            //    .ForMember(order => order.Orders, managerOrder => managerOrder.MapFrom(s => s.Orders.Select(order=>order.Status)));
         }
     }
 }
