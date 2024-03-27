@@ -22,8 +22,6 @@ namespace YourDay.BLL.IServices
 
         public TaskOutputModelAllInfo UpdateTaskStatusByTaskId(int taskId, Status newTaskStatus);
 
-        //public List<TaskOutputModelAllInfo> FilterTasks(DateTime? startDate, DateTime? endDate, Status? status);
-
         public IEnumerable<TaskOutputModelAllInfo> FilterTasks(DateTime? startDate, DateTime? endDate, Status? status);
 
         public TaskOutputModelAllInfo UpdateTask(TaskUpdateInputModelAllInfo task);
