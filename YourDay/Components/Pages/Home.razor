@@ -179,6 +179,40 @@
 
 <AuthorizeView Roles="Worker">
     <Authorized>
-        <h2 class="manager-h1">Вы зашли как сотрудник :</h2>
+        <h2 class="manager-h1">Вы зашли как сотрудник : </h2>
+        <p>Аккаунт @returnAddress</p>
+
+        @code {
+        protected override async Task OnInitializedAsync()
+        {
+            await GetClaimsPrincipalData().ConfigureAwait(false);
+        }
+        }
     </Authorized>
 </AuthorizeView>
+
+@code {
+    [CascadingParameter]
+    public Task<AuthenticationState> State { get; set; }
+
+    [CascadingParameter]
+    public HttpContext HttpContext { get; set; }
+
+    private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
+
+    private string returnAddress;
+
+    private async Task GetClaimsPrincipalData()
+    {
+        var authState = await State;
+        var user = authState.User;
+
+        if (user.Identity is not null && user.Identity.IsAuthenticated)
+        {
+            claims = user.Claims;
+        }
+
+        returnAddress = claims.Where(c => c.Type == ClaimTypes.Email)
+        .Select(c => c.Value).SingleOrDefault();
+    }
+}
