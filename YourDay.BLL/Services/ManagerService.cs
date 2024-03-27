@@ -2,6 +2,7 @@
 using YourDay.BLL.IServices;
 using YourDay.BLL.Models.ManagerModels.OutputModel;
 using YourDay.BLL.Models.UserModels.OutputModels;
+using YourDay.DAL.Dtos;
 using YourDay.DAL.Enums;
 using YourDay.DAL.IRepositories;
 using YourDay.DAL.Repositories;
@@ -12,7 +13,7 @@ namespace YourDay.BLL.Services
     {
         private readonly IUserRepository _managerRepository;
         private readonly Mapper _mapper;
-
+       
         public ManagerService()
         {
             _managerRepository = new UserRepository();

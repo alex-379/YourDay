@@ -56,6 +56,10 @@ namespace YourDay.BLL
             CreateMap<SpecializationInputModel, SpecializationDto>();
 
             CreateMap<SpecializationDto, SpecializationOutputModel>();
+
+            CreateMap<CompanyStatisticOutputModel, UserDto>()
+                .ForMember(manager=>manager.UserName,name=>name.MapFrom(w=>w.Name))
+                .ForMember(order => order.Orders, managerOrder => managerOrder.MapFrom(s => s.Orders.Select(order=>order.Status)));
         }
     }
 }

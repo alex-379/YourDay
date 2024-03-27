@@ -1,0 +1,47 @@
+﻿@page "/statistics"
+@rendermode InteractiveServer
+<h3>Статистика</h3>
+
+<div class="body">
+    <section>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Имя</th>
+                    <th>Заказы</th>
+                    <th>Статусы заказов</th>
+                  
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@model.Name</td>
+                    <td>@model.Orders</td>
+                    <td>@model.Orders.Select(order=>order.Status)</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+</div>
+
+
+
+
+
+
+@code
+{
+    [Parameter]
+    public int Id{ get; set; }
+
+
+    public CompanyStatisticOutputModel model { get; set; }
+
+    private ManagerService _manager = new ManagerService();
+
+    protected override void OnInitialized()
+    {
+        model = _manager.GetManagerIdByOrders(Id);
+    }
+}
