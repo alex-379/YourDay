@@ -50,7 +50,7 @@
         if (result){
             List<Claim> claims = new List<Claim>()
         {
-            new Claim(ClaimTypes.Name, LoginModel.Mail),
+            new Claim(ClaimTypes.Email, LoginModel.Mail),
             new Claim(ClaimTypes.Role, LoginModel.Role.ToString())
         };
 
