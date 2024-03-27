@@ -1,14 +1,13 @@
 ﻿using AutoMapper;
 using YourDay.BLL.IServices;
 using YourDay.BLL.Models.ManagerModels.OutputModel;
-using YourDay.BLL.Models.UserModels.OutputModels;
 using YourDay.DAL.Enums;
 using YourDay.DAL.IRepositories;
 using YourDay.DAL.Repositories;
 
 namespace YourDay.BLL.Services
 {
-    public class ManagerService:IManagerService
+    public class ManagerService : IManagerService
     {
         private readonly IUserRepository _managerRepository;
         private readonly Mapper _mapper;

@@ -1,87 +1,106 @@
-@rendermode InteractiveServer
+<AuthorizeView>
+    <NotAuthorized>
+        <header class="navbar">
+            <div>
+                <navlink ="/"><img src="/images/logo.png" alt=""></navlink>
+            </div>
+            <nav class="menu-yellow">
+                <ul>
+                    <li><NavLink href="#">Фото с мероприятий</NavLink></li>
+                    <li><NavLink href="#">Контакты</NavLink></li>
+                    <li><NavLink href="#">О нас</NavLink></li>
+                    <li>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#authentication">
+                            Вход
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registration">
+                            Регистрация
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </header>
 
-<header class="navbar">
-    <div>
-        <a href="/"><img src="/images/logo.png" alt=""></a>
-    </div>
+        <div class="modal fade" id="authentication" tabindex="-1" aria-hidden="true">
+            <AuthenticationModalForm />
+        </div>
 
-    @* <nav class="menu">
-        <ul>
-            <li><a href="#">Фото с мероприятий</a></li>
-            <li><a href="#">Контакты</a></li>
-            <li><a href="#">О нас</a></li>
-        </ul>
-    </nav> *@
+        <div class="modal fade" id="registration" tabindex="-1" aria-hidden="true">
+            <RegistrationModalForm AddUser="AddClient" />
+        </div>
 
-    <nav class="menu">
-        <ul>
-            <li><a href="">Клиент</a></li>
-            <li><a href="/manager">Менеджер</a></li>
-            <li><a href="/Worker">Мастер</a></li>
-            <li><a href="/p">Тесты</a></li>
-        </ul>
-    </nav>
-
-    <nav class="menu-yellow">
-        <ul>
-            <li><a href="" data-bs-toggle="modal" data-bs-target="#authentication">Вход</a></li>
-            <li>
-                <button @* type="button" *@ @* class="btn btn-primary" *@ data-bs-toggle="modal" data-bs-target="#authentication" @* style="background-color: #4340D2 *@">
-                    <i class="bi bi-plus"></i>
-                    Вход
-                </button>
-            </li>
-            <li>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registration" style="background-color: #4340D2">
-
-                    Регистрация
-                </button>
-            </li>
-            <li><a href="./login">login</a></li>
-            <li><a href="./logout">logout</a></li>
-        </ul>
-    </nav>
-</header>
-
-<div class="modal fade" id="authentication" tabindex="-1" aria-hidden="true">
-    <AuthenticationModalForm />
-</div>
-
-<div class="modal fade" id="registration" tabindex="-1" aria-hidden="true">
-    <RegistrationModalForm AddUser="AddClient" />
-</div>
+        <div class="modal fade" id="infoRegistration" tabindex="-1" aria-labelledby="infoRegistration" aria-hidden="true">
+            <InfoRegistrationModalForm />
+        </div>
+    </NotAuthorized>
+</AuthorizeView>
 
 
-<div class="modal fade" id="infoRegistration" tabindex="-1" aria-labelledby="infoRegistration" aria-hidden="true">
-    <InfoRegistrationModalForm />
-</div>
+<AuthorizeView Roles="Client">
+    <Authorized>
+        <header class="navbar">
+            <div>
+                <navlink ="/"><img src="/images/logo.png" alt=""></navlink>
+            </div>
+            <nav class="menu-yellow">
+                <ul>
+                    <li><NavLink href="#">Фото с мероприятий</NavLink></li>
+                    <li><NavLink href="#">Контакты</NavLink></li>
+                    <li><NavLink href="#">О нас</NavLink></li>
+                    <li><NavLink href="/logout">Выйти</NavLink></li>
+                </ul>
+            </nav>
+        </header>
+    </Authorized>
+</AuthorizeView>
+
+<AuthorizeView Roles="Manager">
+    <Authorized>
+        <header class="navbar">
+            <div>
+                <navlink ="/"><img src="/images/logo.png" alt=""></navlink>
+            </div>
+            <nav class="menu-yellow">
+                <ul>
+                    <li><NavLink href="/NewOrder">Создать заказ</NavLink></li>
+                    <li><NavLink href="/applications">Заявки</NavLink></li>
+                    <li><NavLink href="/logout">Выйти</NavLink></li>
+                </ul>
+            </nav>
+        </header>
+    </Authorized>
+</AuthorizeView>
+
+<AuthorizeView Roles="Worker">
+    <Authorized>
+        <header class="navbar">
+            <div>
+                <navlink ="/"><img src="/images/logo.png" alt=""></navlink>
+            </div>
+            <nav class="menu-yellow">
+                <ul>
+                    <li><NavLink href="/taskWorker">Задачи</NavLink></li>
+                    <li><NavLink href="/contactTheManager">Связь с менеджером</NavLink></li>
+                    <li><NavLink href="/logout">Выйти</NavLink></li>
+                </ul>
+            </nav>
+        </header>
+    </Authorized>
+</AuthorizeView>
+
 
 @code {
-    // [Parameter] 
-    // public List<UserOutputModel> Users { get; set; }
-
-    private UserRegistrationInputModel _user;
-
     private IUserService _userService;
 
     public NavMenu()
     {
         _userService = new UserService();
-        _user = new UserRegistrationInputModel();
     }
 
     public void AddClient(UserRegistrationInputModel input)
     {
         var u = _userService.AddUser(input);
-        // Users.Add(u);
-        StateHasChanged();
     }
-
-    //UserRegistrationInputModel client = new()
-    //{
-    //    Mail = ""
-    //};
-
-    //var mails = userService.GetAllMailBoxes();
-    //var m = UserService.ConfirmMail(client, mails);
 }

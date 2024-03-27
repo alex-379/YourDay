@@ -10,15 +10,16 @@ namespace YourDay.BLL.Services
 
         public static string GetRandomPassword()
         {
-            Byte[] password = new Byte[(int)Length.PasswordLength];
-            string result = Encoding.UTF8.GetString(password);
+            byte[] passwordByte = new byte[(int)Length.PasswordLength];
+            _rng.GetBytes(passwordByte);
+            string password = Convert.ToBase64String(passwordByte);
 
-            return result;
+            return password;
         }
 
         public static byte[] GetSalt()
         {
-            Byte[] salt = new Byte[(int)Length.SaltLength];
+            byte[] salt = new byte[(int)Length.SaltLength];
             _rng.GetBytes(salt);
 
             return salt;

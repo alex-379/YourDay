@@ -27,19 +27,12 @@ namespace YourDay.BLL
 
             CreateMap<UserDto, ManagerNameAndPhoneOutputModel>();
 
-
-
-
-
             CreateMap<OrderForManagerInputModel, OrderDto>();
 
             CreateMap<OrderDto, OrderOutputModel>();
 
             CreateMap<OrderDto, OrderNameDateOutputModel>()
                 .ForMember(d => d.Date, opt => opt.MapFrom(s => OrderService.GetDateStringForOrder(s.Date)));
-
-
-
 
             CreateMap<TaskInputModel, TaskDto>();
 

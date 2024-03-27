@@ -60,6 +60,19 @@ namespace YourDay.BLL.Services
             return userOutput;
         }
 
+        public UserOutputModel AddManager(UserRegistrationInputModel manager)
+        {
+            manager.Password = PasswordService.GetRandomPassword();
+            this.GetSaltHash(manager);
+            UserDto userDtoInput = _mapper.Map<UserDto>(manager);
+            this.SetRole(userDtoInput, Role.Manager);
+            this.SetIsUndeleted(userDtoInput);
+            UserDto userDtoOutput = _userRepository.AddUser(userDtoInput);
+            UserOutputModel userOutput = _mapper.Map<UserOutputModel>(userDtoOutput);
+
+            return userOutput;
+        }
+
         public IEnumerable<UserOutputModel> GetAllUsers()
         {
             var userDtos = _userRepository.GetAllUsers();
