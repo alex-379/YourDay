@@ -1,5 +1,4 @@
-﻿@page "/v"
-@rendermode InteractiveServer
+﻿@inject NavigationManager navManager
 
 <div class="modal-dialog">
     <div class="modal-content">
@@ -7,30 +6,44 @@
             <h1 class="modal-title">Авторизация</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
-        <EditForm Model="@LoginModel" FormName="Login" OnValidSubmit="@StartLogin">
+        <EditForm Model="LoginModel" FormName="Login" OnValidSubmit="@StartLogin">
             <DataAnnotationsValidator />
             <ValidationSummary />
             <div class="modal-body">
                 <div class="form-group">
                     <label>Почта:</label>
-                    <InputText class="form-control" @bind-Value="@LoginModel.Mail" type="email" pattern="{8}" />
+                    <InputText class="form-control" @bind-Value="LoginModel.Mail" type="email" pattern="{8}" />
                 </div>
                 <div class="form-group">
                     <label>Пароль:</label>
-                    <InputText class="form-control" @bind-Value="@LoginModel.Password" type="password" />
+                    <InputText class="form-control" @bind-Value="LoginModel.Password" type="password" />
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="submit" class="purple-button" data-bs-toggle="modal">Вход</button>
                 <button type="button" class="purple-button" data-bs-dismiss="modal">Отмена</button>
                 <p>@LoginModel.Mail</p>
+                <p>@LoginModel.Password</p>
             </div>
+            @if (submitted)
+            {
+            }
         </EditForm>
     </div>
 </div>
 
+
+
 @code {
-    [SupplyParameterFromForm]
+
+}
+
+
+@* <Button Auto="StartLogin" LoginModel ="LoginModel" /> *@
+@*  <Button LoginModel ="LoginModel" />  *@
+
+@code {
+    [SupplyParameterFromForm(FormName = "Login")]
     public UserAutenthicationInputModel LoginModel { get; set; }
 
     [CascadingParameter]
@@ -38,14 +51,20 @@
 
     private IUserService _userService;
 
-    // [Parameter]
-    // public Action<UserRegistrationInputModel> AddUser { get; set; }
-
     public AuthenticationModalForm()
     {
         LoginModel = new UserAutenthicationInputModel();
         _userService = new UserService();
     }
+
+
+    bool submitted = false;
+
+    [SupplyParameterFromForm]
+    public string? Name { get; set; }
+
+    private void Submit() => submitted = true;
+
 
     public async Task StartLogin()
     {
@@ -63,6 +82,8 @@
 
             await HttpContext.SignInAsync(principial);
         }
+
+        // navManager.NavigateTo($"/q?Login");
     }
 }
 
@@ -78,3 +99,4 @@
     <NotAuthorized>Необходимо войти</NotAuthorized>
 
 </AuthorizeView>
+ 

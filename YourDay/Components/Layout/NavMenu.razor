@@ -1,4 +1,4 @@
-@* @rendermode InteractiveServer *@
+@*   @rendermode InteractiveServer   *@
 
 <header class="navbar">
     <div>
@@ -26,13 +26,13 @@
         <ul>
             <li><a href="" data-bs-toggle="modal" data-bs-target="#authentication">Вход</a></li>
             <li>
-                <button @* type="button" *@ @* class="btn btn-primary" *@ data-bs-toggle="modal" data-bs-target="#authentication" @* style="background-color: #4340D2 *@">
+                <button type="button" @onclick="SetState" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#authentication" style="background-color: #4340D2">
                     <i class="bi bi-plus"></i>
                     Вход
                 </button>
             </li>
             <li>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registration" style="background-color: #4340D2">
+                <button type="button" @onclick="SetState2" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registration" style="background-color: #4340D2">
                     Регистрация
                 </button>
             </li>
@@ -42,30 +42,46 @@
     </nav>
 </header>
 
-@* <div class="modal fade" id="authentication" tabindex="-1" aria-hidden="true">
-    <AuthenticationModalForm />
-</div> *@
+
+    <div class="modal fade" id="authentication" tabindex="-1" aria-hidden="true">
+            <AuthenticationModalForm />
+    </div>
 
 
-<div class="modal fade" id="registration" tabindex="-1" aria-hidden="true">
-    <RegistrationModalForm AddUser="AddClient" />
-</div>
+    <div class="modal fade" id="registration" tabindex="-1" aria-hidden="true">
+        <RegistrationModalForm AddUser="AddClient" />
+    </div>
 
 
 <div class="modal fade" id="infoRegistration" tabindex="-1" aria-labelledby="infoRegistration" aria-hidden="true">
     <InfoRegistrationModalForm />
-</div> 
+</div>
 
 @code {
     private IUserService _userService;
+
+    int i = 0;
+
+    string state = State.NoAction.ToString();
 
     public NavMenu()
     {
         _userService = new UserService();
     }
 
+    private void SetState()
+    {
+        i = 1;
+    }
+
+    private void SetState2()
+    {
+        i = 2;
+    }
+
     public void AddClient(UserRegistrationInputModel input)
     {
+        state = State.Registration.ToString();
         var u = _userService.AddUser(input);
         //StateHasChanged();
     }

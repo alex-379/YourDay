@@ -1,0 +1,57 @@
+﻿@page "/Button"
+
+@code {
+    [Parameter]
+    public UserAutenthicationInputModel LoginModel { get; set; }
+
+    // [Parameter]
+    // public Action Auto { get; set; }
+
+    // private void Add()
+    // {
+    //     Auto();
+    // }
+
+    [CascadingParameter]
+    public HttpContext HttpContext { get; set; }
+
+    private IUserService _userService;
+
+    public Button()
+    {
+        // LoginModel = new UserAutenthicationInputModel();
+        _userService = new UserService();
+    }
+
+    public async Task StartLogin()
+    {
+        bool result = _userService.ConfirmPassword(LoginModel);
+
+        if (result)
+        {
+            List<Claim> claims = new List<Claim>()
+        {
+            new Claim(ClaimTypes.Name, LoginModel.Mail),
+            new Claim(ClaimTypes.Role, LoginModel.Role.ToString())
+        };
+
+            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var principial = new ClaimsPrincipal(identity);
+
+            await HttpContext.SignInAsync(principial);
+        }
+    }
+}
+
+
+<AuthorizeView>
+    <Authorized>
+        Авторизован
+        @*         @claims.Where(c => c.Type == "Name") *@
+    </Authorized>
+
+</AuthorizeView>
+<AuthorizeView>
+    <NotAuthorized>Необходимо войти</NotAuthorized>
+
+</AuthorizeView>
