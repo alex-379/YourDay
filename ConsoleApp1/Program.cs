@@ -32,12 +32,12 @@ namespace ConsoleApp1
 
             UserRegistrationInputModel model = new UserRegistrationInputModel()
             {
-                UserName = "Светлана",
-                Mail = "men2@yday.ru",
+                UserName = "Андрей",
+                Mail = "worker1@yday.ru",
                 Phone = "999999"
             };
 
-            var a = userService.AddManager(model);
+            var a = userService.AddWorkerForManager(model);
 
             //var a = taskService.GetTasksByWorkerIdWithOrderWithSpecialization(9);
             //Console.WriteLine();

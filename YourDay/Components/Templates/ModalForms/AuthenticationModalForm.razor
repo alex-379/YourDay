@@ -22,25 +22,11 @@
             <div class="modal-footer">
                 <button type="submit" class="purple-button" data-bs-toggle="modal">Вход</button>
                 <button type="button" class="purple-button" data-bs-dismiss="modal">Отмена</button>
-                <p>@LoginModel.Mail</p>
-                <p>@LoginModel.Password</p>
             </div>
-            @if (submitted)
-            {
-            }
         </EditForm>
     </div>
 </div>
 
-
-
-@code {
-
-}
-
-
-@* <Button Auto="StartLogin" LoginModel ="LoginModel" /> *@
-@*  <Button LoginModel ="LoginModel" />  *@
 
 @code {
     [SupplyParameterFromForm(FormName = "Login")]
@@ -56,15 +42,6 @@
         LoginModel = new UserAutenthicationInputModel();
         _userService = new UserService();
     }
-
-
-    bool submitted = false;
-
-    [SupplyParameterFromForm]
-    public string? Name { get; set; }
-
-    private void Submit() => submitted = true;
-
 
     public async Task StartLogin()
     {
@@ -82,21 +59,6 @@
 
             await HttpContext.SignInAsync(principial);
         }
-
-        // navManager.NavigateTo($"/q?Login");
     }
 }
-
-
-<AuthorizeView>
-    <Authorized>
-        Авторизован
-        @*         @claims.Where(c => c.Type == "Name") *@
-    </Authorized>
-
-</AuthorizeView>
-<AuthorizeView>
-    <NotAuthorized>Необходимо войти</NotAuthorized>
-
-</AuthorizeView>
  
