@@ -1,3 +1,6 @@
+@rendermode InteractiveServer 
+@inject NavigationManager navManager
+
 <AuthorizeView>
     <NotAuthorized>
         <header class="navbar">
@@ -24,7 +27,7 @@
         </header>
 
         <div class="modal fade" id="authentication" tabindex="-1" aria-hidden="true">
-            <AuthenticationModalForm />
+            <AuthenticationModalForm @rendermode="InteractiveWebAssembly" />
         </div>
 
         <div class="modal fade" id="registration" tabindex="-1" aria-hidden="true">
@@ -49,7 +52,7 @@
                     <li><NavLink href="#">Фото с мероприятий</NavLink></li>
                     <li><NavLink href="#">Контакты</NavLink></li>
                     <li><NavLink href="#">О нас</NavLink></li>
-                    <li><NavLink href="/logout">Выйти</NavLink></li>
+                    <li><NavLink @onclick="Refresh" href="/logout">Выйти</NavLink></li>
                 </ul>
             </nav>
         </header>
@@ -66,7 +69,8 @@
                 <ul>
                     <li><NavLink href="/NewOrder">Создать заказ</NavLink></li>
                     <li><NavLink href="/applications">Заявки</NavLink></li>
-                    <li><NavLink href="/logout">Выйти</NavLink></li>
+                    <li><NavLink href="/statistics">Статистика</NavLink></li>
+                    <li><NavLink @onclick="Refresh" href="/logout">Выйти</NavLink></li>
                 </ul>
             </nav>
         </header>
@@ -103,5 +107,10 @@
     public void AddClient(UserRegistrationInputModel input)
     {
         var u = _userService.AddUser(input);
+    }
+
+    public void Refresh()
+    {
+        navManager.Refresh(true);
     }
 }

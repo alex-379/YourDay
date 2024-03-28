@@ -5,3 +5,10 @@
         </div>
     </div>
 </div>
+
+@code{
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay((int)Time.TimeAwaitInfoRegistration);
+    }
+}
