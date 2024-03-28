@@ -18,7 +18,7 @@ namespace YourDay
                 options =>
                 {
                     options.Cookie.Name = "auth_token";
-                    options.LoginPath = "/login";
+                    options.LoginPath = "/";
                     options.Cookie.MaxAge = TimeSpan.FromMinutes(30);
                 });
 

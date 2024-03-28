@@ -3,6 +3,72 @@
 @rendermode InteractiveServer
 @inject NavigationManager NavigationManager
 
+@if (returnRole != RoleUI.Manager.ToString())
+{
+    <ReturnToStart></ReturnToStart>
+}
+else
+{
+    <div class="body">
+        <section>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Праздник</th>
+                        <th>Дата</th>
+                        <th>Адрес</th>
+                        <th>Количество гостей</th>
+                        <th>Цена</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@OrderOutput.OrderName</td>
+                        <td>@OrderOutput.Date</td>
+                        <td>@OrderOutput.Address</td>
+                        <td>@OrderOutput.CountPeople</td>
+                        <td>@OrderOutput.Price</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <dialog id="task" aria-labelledby="heading">
+            <h2 id="heading">Что сделать с таской? &#128054 </h2>
+
+            <form method="dialog">
+                <button>
+                    Изменить
+                </button>
+                <button>
+                    Установить статус:
+                </button>
+                <button>
+                    Архивировать
+                </button>
+            </form>
+        </dialog>
+
+        <section>
+            <h2> Задачи:</h2>
+            <div class="container-task">
+                @*             @foreach (var i in _tasks)
+            {
+            <WorkerTaskCard task="i" ></WorkerTaskCard>
+            } *@
+            </div>
+        </section>
+
+        <section>
+            <div class="button-container">
+                <button class="green-button"> История заказа </button>
+                <button class="green-button"> Завершить заказ </button>
+                <button class="green-button"> Другое </button>
+            </div>
+        </section>
+    </div>
+}
+
 @code
 {
     [Parameter]
@@ -19,6 +85,13 @@
 
     public List<TaskOutputModel> task;
 
+    [CascadingParameter]
+    public Task<AuthenticationState> State { get; set; }
+
+    private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
+
+    private string returnRole;
+
     public Order()
     {
         _orderService = new OrderService();
@@ -33,27 +106,34 @@
 
     }
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        OrderOutputModel order = _orderService.GetOrderById(Id);
-        OrderOutput.Id = order.Id;
-        OrderOutput.OrderName = order.OrderName;
-        OrderOutput.Date = order.Date;
-        OrderOutput.Address = order.Address;
-        OrderOutput.CountPeople = order.CountPeople;
-        OrderOutput.Price = order.Price;
-
-        task = _taskService.GetTaskByOrderId(Id);
-
+        await GetClaims().ConfigureAwait(false);
+        if (returnRole == "Manager")
+        {
+            OrderOutputModel orderOutput = _orderService.GetOrderById(Id);
+            OrderOutput.Id = orderOutput.Id;
+            OrderOutput.OrderName = orderOutput.OrderName;
+            OrderOutput.Date = orderOutput.Date;
+            OrderOutput.Address = orderOutput.Address;
+            OrderOutput.CountPeople = orderOutput.CountPeople;
+            OrderOutput.Price = orderOutput.Price;
+        }
     }
+
+    List<string> tasks = new List<string>() { "Привезти красные розы", "Заказать торт", "Привезти оформление", "Нужна живая съемка", "Часовая фотосессия" };
 
     private void NavigateToPage()
     {
         
     }
 
-}
+    private List<TaskOutputModelAllInfo> _tasks;
 
+    private async Task GetClaims()
+    {
+        var authState = await State;
+        var user = authState.User;
 <div class="body">
     <section class="white">
         <table class="table white">
@@ -80,6 +160,13 @@
         </table>
     </section>
 
+        if (user.Identity is not null && user.Identity.IsAuthenticated)
+        {
+            claims = user.Claims;
+            returnRole = claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).Single();
+        }
+    }
+}
     <dialog id="task" aria-labelledby="heading">
         <h2 id="heading">Что сделать с таской? &#128054 </h2>
 

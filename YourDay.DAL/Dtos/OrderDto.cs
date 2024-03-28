@@ -9,17 +9,17 @@ namespace YourDay.DAL.Dtos
         public int Id { get; set; }
 
         [MaxLength(255)]
-        public string OrderName { get; set; }
+        public string? OrderName { get; set; }
 
         [MaxLength(255)]
-        public string Address { get; set; }
+        public string? Address { get; set; }
 
         [Column(TypeName = "DateTime")]
-        public DateTime Date { get; set; }
+        public DateTime? Date { get; set; }
 
         public int? CountPeople { get; set; }
 
-        public int Price { get; set; }
+        public int? Price { get; set; }
 
         public int? Еvaluation { get; set; }
 

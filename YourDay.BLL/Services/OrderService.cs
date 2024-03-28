@@ -1,14 +1,13 @@
-﻿using AutoMapper;
+using AutoMapper;
 using YourDay.BLL.IServices;
-using YourDay.BLL.Mapping;
 using YourDay.BLL.Models.OrderModels.InputModels;
 using YourDay.BLL.Models.OrderModels.OutputModels;
 using YourDay.DAL.Dtos;
 using YourDay.DAL.Repositories;
 
-namespace YourDay.BLL.Clients
+namespace YourDay.BLL.Services
 {
-    public class OrderService: IOrderService
+    public class OrderService : IOrderService
     {
         private OrderRepository _orderRepository;
         private Mapper _mapper;
@@ -64,6 +63,13 @@ namespace YourDay.BLL.Clients
             OrderInputModel order = _mapper.Map<OrderInputModel>(orderDto);
 
             return order;
+        }
+
+        public static string? GetDateStringForOrder(DateTime? date)
+        {
+            string? dateString = date?.ToString("dd/MM/yyyy");
+
+            return dateString;
         }
     }
 }

@@ -1,15 +1,21 @@
-﻿@page "/newTaskfororder/{Id:int}"
+@page "/newTaskfororder/{Id:int}"
 @attribute [StreamRendering]
 @rendermode InteractiveServer
 @inject NavigationManager NavigationManager
 
-
-    <div class="back">
-        <section>
-            <div class="container-add-order">
-                   <div class="fields-add-order">
-                            <form>
-                                <h2>Добавить задачу:</h2>
+@if (returnRole != RoleUI.Manager.ToString())
+{
+    <ReturnToStart></ReturnToStart>
+}
+else
+{
+    <section>
+        <div class="back">
+            <section>
+                <div class="container-add-order">
+                    <div class="fields-add-order">
+                        <form>
+                            <h2>Добавить задачу:</h2>
             
                                 <div class="conteiner-for-text">
                                     <label class="text" >Название:</label>
@@ -44,49 +50,67 @@
                                     <button class="purple-button" @onclick="AddTask">Создать</button>
                                     <button @onclick="Main"  class="purple-button"> Вернуться </button>
                             </div>
-                   </div>
-            </div>
-        </section>
-    </div>
+                            <div class="conteiner-for-text">
+                                <label class="text">Специализация:</label>
+                                <input class="field" type="name" placeholder="Введите специализацию">
+                            </div>
+                            <div class="conteiner-for-text">
+                                <label class="text">Мастер:</label>
+                                <input class="field" type="text" placeholder="Введите мастера">
+                            </div>
+                            <div class="conteiner-for-text">
+                                <label class="text">Дата:</label>
+                                <input class="field" type="number" placeholder="Введите дату">
+                            </div>
+                            <div class="conteiner-for-text">
+                                <label class="text" for="fruits">Статус:</label>
+                                <select class="field">
+                                    <option>Получено</option>
+                                    <option>Назначено</option>
+                                    <option>Сделано</option>
+                                </select>
 
+</section>
 
+                        <div>
+                            <button class="purple-button">Создать</button>
+                            <button class="purple-button"> Вернуться </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
 
-    
-@code
-{
-    [Parameter]
+    </section>
+}
     public int Id { get; set; }
 
-    // public SpecializationIntputModel s1; 
-    // public SpecializationIntputModel s2;
-    private TaskInputModel taskInputModel;
+@code {
+    [CascadingParameter]
+    public Task<AuthenticationState> State { get; set; }
 
-    //private IEnumerable<OrderNameDateOutputModel> _orders;
+    private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
 
-    private ITaskService _taskService;
+    private string returnRole;
 
-    private IOrderService _orderService;
-
-    public NewTask()
+    protected override async Task OnInitializedAsync()
     {
-        //order = new OrderOutputModel();
-        _taskService = new TaskService();
-
-        _orderService = new OrderService();
-
-        taskInputModel = new TaskInputModel();
-
-        // s1 = new SpecializationIntputModel()
-        // {
-        //     Name = "Кинолог"
-        // };
-
-        // s2 = new SpecializationIntputModel()
-        //     {
-        //         Name = "мяу"
-        //     };
+        await GetClaims().ConfigureAwait(false);
     }
 
+    private async Task GetClaims()
+    {
+        var authState = await State;
+        var user = authState.User;
+
+        if (user.Identity is not null && user.Identity.IsAuthenticated)
+        {
+            claims = user.Claims;
+            returnRole = claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).Single();
+        }
+    }
+    private ITaskService _taskService;
+    private IOrderService _orderService;
     private void AddTask()
     {
         taskInputModel.Order = _orderService.GetOrderByIdForAddTask(5);
@@ -94,7 +118,6 @@
 
         NavigationManager.NavigateTo("/manager");
     }
-
     private void Main()
     {
         NavigationManager.NavigateTo("/manager");
@@ -107,7 +130,5 @@
     private void OnSpecializationChange(ChangeEventArgs e)
     {
         selectedSpecialization = (int)e.Value;
-        // Здесь вы можете выполнить любую дополнительную логику при изменении значения
     }
 }
-

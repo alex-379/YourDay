@@ -1,34 +1,115 @@
-<header class="navbar">
-    <div>
-        <a href="/"><img src="/images/logo.png" alt=""></a>
-    </div>
+@rendermode InteractiveServer 
+@inject NavigationManager navManager
 
-    @* <nav class="menu">
-        <ul>
-            <li><a href="#">Фото с мероприятий</a></li>
-            <li><a href="#">Контакты</a></li>
-            <li><a href="#">О нас</a></li>
-        </ul>
-    </nav> *@
+<AuthorizeView>
+    <NotAuthorized>
+        <header class="navbar">
+            <div>
+                <NavLink href="/"><img src="/images/logo.png" alt=""></NavLink>
+            </div>
+            <nav class="menu-yellow">
+                <ul>
+                    <li><NavLink href="#">Фото с мероприятий</NavLink></li>
+                    <li><NavLink href="#">Контакты</NavLink></li>
+                    <li><NavLink href="#">О нас</NavLink></li>
+                    <li>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#authentication">
+                            Вход
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registration">
+                            Регистрация
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </header>
 
-    <nav class="menu">
-        <ul>
-            <li><a href="">Клиент</a></li>
-            <li><a href="/manager">Менеджер</a></li>
-            <li><a href="/master">Мастер</a></li>
-            <li><a href="/p">Тесты</a></li>
-        </ul>
-    </nav>
+        <div class="modal fade" id="authentication" tabindex="-1" aria-hidden="true">
+            <AuthenticationModalForm @rendermode="InteractiveWebAssembly" />
+        </div>
 
-    
+        <div class="modal fade" id="registration" tabindex="-1" aria-hidden="true">
+            <RegistrationModalForm AddUser="AddClient" />
+        </div>
 
-    <nav class="menu-yellow">
-        <ul>
-           
-            <li><a href="#">Вход</a></li>
-            <li><a href="/registration">Регистрация</a></li>
-            <li><a href="./login">login</a></li>
-            <li><a href="./logout">logout</a></li>
-        </ul>
-    </nav>
-</header>
+        <div class="modal fade" id="infoRegistration" tabindex="-1" aria-labelledby="infoRegistration" aria-hidden="true">
+            <InfoRegistrationModalForm />
+        </div>
+    </NotAuthorized>
+</AuthorizeView>
+
+
+<AuthorizeView Roles="@RoleUI.Client.ToString()">
+    <Authorized>
+        <header class="navbar">
+            <div>
+                <NavLink href="/"><img src="/images/logo.png" alt=""></NavLink>
+            </div>
+            <nav class="menu-yellow">
+                <ul>
+                    <li><NavLink href="#">Фото с мероприятий</NavLink></li>
+                    <li><NavLink href="#">Контакты</NavLink></li>
+                    <li><NavLink href="#">О нас</NavLink></li>
+                    <li><NavLink @onclick="Refresh" href="/logout">Выйти</NavLink></li>
+                </ul>
+            </nav>
+        </header>
+    </Authorized>
+</AuthorizeView>
+
+<AuthorizeView Roles="@RoleUI.Manager.ToString()">
+    <Authorized>
+        <header class="navbar">
+            <div>
+                <NavLink href="/"><img src="/images/logo.png" alt=""></NavLink>
+            </div>
+            <nav class="menu-yellow">
+                <ul>
+                    <li><NavLink href="/NewOrder">Создать заказ</NavLink></li>
+                    <li><NavLink href="/applications">Заявки</NavLink></li>
+                    <li><NavLink href="/statistics">Статистика</NavLink></li>
+                    <li><NavLink @onclick="Refresh" href="/logout">Выйти</NavLink></li>
+                </ul>
+            </nav>
+        </header>
+    </Authorized>
+</AuthorizeView>
+
+<AuthorizeView Roles="@RoleUI.Worker.ToString()">
+    <Authorized>
+        <header class="navbar">
+            <div>
+                <NavLink href="/"><img src="/images/logo.png" alt=""></NavLink>
+            </div>
+            <nav class="menu-yellow">
+                <ul>
+                    <li><NavLink href="/taskWorker">Задачи</NavLink></li>
+                    <li><NavLink href="/contactTheManager">Связь с менеджером</NavLink></li>
+                    <li><NavLink @onclick="Refresh" href="/logout">Выйти</NavLink></li>
+                </ul>
+            </nav>
+        </header>
+    </Authorized>
+</AuthorizeView>
+
+
+@code {
+    private IUserService _userService;
+
+    public NavMenu()
+    {
+        _userService = new UserService();
+    }
+
+    public void AddClient(UserRegistrationInputModel input)
+    {
+        var u = _userService.AddUser(input);
+    }
+
+    public void Refresh()
+    {
+        navManager.Refresh(true);
+    }
+}

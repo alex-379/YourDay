@@ -7,17 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\ManagerModels\InputModel\**" />
     <Compile Remove="Models\Models\**" />
+    <EmbeddedResource Remove="Models\ManagerModels\InputModel\**" />
     <EmbeddedResource Remove="Models\Models\**" />
+    <None Remove="Models\ManagerModels\InputModel\**" />
     <None Remove="Models\Models\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\ManagerModels\InputModel\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="System.Security.Cryptography.Encoding" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using YourDay.BLL.Enums;
 using YourDay.BLL.Models.TaskModels.InputModels;
 using YourDay.BLL.Models.TaskModels.OutputModels;
 using YourDay.DAL.Enums;
@@ -11,14 +7,24 @@ namespace YourDay.BLL.IServices
 {
     public interface ITaskService
     {
-        public List<TaskOutputModel> GetTaskByOrderId(int Id);
-        public void UpdateStatusTaskByTaskId(int taskId, Status newTaskStatus);
-        public void RemoveTask(int id);
-        public List<TaskOutputModel> GetAllTask();
-        public TaskOutputModel GetTaskById(int Id);
-        public List<TaskOutputModel> FilterTasks(DateTime? startDate, DateTime? endDate);
-        public List<TaskOutputModel> GetTaskByMasterId(int MasterId);
+        public TaskOutputModelWithOrderWithSpecialization AddTask(TaskInputModel task);
 
-        public void AddTask(TaskInputModel task, int orderId, int taskId);
+        public TaskOutputModelAllInfo AddWorkerForTask(int taskId, int workerId);
+
+        public IEnumerable<TaskOutputModelWithOrderWithSpecialization> GetAllTasksWithOrderWithSpecialization();
+
+        public IEnumerable<TaskOutputModelAllInfo> GetAllTasksWithAll();
+
+        public TaskOutputModelAllInfo GetTaskByIdWithAll(int taskId);
+
+        public IEnumerable<TaskOutputModelWithSpecialization> GetTasksByOrderIdWithSpecialization(int orderId);
+
+        public IEnumerable<TaskOutputModelWithOrderWithSpecialization> GetTasksByWorkerIdWithOrderWithSpecialization(int workerId);
+
+        public TaskOutputModelAllInfo UpdateTaskStatusByTaskId(int taskId, StatusUI newTaskStatus);
+
+        public IEnumerable<TaskOutputModelAllInfo> FilterTasks(DateTime? startDate, DateTime? endDate, StatusUI? status);
+
+        public TaskOutputModelAllInfo UpdateTask(TaskUpdateInputModelAllInfo task);
     }
 }

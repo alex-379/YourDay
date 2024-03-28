@@ -1,5 +1,4 @@
-﻿using YourDay.DAL.Dtos;
-using YourDay.DAL.Enums;
+﻿using YourDay.DAL.Enums;
 
 namespace YourDay.BLL.Models.OrderModels.InputModels
 {

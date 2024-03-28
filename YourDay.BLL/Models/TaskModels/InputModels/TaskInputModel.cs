@@ -1,5 +1,3 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
 using YourDay.DAL.Dtos;
 using YourDay.DAL.Enums;
 using YourDay.BLL.Models.UserModels.InputModels;
@@ -11,7 +9,7 @@ namespace YourDay.BLL.Models.TaskModels.InputModels
     {
         public string Title { get; set; }
 
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         public DateTime TimeStart { get; set; }
 

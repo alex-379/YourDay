@@ -1,0 +1,14 @@
+﻿<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-body">
+            <p>Вы успешно зарегестрированы</p>
+        </div>
+    </div>
+</div>
+
+@code{
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay((int)Time.TimeAwaitInfoRegistration);
+    }
+}

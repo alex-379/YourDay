@@ -1,0 +1,63 @@
+﻿@inject NavigationManager navManager
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title">Авторизация</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <EditForm Model="LoginModel" FormName="Login" OnValidSubmit="@StartLogin">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Почта:</label>
+                    <InputText class="form-control" @bind-Value="LoginModel.Mail" type="email" pattern="{8}" />
+                </div>
+                <div class="form-group">
+                    <label>Пароль:</label>
+                    <InputText class="form-control" @bind-Value="LoginModel.Password" type="password" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="purple-button" data-bs-toggle="modal">Вход</button>
+                <button type="button" class="purple-button" data-bs-dismiss="modal">Отмена</button>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+
+@code {
+    [SupplyParameterFromForm(FormName = "Login")]
+    public UserAutenthicationInputModel LoginModel { get; set; }
+
+    [CascadingParameter]
+    public HttpContext HttpContext { get; set; }
+
+    private IUserService _userService;
+
+    public AuthenticationModalForm()
+    {
+        LoginModel = new UserAutenthicationInputModel();
+        _userService = new UserService();
+    }
+
+    public async Task StartLogin()
+    {
+        bool result = _userService.ConfirmPassword(LoginModel);
+
+        if (result){
+            List<Claim> claims = new List<Claim>()
+        {
+            new Claim(ClaimTypes.Email, LoginModel.Mail),
+            new Claim(ClaimTypes.Role, LoginModel.Role.ToString())
+        };
+
+            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var principial = new ClaimsPrincipal(identity);
+
+            await HttpContext.SignInAsync(principial);
+        }
+    }
+}

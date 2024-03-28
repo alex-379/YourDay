@@ -1,0 +1,114 @@
+﻿@page "/contactTheManager"
+@attribute [StreamRendering]
+@inject NavigationManager NavigationWorker
+@inject IJSRuntime JsRuntime
+
+@if (returnRole != RoleUI.Worker.ToString())
+{
+    <ReturnToStart></ReturnToStart>
+}
+else
+{
+    <PageTitle>ContactTheManager</PageTitle>
+
+    <div>
+        <h2 class="manager-h1">Здесь вы можете связаться с менеджером:</h2>
+    </div>
+
+    <table>
+        <thead>
+            @foreach (Column column in Columns)
+            {
+            <th>
+                    @column.LayoutHeader
+            </th>
+            }
+        </thead>
+        <tbody>
+            @foreach (ManagerNameAndPhoneOutputModel manager in _models)
+            {
+                <tr>
+                    @foreach (Column column in Columns)
+                    {
+                        <td>
+                            @typeof(ManagerNameAndPhoneOutputModel).GetProperty(column.Field).GetValue(manager)
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@code {
+    private List<ManagerNameAndPhoneOutputModel> _models;
+
+    private IManagerService _managers;
+
+    private List<Column> Columns { get; set; }
+
+    class Column
+    {
+        public string Field { get; set; }
+        public string LayoutHeader { get; set; }
+    }
+
+    [CascadingParameter]
+    public Task<AuthenticationState> State { get; set; }
+
+    private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
+
+    private string returnRole;
+
+    public ContactTheManager()
+    {
+        _models = new List<ManagerNameAndPhoneOutputModel>();
+        _managers = new ManagerService();
+        Columns = new List<Column>();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetClaims().ConfigureAwait(false);
+        if (returnRole == RoleUI.Worker.ToString())
+        {
+            Columns = new List<Column>();
+
+            Columns.AddRange(
+                new Column[]
+                {
+                new Column()
+                {
+                    Field="Name",
+                    LayoutHeader="Имя"
+                },
+
+                new Column()
+                {
+                    Field="Phone",
+                    LayoutHeader="Телефон"
+                }
+                });
+
+            _models = _managers.GetAllManagers();
+        }
+    }
+
+    private void ContactTheManagers()
+    {
+        NavigationWorker.NavigateTo("/contactTheManager");
+    }
+
+    private async Task GetClaims()
+    {
+        var authState = await State;
+        var user = authState.User;
+
+        if (user.Identity is not null && user.Identity.IsAuthenticated)
+        {
+            claims = user.Claims;
+            returnRole = claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).Single();
+        }
+    }
+}

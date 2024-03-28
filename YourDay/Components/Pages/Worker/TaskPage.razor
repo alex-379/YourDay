@@ -1,0 +1,92 @@
+@page "/taskWorker/task/{Id:int}"
+@rendermode InteractiveServer
+
+@if (returnRole != RoleUI.Worker.ToString())
+{
+    <ReturnToStart></ReturnToStart>
+}
+else
+{
+    <div>
+        <div>
+            <div class="container-task">
+                <WorkerTaskCard task="_task"></WorkerTaskCard>
+                <form>
+                    <select @onchange="UpdateStatusTask">
+                        <option value="0">@StatusUI.Received.GetDisplayName()</option>
+                        <option value="1">@StatusUI.InProgress.GetDisplayName()</option>
+                        <option value="2">@StatusUI.Completed.GetDisplayName()</option>
+                        <option value="3">@StatusUI.Canselled.GetDisplayName()</option>
+                    </select>
+                </form>
+
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private TaskService taskClient = new TaskService();
+
+    private TaskOutputModelAllInfo _task;
+
+    [CascadingParameter]
+    public Task<AuthenticationState> State { get; set; }
+
+    private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
+
+    private string returnRole;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetClaims().ConfigureAwait(false);
+        if (returnRole == RoleUI.Worker.ToString())
+        {
+            _task = taskClient.GetTaskByIdWithAll(Id);
+        }
+    }
+
+    public void UpdateStatusTask(ChangeEventArgs e)
+    {
+        int newStatusInt = int.Parse(e.Value.ToString());
+
+        StatusUI newStatus = StatusUI.Received;
+
+        switch (newStatusInt)
+        {
+            case 0:
+                newStatus = StatusUI.Received;
+
+                break;
+            case 1:
+                newStatus = StatusUI.InProgress;
+
+                break;
+            case 2:
+                newStatus = StatusUI.Completed;
+   
+                break;
+            case 3:
+                newStatus = StatusUI.Canselled;
+
+                break;
+        }
+
+        taskClient.UpdateTaskStatusByTaskId(Id, newStatus);
+    }
+
+    private async Task GetClaims()
+    {
+        var authState = await State;
+        var user = authState.User;
+
+        if (user.Identity is not null && user.Identity.IsAuthenticated)
+        {
+            claims = user.Claims;
+            returnRole = claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).Single();
+        }
+    }
+}

@@ -1,4 +1,4 @@
-﻿using YourDay.DAL.Dtos;
+using YourDay.DAL.Dtos;
 using YourDay.DAL.Enums;
 
 namespace YourDay.DAL.IRepositories
@@ -12,7 +12,7 @@ namespace YourDay.DAL.IRepositories
 
         public IEnumerable<UserDto> GetAllUsers();
 
-        public UserDto GetUserById(int id);
+        public UserDto GetUserById(int userId);
 
         public UserDto UpdateUser(UserDto user);
 
