@@ -10,6 +10,7 @@ using YourDay.BLL.Models.TaskModels.OutputModels;
 using YourDay.BLL.Models.UserModels.InputModels;
 using YourDay.BLL.Models.UserModels.OutputModels;
 using YourDay.DAL.Dtos;
+using YourDay.BLL.Models.CompanyModels.OutputModels;
 
 namespace YourDay.BLL
 {
