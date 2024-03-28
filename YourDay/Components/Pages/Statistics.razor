@@ -43,7 +43,7 @@ else
 @code {
     private List<CompanyStatisticOutputModel> _model;
 
-    private CompanyStatistics _statistics;
+    private CompanyStatisticsService _statistics;
 
     private List<Column> Columns { get; set; }
 
@@ -63,7 +63,7 @@ else
     public Statistics()
     {
         _model = new List<CompanyStatisticOutputModel>();
-        _statistics = new CompanyStatistics();
+        _statistics = new CompanyStatisticsService();
         Columns = new List<Column>();
     }
 
