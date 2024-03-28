@@ -148,32 +148,6 @@
         </body>
 
         <p class="w" role="status"> </p>
-
-        @code {
-        List<string> lastCelebrates = new List<string>() { "Юбилей", "8 марта", "Праздник осени", "Рождество" };
-        private int lc = 0;
-
-        private IEnumerable<OrderNameDateOutputModel> _orders;
-
-        private OrderService _orderClient;
-
-        public Home()
-        {
-            _orderClient = new OrderService();
-
-            _orders = _orderClient.GetAllOrdersForCard();
-        }
-
-        private void CountLastCelebrates()
-        {
-            lc++;
-        }
-
-        private void NavigateToPage()
-        {
-            navManager.NavigateTo("/order");
-        }
-        }
     </Authorized>
 </AuthorizeView>
 
@@ -181,15 +155,9 @@
     <Authorized>
         <h2 class="manager-h1">Вы зашли как сотрудник : </h2>
         <p>Аккаунт @returnAddress</p>
-
-        @code {
-        protected override async Task OnInitializedAsync()
-        {
-            await GetEmail().ConfigureAwait(false);
-        }
-        }
     </Authorized>
 </AuthorizeView>
+
 
 @code {
     [CascadingParameter]
@@ -199,7 +167,27 @@
 
     private string returnAddress;
 
-    private async Task GetEmail()
+    private string returnRole;
+
+    List<string> lastCelebrates = new List<string>() { "Юбилей", "8 марта", "Праздник осени", "Рождество" };
+
+    private int lc = 0;
+
+    private IEnumerable<OrderNameDateOutputModel> _orders;
+
+    private OrderService _orderClient;
+
+    public Home()
+    {
+        _orderClient = new OrderService();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetClaims().ConfigureAwait(false);
+    }
+
+    private async Task GetClaims()
     {
         var authState = await State;
         var user = authState.User;
@@ -208,6 +196,39 @@
         {
             claims = user.Claims;
             returnAddress = claims.Where(c => c.Type == ClaimTypes.Email).Select(c => c.Value).Single();
+            returnRole = claims.Where(c => c.Type == ClaimTypes.Email).Select(c => c.Value).Single();
         }
+    }
+
+
+
+
+
+
+
+
+
+    if (returnRole == "Manager")
+    {
+    protected override void OnInitialized()
+    {
+        _orders = _orderClient.GetAllOrdersForCard();
+    }
+    }
+
+
+
+
+
+
+
+    private void CountLastCelebrates()
+    {
+    lc++;
+    }
+
+    private void NavigateToPage()
+    {
+    navManager.NavigateTo("/order");
     }
 }
