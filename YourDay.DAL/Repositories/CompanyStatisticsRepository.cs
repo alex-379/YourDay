@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using YourDay.DAL.Dtos;
-using YourDay.DAL.Repositories;
+﻿using YourDay.DAL.Dtos;
 
 namespace YourDay.DAL.Repositories
 {
@@ -16,7 +14,7 @@ namespace YourDay.DAL.Repositories
                 .Select(order => new OrderDto
 
                 {
-                    Manager =order.Manager,
+                    Manager = order.Manager,
 
                     Status = order.Status,
 

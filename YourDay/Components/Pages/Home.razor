@@ -1,5 +1,6 @@
 @page "/"
 @rendermode InteractiveServer
+@* @attribute [StreamRendering] *@
 @inject NavigationManager navManager
 
 <AuthorizeView>
@@ -57,7 +58,7 @@
 </AuthorizeView>
 
 
-<AuthorizeView Roles="Client">
+<AuthorizeView Roles=@RoleUI.Client.ToString()>
     <Authorized>
         <section>
             <div class="blok">
@@ -107,9 +108,8 @@
     </Authorized>
 </AuthorizeView>
 
-<AuthorizeView Roles="Manager">
+<AuthorizeView Roles=@RoleUI.Manager.ToString()>
     <Authorized>
-        <PageTitle>Manager</PageTitle>
         <body>
             <div class="manager-container">
                 <section class="navbar">
@@ -148,61 +148,50 @@
         </body>
 
         <p class="w" role="status"> </p>
-
-        @code {
-        List<string> lastCelebrates = new List<string>() { "Юбилей", "8 марта", "Праздник осени", "Рождество" };
-        private int lc = 0;
-
-        private IEnumerable<OrderNameDateOutputModel> _orders;
-
-        private OrderService _orderClient;
-
-        public Home()
-        {
-            _orderClient = new OrderService();
-
-            _orders = _orderClient.GetAllOrdersForCard();
-        }
-
-        private void CountLastCelebrates()
-        {
-            lc++;
-        }
-
-        private void NavigateToPage()
-        {
-            navManager.NavigateTo("/order");
-        }
-        }
     </Authorized>
 </AuthorizeView>
 
-<AuthorizeView Roles="Worker">
+<AuthorizeView Roles=@RoleUI.Worker.ToString()>
     <Authorized>
         <h2 class="manager-h1">Вы зашли как сотрудник : </h2>
         <p>Аккаунт @returnAddress</p>
-
-        @code {
-        protected override async Task OnInitializedAsync()
-        {
-            await GetClaimsPrincipalData().ConfigureAwait(false);
-        }
-        }
     </Authorized>
 </AuthorizeView>
+
 
 @code {
     [CascadingParameter]
     public Task<AuthenticationState> State { get; set; }
 
-    [CascadingParameter]
-    public HttpContext HttpContext { get; set; }
-
     private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
 
     private string returnAddress;
 
-    private async Task GetClaimsPrincipalData()
+    private string returnRole;
+
+    List<string> lastCelebrates = new List<string>() { "Юбилей", "8 марта", "Праздник осени", "Рождество" };
+
+    private int lc = 0;
+
+    private IEnumerable<OrderNameDateOutputModel> _orders;
+
+    private OrderService _orderClient;
+
+    public Home()
+    {
+        _orderClient = new OrderService();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetClaims().ConfigureAwait(false);
+        if (returnRole == "Manager")
+        {
+            _orders = _orderClient.GetAllOrdersForCard();
+        }
+    }
+
+    private async Task GetClaims()
     {
         var authState = await State;
         var user = authState.User;
@@ -210,9 +199,18 @@
         if (user.Identity is not null && user.Identity.IsAuthenticated)
         {
             claims = user.Claims;
+            returnAddress = claims.Where(c => c.Type == ClaimTypes.Email).Select(c => c.Value).Single();
+            returnRole = claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).Single();
         }
+    }
 
-        returnAddress = claims.Where(c => c.Type == ClaimTypes.Email)
-        .Select(c => c.Value).SingleOrDefault();
+    private void CountLastCelebrates()
+    {
+        lc++;
+    }
+
+    private void NavigateToPage()
+    {
+        navManager.NavigateTo("/order");
     }
 }

@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using System;
-using YourDay.BLL.Clients;
+using YourDay.BLL.Enums;
 using YourDay.BLL.IServices;
 using YourDay.BLL.Models.SpecializationModels.InputModels;
 using YourDay.BLL.Models.TaskModels.InputModels;
@@ -30,14 +30,18 @@ namespace ConsoleApp1
             ITaskService taskService = new TaskService();
             ISpecializationService specializationService = new SpecializationService();
 
-            UserRegistrationInputModel model = new UserRegistrationInputModel()
-            {
-                UserName = "Андрей",
-                Mail = "worker1@yday.ru",
-                Phone = "999999"
-            };
+            //var a = RoleUI.Manager.ToString();
+            //var a = taskService.UpdateTaskStatusByTaskId(1, StatusUI.Canselled);
+            //Console.WriteLine();
 
-            var a = userService.AddWorkerForManager(model);
+            //UserRegistrationInputModel model = new UserRegistrationInputModel()
+            //{
+            //    UserName = "Андрей",
+            //    Mail = "worker1@yday.ru",
+            //    Phone = "999999"
+            //};
+
+            //var a = userService.AddWorkerForManager(model);
 
             //var a = taskService.GetTasksByWorkerIdWithOrderWithSpecialization(9);
             //Console.WriteLine();
