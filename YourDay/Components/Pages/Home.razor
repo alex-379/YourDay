@@ -185,7 +185,7 @@
         @code {
         protected override async Task OnInitializedAsync()
         {
-            await GetClaimsPrincipalData().ConfigureAwait(false);
+            await GetEmail().ConfigureAwait(false);
         }
         }
     </Authorized>
@@ -195,14 +195,11 @@
     [CascadingParameter]
     public Task<AuthenticationState> State { get; set; }
 
-    [CascadingParameter]
-    public HttpContext HttpContext { get; set; }
-
     private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
 
     private string returnAddress;
 
-    private async Task GetClaimsPrincipalData()
+    private async Task GetEmail()
     {
         var authState = await State;
         var user = authState.User;
@@ -210,9 +207,7 @@
         if (user.Identity is not null && user.Identity.IsAuthenticated)
         {
             claims = user.Claims;
+            returnAddress = claims.Where(c => c.Type == ClaimTypes.Email).Select(c => c.Value).Single();
         }
-
-        returnAddress = claims.Where(c => c.Type == ClaimTypes.Email)
-        .Select(c => c.Value).SingleOrDefault();
     }
 }

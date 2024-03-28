@@ -1,37 +1,64 @@
 ﻿@page "/applications"
 @rendermode InteractiveServer
+@inject NavigationManager navManager
 
-@code {
-    List<string> tasks = new List<string>() { "День рождения", "Выпускной", "Просто хотим праздник", "GaguaygsJHGU hd"};
+@if (returnRole != "Manager")
+{
+    navManager.NavigateTo("./");
+}
+else
+{
+    <section class="text-style">
+        <dialog id="application" aria-labelledby="heading">
+            <h2 id="heading">Что сделать с заявкой?</h2>
+            <form method="dialog">
+                <button>
+                    Закрыть
+                </button>
+                <button>
+                    Архивировать
+                </button>
+                <button>
+                    Создать заказ
+                </button>
+            </form>
+        </dialog>
+    </section>
+
+    <section>
+        <div class="manager-blok">
+            <h2 class="manager-h1"> Наши заявки:</h2>
+            <div class="manager-button-contaiber">
+                @foreach (var s in tasks)
+                {
+                    <button class="order-button" onclick="window.application.showModal()"> @s </button>
+                }
+            </div>
+        </div>
+    </section>
 }
 
-<section class="text-style">
-    <dialog id="application" aria-labelledby="heading">
-        <h2 id="heading">Что сделать с заявкой?  </h2>
+@code {
+    List<string> tasks = new List<string>() { "День рождения", "Выпускной", "Просто хотим праздник", "GaguaygsJHGU hd" };
 
-        <form method="dialog">
+    [CascadingParameter]
+    public Task<AuthenticationState> State { get; set; }
 
-            <button>
-                Закрыть
-            </button>
-            <button>
-                Архивировать
-            </button>
-            <button>
-                Создать заказ
-            </button>
-        </form>
-    </dialog>
-</section>
+    private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
 
-<section>
-    <div class="manager-blok">
-        <h2 class="manager-h1"> Наши заявки:</h2>
-        <div class="manager-button-contaiber">
-            @foreach (var s in tasks)
-            {
-                <button class="order-button" onclick="window.application.showModal()"> @s </button>
-            }
-        </div>
-    </div>
-</section>
+    private string returnRole;
+
+    private async Task GetEmail()
+    {
+        var authState = await State;
+        var user = authState.User;
+
+        if (user.Identity is not null && user.Identity.IsAuthenticated)
+        {
+            claims = user.Claims;
+            returnRole = claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).Single();
+        }
+    }
+
+
+}
