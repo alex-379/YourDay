@@ -48,7 +48,12 @@ else
 
     private string returnRole;
 
-    private async Task GetEmail()
+    protected override async Task OnInitializedAsync()
+    {
+        await GetClaims().ConfigureAwait(false);
+    }
+
+    private async Task GetClaims()
     {
         var authState = await State;
         var user = authState.User;
@@ -59,6 +64,4 @@ else
             returnRole = claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).Single();
         }
     }
-
-
 }

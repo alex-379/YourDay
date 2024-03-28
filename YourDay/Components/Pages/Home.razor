@@ -1,5 +1,6 @@
 @page "/"
 @rendermode InteractiveServer
+@* @attribute [StreamRendering] *@
 @inject NavigationManager navManager
 
 <AuthorizeView>
@@ -185,6 +186,10 @@
     protected override async Task OnInitializedAsync()
     {
         await GetClaims().ConfigureAwait(false);
+        if (returnRole == "Manager")
+        {
+            _orders = _orderClient.GetAllOrdersForCard();
+        }
     }
 
     private async Task GetClaims()
@@ -196,31 +201,18 @@
         {
             claims = user.Claims;
             returnAddress = claims.Where(c => c.Type == ClaimTypes.Email).Select(c => c.Value).Single();
-            returnRole = claims.Where(c => c.Type == ClaimTypes.Email).Select(c => c.Value).Single();
+            returnRole = claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).Single();
         }
     }
 
 
-
-
-
-
-
-
-
-    if (returnRole == "Manager")
-    {
-    protected override void OnInitialized()
-    {
-        _orders = _orderClient.GetAllOrdersForCard();
-    }
-    }
-
-
-
-
-
-
+    // protected override void OnInitialized()
+    // {
+    //     if (returnRole == "Manager")
+    //     {
+    //         _orders = _orderClient.GetAllOrdersForCard();
+    //     }
+    // }
 
     private void CountLastCelebrates()
     {
@@ -232,3 +224,37 @@
     navManager.NavigateTo("/order");
     }
 }
+
+
+
+
+ @*            @code {
+    [CascadingParameter]
+    public Task<AuthenticationState> State { get; set; }
+
+    [CascadingParameter]
+    public HttpContext HttpContext { get; set; }
+
+    private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
+
+    private string returnAddress;
+
+    protected override async Task OnInitializedAsync()
+    {
+    await GetClaimsPrincipalData().ConfigureAwait(false);
+    }
+
+    private async Task GetClaimsPrincipalData()
+    {
+    var authState = await State;
+    var user = authState.User;
+
+    if (user.Identity is not null && user.Identity.IsAuthenticated)
+    {
+        claims = user.Claims;
+    }
+
+    returnAddress = claims.Where(c => c.Type == ClaimTypes.Email)
+    .Select(c => c.Value).SingleOrDefault();
+    }
+} *@
