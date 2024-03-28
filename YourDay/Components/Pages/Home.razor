@@ -58,7 +58,7 @@
 </AuthorizeView>
 
 
-<AuthorizeView Roles="Client">
+<AuthorizeView Roles=@RoleUI.Client.ToString()>
     <Authorized>
         <section>
             <div class="blok">
@@ -108,7 +108,7 @@
     </Authorized>
 </AuthorizeView>
 
-<AuthorizeView Roles="Manager">
+<AuthorizeView Roles=@RoleUI.Manager.ToString()>
     <Authorized>
         <body>
             <div class="manager-container">
@@ -151,7 +151,7 @@
     </Authorized>
 </AuthorizeView>
 
-<AuthorizeView Roles="Worker">
+<AuthorizeView Roles=@RoleUI.Worker.ToString()>
     <Authorized>
         <h2 class="manager-h1">Вы зашли как сотрудник : </h2>
         <p>Аккаунт @returnAddress</p>

@@ -1,75 +1,107 @@
 @page "/taskWorker"
-@using YourDay.DAL.Enums
 @attribute [StreamRendering]
 @rendermode InteractiveServer
 
-
-<div style="display: flex;">
-    <div>В период :</div>
+@if (returnRole != RoleUI.Worker.ToString())
+{
+    <ReturnToStart></ReturnToStart>
+}
+else
+{
     <div style="display: flex;">
-        <div class="conteiner-for-text" style="width: 190px;">
-            <input class="field" type="datetime" id="StartDateFrom" @bind="@dateFrom" placeholder="dd/mm/yyyy">
-        </div>
-        <div class="conteiner-for-text" style="width: 190px;">
-            <input class="field" type="datetime" id="EndDateTo" @bind="dateTo" placeholder="dd/mm/yyyy">
+        <div>В период :</div>
+        <div style="display: flex;">
+            <div class="conteiner-for-text" style="width: 190px;">
+                <input class="field" type="datetime" id="StartDateFrom" @bind="@dateFrom" placeholder="dd/mm/yyyy">
+            </div>
+            <div class="conteiner-for-text" style="width: 190px;">
+                <input class="field" type="datetime" id="EndDateTo" @bind="dateTo" placeholder="dd/mm/yyyy">
+            </div>
         </div>
     </div>
-</div>
 
-<div style="display: flex;width: 190px;">
-    <div>Со статусом :</div>
-    <form>
-    <select @bind="@status">
-        <option value="0">Получен</option>
-        <option value="1">В работе</option>
-        <option value="2">Завершен</option>
-        <option value="3">Отменен</option>
+    <div style="display: flex;width: 190px;">
+        <div>Со статусом :</div>
+        <form>
+            <select @bind="@status">
+                <option value="0">@StatusUI.Received.GetDisplayName()</option>
+                <option value="1">@StatusUI.InProgress.GetDisplayName()</option>
+                <option value="2">@StatusUI.Completed.GetDisplayName()</option>
+                <option value="3">@StatusUI.Canselled.GetDisplayName()</option>
+            </select>
 
-    </select>
+        </form>
+    </div>
 
-    </form>
-</div>
+    <div class="button-quest">
+        <button @onclick="TaskFilter">Поиск</button>
+    </div>
 
-<div class="button-quest">
-    <button @onclick="QestTaskFilter">Поиск</button>
-</div>
-
-<div class="container-task">
-    @foreach (TaskOutputModelAllInfo task in _tasks)
-    {
-        <WorkerTaskCard task="task"></WorkerTaskCard>
-    }
-</div>
-
+    <div class="container-task">
+        @foreach (TaskOutputModelAllInfo task in _tasks)
+        {
+            <WorkerTaskCard task="task"></WorkerTaskCard>
+        }
+    </div>
+}
 
 @code 
 {
     private IEnumerable<TaskOutputModelAllInfo> _tasks;
+
     private IEnumerable<TaskOutputModel> _tasksFilter;
+
     private IEnumerable<TaskOutputModelWithOrderWithSpecialization> _tasksWorker;
+
     private const string Format = "hh:mm:ss";
-    private TaskService _WorkerClient;
+
+    private ITaskService _workerClient;
+
     public DateTime? dateFrom;
+
     public DateTime? dateTo;
-    public Status? status;
+
+    public StatusUI? status;
+
+    [CascadingParameter]
+    public Task<AuthenticationState> State { get; set; }
+
+    private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
+
+    private string returnRole;
 
     public TaskWorker()
     {
-        _WorkerClient = new TaskService();
-        _tasks = _WorkerClient.GetAllTasksWithAll();
-    }
-
-    protected override void OnInitialized()
-    {
-        dateFrom = null;
-        dateTo = null;
-        status = null;
+        _workerClient = new TaskService();
 
     }
 
-    public void QestTaskFilter()
+    protected override async Task OnInitializedAsync()
     {
-        _tasks = _WorkerClient.FilterTasks(dateFrom, dateTo, status);
+        await GetClaims().ConfigureAwait(false);
+        if (returnRole == RoleUI.Worker.ToString())
+        {
+            dateFrom = null;
+            dateTo = null;
+            status = null;
+            _tasks = _workerClient.GetAllTasksWithAll();
+        }
+    }
+
+    public void TaskFilter()
+    {
+        _tasks = _workerClient.FilterTasks(dateFrom, dateTo, status);
+    }
+
+    private async Task GetClaims()
+    {
+        var authState = await State;
+        var user = authState.User;
+
+        if (user.Identity is not null && user.Identity.IsAuthenticated)
+        {
+            claims = user.Claims;
+            returnRole = claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).Single();
+        }
     }
 }
-    

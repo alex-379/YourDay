@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Microsoft.IdentityModel.Tokens;
+using YourDay.BLL.Enums;
 using YourDay.BLL.IServices;
 using YourDay.BLL.Models.TaskModels.InputModels;
 using YourDay.BLL.Models.TaskModels.OutputModels;
@@ -6,6 +8,7 @@ using YourDay.DAL.Dtos;
 using YourDay.DAL.Enums;
 using YourDay.DAL.IRepositories;
 using YourDay.DAL.Repositories;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace YourDay.BLL.Services
 {
@@ -100,18 +103,19 @@ namespace YourDay.BLL.Services
             return tasks;
         }
 
-        public TaskOutputModelAllInfo UpdateTaskStatusByTaskId(int taskId, Status newTaskStatus)
+        public TaskOutputModelAllInfo UpdateTaskStatusByTaskId(int taskId, StatusUI newTaskStatus)
         {
             TaskDto taskDto = _taskRepository.GetTaskByIdWithAll(taskId);
-            taskDto.Status = newTaskStatus;
+            taskDto.Status = (Status)newTaskStatus;
             TaskDto taskDtoOutput = _taskRepository.UpdateTask(taskDto);
             TaskOutputModelAllInfo taskOutput = _mapper.Map<TaskOutputModelAllInfo>(taskDtoOutput);
 
             return taskOutput;
         }
 
-        public IEnumerable<TaskOutputModelAllInfo> FilterTasks(DateTime? startDate, DateTime? endDate, Status? status)
+        public IEnumerable<TaskOutputModelAllInfo> FilterTasks(DateTime? startDate, DateTime? endDate, StatusUI? statusUi)
         {
+            Status? status = (statusUi != null) ? (Status)statusUi : null;
             var tasks = _taskRepository.FilterTasks(startDate, endDate, status);
             var result = _mapper.Map<IEnumerable<TaskOutputModelAllInfo>>(tasks);
 

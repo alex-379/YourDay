@@ -48,6 +48,12 @@ else
 
     private List<Column> Columns { get; set; }
 
+    class Column
+    {
+        public string Field { get; set; }
+        public string LayoutHeader { get; set; }
+    }
+
     [CascadingParameter]
     public Task<AuthenticationState> State { get; set; }
 
@@ -65,20 +71,13 @@ else
     protected override async Task OnInitializedAsync()
     {
         await GetClaims().ConfigureAwait(false);
-        if (returnRole == "RoleUI.Worker.ToString()")
+        if (returnRole == RoleUI.Worker.ToString())
         {
-            _models = _managers.GetAllManagers();
-
             Columns = new List<Column>();
+
             Columns.AddRange(
                 new Column[]
                 {
-                // new Column()
-                // {
-                //     Field="SerialNumber",
-                //     LayoutHeader="Порядковый номер"
-                // },
-
                 new Column()
                 {
                     Field="Name",
@@ -91,18 +90,14 @@ else
                     LayoutHeader="Телефон"
                 }
                 });
+
+            _models = _managers.GetAllManagers();
         }
     }
 
     private void ContactTheManagers()
     {
         NavigationWorker.NavigateTo("/contactTheManager");
-    }
-
-    class Column
-    {
-        public string Field { get; set; }
-        public string LayoutHeader { get; set; }
     }
 
     void OnRowClick()

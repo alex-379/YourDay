@@ -30,8 +30,9 @@ namespace ConsoleApp1
             ITaskService taskService = new TaskService();
             ISpecializationService specializationService = new SpecializationService();
 
-            var a = RoleUI.Manager.ToString();
-            Console.WriteLine();
+            //var a = RoleUI.Manager.ToString();
+            //var a = taskService.UpdateTaskStatusByTaskId(1, StatusUI.Canselled);
+            //Console.WriteLine();
 
             //UserRegistrationInputModel model = new UserRegistrationInputModel()
             //{
