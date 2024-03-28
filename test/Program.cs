@@ -23,25 +23,20 @@ TaskRepository taskRepository = new TaskRepository();
 UserService userService = new UserService();
 TaskService taskService = new TaskService();
 
-var order3 = orderRepository.GetOrderById(5);
-var q = new TaskDto()
+var order3 = orderRepository.GetOrderById(1);
+
+var s = context.Specializations.Where(s => s.Id == 3).Single();
+var q = new TaskInputModel()
 {
-    Title = "кошька2",
+    Title = "ленты красные",
     Status = Status.InProgress,
     TimeStart = DateTime.Now,
     TimeEnd = DateTime.Now.AddMinutes(18),
-    //Workers = [w],
-    //Order = order3,
-    Description = "гав",
-    //Specialization = s
-
-
+    Description = "привезти",
 };
-//context.Tasks.Add(q);
-//q.Order = order3;
-
-taskRepository.AddTask(q, 5);
-context.SaveChanges();
+taskService.AddTask(q, 5, 6);
+//q.Specialization = taskService.GetSpecializationById(3);
+//context.SaveChanges();
 
 //UserInputModel w = userService.GetWorkerById(1015);
 

@@ -2,18 +2,19 @@
 using YourDay.DAL;
 using YourDay.BLL.Service;
 using YourDay.DAL.Enums;
-UserRepository r = new UserRepository();
-
+using YourDay.BLL.Clients;
+TaskRepository r = new TaskRepository();
+var a = r.GetTaskByOrderId(1);
  //r.DeleteWorkerById(10);
 
 
 
 
 
-UserService c = new UserService();
-c.DeleteWorkerById(1018);
+TaskService c = new TaskService();
+var b = c.GetTaskByOrderId(1);
 
 
 
-//Console.WriteLine("a");
+Console.WriteLine("a");
 //хотим еще выводить специализацию 

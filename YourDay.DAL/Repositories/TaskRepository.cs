@@ -3,6 +3,7 @@ using YourDay.DAL.Dtos;
 using YourDay.DAL.IRepositories;
 using YourDay.DAL.Enums;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace YourDay.DAL.Repositories
 {
@@ -62,11 +63,19 @@ namespace YourDay.DAL.Repositories
             ).ToList();
         }
 
-        public void AddTask(TaskDto task, int orderId)
+        public void AddTask(TaskDto task, int orderId, int taskId)
         {
             context.Tasks.Add(task);
             task.Order= orderRepository.GetOrderById(orderId);
+            task.Specialization = GetSpecializationById(taskId);
             context.SaveChanges();
+        }
+
+        public SpecializationDto GetSpecializationById(int Id)
+        {
+            SpecializationDto specialization = context.Specializations.Single(specialization => specialization.Id == Id);
+
+            return specialization;
         }
     }
 }

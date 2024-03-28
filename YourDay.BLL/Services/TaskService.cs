@@ -9,6 +9,7 @@ using YourDay.DAL.Enums;
 using YourDay.BLL.Models.OrderModels.InputModels;
 using YourDay.BLL.Models.OrderModels.OutputModels;
 using YourDay.DAL.IRepositories;
+using YourDay.BLL.Models.UserModels.OutputModels;
 
 namespace YourDay.BLL.Clients
 {
@@ -71,10 +72,16 @@ namespace YourDay.BLL.Clients
             return result;
         }
 
-        public void AddTask(TaskInputModel task, int orderId)
+        public void AddTask(TaskInputModel task, int orderId, int taskId)
         {
-             _taskRepository.AddTask(_mapper.Map<TaskDto>(task), orderId);
+             _taskRepository.AddTask(_mapper.Map<TaskDto>(task), orderId, taskId);
         }
+        public SpecializationIntputModel GetSpecializationById(int Id)
+        {
+            SpecializationDto sp = _taskRepository.GetSpecializationById(Id);
+            SpecializationIntputModel result = _mapper.Map<SpecializationIntputModel>(sp);
 
+            return result;
+        }
     }
 }

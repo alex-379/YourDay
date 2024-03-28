@@ -1,11 +1,15 @@
-﻿namespace YourDay.BLL.Models.TaskModels.OutputModels
+﻿using YourDay.BLL.Models.OrderModels.OutputModels;
+using YourDay.BLL.Models.UserModels.OutputModels;
+using YourDay.DAL.Enums;
+
+namespace YourDay.BLL.Models.TaskModels.OutputModels
 {
     public class TaskOutputModel
     {
         public int Id { get; set; }
         public string Title { get; set; }
 
-        public int OrderId { get; set; }
+        public OrderOutputModel Order { get; set; }
 
         public DateTime TimeStart { get; set; }
 
@@ -13,8 +17,8 @@
 
         public string Description { get; set; }
 
-        public int SpecializationId { get; set; }
+        public SpecializationOutputModel Specialization { get; set; }
 
-        public int Status { get; set; }
+        public Status Status { get; set; }
     }
 }

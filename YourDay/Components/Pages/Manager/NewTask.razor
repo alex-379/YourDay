@@ -21,13 +21,14 @@
                             <input @bind="taskInputModel.Description" class="field" type="name" placeholder="Введите описание:">
                                 </div>
 
-                                @* <div class="conteiner-for-text">
-                                    <label class="text" Выберите специализацию:</label>
-                                    <select @bind="taskInputModel.Specialization">
-                                        <option value=@s1>Флорист</option>
-                                        <option value=@s2>Оформитель</option>
+                                <div class="conteiner-for-text">
+                                    <label  class="text" Выберите специализацию:</label>
+                                    <select @bind="selectedSpecialization">
+                                        <option value=1>Флорист</option>
+                                        <option value=2>Оформитель</option>
+                                        <option value=3>Грузчик</option>
                                     </select>
-                                </div> *@
+                                </div>
                                 <div class="conteiner-for-text">
                                     <label class="text" >Время начала:</label>
                             <input @bind="taskInputModel.TimeStart" class="field" type="time" placeholder="Введите время">
@@ -50,7 +51,7 @@
 
 
 
-
+    
 @code
 {
     [Parameter]
@@ -89,7 +90,7 @@
     private void AddTask()
     {
         taskInputModel.Order = _orderService.GetOrderByIdForAddTask(5);
-        _taskService.AddTask(taskInputModel, Id);
+        _taskService.AddTask(taskInputModel, Id, selectedSpecialization);
 
         NavigationManager.NavigateTo("/manager");
     }
@@ -97,6 +98,16 @@
     private void Main()
     {
         NavigationManager.NavigateTo("/manager");
+    }
+
+    // Переменная для хранения выбранного значения
+    private int selectedSpecialization;
+
+    // Метод, который будет вызываться при изменении значения в select
+    private void OnSpecializationChange(ChangeEventArgs e)
+    {
+        selectedSpecialization = (int)e.Value;
+        // Здесь вы можете выполнить любую дополнительную логику при изменении значения
     }
 }
 
