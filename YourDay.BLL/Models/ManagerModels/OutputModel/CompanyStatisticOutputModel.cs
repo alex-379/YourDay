@@ -10,9 +10,11 @@ namespace YourDay.BLL.Models.ManagerModels.OutputModel
 {
     public class CompanyStatisticOutputModel
     {
-        public List<UserDto> Manager {  get; set; }
-        public List<OrderDto> Orders { get; set; }
-        public List<TaskDto> Tasks { get; set; }
+       public string NameManager { get; set; }
+
+        public string TitleOrder { get; set; }
+
+        public string TitleTask { get; set; }
 
 
     }

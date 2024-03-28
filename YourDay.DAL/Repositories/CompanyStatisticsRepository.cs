@@ -1,4 +1,6 @@
-﻿using YourDay.DAL.Dtos;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
+using YourDay.DAL.Dtos;
 
 namespace YourDay.DAL.Repositories
 {
@@ -6,30 +8,14 @@ namespace YourDay.DAL.Repositories
     {
         readonly Context context = SingletoneStorage.GetStorage().Сontext;
 
-        public List<OrderDto> GetManagerOrders(UserDto manager)
+        public List<TaskDto> GetAllTaskOfOrderOfTheirManager ()
         {
-            List<OrderDto> orders = context.Orders
-                .Where(order => order.Manager.Id == manager.Id) // Фильтруем заказы по менеджеру
+            List<TaskDto> tasksWithOrdersAndManagers = context.Tasks
+                 .Include(task => task.Order)
+                 .Include(task => task.Order.Manager)
+                 .ToList();
 
-                .Select(order => new OrderDto
-
-                {
-                    Manager = order.Manager,
-
-                    Status = order.Status,
-
-                    OrderName = order.OrderName,
-
-                    Tasks = order.Tasks.Select(task => new TaskDto
-                    {
-                        Id = task.Id,
-
-                        Status = task.Status,
-
-                    }).ToList(),
-                }).ToList();
-
-            return orders;
+           return tasksWithOrdersAndManagers;
         }
     }
 }

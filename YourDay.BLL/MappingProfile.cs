@@ -52,9 +52,10 @@ namespace YourDay.BLL
 
             CreateMap<SpecializationDto, SpecializationOutputModel>();
 
-            //CreateMap<CompanyStatisticOutputModel, UserDto>()
-            //    .ForMember(manager=>manager.UserName,name=>name.MapFrom(w=>w.Name))
-            //    .ForMember(order => order.Orders, managerOrder => managerOrder.MapFrom(s => s.Orders.Select(order=>order.Status)));
+            CreateMap<CompanyStatisticOutputModel, TaskDto>()
+                .ForMember(taskDto => taskDto.Description, taskTitle => taskTitle.MapFrom(outputModel => outputModel.TitleTask))
+                .ForMember(taskDto => taskDto.Workers, nameManager => nameManager.MapFrom(outputModel => outputModel.NameManager))
+                .ForMember(taskDto => taskDto.Order, orderTitle => orderTitle.MapFrom(outputModel => outputModel.TitleOrder));
         }
     }
 }
