@@ -1,67 +1,78 @@
 ﻿@page "/contactTheManager"
 @attribute [StreamRendering]
 @inject NavigationManager NavigationWorker
-@using Microsoft.EntityFrameworkCore.Metadata
-@using Microsoft.EntityFrameworkCore.Metadata.Internal
-@using YourDay.BLL.Models.ManagerModels.OutputModel;
-@using YourDay.BLL.Services;
-@using YourDay.DAL.Enums;
-@using static Microsoft.EntityFrameworkCore.DbLoggerCategory
-
 @inject IJSRuntime JsRuntime
 
+@if (returnRole != RoleUI.Worker.ToString())
+{
+    <ReturnToStart></ReturnToStart>
+}
+else
+{
+    <PageTitle>ContactTheManager</PageTitle>
 
-<PageTitle>ContactTheManager</PageTitle>
+    <div>
+        <h2 class="manager-h1">Здесь вы можете связаться с менеджером:</h2>
+    </div>
 
-<div>
-    <h2 class="manager-h1">Здесь вы можете связаться с менеджером:</h2>
-</div>
-
-<table>
-    <thead>
-        @foreach(Column column in Columns)
-        {
+    <table>
+        <thead>
+            @foreach (Column column in Columns)
+            {
             <th>
-                @column.LayoutHeader
+                    @column.LayoutHeader
             </th>
-        }
-    </thead>
-    <tbody>
-        @foreach (ManagerNameAndPhoneOutputModel manager in _models)
-        {
-            <tr>
-                @foreach (Column column in Columns)
-                {
-                     <td>
-                        @typeof(ManagerNameAndPhoneOutputModel).GetProperty(column.Field).GetValue(manager)
-                     </td>
-                }
-            </tr>
-        }
-    </tbody>
-</table>
+            }
+        </thead>
+        <tbody>
+            @foreach (ManagerNameAndPhoneOutputModel manager in _models)
+            {
+                <tr>
+                    @foreach (Column column in Columns)
+                    {
+                        <td>
+                            @typeof(ManagerNameAndPhoneOutputModel).GetProperty(column.Field).GetValue(manager)
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}
 
 
 @code {
-    private Role Manager;
-    private void ContactTheManagers()
-    {
-        NavigationWorker.NavigateTo("/contactTheManager");
-    }
+    private List<ManagerNameAndPhoneOutputModel> _models;
 
-    private List<Column> Columns { get; set; } = new List<Column>();
-    class Column
-    {
-        public string Field { get; set; }
-        public string LayoutHeader { get; set; }
-    }
+    private IManagerService _managers;
 
-    protected override void OnInitialized()
+    private List<Column> Columns { get; set; }
+
+    [CascadingParameter]
+    public Task<AuthenticationState> State { get; set; }
+
+    private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
+
+    private string returnRole;
+
+    public ContactTheManager()
     {
+        _models = new List<ManagerNameAndPhoneOutputModel>();
+        _managers = new ManagerService();
         Columns = new List<Column>();
-        Columns.AddRange(
-            new Column[]
-            {
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetClaims().ConfigureAwait(false);
+        if (returnRole == "RoleUI.Worker.ToString()")
+        {
+            _models = _managers.GetAllManagers();
+
+            Columns = new List<Column>();
+            Columns.AddRange(
+                new Column[]
+                {
                 // new Column()
                 // {
                 //     Field="SerialNumber",
@@ -79,25 +90,34 @@
                     Field="Phone",
                     LayoutHeader="Телефон"
                 }
-            });
-
-        List<ManagerNameAndPhoneOutputModel> _models = new List<ManagerNameAndPhoneOutputModel>();
-
-     
+                });
+        }
     }
+
+    private void ContactTheManagers()
+    {
+        NavigationWorker.NavigateTo("/contactTheManager");
+    }
+
+    class Column
+    {
+        public string Field { get; set; }
+        public string LayoutHeader { get; set; }
+    }
+
     void OnRowClick()
     {
         JsRuntime.InvokeVoidAsync("alert", "Warning!");
     }
-
-    private List<ManagerNameAndPhoneOutputModel> _models;
-
-    private IManagerService _managers = new ManagerService();
-
-    public ContactTheManager()
+    private async Task GetClaims()
     {
-        _models = _managers.GetAllManagers();
+        var authState = await State;
+        var user = authState.User;
+
+        if (user.Identity is not null && user.Identity.IsAuthenticated)
+        {
+            claims = user.Claims;
+            returnRole = claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).Single();
+        }
     }
-
 }
-

@@ -7,7 +7,7 @@ using YourDay.DAL.Enums;
 using YourDay.DAL.IRepositories;
 using YourDay.DAL.Repositories;
 
-namespace YourDay.BLL.Clients
+namespace YourDay.BLL.Services
 {
     public class TaskService : ITaskService
     {

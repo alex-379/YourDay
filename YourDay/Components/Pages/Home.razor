@@ -110,7 +110,6 @@
 
 <AuthorizeView Roles="Manager">
     <Authorized>
-        <PageTitle>Manager</PageTitle>
         <body>
             <div class="manager-container">
                 <section class="navbar">
@@ -205,56 +204,13 @@
         }
     }
 
-
-    // protected override void OnInitialized()
-    // {
-    //     if (returnRole == "Manager")
-    //     {
-    //         _orders = _orderClient.GetAllOrdersForCard();
-    //     }
-    // }
-
     private void CountLastCelebrates()
     {
-    lc++;
+        lc++;
     }
 
     private void NavigateToPage()
     {
-    navManager.NavigateTo("/order");
+        navManager.NavigateTo("/order");
     }
 }
-
-
-
-
- @*            @code {
-    [CascadingParameter]
-    public Task<AuthenticationState> State { get; set; }
-
-    [CascadingParameter]
-    public HttpContext HttpContext { get; set; }
-
-    private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
-
-    private string returnAddress;
-
-    protected override async Task OnInitializedAsync()
-    {
-    await GetClaimsPrincipalData().ConfigureAwait(false);
-    }
-
-    private async Task GetClaimsPrincipalData()
-    {
-    var authState = await State;
-    var user = authState.User;
-
-    if (user.Identity is not null && user.Identity.IsAuthenticated)
-    {
-        claims = user.Claims;
-    }
-
-    returnAddress = claims.Where(c => c.Type == ClaimTypes.Email)
-    .Select(c => c.Value).SingleOrDefault();
-    }
-} *@

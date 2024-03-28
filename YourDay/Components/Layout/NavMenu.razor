@@ -2,7 +2,7 @@
     <NotAuthorized>
         <header class="navbar">
             <div>
-                <navlink ="/"><img src="/images/logo.png" alt=""></navlink>
+                <NavLink href="/"><img src="/images/logo.png" alt=""></NavLink>
             </div>
             <nav class="menu-yellow">
                 <ul>
@@ -38,11 +38,11 @@
 </AuthorizeView>
 
 
-<AuthorizeView Roles="Client">
+<AuthorizeView Roles="@RoleUI.Client.ToString()">
     <Authorized>
         <header class="navbar">
             <div>
-                <navlink ="/"><img src="/images/logo.png" alt=""></navlink>
+                <NavLink href="/"><img src="/images/logo.png" alt=""></NavLink>
             </div>
             <nav class="menu-yellow">
                 <ul>
@@ -56,11 +56,11 @@
     </Authorized>
 </AuthorizeView>
 
-<AuthorizeView Roles="Manager">
+<AuthorizeView Roles="@RoleUI.Manager.ToString()">
     <Authorized>
         <header class="navbar">
             <div>
-                <navlink ="/"><img src="/images/logo.png" alt=""></navlink>
+                <NavLink href="/"><img src="/images/logo.png" alt=""></NavLink>
             </div>
             <nav class="menu-yellow">
                 <ul>
@@ -73,11 +73,11 @@
     </Authorized>
 </AuthorizeView>
 
-<AuthorizeView Roles="Worker">
+<AuthorizeView Roles="@RoleUI.Worker.ToString()">
     <Authorized>
         <header class="navbar">
             <div>
-                <navlink ="/"><img src="/images/logo.png" alt=""></navlink>
+                <NavLink href="/"><img src="/images/logo.png" alt=""></NavLink>
             </div>
             <nav class="menu-yellow">
                 <ul>

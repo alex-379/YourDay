@@ -5,7 +5,7 @@ using YourDay.BLL.Models.OrderModels.OutputModels;
 using YourDay.DAL.Dtos;
 using YourDay.DAL.Repositories;
 
-namespace YourDay.BLL.Clients
+namespace YourDay.BLL.Services
 {
     public class OrderService : IOrderService
     {

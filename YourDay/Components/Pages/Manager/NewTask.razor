@@ -1,50 +1,81 @@
 ﻿@page "/newTask"
 @attribute [StreamRendering]
 
-<section>
-    <div class="back">
-        <section>
-            <div class="container-add-order">
-                   <div class="fields-add-order">
-                            <form>
-                                <h2>Добавить задачу:</h2>
-            
-                                <div class="conteiner-for-text">
-                                    <label class="text" >Название задачи:</label>
-                                    <input  class="field" type="name"  placeholder="Введите название задачи">
-                                </div>
-                                <div class="conteiner-for-text">
-                                    <label class="text" >Специализация:</label>
-                                    <input  class="field" type="name" placeholder="Введите специализацию">
-                                </div>
-                                <div class="conteiner-for-text">
-                                    <label class="text" >Мастер:</label>
-                                    <input  class="field"  type="text"  placeholder="Введите мастера">
-                                </div>
-                                <div class="conteiner-for-text">
-                                    <label class="text" >Дата:</label>
-                                    <input  class="field"  type="number"  placeholder="Введите дату">
-                                </div>
-                                <div class="conteiner-for-text">
-                                    <label class="text" for="fruits">Статус:</label>
-                                    <select class="field">
-                                        <option>Получено</option>
-                                        <option>Назначено</option>
-                                        <option>Сделано</option>
-                                    </select>
-                                    
-                                </div>  
-                            </form>
+@if (returnRole != RoleUI.Manager.ToString())
+{
+    <ReturnToStart></ReturnToStart>
+}
+else
+{
+    <section>
+        <div class="back">
+            <section>
+                <div class="container-add-order">
+                    <div class="fields-add-order">
+                        <form>
+                            <h2>Добавить задачу:</h2>
 
-                            <div>
-                                <button  class="purple-button">Создать</button>
-                                <button class="purple-button" > Вернуться </button>
+                            <div class="conteiner-for-text">
+                                <label class="text">Название задачи:</label>
+                                <input class="field" type="name" placeholder="Введите название задачи">
                             </div>
-                   </div>
-            </div>
-        </section>
-    </div>
+                            <div class="conteiner-for-text">
+                                <label class="text">Специализация:</label>
+                                <input class="field" type="name" placeholder="Введите специализацию">
+                            </div>
+                            <div class="conteiner-for-text">
+                                <label class="text">Мастер:</label>
+                                <input class="field" type="text" placeholder="Введите мастера">
+                            </div>
+                            <div class="conteiner-for-text">
+                                <label class="text">Дата:</label>
+                                <input class="field" type="number" placeholder="Введите дату">
+                            </div>
+                            <div class="conteiner-for-text">
+                                <label class="text" for="fruits">Статус:</label>
+                                <select class="field">
+                                    <option>Получено</option>
+                                    <option>Назначено</option>
+                                    <option>Сделано</option>
+                                </select>
 
-</section>
+                            </div>
+                        </form>
 
+                        <div>
+                            <button class="purple-button">Создать</button>
+                            <button class="purple-button"> Вернуться </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
 
+    </section>
+}
+
+@code {
+    [CascadingParameter]
+    public Task<AuthenticationState> State { get; set; }
+
+    private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
+
+    private string returnRole;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetClaims().ConfigureAwait(false);
+    }
+
+    private async Task GetClaims()
+    {
+        var authState = await State;
+        var user = authState.User;
+
+        if (user.Identity is not null && user.Identity.IsAuthenticated)
+        {
+            claims = user.Claims;
+            returnRole = claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).Single();
+        }
+    }
+}
