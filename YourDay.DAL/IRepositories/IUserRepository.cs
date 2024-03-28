@@ -5,6 +5,7 @@ namespace YourDay.DAL.IRepositories
 {
     public interface IUserRepository
     {
+
         public UserDto AddUser(UserDto person);
 
         public void AddWorker(UserDto person);

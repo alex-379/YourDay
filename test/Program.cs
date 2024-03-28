@@ -23,18 +23,16 @@ TaskRepository taskRepository = new TaskRepository();
 UserService userService = new UserService();
 TaskService taskService = new TaskService();
 
-var order3 = orderRepository.GetOrderById(1);
-
-var s = context.Specializations.Where(s => s.Id == 3).Single();
-var q = new TaskInputModel()
+var q = new UserRegistrationInputModel()
 {
-    Title = "ленты красные",
-    Status = Status.InProgress,
-    TimeStart = DateTime.Now,
-    TimeEnd = DateTime.Now.AddMinutes(18),
-    Description = "привезти",
+   UserName="Марина",
+   Mail="qqq@qw",
+   Password="123",
+   Phone="89211685665"
 };
-taskService.AddTask(q, 5, 6);
+userService.AddClient(q);
+
+
 //q.Specialization = taskService.GetSpecializationById(3);
 //context.SaveChanges();
 

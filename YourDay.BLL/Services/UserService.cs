@@ -40,6 +40,12 @@ namespace YourDay.BLL.Service
             _userRepository.AddWorker(a);
         }
 
+        public void AddClient(UserRegistrationInputModel user)
+        {
+            UserDto a = _mapper.Map<UserDto>(user);
+            _userRepository.AddClient(a);
+        }
+
         public IEnumerable<UserOutputModel> GetAllUsers()
         {
             var userDtos = _userRepository.GetAllUsers();
@@ -81,9 +87,9 @@ namespace YourDay.BLL.Service
             return user;
         }
 
-        public void DeleteWorkerById(int id)
+        public void DeleteByManager(int id)
         {
-             _userRepository.DeleteWorkerById(id);
+             _userRepository.DeleteByManager(id);
         }
     }
 }

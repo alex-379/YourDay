@@ -47,6 +47,10 @@
     {
         NavigationManager.NavigateTo("/workers");
     }
+    private void SeeClients()
+    {
+        NavigationManager.NavigateTo("/clients");
+    }
 }
 workers
 <body>
@@ -58,6 +62,7 @@ workers
                     <li><a href="/manager" @onclick="CountLastCelebrates">История</a></li>
                     <li><a href="" @onclick="Applications">Заявки</a></li>
                     <li><a href="" @onclick="SeeWorkers">Сотрудники</a></li>
+                    <li><a href="" @onclick="SeeClients">Клиенты</a></li>
                 </ul>
             </nav>
         </section>

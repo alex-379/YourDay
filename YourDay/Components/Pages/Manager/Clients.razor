@@ -1,4 +1,4 @@
-﻿@page "/workers"
+﻿@page "/clients"
 @using YourDay.DAL.Enums;
 @attribute [StreamRendering]
 @rendermode InteractiveServer
@@ -9,52 +9,53 @@
 {
     private UserService _userService;
 
-    private IEnumerable<UserSpecializationOutputModel> _workers;
+    private IEnumerable<UserSpecializationOutputModel> _clients;
 
     public Role b;
 
-    private int selectedWorkerId;
+    private int selectedClientId;
 
-    public Workers(){
+    public Clients()
+    {
 
         Role role = new Role();
 
-        role = Role.Worker;
+        role = Role.Client;
 
         UserService _userService = new UserService();
 
-        _workers = _userService.GetAllUsersSpecializationByRole(role);
+        _clients = _userService.GetAllUsersSpecializationByRole(role);
     }
 
     protected override void OnInitialized()
     {
-      //что здесь писать 
+        //что здесь писать
     }
 
-    private async Task ShowModal(int workerId)
+    private async Task ShowModal(int clientId)
     {
-        selectedWorkerId = workerId;
+        selectedClientId = clientId;
 
         await JSRuntime.InvokeVoidAsync("worker.showModal");
 
         StateHasChanged();
     }
 
-    private void DeleteWorker()
+    private void DeleteClient()
     {
         UserService _userService = new UserService();
 
-        _userService.DeleteByManager(selectedWorkerId);
+        _userService.DeleteByManager(selectedClientId); //dd
     }
 
     private void NavigateToPage()
     {
-        NavigationManager.NavigateTo("/newworker");
+        NavigationManager.NavigateTo("/newclient");
     }
 }
 
 <div class="body">
-    
+
     <dialog id="worker" aria-labelledby="heading">
         <h2 id="heading">Что вы хотите сделать? &#128056 </h2>
 
@@ -65,7 +66,7 @@
             <button>
                 Изменить
             </button>
-            <button @onclick="DeleteWorker">
+            <button @onclick="DeleteClient">
                 Удалить
             </button>
             <button>
@@ -78,11 +79,11 @@
         <h2 class="manager-h1"> Сотрудники:</h2>
         <div class="container-task">
             <button class="order-button" @onclick="NavigateToPage"> + </button>
-            @foreach (var i in _workers)
+            @foreach (var i in _clients)
             {
                 <button @onclick="() => ShowModal(i.Id)" class="worker-button"> <WorkerCard worker="i" OnOpenModal="ShowModal"> </WorkerCard> </button>
             }
-            
+           
         </div>
     </section>
 </div>
