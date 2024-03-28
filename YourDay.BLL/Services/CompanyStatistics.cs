@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using YourDay.DAL.Repositories;
 using YourDay.BLL.Models.ManagerModels.OutputModel;
+using YourDay.DAL.Dtos;
 
 
 
@@ -22,10 +23,12 @@ namespace YourDay.BLL.Services
 
             _mapper = new Mapper(config);
         }
-        //List<CompanyStatisticOutputModel> GetCompanyStatistics()
-        //{
-        //    List<>
-        //}
+         public List<CompanyStatisticOutputModel> GetAllTaskOfOrderOfTheirManager()
+        {
+            List<TaskDto> tasks = _statisticsRepository.GetAllTaskOfOrderOfTheirManager();
+            List<CompanyStatisticOutputModel> result = _mapper.Map<List<CompanyStatisticOutputModel>>(tasks);
+            return result;
+        }
 
     }
 }

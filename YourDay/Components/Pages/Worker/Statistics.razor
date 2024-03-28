@@ -1,7 +1,9 @@
-﻿@page "/contactTheManager"
+﻿@page "/statistics"
 @attribute [StreamRendering]
 @inject NavigationManager NavigationWorker
-@inject IJSRuntime JsRuntime
+@using YourDay.DAL.Repositories;
+@using YourDay.BLL.Models.ManagerModels.OutputModel;
+@using YourDay.BLL.Services
 
 @if (returnRole != RoleUI.Worker.ToString())
 {
@@ -9,10 +11,10 @@
 }
 else
 {
-    <PageTitle>ContactTheManager</PageTitle>
+    <PageTitle>Cтатистика</PageTitle>
 
     <div>
-        <h2 class="manager-h1">Здесь вы можете связаться с менеджером:</h2>
+        <h2 class="manager-h1">Здесь вы можете посмотреть статистику по всей компании:</h2>
     </div>
 
     <table>
@@ -25,13 +27,13 @@ else
             }
         </thead>
         <tbody>
-            @foreach (ManagerNameAndPhoneOutputModel manager in _models)
+            @foreach (CompanyStatisticOutputModel outputModel in _model)
             {
                 <tr>
                     @foreach (Column column in Columns)
                     {
                         <td>
-                            @typeof(ManagerNameAndPhoneOutputModel).GetProperty(column.Field).GetValue(manager)
+                            @typeof(CompanyStatisticOutputModel).GetProperty(column.Field).GetValue(_statistics)
                         </td>
                     }
                 </tr>
@@ -42,9 +44,9 @@ else
 
 
 @code {
-    private List<ManagerNameAndPhoneOutputModel> _models;
+    private List<CompanyStatisticOutputModel> _model;
 
-    private IManagerService _managers;
+    private CompanyStatistics _statistics;
 
     private List<Column> Columns { get; set; }
 
@@ -61,10 +63,10 @@ else
 
     private string returnRole;
 
-    public ContactTheManager()
+    public Statistics()
     {
-        _models = new List<ManagerNameAndPhoneOutputModel>();
-        _managers = new ManagerService();
+        _model = new List<CompanyStatisticOutputModel>();
+        _statistics = new CompanyStatistics();
         Columns = new List<Column>();
     }
 
@@ -80,26 +82,26 @@ else
                 {
                 new Column()
                 {
-                    Field="Name",
-                    LayoutHeader="Имя"
+                    Field="NameManager",
+                    LayoutHeader="Имя менеджера"
                 },
 
                 new Column()
                 {
-                    Field="Phone",
-                    LayoutHeader="Телефон"
+                    Field="TitleOrder",
+                    LayoutHeader="Название заказа"
+                },
+                new Column()
+                {
+                    Field="TitleTask",
+                    LayoutHeader="название задачи"
                 }
+
                 });
 
-            _models = _managers.GetAllManagers();
+            _model = _statistics.GetAllTaskOfOrderOfTheirManager();
         }
     }
-
-    private void ContactTheManagers()
-    {
-        NavigationWorker.NavigateTo("/contactTheManager");
-    }
-
     private async Task GetClaims()
     {
         var authState = await State;
