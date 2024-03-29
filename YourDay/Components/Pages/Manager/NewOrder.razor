@@ -74,17 +74,7 @@ else
 
 
 
-        <section>
-
-            <p>@orderInputModel.OrderName  @orderInputModel.Date</p>
-            <div style="display:flex; flex-wrap: wrap">
-                @foreach (var i in _orders)
-                {
-                    @* <ProductCard ProductName=@i.Name Cost=i.Cost/> *@
-                    <OrderCard order=i></OrderCard>
-                }
-            </div>
-        </section>
+        
     </div>
 }
 

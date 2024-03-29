@@ -20,10 +20,36 @@
 <div class="background">
     <img src="C:\Users\dns\Desktop\YourDay\YourDay\wwwroot\images\Group 1.png" alt="Your Image" class="top-right">
 </div>
+@* @code{
+    
 
+ private OrderForManagerInputModel orderInputModel;
 
+    private IEnumerable<OrderNameDateOutputModel> _orders;
 
+    private IOrderService _orderService;
 
+    public NewOrder()
+    {
+        _orderService = new OrderService();
+
+        orderInputModel = new OrderForManagerInputModel();
+    }
+
+    public void AddOrder()
+    {
+        _orderService.AddOrder(orderInputModel);
+
+        NavigationManager.NavigateTo("/manager");
+    }
+
+    private void Main()
+    {
+        NavigationManager.NavigateTo("/manager");
+    }
+}
+
+ *@
 
 
 
