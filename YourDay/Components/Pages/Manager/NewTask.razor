@@ -1,7 +1,7 @@
 ﻿@page "/newTask"
 @attribute [StreamRendering]
 
-@if (returnRole != RoleUI.Manager.ToString())
+@if (a.returnRole != RoleUI.Manager.ToString())
 {
     <ReturnToStart></ReturnToStart>
 }
@@ -55,27 +55,30 @@ else
 }
 
 @code {
-    [CascadingParameter]
-    public Task<AuthenticationState> State { get; set; }
+    // [CascadingParameter]
+    // public Task<AuthenticationState> State { get; set; }
 
-    private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
+    // private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
 
     private string returnRole;
 
+    GetClaims a = new();
+
     protected override async Task OnInitializedAsync()
     {
-        await GetClaims().ConfigureAwait(false);
+        await .GetRole().ConfigureAwait(false);
+        returnRole = claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).Single();
     }
 
-    private async Task GetClaims()
-    {
-        var authState = await State;
-        var user = authState.User;
+    // private async Task GetClaims()
+    // {
+    //     var authState = await State;
+    //     var user = authState.User;
 
-        if (user.Identity is not null && user.Identity.IsAuthenticated)
-        {
-            claims = user.Claims;
-            returnRole = claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).Single();
-        }
-    }
+    //     if (user.Identity is not null && user.Identity.IsAuthenticated)
+    //     {
+    //         claims = user.Claims;
+    //         returnRole = claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).Single();
+    //     }
+    // }
 }
