@@ -101,6 +101,13 @@ namespace YourDay.BLL.Services
 
             return users;
         }
+        //public IEnumerable<UserOutputModel> GetAllUsersByRole(Role role)
+        //{
+        //    var usersDtoRole = _userRepository.GetAllUsersByRole(role);
+        //    var usersRole = _mapper.Map<IEnumerable<UserOutputModel>>(usersDtoRole);
+
+        //    return usersRole;
+        //}
 
         public IEnumerable<UserSpecializationOutputModel> GetAllUsersSpecializationByRole(Role role)
         {
@@ -110,7 +117,7 @@ namespace YourDay.BLL.Services
             return users;
         }
 
-        public UserOutputModel GetUserById(int id)
+        public UserOutputModel GetUserById(int userId)
         {
             UserDto userDto = _userRepository.GetUserById(userId);
             UserOutputModel user = _mapper.Map<UserOutputModel>(userDto);
@@ -132,13 +139,7 @@ namespace YourDay.BLL.Services
              _userRepository.DeleteByManager(id);
         }
 
-        public IEnumerable<UserOutputModel> GetAllUsersByRole(Role role)
-        {
-            var usersDtoRole = _userRepository.GetAllUsersByRole(role);
-            var usersRole = _mapper.Map<IEnumerable<UserOutputModel>>(usersDtoRole);
-
-            return usersRole;
-        }
+        
 
         public bool ConfirmMail(UserRegistrationInputModel user)
         {

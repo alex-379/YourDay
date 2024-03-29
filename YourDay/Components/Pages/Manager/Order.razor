@@ -10,8 +10,8 @@
 else
 {
     <div class="body">
-        <section>
-            <table class="table">
+        <section class="white">
+            <table class="table white">
                 <thead>
                     <tr>
                         <th>Праздник</th>
@@ -19,6 +19,7 @@ else
                         <th>Адрес</th>
                         <th>Количество гостей</th>
                         <th>Цена</th>
+                        <th>Статус</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,6 +29,7 @@ else
                         <td>@OrderOutput.Address</td>
                         <td>@OrderOutput.CountPeople</td>
                         <td>@OrderOutput.Price</td>
+                        <td>@OrderOutput.Status</td>
                     </tr>
                 </tbody>
             </table>
@@ -49,25 +51,29 @@ else
             </form>
         </dialog>
 
+
         <section>
-            <h2> Задачи:</h2>
+            <h2 class="manager-h1"> Задачи:</h2>
             <div class="container-task">
-                @*             @foreach (var i in _tasks)
-            {
-            <WorkerTaskCard task="i" ></WorkerTaskCard>
-            } *@
+                @foreach (var i in task)
+                {
+                    <button class="task-button"><TaskManagerCard taskcCard=i> </TaskManagerCard> </button>
+                }
             </div>
         </section>
 
+
         <section>
             <div class="button-container">
-                <button class="green-button"> История заказа </button>
-                <button class="green-button"> Завершить заказ </button>
-                <button class="green-button"> Другое </button>
+                <button class="purple-button"> История заказа </button>
+                <button class="purple-button"> Завершить заказ </button>
+                <button class="purple-button"> Другое</button>
+                <button class="order-button"> <AddTaskCard order=OrderOutput> </AddTaskCard> </button>
             </div>
         </section>
     </div>
 }
+
 
 @code
 {
@@ -121,12 +127,7 @@ else
         }
     }
 
-    List<string> tasks = new List<string>() { "Привезти красные розы", "Заказать торт", "Привезти оформление", "Нужна живая съемка", "Часовая фотосессия" };
-
-    private void NavigateToPage()
-    {
-        
-    }
+   
 
     private List<TaskOutputModelAllInfo> _tasks;
 
@@ -134,31 +135,7 @@ else
     {
         var authState = await State;
         var user = authState.User;
-<div class="body">
-    <section class="white">
-        <table class="table white">
-            <thead>
-                <tr>
-                    <th>Праздник</th>
-                    <th>Дата</th>
-                    <th>Адрес</th>
-                    <th>Количество гостей</th>
-                    <th>Цена</th>
-                    <th>Статус</th>
-                </tr>
-            </thead>
-            <tbody>
-                    <tr>
-                    <td>@OrderOutput.OrderName</td>
-                    <td>@OrderOutput.Date</td>
-                    <td>@OrderOutput.Address</td>
-                    <td>@OrderOutput.CountPeople</td>
-                    <td>@OrderOutput.Price</td>
-                    <td>@OrderOutput.Status</td>
-                    </tr>
-            </tbody>
-        </table>
-    </section>
+
 
         if (user.Identity is not null && user.Identity.IsAuthenticated)
         {
@@ -167,38 +144,8 @@ else
         }
     }
 }
-    <dialog id="task" aria-labelledby="heading">
-        <h2 id="heading">Что сделать с таской? &#128054 </h2>
+    
 
-        <form method="dialog">
-            <button>
-                Изменить
-            </button>
-            <button>
-                Установить статус: 
-            </button>
-            <button>
-                Архивировать
-            </button>
-        </form>
-    </dialog>
+   
 
-    <section>
-        <h2 class="manager-h1"> Задачи:</h2>
-        <div class="container-task">
-            @foreach (var i in task)
-            {
-                <button class="task-button"><TaskManagerCard taskcCard=i> </TaskManagerCard> </button>
-            }
-        </div>
-    </section>
-
-    <section>
-        <div class="button-container">
-            <button class="purple-button"> История заказа </button>
-            <button class="purple-button"> Завершить заказ </button>
-            <button class="purple-button"> Другое</button>
-            <button class="order-button"> <AddTaskCard order=OrderOutput> </AddTaskCard> </button>
-        </div>
-    </section>
-</div>
+    

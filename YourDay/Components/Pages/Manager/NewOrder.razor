@@ -70,22 +70,13 @@ else
                         </div>
                </div>
         </div>
-    </section>
-
-
-</div>
-
-                    @*                         <div>
-                <button @onclick="AddOrder" class="purple-button">Создать</button>
-                <button class="purple-button" @onclick="Main"> Назад </button>
-                </div> *@
-                </div>
-            </div>
         </section>
+
+
 
         <section>
 
-            <p>@_inputModel.OrderName  @_inputModel.Date</p>
+            <p>@orderInputModel.OrderName  @orderInputModel.Date</p>
             <div style="display:flex; flex-wrap: wrap">
                 @foreach (var i in _orders)
                 {

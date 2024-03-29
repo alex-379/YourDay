@@ -5,7 +5,9 @@ namespace YourDay.DAL.IRepositories
 {
     public interface IUserRepository
     {
+        public void AddClient(UserDto worker);
 
+        public void DeleteByManager(int id);
         public UserDto AddUser(UserDto person);
 
         public void AddWorker(UserDto person);
@@ -16,9 +18,9 @@ namespace YourDay.DAL.IRepositories
 
         public UserDto UpdateUser(UserDto user);
 
-        public UserDto DeleteUser(UserDto user);
+        //public UserDto DeleteUser(UserDto user);
 
-        public void DeleteWorkerById(int id);
+        //public void DeleteWorkerById(int id);
 
         public IEnumerable<UserDto> GetAllUsersByRole(Role role);
     }

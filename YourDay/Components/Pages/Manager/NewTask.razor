@@ -19,16 +19,16 @@ else
             
                                 <div class="conteiner-for-text">
                                     <label class="text" >Название:</label>
-                            <input @bind="taskInputModel.Title" class="field" type="name" placeholder="Введите название:">
+                                    <input @bind="taskInputModel.Title" class="field" type="name" placeholder="Введите название:">
                                 </div>
 
                                 <div class="conteiner-for-text">
                                     <label class="text">Описание:</label>
-                            <input @bind="taskInputModel.Description" class="field" type="name" placeholder="Введите описание:">
+                                    <input @bind="taskInputModel.Description" class="field" type="name" placeholder="Введите описание:">
                                 </div>
 
                                 <div class="conteiner-for-text">
-                                    <label  class="text" Выберите специализацию:</label>
+                                    <label  class="text"> Выберите специализацию:</label>
                                     <select @bind="selectedSpecialization">
                                         <option value=1>Флорист</option>
                                         <option value=2>Оформитель</option>
@@ -37,61 +37,40 @@ else
                                 </div>
                                 <div class="conteiner-for-text">
                                     <label class="text" >Время начала:</label>
-                            <input @bind="taskInputModel.TimeStart" class="field" type="time" placeholder="Введите время">
+                                    <input @bind="taskInputModel.TimeStart" class="field" type="time" placeholder="Введите время">
                                 </div>
                                 <div class="conteiner-for-text">
                                     <label class="text">Время конца:</label>
-                            <input @bind="taskInputModel.TimeEnd" class="field" type="time" placeholder="Введите время">
+                                    <input @bind="taskInputModel.TimeEnd" class="field" type="time" placeholder="Введите время">
                                 </div>
                                   
-                            </form>
+                        </form>
 
                             <div>
                                     <button class="purple-button" @onclick="AddTask">Создать</button>
                                     <button @onclick="Main"  class="purple-button"> Вернуться </button>
                             </div>
-                            <div class="conteiner-for-text">
-                                <label class="text">Специализация:</label>
-                                <input class="field" type="name" placeholder="Введите специализацию">
-                            </div>
-                            <div class="conteiner-for-text">
-                                <label class="text">Мастер:</label>
-                                <input class="field" type="text" placeholder="Введите мастера">
-                            </div>
-                            <div class="conteiner-for-text">
-                                <label class="text">Дата:</label>
-                                <input class="field" type="number" placeholder="Введите дату">
-                            </div>
-                            <div class="conteiner-for-text">
-                                <label class="text" for="fruits">Статус:</label>
-                                <select class="field">
-                                    <option>Получено</option>
-                                    <option>Назначено</option>
-                                    <option>Сделано</option>
-                                </select>
-
-</section>
-
-                        <div>
-                            <button class="purple-button">Создать</button>
-                            <button class="purple-button"> Вернуться </button>
-                        </div>
                     </div>
                 </div>
             </section>
         </div>
-
     </section>
+
 }
     public int Id { get; set; }
 
 @code {
+
+    [Parameter]
+    public int Id { get; set; }
     [CascadingParameter]
     public Task<AuthenticationState> State { get; set; }
 
     private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
 
     private string returnRole;
+
+    private TaskInputModel taskInputModel;
 
     protected override async Task OnInitializedAsync()
     {
@@ -132,3 +111,31 @@ else
         selectedSpecialization = (int)e.Value;
     }
 }
+
+
+
+
+
+
+
+
+                    @* <div class="conteiner-for-text">
+                    <label class="text">Специализация:</label>
+                    <input class="field" type="name" placeholder="Введите специализацию">
+                    </div>
+                    <div class="conteiner-for-text">
+                    <label class="text">Мастер:</label>
+                    <input class="field" type="text" placeholder="Введите мастера">
+                    </div>
+                    <div class="conteiner-for-text">
+                    <label class="text">Дата:</label>
+                    <input class="field" type="number" placeholder="Введите дату">
+                    </div>
+                    <div class="conteiner-for-text">
+                    <label class="text" for="fruits">Статус:</label>
+                    <select class="field">
+                    <option>Получено</option>
+                    <option>Назначено</option>
+                    <option>Сделано</option>
+                    </select>
+                    </div> *@

@@ -8,7 +8,6 @@ using YourDay.DAL.Dtos;
 using YourDay.DAL.Enums;
 using YourDay.DAL.IRepositories;
 using YourDay.DAL.Repositories;
-using YourDay.BLL.Mapping;
 using YourDay.BLL.Models.TaskModels.InputModels;
 using YourDay.BLL.IServices;
 using YourDay.DAL.Enums;
@@ -136,7 +135,7 @@ namespace YourDay.BLL.Services
             TaskDto taskDtoOutput = _taskRepository.UpdateTask(taskDto);
             TaskOutputModelAllInfo taskOutput = _mapper.Map<TaskOutputModelAllInfo>(taskDtoOutput);
 
-        }
+        
             return taskOutput;
         }
 
