@@ -96,6 +96,15 @@ else
 
     private IOrderService _orderService;
 
+    private OrderForManagerInputModel _inputModel;
+
+
+    [CascadingParameter]
+    public Task<AuthenticationState> State { get; set; }
+
+    private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
+
+    private string returnRole;
     public NewOrder()
     {
         _orderService = new OrderService();

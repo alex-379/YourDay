@@ -20,9 +20,9 @@ namespace YourDay.DAL.Dtos
 
         public byte[] Salt { get; set; }
 
-        public bool? IsDeleted { get; set; }
+        public bool IsDeleted { get; set; }
 
-        public Role? Role { get; set; }
+        public Role Role { get; set; }
 
         public IEnumerable<SpecializationDto>? Specializations { get; set; }
 

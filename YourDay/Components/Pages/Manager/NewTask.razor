@@ -93,7 +93,7 @@ else
     private void AddTask()
     {
         taskInputModel.Order = _orderService.GetOrderByIdForAddTask(5);
-        _taskService.AddTask(taskInputModel, Id, selectedSpecialization);
+        _taskService.AddTask(taskInputModel);
 
         NavigationManager.NavigateTo("/manager");
     }
