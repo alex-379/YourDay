@@ -32,6 +32,14 @@ else
                 </tbody>
             </table>
         </section>
+        <div>
+            <select onchange="@ManagerSelection">
+                @foreach (ManagerNameAndPhoneOutputModel outputModel in _managers)
+                {
+                    <option value="@outputModel.Id">@outputModel.Name</option>
+                }
+            </select>
+        </div>
 
         <dialog id="task" aria-labelledby="heading">
             <h2 id="heading">Что сделать с таской? &#128054 </h2>
@@ -77,19 +85,27 @@ else
     [Parameter]
     public OrderOutputModel OrderOutput { get; set; }
 
-    private IOrderService _orderService;
-
     [CascadingParameter]
     public Task<AuthenticationState> State { get; set; }
 
-    private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
+    public List<ManagerNameAndPhoneOutputModel> _managers;
 
+    private List<TaskOutputModelAllInfo> _tasks;
+
+    private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
     private string returnRole;
+
+    private IOrderService _orderService;
+
+    private IManagerService _managerService;
+
+
 
     public Order()
     {
         _orderService = new OrderService();
         OrderOutput = new OrderOutputModel();
+        _managerService = new ManagerService();
     }
 
     protected override async Task OnInitializedAsync()
@@ -104,17 +120,19 @@ else
             OrderOutput.Address = orderOutput.Address;
             OrderOutput.CountPeople = orderOutput.CountPeople;
             OrderOutput.Price = orderOutput.Price;
+
+            _managers = _managerService.GetAllManagers();
         }
     }
 
-    List<string> tasks = new List<string>() { "Привезти красные розы", "Заказать торт", "Привезти оформление", "Нужна живая съемка", "Часовая фотосессия" };
+
+
 
     private void NavigateToPage()
     {
         NavigationManager.NavigateTo("/newTask");
     }
 
-    private List<TaskOutputModelAllInfo> _tasks;
 
     private async Task GetClaims()
     {
@@ -126,5 +144,11 @@ else
             claims = user.Claims;
             returnRole = claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).Single();
         }
+    }
+    public void ManagerSelection(ChangeEventArgs e)
+    {
+        int managerId = int.Parse(e.Value.ToString());
+
+        _managerService.AddManagerIdToOrder(managerId,Id);
     }
 }

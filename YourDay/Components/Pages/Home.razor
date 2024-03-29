@@ -130,19 +130,6 @@
                         </div>
                     </div>
                 </section>
-
-                <section>
-                    <div class="manager-blok">
-                        @if (lc % 2 != 0)
-                        {
-                            <h2 class="manager-h1"> Прошлые заказы:</h2>
-                            @foreach (var s in lastCelebrates)
-                            {
-                                <button class="order-button" @onclick="NavigateToPage"> @s <br> 16.02 </button>
-                            }
-                        }
-                    </div>
-                </section>
             </div>
         </body>
 

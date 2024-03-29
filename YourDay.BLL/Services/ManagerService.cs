@@ -33,5 +33,9 @@ namespace YourDay.BLL.Services
 
             return managers;
         }
+        public void AddManagerIdToOrder(int managerId, int orderId)
+        {
+            _managerRepository.AddManagerIdToOrder(managerId, orderId);
+        }
     }
 }
