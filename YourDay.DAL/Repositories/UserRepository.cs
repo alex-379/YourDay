@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Data;
+using System.Linq;
 using YourDay.DAL.Dtos;
 using YourDay.DAL.Enums;
 using YourDay.DAL.IRepositories;
@@ -53,5 +54,17 @@ namespace YourDay.DAL.Repositories
 
             return users;
         }
+        public void AddManagerIdToOrder(int managerId, int orderId)
+        {
+            UserDto manager = context.Users.Where(user => user.Id == managerId).Single();
+            OrderDto orderToAddManager = context.Orders.Where(order => order.Id == orderId).Single();
+
+            orderToAddManager.Manager = manager;
+
+            context.Orders.Update(orderToAddManager);
+
+            context.SaveChanges();
+        }
+
     }
 }
