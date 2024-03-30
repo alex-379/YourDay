@@ -1,0 +1,48 @@
+﻿<header class="navbar">
+    <div>
+        <NavLink href="/"><img src="/images/logo.png" alt=""></NavLink>
+    </div>
+    <nav class="menu-yellow">
+        <ul>
+            <li><NavLink href="#">Фото с мероприятий</NavLink></li>
+            <li><NavLink href="#">Контакты</NavLink></li>
+            <li><NavLink href="#">О нас</NavLink></li>
+            <li>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#authentication">
+                    Вход
+                </button>
+            </li>
+            <li>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registration">
+                    Регистрация
+                </button>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<div class="modal fade" id="authentication" tabindex="-1" aria-hidden="true">
+    <AuthenticationModalForm @rendermode="InteractiveWebAssembly" />
+</div>
+
+<div class="modal fade" id="registration" tabindex="-1" aria-hidden="true">
+    <RegistrationModalForm AddUser="AddClient" />
+</div>
+
+<div class="modal fade" id="infoRegistration" tabindex="-1" aria-labelledby="infoRegistration" aria-hidden="true">
+    <InfoRegistrationModalForm />
+</div>
+
+@code {
+    private IUserService _userService;
+
+    public NotAuthorizedNavMenu()
+    {
+        _userService = new UserService();
+    }
+
+    public void AddClient(UserRegistrationInputModel input)
+    {
+        var u = _userService.AddUser(input);
+    }
+}

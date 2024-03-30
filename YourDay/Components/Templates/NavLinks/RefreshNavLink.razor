@@ -1,0 +1,10 @@
+﻿@inject NavigationManager navManager
+
+<NavLink @onclick="Refresh" href="/logout">Выйти</NavLink>
+
+@code {
+    public void Refresh()
+    {
+        navManager.Refresh(true);
+    }
+}
