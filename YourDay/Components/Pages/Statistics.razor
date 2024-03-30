@@ -30,7 +30,7 @@ else
                     @foreach (Column column in Columns)
                     {
                         <td>
-                            @typeof(CompanyStatisticOutputModel).GetProperty(column.Field).GetValue(_statistics)
+                            @typeof(CompanyStatisticOutputModel).GetProperty(column.Field).GetValue(outputModel)
                         </td>
                     }
                 </tr>
@@ -70,7 +70,7 @@ else
     protected override async Task OnInitializedAsync()
     {
         await GetClaims().ConfigureAwait(false);
-        if (returnRole == RoleUI.Worker.ToString())
+        if (returnRole == RoleUI.Manager.ToString())
         {
             Columns = new List<Column>();
 
