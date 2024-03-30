@@ -1,9 +1,9 @@
 ﻿@page "/applications"
 @rendermode InteractiveServer
 
-<GetClaims SendIsCompleted="b=>_isCompleted=b" SendRole="p=>Role=p"></GetClaims>
+<GetClaims SendIsCompleted="b=>_isCompleted=b" SendRole="p=>_role=p"></GetClaims>
 
-@if (_isCompleted && Role != RoleUI.Manager.ToString())
+@if (_isCompleted && _role != RoleUI.Manager.ToString())
 {
     <ReturnToStart></ReturnToStart>
 }
@@ -40,7 +40,7 @@ else
 }
 
 @code {
-    public string? Role { get; set; }
+    private string? _role;
 
     private bool _isCompleted;
 

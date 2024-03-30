@@ -1,4 +1,5 @@
 using AutoMapper;
+using YourDay.BLL.Enums;
 using YourDay.BLL.IServices;
 using YourDay.BLL.Models.ManagerModels.OutputModel;
 using YourDay.BLL.Models.UserModels.InputModels;
@@ -109,9 +110,9 @@ namespace YourDay.BLL.Services
         //    return usersRole;
         //}
 
-        public IEnumerable<UserSpecializationOutputModel> GetAllUsersSpecializationByRole(Role role)
+        public IEnumerable<UserSpecializationOutputModel> GetAllUsersSpecializationByRole(RoleUI role)
         {
-            var userDtos = _userRepository.GetAllUsersByRole(role);
+            var userDtos = _userRepository.GetAllUsersByRole((Role)role);
             var users = _mapper.Map<IEnumerable<UserSpecializationOutputModel>>(userDtos);
 
             return users;

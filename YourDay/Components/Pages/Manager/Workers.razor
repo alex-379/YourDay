@@ -11,15 +11,15 @@
 
     private IEnumerable<UserSpecializationOutputModel> _workers;
 
-    public Role b;
+    public RoleUI role;
 
     private int selectedWorkerId;
 
     public Workers(){
 
-        Role role = new Role();
+        role = new RoleUI();
 
-        role = Role.Worker;
+        role = RoleUI.Worker;
 
         UserService _userService = new UserService();
 
