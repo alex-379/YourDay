@@ -39,6 +39,9 @@ else
                     <option value="@outputModel.Id">@outputModel.Name</option>
                 }
             </select>
+            <div>
+                <button onclick="@AddManagerToOrder">ОК</button>
+            </div>
         </div>
 
         <dialog id="task" aria-labelledby="heading">
@@ -98,6 +101,7 @@ else
     private IOrderService _orderService;
 
     private IManagerService _managerService;
+    public int managerId;
 
 
 
@@ -147,8 +151,12 @@ else
     }
     public void ManagerSelection(ChangeEventArgs e)
     {
-        int managerId = int.Parse(e.Value.ToString());
+        managerId = int.Parse(e.Value.ToString());
 
-        _managerService.AddManagerIdToOrder(managerId,Id);
+        //_managerService.AddManagerIdToOrder(managerId,Id);
+    }
+    public void AddManagerToOrder()
+    {
+        _managerService.AddManagerIdToOrder(managerId, Id);
     }
 }
