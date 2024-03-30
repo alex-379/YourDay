@@ -1,17 +1,24 @@
 ﻿using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components;
 using System.Security.Claims;
+using YourDay.Components.Pages.Manager;
 
 namespace YourDay
 {
     public class GetClaims
     {
+        public IEnumerable<Claim> claims;
+
+        public string returnRole;
+
         [CascadingParameter]
         public Task<AuthenticationState> State { get; set; }
 
-        public IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
+        public GetClaims()
+        {
+            claims = Enumerable.Empty<Claim>();
+        }
 
-        public string returnRole;
 
         public async Task GetRole()
         {

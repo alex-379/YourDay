@@ -1,0 +1,42 @@
+﻿<button class="purple-button" >Создать</button>
+
+@code {
+    [CascadingParameter]
+    public Task<AuthenticationState> State { get; set; }
+
+    public IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
+
+
+    public string Name { get; set; }
+
+
+    [Parameter]
+    public EventCallback<String> SendName { get; set; }
+
+    // public Component()
+    // {
+    //     GetClaims();
+    // }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetClaims();
+        await SendName.InvokeAsync(Name);
+        // await base.OnInitializedAsync();
+    }
+
+
+
+    public async Task GetClaims()
+    {
+        var authState = await State;
+        var user = authState.User;
+
+        if (user.Identity is not null && user.Identity.IsAuthenticated)
+        {
+            claims = user.Claims;
+            Name = claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).Single();
+        }
+    }
+}

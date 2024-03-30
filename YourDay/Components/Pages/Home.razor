@@ -2,6 +2,11 @@
 @rendermode InteractiveServer
 @inject NavigationManager navManager
 
+@if (lc==0)
+{
+    
+}
+
 <AuthorizeView>
     <NotAuthorized>
         <section>
@@ -154,8 +159,18 @@
     <Authorized>
         <h2 class="manager-h1">Вы зашли как сотрудник : </h2>
         <p>Аккаунт @returnAddress</p>
+        @if (lc == 0)
+        {
+
+        }
     </Authorized>
 </AuthorizeView>
+
+@if (lc == 0)
+{
+
+}
+
 
 
 @code {

@@ -1,7 +1,30 @@
 ﻿@page "/newTask"
+@rendermode InteractiveServer
 @attribute [StreamRendering]
+@using YourDay.Components.Pages.TestPages
 
-@if (a.returnRole != RoleUI.Manager.ToString())
+<Component SendName="name=>Name=name"></Component>
+
+ 
+
+@if (Name != RoleUI.Manager.ToString())
+{
+   @*  <ReturnToStart></ReturnToStart> *@
+    <div>
+        NAMEEEEEEEEEE  @Name
+    </div>
+
+}
+else
+{
+    <p>менеджер</p>
+}
+
+
+
+
+@*  
+@if (Name != RoleUI.Manager.ToString())
 {
     <ReturnToStart></ReturnToStart>
 }
@@ -50,35 +73,9 @@ else
                 </div>
             </section>
         </div>
-
     </section>
-}
+} *@
 
 @code {
-    // [CascadingParameter]
-    // public Task<AuthenticationState> State { get; set; }
-
-    // private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
-
-    private string returnRole;
-
-    GetClaims a = new();
-
-    protected override async Task OnInitializedAsync()
-    {
-        await .GetRole().ConfigureAwait(false);
-        returnRole = claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).Single();
-    }
-
-    // private async Task GetClaims()
-    // {
-    //     var authState = await State;
-    //     var user = authState.User;
-
-    //     if (user.Identity is not null && user.Identity.IsAuthenticated)
-    //     {
-    //         claims = user.Claims;
-    //         returnRole = claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).Single();
-    //     }
-    // }
+    public string Name { get; set; }
 }
