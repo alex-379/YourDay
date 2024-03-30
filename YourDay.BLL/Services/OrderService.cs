@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using YourDay.BLL.IServices;
 using YourDay.BLL.Models.OrderModels.InputModels;
 using YourDay.BLL.Models.OrderModels.OutputModels;
@@ -53,6 +53,14 @@ namespace YourDay.BLL.Services
         {
             OrderDto orderDto = _orderRepository.GetOrderById(id);
             OrderOutputModel order = _mapper.Map<OrderOutputModel>(orderDto);
+
+            return order;
+        }
+
+        public OrderInputModel GetOrderByIdForAddTask(int id)
+        {
+            OrderDto orderDto = _orderRepository.GetOrderById(id);
+            OrderInputModel order = _mapper.Map<OrderInputModel>(orderDto);
 
             return order;
         }

@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Threading.Tasks;
 using YourDay.BLL.Enums;
 using YourDay.BLL.IServices;
 using YourDay.BLL.Models.SpecializationModels.InputModels;
@@ -30,6 +31,22 @@ namespace ConsoleApp1
             ITaskService taskService = new TaskService();
             ISpecializationService specializationService = new SpecializationService();
 
+
+            TaskInputModel a = new TaskInputModel()
+            {
+                TimeEnd = DateTime.Now,
+                TimeStart = DateTime.Now,
+                Title = "A",
+                Description = "B",
+                Status = Status.InProgress
+            };
+
+            //a.Order = orderService.GetOrderByIdForAddTask(8);
+            taskService.AddTaskManager(a, 8);
+
+            //context.Tasks.Add(a);
+            //a.Order = orderRepository.GetOrderById(4);
+            //context.SaveChanges();
             //var a = RoleUI.Manager.ToString();
             //var a = taskService.UpdateTaskStatusByTaskId(1, StatusUI.Canselled);
             //Console.WriteLine();

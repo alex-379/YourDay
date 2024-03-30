@@ -1,0 +1,86 @@
+@page "/p"
+@rendermode InteractiveServer
+<style>
+    .background {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        background-color: #f0f0f0; /* Цвет фона */
+    }
+
+    .top-right {
+        position: absolute;
+        top: 10px; /* Отступ сверху */
+        right: 10px; /* Отступ справа */
+        max-width: 100px; /* Максимальная ширина картинки */
+        max-height: 100px; /* Максимальная высота картинки */
+    }
+</style>
+
+<div class="background">
+    <img src="C:\Users\dns\Desktop\YourDay\YourDay\wwwroot\images\Group 1.png" alt="Your Image" class="top-right">
+</div>
+@* @code{
+    
+
+ private OrderForManagerInputModel orderInputModel;
+
+    private IEnumerable<OrderNameDateOutputModel> _orders;
+
+    private IOrderService _orderService;
+
+    public NewOrder()
+    {
+        _orderService = new OrderService();
+
+        orderInputModel = new OrderForManagerInputModel();
+    }
+
+    public void AddOrder()
+    {
+        _orderService.AddOrder(orderInputModel);
+
+        NavigationManager.NavigateTo("/manager");
+    }
+
+    private void Main()
+    {
+        NavigationManager.NavigateTo("/manager");
+    }
+}
+
+ *@
+
+
+
+
+
+
+
+
+<button type="button" onclick="window.closeMe.showModal()">
+    Открыть как модалку
+</button>
+
+
+<dialog 
+        id="closeMe"
+        aria-labelledby="heading">
+    <h2 id="heading">Закрой меня! 🙏</h2>
+
+    <form method="dialog">
+  
+        <button>
+            Закрыть с помощью формы
+        </button>
+    </form>
+</dialog>
+
+<form>
+    <label for="fruits">Выберите фрукт:</label>
+    <select id="fruits" name="fruits">
+        <option value="apple">Яблоко</option>
+        <option value="banana">Банан</option>
+        <option value="orange">Апельсин</option>
+    </select>
+</form>

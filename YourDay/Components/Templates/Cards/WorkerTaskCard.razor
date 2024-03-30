@@ -3,6 +3,9 @@
 
     <div class="taskWorker-card">
         <p>@task.Title </p>
+        <p>@task.Specialization</p>
+            <p>@task.TimeStart.ToShortTimeString() - @task.TimeEnd.ToShortTimeString()</p>
+       @*  <p>@getStatusNameByIndex(task.Status)</p> *@
         <p>@task.TimeStart - @task.TimeEnd</p>
         <p>@getStatusNameByIndex((int)task.Status)</p>
     </div>
@@ -19,19 +22,19 @@
         switch (index)
         {
             case 0:
-                statusName = "Получен";
+                statusName = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
 
                 break;
             case 1:
-                statusName = "В работе";
+                statusName = "пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ";
 
                 break;
             case 2:
-                statusName = "Завершён";
+                statusName = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
 
                 break;
             case 3:
-                statusName = "Отменена";
+                statusName = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
 
                 break;
         }

@@ -10,8 +10,8 @@
 else
 {
     <div class="body">
-        <section>
-            <table class="table">
+        <section class="white">
+            <table class="table white">
                 <thead>
                     <tr>
                         <th>Праздник</th>
@@ -19,6 +19,7 @@ else
                         <th>Адрес</th>
                         <th>Количество гостей</th>
                         <th>Цена</th>
+                        <th>Статус</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,6 +29,7 @@ else
                         <td>@OrderOutput.Address</td>
                         <td>@OrderOutput.CountPeople</td>
                         <td>@OrderOutput.Price</td>
+                        <td>@OrderOutput.Status</td>
                     </tr>
                 </tbody>
             </table>
@@ -49,25 +51,29 @@ else
             </form>
         </dialog>
 
+
         <section>
-            <h2> Задачи:</h2>
+            <h2 class="manager-h1"> Задачи:</h2>
             <div class="container-task">
-                @*             @foreach (var i in _tasks)
-            {
-            <WorkerTaskCard task="i" ></WorkerTaskCard>
-            } *@
+                @foreach (var i in task)
+                {
+                    <button class="task-button"><TaskManagerCard taskcCard=i> </TaskManagerCard> </button>
+                }
             </div>
         </section>
 
+
         <section>
             <div class="button-container">
-                <button class="green-button"> История заказа </button>
-                <button class="green-button"> Завершить заказ </button>
-                <button class="green-button"> Другое </button>
+                <button class="purple-button"> История заказа </button>
+                <button class="purple-button"> Завершить заказ </button>
+                <button class="purple-button"> Другое</button>
+                <button class="order-button"> <AddTaskCard order=OrderOutput> </AddTaskCard> </button>
             </div>
         </section>
     </div>
 }
+
 
 @code
 {
@@ -77,7 +83,13 @@ else
     [Parameter]
     public OrderOutputModel OrderOutput { get; set; }
 
+    public TaskOutputModel TaskOutput { get; set; }
+
     private IOrderService _orderService;
+
+    private ITaskService _taskService;
+
+    public IEnumerable<TaskOutputModelWithSpecialization> task;
 
     [CascadingParameter]
     public Task<AuthenticationState> State { get; set; }
@@ -89,7 +101,14 @@ else
     public Order()
     {
         _orderService = new OrderService();
+
+        _taskService = new TaskService();
+
         OrderOutput = new OrderOutputModel();
+
+        TaskOutput = new TaskOutputModel();
+
+        IEnumerable<TaskOutputModelWithSpecialization> task = new List<TaskOutputModelWithSpecialization>();
     }
 
     protected override async Task OnInitializedAsync()
@@ -104,15 +123,12 @@ else
             OrderOutput.Address = orderOutput.Address;
             OrderOutput.CountPeople = orderOutput.CountPeople;
             OrderOutput.Price = orderOutput.Price;
+
+            task = _taskService.GetTasksByOrderIdWithSpecialization(Id);
         }
     }
 
-    List<string> tasks = new List<string>() { "Привезти красные розы", "Заказать торт", "Привезти оформление", "Нужна живая съемка", "Часовая фотосессия" };
-
-    private void NavigateToPage()
-    {
-        NavigationManager.NavigateTo("/newTask");
-    }
+   
 
     private List<TaskOutputModelAllInfo> _tasks;
 
@@ -121,6 +137,7 @@ else
         var authState = await State;
         var user = authState.User;
 
+
         if (user.Identity is not null && user.Identity.IsAuthenticated)
         {
             claims = user.Claims;
@@ -128,3 +145,8 @@ else
         }
     }
 }
+    
+
+   
+
+    

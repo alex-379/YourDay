@@ -1,4 +1,4 @@
-﻿using YourDay.BLL.Enums;
+using YourDay.BLL.Enums;
 using YourDay.BLL.Models.TaskModels.InputModels;
 using YourDay.BLL.Models.TaskModels.OutputModels;
 using YourDay.DAL.Enums;
@@ -8,6 +8,8 @@ namespace YourDay.BLL.IServices
     public interface ITaskService
     {
         public TaskOutputModelWithOrderWithSpecialization AddTask(TaskInputModel task);
+
+        public void AddTaskManager(TaskInputModel task, int orderId);
 
         public TaskOutputModelAllInfo AddWorkerForTask(int taskId, int workerId);
 

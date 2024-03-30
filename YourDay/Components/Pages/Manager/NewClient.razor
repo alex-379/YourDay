@@ -1,0 +1,70 @@
+﻿@page "/newclient"
+@rendermode InteractiveServer
+@inject NavigationManager NavigationManager
+@using YourDay.BLL.Models;
+@using YourDay.BLL.Services;
+
+<div class="back">
+    <section>
+
+        <div class="container-add-order">
+            <div class="fields-add-order">
+                <form>
+                    <h2>Добавить клиента:</h2>
+
+                    <div class="conteiner-for-text">
+                        <label class="text">Имя клиента:</label>
+                        <input @bind="clientInputModel.UserName" class="field" type="name" placeholder="Введите имя клиента">
+                    </div>
+                    
+
+                    <div class="conteiner-for-text">
+                        <label class="text">Почта:</label>
+                        <input @bind="clientInputModel.Mail" class="field" type="text" placeholder="Введите почту клиента">
+                    </div>
+                    <div class="conteiner-for-text">
+                        <label class="text">Телефон:</label>
+                        <input @bind="clientInputModel.Phone" class="field" type="text" placeholder="Введите телефон клиента">
+                    </div>
+                    <div class="conteiner-for-text">
+                        <label class="text">Пароль</label>
+                        <input @bind="clientInputModel.Password" class="field" type="text" placeholder="Введите пароль клиента">
+                    </div>
+                </form>
+
+                <div>
+                    <button @onclick="AddClient" class="purple-button">Добавить</button>
+                    <button class="purple-button" @onclick="Main"> Назад </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+</div>
+
+@code
+{
+    private UserRegistrationInputModel clientInputModel;
+
+    private UserService _userService;
+
+    public NewClient()
+    {
+        _userService = new UserService();
+
+        clientInputModel = new UserRegistrationInputModel();
+    }
+
+    public void AddClient()
+    {
+        _userService.AddClient(clientInputModel);
+
+        NavigationManager.NavigateTo("/clients");
+    }
+
+    private void Main()
+    {
+        NavigationManager.NavigateTo("/clients");
+    }
+}
