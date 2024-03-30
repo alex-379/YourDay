@@ -1,0 +1,61 @@
+﻿@code {
+    [CascadingParameter]
+    public Task<AuthenticationState> State { get; set; }
+
+    public IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
+
+    public bool IsCompleted { get; set; }
+
+    public string Role { get; set; }
+
+    public string Mail { get; set; }
+
+    [Parameter]
+    public EventCallback<String> SendRole { get; set; }
+
+    [Parameter]
+    public EventCallback<String> SendMail { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> SendIsCompleted { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetClaimsPrincipalData();
+        IsCompleted = true;
+        await SendIsCompleted.InvokeAsync(IsCompleted);
+
+        if (claims?.Any() == true)
+        {
+            await SendRoleTask();
+            await SendMailTask();
+        }
+        
+        // await base.OnInitializedAsync();
+    }
+
+
+
+    public async Task GetClaimsPrincipalData()
+    {
+        var authState = await State;
+        var user = authState.User;
+
+        if (user.Identity is not null && user.Identity.IsAuthenticated)
+        {
+            claims = user.Claims;
+        }
+    }
+
+    public async Task SendRoleTask()
+    {
+        Role = claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).Single();
+        await SendRole.InvokeAsync(Role);
+    }
+
+    public async Task SendMailTask()
+    {
+        Mail = claims.Where(c => c.Type == ClaimTypes.Email).Select(c => c.Value).Single();
+        await SendMail.InvokeAsync(Mail);
+    }
+}

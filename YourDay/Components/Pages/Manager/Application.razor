@@ -1,7 +1,9 @@
 ﻿@page "/applications"
 @rendermode InteractiveServer
 
-@if (returnRole != RoleUI.Manager.ToString() )
+<GetClaims SendIsCompleted="b=>_isCompleted=b" SendRole="p=>Role=p"></GetClaims>
+
+@if (_isCompleted && Role != RoleUI.Manager.ToString())
 {
     <ReturnToStart></ReturnToStart>
 }
@@ -38,29 +40,9 @@ else
 }
 
 @code {
+    public string? Role { get; set; }
+
+    private bool _isCompleted;
+
     List<string> tasks = new List<string>() { "День рождения", "Выпускной", "Просто хотим праздник", "GaguaygsJHGU hd" };
-
-    [CascadingParameter]
-    public Task<AuthenticationState> State { get; set; }
-
-    private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
-
-    private string returnRole;
-
-    protected override async Task OnInitializedAsync()
-    {
-        await GetClaims().ConfigureAwait(false);
-    }
-
-    private async Task GetClaims()
-    {
-        var authState = await State;
-        var user = authState.User;
-
-        if (user.Identity is not null && user.Identity.IsAuthenticated)
-        {
-            claims = user.Claims;
-            returnRole = claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).Single();
-        }
-    }
-}
+} 

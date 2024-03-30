@@ -1,11 +1,15 @@
 @page "/newTaskfororder/{Id:int}"
+@page "/new"
 @attribute [StreamRendering]
 @rendermode InteractiveServer
 @inject NavigationManager NavigationManager
 
 <Component SendName="name=>Name=name"></Component>
 
- 
+ @code
+ {
+    public string Name { get; set; }
+ }
 
 @if (Name != RoleUI.Manager.ToString())
 {
