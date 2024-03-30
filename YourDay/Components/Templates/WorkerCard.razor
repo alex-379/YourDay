@@ -1,0 +1,23 @@
+﻿<button @onclick="() => OpenModal(worker.Id)">	&#128056;</button>
+
+    <div class="product-card">
+        <p>@worker.UserName</p>
+        @foreach (var i in @worker.Specializations)
+        {
+            <p>@i.Name</p>
+        }
+
+    </div>
+
+@code {
+    [Parameter]
+    public UserSpecializationOutputModel worker { get; set; }
+
+    [Parameter] public EventCallback<int> OnOpenModal { get; set; }
+
+    private async Task OpenModal(int id)
+    {
+        await OnOpenModal.InvokeAsync(id);
+    }
+}
+

@@ -1,0 +1,91 @@
+﻿@page "/clients"
+@using YourDay.DAL.Enums;
+@attribute [StreamRendering]
+@rendermode InteractiveServer
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+@code
+{
+    private UserService _userService;
+
+    private IEnumerable<UserSpecializationOutputModel> _clients;
+
+    public Role b;
+
+    private int selectedClientId;
+
+    public Clients()
+    {
+
+        Role role = new Role();
+
+        role = Role.Client;
+
+        UserService _userService = new UserService();
+
+        _clients = _userService.GetAllUsersSpecializationByRole(role);
+    }
+
+    protected override void OnInitialized()
+    {
+        //что здесь писать
+    }
+
+    private async Task ShowModal(int clientId)
+    {
+        selectedClientId = clientId;
+
+        await JSRuntime.InvokeVoidAsync("worker.showModal");
+
+        StateHasChanged();
+    }
+
+    private void DeleteClient()
+    {
+        UserService _userService = new UserService();
+
+        _userService.DeleteByManager(selectedClientId); //dd
+    }
+
+    private void NavigateToPage()
+    {
+        NavigationManager.NavigateTo("/newclient");
+    }
+}
+
+<div class="body">
+
+    <dialog id="worker" aria-labelledby="heading">
+        <h2 id="heading">Что вы хотите сделать? &#128056 </h2>
+
+        <form method="dialog">
+            <button>
+                Полная информация
+            </button>
+            <button>
+                Изменить
+            </button>
+            <button @onclick="DeleteClient">
+                Удалить
+            </button>
+            <button>
+                Закрыть
+            </button>
+        </form>
+    </dialog>
+
+    <section>
+        <h2 class="manager-h1"> Клиенты:</h2>
+        <div class="container-task">
+            <button class="order-button" @onclick="NavigateToPage"> + </button>
+            @foreach (var i in _clients)
+            {
+                <button @onclick="() => ShowModal(i.Id)" class="worker-button"> <WorkerCard worker="i" OnOpenModal="ShowModal"> </WorkerCard> </button>
+            }
+           
+        </div>
+    </section>
+</div>
+
+

@@ -7,6 +7,8 @@ namespace YourDay.DAL.IRepositories
     {
         public TaskDto AddTask(TaskDto task);
 
+        public void AddTaskManager(TaskDto task, int orderId);
+
         public IEnumerable<TaskDto> GetAllTasksWithOrderWithSpecialization();
 
         public IEnumerable<TaskDto> GetAllTasksWithAll();

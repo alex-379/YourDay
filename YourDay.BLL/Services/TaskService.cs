@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Microsoft.IdentityModel.Tokens;
 using YourDay.BLL.Enums;
 using YourDay.BLL.IServices;
@@ -8,6 +8,13 @@ using YourDay.DAL.Dtos;
 using YourDay.DAL.Enums;
 using YourDay.DAL.IRepositories;
 using YourDay.DAL.Repositories;
+using YourDay.BLL.Models.TaskModels.InputModels;
+using YourDay.BLL.IServices;
+using YourDay.DAL.Enums;
+using YourDay.BLL.Models.OrderModels.InputModels;
+using YourDay.BLL.Models.OrderModels.OutputModels;
+using YourDay.DAL.IRepositories;
+using YourDay.BLL.Models.UserModels.OutputModels;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace YourDay.BLL.Services
@@ -41,6 +48,16 @@ namespace YourDay.BLL.Services
             return taskOutput;
         }
 
+        //public void AddTaskManager(TaskInputModel task, int orderId, int taskId)
+        //{
+        //    _taskRepository.AddTaskManager(_mapper.Map<TaskDto>(task), orderId, taskId);
+        //}
+
+        public void AddTaskManager(TaskInputModel task, int orderId)
+        {
+            _taskRepository.AddTaskManager(_mapper.Map<TaskDto>(task), orderId);
+        }
+
         public TaskOutputModelAllInfo AddWorkerForTask(int taskId, int workerId)
         {
             TaskDto taskDto = _taskRepository.GetTaskByIdWithAll(taskId);
@@ -68,7 +85,7 @@ namespace YourDay.BLL.Services
             var taskDtos = _taskRepository.GetAllTasksWithOrderWithSpecialization();
             var tasks = _mapper.Map<IEnumerable<TaskOutputModelWithOrderWithSpecialization>>(taskDtos);
 
-            return tasks;
+            return tasks; 
         }
 
         public IEnumerable<TaskOutputModelAllInfo> GetAllTasksWithAll()
@@ -128,6 +145,7 @@ namespace YourDay.BLL.Services
             TaskDto taskDtoOutput = _taskRepository.UpdateTask(taskDto);
             TaskOutputModelAllInfo taskOutput = _mapper.Map<TaskOutputModelAllInfo>(taskDtoOutput);
 
+        
             return taskOutput;
         }
 

@@ -10,5 +10,7 @@ namespace YourDay.BLL.IServices
         public IEnumerable<OrderOutputModel> GetAllOrders();
 
         public OrderOutputModel GetOrderById(int id);
+
+        public OrderInputModel GetOrderByIdForAddTask(int id);
     }
 }

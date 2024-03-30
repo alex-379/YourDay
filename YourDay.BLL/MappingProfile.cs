@@ -24,6 +24,8 @@ namespace YourDay.BLL
 
             CreateMap<UserDto, UserMailOutputModel>();
 
+            CreateMap<UserDto, UserSpecializationOutputModel>();
+
             CreateMap<UserDto, UserAuthorizationOutputModel>();
 
             CreateMap<UserDto, ManagerNameAndPhoneOutputModel>()
@@ -33,6 +35,18 @@ namespace YourDay.BLL
             CreateMap<OrderForManagerInputModel, OrderDto>();
 
             CreateMap<OrderDto, OrderOutputModel>();
+
+            CreateMap<OrderDto, OrderNameDateOutputModel>()
+                .ForMember(d => d.Date, opt => opt.MapFrom(s => OrderService.GetDateStringForOrder(s.Date)));
+
+
+            CreateMap<OrderForManagerInputModel, OrderDto>();
+
+            CreateMap<OrderDto, OrderOutputModel>();
+
+            CreateMap<OrderDto, OrderInputModel>();
+
+            CreateMap<OrderInputModel, OrderDto>();
 
             CreateMap<OrderDto, OrderNameDateOutputModel>()
                 .ForMember(d => d.Date, opt => opt.MapFrom(s => OrderService.GetDateStringForOrder(s.Date)));

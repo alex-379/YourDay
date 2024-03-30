@@ -1,8 +1,11 @@
-﻿@page "/manager-statistics"
+﻿@page "/statistics"
 @attribute [StreamRendering]
 @inject NavigationManager NavigationWorker
+@using YourDay.DAL.Repositories;
+@using YourDay.BLL.Models.ManagerModels.OutputModel;
+@using YourDay.BLL.IServices
 
-@if (returnRole != RoleUI.Manager.ToString())
+@if (returnRole != RoleUI.Worker.ToString())
 {
     <ReturnToStart></ReturnToStart>
 }

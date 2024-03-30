@@ -1,6 +1,6 @@
 ﻿namespace YourDay.BLL.Models.SpecializationModels.OutputModels
 {
-    public class SpecializationOutputModel
+    public class SpecializationOnlyNameOutputModel
     {
         public string Name { get; set; }
     }
