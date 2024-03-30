@@ -50,11 +50,24 @@ namespace YourDay.DAL.Repositories
             ).ToList();
         }
 
-        public void AddTask(TaskDto task, int orderId, int taskId)
+        //public void AddTaskManager(TaskDto task, int orderId, int taskId)
+        //{
+        //    context.Tasks.Add(task);
+        //    task.Order = orderRepository.GetOrderById(orderId);
+        //    task.Specialization = GetSpecializationById(taskId);
+        //    context.SaveChanges();
+        //}
+
+        //public void AddTaskManager(TaskDto task, int orderId)
+        //{
+        //    context.Tasks.Add(task);
+        //    task.Order = orderRepository.GetOrderById(orderId);
+        //    context.SaveChanges();
+        //}
+        public void AddTaskManager(TaskDto task, int orderId)
         {
             context.Tasks.Add(task);
             task.Order = orderRepository.GetOrderById(orderId);
-            task.Specialization = GetSpecializationById(taskId);
             context.SaveChanges();
         }
 

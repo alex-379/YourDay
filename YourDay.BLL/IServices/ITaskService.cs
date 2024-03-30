@@ -9,6 +9,8 @@ namespace YourDay.BLL.IServices
     {
         public TaskOutputModelWithOrderWithSpecialization AddTask(TaskInputModel task);
 
+        public void AddTaskManager(TaskInputModel task, int orderId);
+
         public TaskOutputModelAllInfo AddWorkerForTask(int taskId, int workerId);
 
         public IEnumerable<TaskOutputModelWithOrderWithSpecialization> GetAllTasksWithOrderWithSpecialization();

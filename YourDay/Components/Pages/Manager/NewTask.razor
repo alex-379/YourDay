@@ -57,7 +57,6 @@ else
     </section>
 
 }
-    public int Id { get; set; }
 
 @code {
 
@@ -71,6 +70,19 @@ else
     private string returnRole;
 
     private TaskInputModel taskInputModel;
+
+    private ITaskService _taskService;
+    private IOrderService _orderService;
+
+    public NewTask()
+    {
+        //order = new OrderOutputModel();
+        _taskService = new TaskService();
+
+        _orderService = new OrderService();
+
+        taskInputModel = new TaskInputModel();
+    }
 
     protected override async Task OnInitializedAsync()
     {
@@ -88,12 +100,13 @@ else
             returnRole = claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).Single();
         }
     }
-    private ITaskService _taskService;
-    private IOrderService _orderService;
+    
+
+
     private void AddTask()
     {
-        taskInputModel.Order = _orderService.GetOrderByIdForAddTask(5);
-        _taskService.AddTask(taskInputModel);
+        //taskInputModel.Order = _orderService.GetOrderByIdForAddTask(Id);
+        _taskService.AddTaskManager(taskInputModel, Id);
 
         NavigationManager.NavigateTo("/manager");
     }

@@ -89,7 +89,7 @@ else
 
     private ITaskService _taskService;
 
-    public List<TaskOutputModel> task;
+    public IEnumerable<TaskOutputModelWithSpecialization> task;
 
     [CascadingParameter]
     public Task<AuthenticationState> State { get; set; }
@@ -108,7 +108,7 @@ else
 
         TaskOutput = new TaskOutputModel();
 
-        List<TaskOutputModel> task = new List<TaskOutputModel>();
+        IEnumerable<TaskOutputModelWithSpecialization> task = new List<TaskOutputModelWithSpecialization>();
     }
 
     protected override async Task OnInitializedAsync()
@@ -123,6 +123,8 @@ else
             OrderOutput.Address = orderOutput.Address;
             OrderOutput.CountPeople = orderOutput.CountPeople;
             OrderOutput.Price = orderOutput.Price;
+
+            task = _taskService.GetTasksByOrderIdWithSpecialization(Id);
         }
     }
 

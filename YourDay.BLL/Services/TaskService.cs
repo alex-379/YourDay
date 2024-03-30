@@ -48,6 +48,16 @@ namespace YourDay.BLL.Services
             return taskOutput;
         }
 
+        //public void AddTaskManager(TaskInputModel task, int orderId, int taskId)
+        //{
+        //    _taskRepository.AddTaskManager(_mapper.Map<TaskDto>(task), orderId, taskId);
+        //}
+
+        public void AddTaskManager(TaskInputModel task, int orderId)
+        {
+            _taskRepository.AddTaskManager(_mapper.Map<TaskDto>(task), orderId);
+        }
+
         public TaskOutputModelAllInfo AddWorkerForTask(int taskId, int workerId)
         {
             TaskDto taskDto = _taskRepository.GetTaskByIdWithAll(taskId);
@@ -75,7 +85,7 @@ namespace YourDay.BLL.Services
             var taskDtos = _taskRepository.GetAllTasksWithOrderWithSpecialization();
             var tasks = _mapper.Map<IEnumerable<TaskOutputModelWithOrderWithSpecialization>>(taskDtos);
 
-            return tasks;
+            return tasks; 
         }
 
         public IEnumerable<TaskOutputModelAllInfo> GetAllTasksWithAll()
