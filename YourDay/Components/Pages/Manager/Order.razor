@@ -112,7 +112,6 @@ else
     private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
     private string returnRole;
 
-    private IOrderService _orderService;
 
     private IManagerService _managerService;
     public int managerId;
@@ -151,10 +150,6 @@ else
             task = _taskService.GetTasksByOrderIdWithSpecialization(Id);
         }
     }
-
-   
-
-    private List<TaskOutputModelAllInfo> _tasks;
 
     private async Task GetClaims()
     {
