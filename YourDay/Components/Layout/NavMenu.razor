@@ -52,7 +52,7 @@
                     <li><NavLink href="#">Фото с мероприятий</NavLink></li>
                     <li><NavLink href="#">Контакты</NavLink></li>
                     <li><NavLink href="#">О нас</NavLink></li>
-                    <li><NavLink href="/logout">Выйти</NavLink></li>
+                    <li><NavLink @onclick="Refresh" href="/logout">Выйти</NavLink></li>
                 </ul>
             </nav>
         </header>
@@ -70,7 +70,7 @@
                     <li><NavLink href="/NewOrder">Создать заказ</NavLink></li>
                     <li><NavLink href="/applications">Заявки</NavLink></li>
                     <li><NavLink href="/manager-statistics">Статистика</NavLink></li>
-                    <li><NavLink href="/logout">Выйти</NavLink></li>
+                    <li><NavLink @onclick="Refresh" href="/logout">Выйти</NavLink></li>
                 </ul>
             </nav>
         </header>
