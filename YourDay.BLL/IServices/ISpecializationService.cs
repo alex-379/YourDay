@@ -5,6 +5,6 @@ namespace YourDay.BLL.IServices
 {
     public interface ISpecializationService
     {
-        public SpecializationOutputModel AddSpecialization(SpecializationInputModel specialization);
+        public SpecializationOnlyNameOutputModel AddSpecialization(SpecializationInputModel specialization);
     }
 }
