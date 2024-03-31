@@ -11,6 +11,7 @@ namespace YourDay.DAL.Repositories
 
         public OrderDto AddOrder(OrderDto order)
         {
+            order.Status = Status.Received;
             context.Orders.Add(order);
             context.SaveChanges();
 
@@ -19,7 +20,7 @@ namespace YourDay.DAL.Repositories
 
         public IEnumerable<OrderDto> GetAllOrders()
         {
-            IEnumerable<OrderDto> orders = context.Orders;
+            IEnumerable<OrderDto> orders = context.Orders.Where(o=>o.Manager!=null);
 
             return orders;
         }
@@ -38,6 +39,18 @@ namespace YourDay.DAL.Repositories
             context.SaveChanges();
 
             return order;
+        }
+
+        public void UpdateOrderStatus(int orderId, Status newOrderStatus)
+        {
+            OrderDto order = context.Orders.Single(order => order.Id == orderId);
+
+            if (order != null)
+            {
+                order.Status = newOrderStatus;
+            }
+
+            context.SaveChanges();
         }
     }
 }
