@@ -24,4 +24,8 @@
     <ProjectReference Include="..\YourDay.BLL\YourDay.BLL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\fonts\" />
+  </ItemGroup>
+
 </Project>
