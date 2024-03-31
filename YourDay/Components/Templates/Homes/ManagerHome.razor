@@ -55,7 +55,7 @@
 
     private void GetCompletedOrders()
     {
-        _completedOrders = _orderService.ShowAllCompletedOrdersForCard(_orders);
+        _completedOrders = _orderService.ShowAllCompletedAndCanselledOrdersForCard(_orders);
         isClick = true;
     }
 

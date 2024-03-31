@@ -1,5 +1,9 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using YourDay.Components;
+using Blazorise;
+using Blazorise.Bootstrap;
+using Blazorise.Icons.FontAwesome;
+
 
 namespace YourDay
 {
@@ -21,6 +25,14 @@ namespace YourDay
                     options.LoginPath = "/";
                     options.Cookie.MaxAge = TimeSpan.FromMinutes(30);
                 });
+
+            builder.Services
+    .AddBlazorise(options =>
+    {
+        options.Immediate = true;
+    })
+    .AddBootstrapProviders()
+    .AddFontAwesomeIcons();
 
             builder.Services.AddAuthorization();
             builder.Services.AddCascadingAuthenticationState();

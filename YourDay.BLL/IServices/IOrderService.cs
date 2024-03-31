@@ -11,7 +11,7 @@ namespace YourDay.BLL.IServices
 
         public IEnumerable<OrderNameDateOutputModel> GetAllOrdersForCard();
 
-        public List<OrderNameDateOutputModel> ShowAllCompletedOrdersForCard(IEnumerable<OrderNameDateOutputModel> orders);
+        public List<OrderNameDateOutputModel> ShowAllCompletedAndCanselledOrdersForCard(IEnumerable<OrderNameDateOutputModel> orders);
 
         public OrderOutputModel GetOrderById(int id);
 
