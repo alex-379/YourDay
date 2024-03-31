@@ -43,6 +43,6 @@
 
     public void AddClient(UserRegistrationInputModel input)
     {
-        var u = _userService.AddUser(input);
+        _userService.AddUser(input);
     }
 }

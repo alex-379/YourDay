@@ -4,7 +4,6 @@ using YourDay.BLL.IServices;
 using YourDay.BLL.Models.OrderModels.InputModels;
 using YourDay.BLL.Models.OrderModels.OutputModels;
 using YourDay.DAL.Dtos;
-using YourDay.DAL.Enums;
 using YourDay.DAL.Repositories;
 
 namespace YourDay.BLL.Services
@@ -28,8 +27,9 @@ namespace YourDay.BLL.Services
 
         public OrderOutputModel AddOrder(OrderForManagerInputModel order)
         {
-            OrderDto orderDtoOutput = _orderRepository.AddOrder(_mapper.Map<OrderDto>(order));
-            OrderOutputModel orderOutput = _mapper.Map<OrderOutputModel>(orderDtoOutput);
+            order.Status = StatusUI.Received;
+            OrderDto orderDtoInput = _orderRepository.AddOrder(_mapper.Map<OrderDto>(order));
+            OrderOutputModel orderOutput = _mapper.Map<OrderOutputModel>(orderDtoInput);
 
             return orderOutput;
         }

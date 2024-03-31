@@ -1,5 +1,63 @@
-﻿<h3>OrderModalForm</h3>
+﻿<div class="modal-dialog">
+    <div class="modal-content">
+        <EditForm Model="OrderModel" FormName="OrderModel">
+            <DataAnnotationsValidator />
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Название праздника:</label>
+                    <InputText class="form-control" @bind-Value="OrderModel.OrderName" placeholder="Введите название праздника" />
+                    <ValidationMessage For="@(() => OrderModel.OrderName)" />
+                </div>
+                <div class="form-group">
+                    <label>Дата:</label>
+                    <DateInput TValue="DateTime" EnableMinMax="true" Min="@_minDate" Max="@_maxDate" class="form-control" @bind-Value=OrderModel.Date placeholder="Введите дату праздника" />
+                    <ValidationMessage For="@(() => OrderModel.Date)" />
+                </div>
+                <div class="form-group">
+                    <label>Адрес:</label>
+                    <InputText class="form-control" @bind-Value="@OrderModel.Address" placeholder="Введите адрес вашего события" />
+                    <ValidationMessage For="@(() => OrderModel.Address)" />
+                </div>
+                <div class="form-group">
+                    <label>Количество человек:</label>
+                    <InputNumber class="form-control" @bind-Value="@OrderModel.CountPeople" placeholder="Введите сколько будет людей на празднике" />
+                    <ValidationMessage For="@(() => OrderModel.CountPeople)" />
+                </div>
+                <div class="form-group">
+                    <label>Количество человек:</label>
+                    <InputNumber class="form-control" @bind-Value="@OrderModel.Price" placeholder="Введите цену" />
+                    <ValidationMessage For="@(() => OrderModel.Price)" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="purple-button">Создать</button>
+                <button type="button" class="purple-button" data-bs-dismiss="modal">Отмена</button>
+            </div>
+        </EditForm>
+    </div>
+</div>
 
 @code {
+    [SupplyParameterFromForm(FormName = "OrderModel")]
+    public OrderForManagerInputModel OrderModel { get; set; }
 
+    private DateTime _minDate;
+
+    private DateTime _maxDate;
+
+    [Parameter]
+    public Action<OrderForManagerInputModel> AddOrder { get; set; }
+
+    public OrderModalForm()
+    {
+        OrderModel = new OrderForManagerInputModel();
+        _minDate = DateTime.Now;
+        _maxDate = _minDate.AddDays((double)DateForOrder.Period);
+    }
+
+    private void Add()
+    {
+        OrderModel.OrderName = OrderModel.OrderName.ToLower();
+        AddOrder(OrderModel);
+    }
 }
