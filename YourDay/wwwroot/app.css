@@ -13,6 +13,23 @@
 }
 
 /*ШАПКА СТРАНИЦЫ */
+selector {
+    opacity:1;
+    position: relative;
+}
+
+    selector:before {
+        content: image();
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgb(0 0 0 / 0.5);
+        /* или в формате HEX
+  background-color: #00000080; */
+    }
+
 .navbar {
     display: flex;
     justify-content: space-between;
