@@ -95,6 +95,13 @@ button:active {
     color: #FFFEFF;
 }
 
+.manager-reassign-container {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 .table {
     color: #FFFEFF;
 }
@@ -416,70 +423,3 @@ th {
 h4 {
     font-size: 25px;
 }
-
-/*
-
-.layout-container {
-    position: fixed;
-    background-color: #0000009e;
-    width: 100%;
-    height: 100%;
-    display: none;
-    align-items: center;
-    justify-content: center;
-}
-
-.layout {
-    background-color: white;
-    border-radius: 10px;
-    width: 400px;
-    padding: 30px;
-}
-
-.layout input {
-    font-size: 20px;
-    width: 100%;
-    height: 50px;
-    margin-bottom: 15px;
-    border-radius: 10px;
-}
-
-.layout h2 {
-    margin: 0 0 30px;
-}
-
-
-
-.taskWorker-card {
-    background-color: white;
-    border: 2px solid black;
-    margin: 10px 10px;
-    height: 220px;
-    border-radius: 6px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 10px;
-}
-
-.taskWorker-card {
-    font-size: 20px;
-    color: #54494B;
-    background-color: #fff252;
-    border: 1px solid #fff252;
-    padding: 40px 40px 40px 40px;
-    margin: 10px 10px 10px 10px;
-    border-radius: 30px;
-}
-
-.container-task {
-    display: flex;
-    flex-direction: row;
-
-}
-
-.container-buttons {
-    display: flex;
-    flex-direction: column;
-}
-*/
