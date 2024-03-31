@@ -1,10 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using System.Data;
-using System.Linq;
 using YourDay.DAL.Dtos;
 using YourDay.DAL.Enums;
 using YourDay.DAL.IRepositories;
-using YourDay.DAL.Repositories;
 
 namespace YourDay.DAL.Repositories
 {
@@ -12,6 +10,7 @@ namespace YourDay.DAL.Repositories
     {
         readonly Context context = SingletoneStorage.GetStorage().Сontext;
         public TaskRepository taskRepository = new TaskRepository();
+
         public UserDto AddUser(UserDto user)
         {
             context.Users.Add(user);
@@ -20,27 +19,9 @@ namespace YourDay.DAL.Repositories
             return user;
         }
 
-        public void AddWorker(UserDto worker)
-        {
-            context.Users.Add(worker);
-            worker.Role= Role.Worker;
-            worker.IsDeleted = false;
-            context.SaveChanges();
-            //worker.Specializations= [taskRepository.GetSpecializationById(specialId)];
-        }
-
-        public void AddClient(UserDto worker)
-        {
-            context.Users.Add(worker);
-            worker.Role = Role.Client;
-            worker.IsDeleted = false;
-            context.SaveChanges();
-            //worker.Specializations= [taskRepository.GetSpecializationById(specialId)];
-        }
-
         public IEnumerable<UserDto> GetAllUsers()
         {
-            var users = context.Users;
+            var users = context.Users.Where(u => u.IsDeleted != true);
 
             return users;
         }
@@ -48,13 +29,6 @@ namespace YourDay.DAL.Repositories
         public UserDto GetUserById(int userId)
         {
             UserDto user = context.Users.Where(u => u.Id == userId).Single();
-
-            return user;
-        }
-
-        public UserDto GetTestUserById(int userId)
-        {
-            UserDto user = context.Users.Include(u=>u.Specializations).Where(u => u.Id == userId).Single();
 
             return user;
         }
@@ -67,17 +41,6 @@ namespace YourDay.DAL.Repositories
             return user;
         }
 
-        public void DeleteByManager(int id)
-        {
-            UserDto user = context.Users.Where(c => c.Id == id).Single();
-            if (user.Role == Role.Worker || user.Role == Role.Client)
-            {
-                user.IsDeleted = true;
-                context.Users.Update(user);
-            }
-            context.SaveChanges();
-        }
-
         public IEnumerable<UserDto> GetAllUsersByRole(Role role)
         {
             var users = context.Users
@@ -86,17 +49,29 @@ namespace YourDay.DAL.Repositories
                 .Where(u => u.IsDeleted == false).ToList();
             return users;
         }
-        public void AddManagerIdToOrder(int managerId, int orderId)
-        {
-            UserDto manager = context.Users.Where(user => user.Id == managerId).Single();
-            OrderDto orderToAddManager = context.Orders.Where(order => order.Id == orderId).Single();
 
-            orderToAddManager.Manager = manager;
+        //public void DeleteByManager(int id)
+        //{
+        //    UserDto user = context.Users.Where(c => c.Id == id).Single();
+        //    if (user.Role == Role.Worker || user.Role == Role.Client)
+        //    {
+        //        user.IsDeleted = true;
+        //        context.Users.Update(user);
+        //    }
+        //    context.SaveChanges();
+        //}
 
-            context.Orders.Update(orderToAddManager);
+        //public void AddManagerIdToOrder(int managerId, int orderId)
+        //{
+        //    UserDto manager = context.Users.Where(user => user.Id == managerId).Single();
+        //    OrderDto orderToAddManager = context.Orders.Where(order => order.Id == orderId).Single();
 
-            context.SaveChanges();
-        }
+        //    orderToAddManager.Manager = manager;
+
+        //    context.Orders.Update(orderToAddManager);
+
+        //    context.SaveChanges();
+        //}
 
     }
 }

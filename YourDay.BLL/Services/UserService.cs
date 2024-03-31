@@ -1,11 +1,9 @@
 using AutoMapper;
 using YourDay.BLL.Enums;
 using YourDay.BLL.IServices;
-using YourDay.BLL.Models.ManagerModels.OutputModel;
 using YourDay.BLL.Models.UserModels.InputModels;
 using YourDay.BLL.Models.UserModels.OutputModels;
 using YourDay.DAL.Dtos;
-using YourDay.DAL.Enums;
 using YourDay.DAL.Enums;
 using YourDay.DAL.IRepositories;
 using YourDay.DAL.Repositories;
@@ -39,18 +37,6 @@ namespace YourDay.BLL.Services
             UserOutputModel userOutput = _mapper.Map<UserOutputModel>(userDtoOutput);
 
             return userOutput;
-        }
-
-        public void AddWorker(UserRegistrationInputModel user)
-        {
-            UserDto a = _mapper.Map<UserDto>(user);
-            _userRepository.AddWorker(a);
-        }
-
-        public void AddClient(UserRegistrationInputModel user)
-        {
-            UserDto a = _mapper.Map<UserDto>(user);
-            _userRepository.AddClient(a);
         }
 
         public UserOutputModel AddClientForManager(UserRegistrationInputModel client)
@@ -95,20 +81,13 @@ namespace YourDay.BLL.Services
             return users;
         }
 
-        public IEnumerable<UserOutputModel> GetAllUsersByRole(Role role)
+        public IEnumerable<UserOutputModel> GetAllUsersByRole(RoleUI role)
         {
-            var userDtos = _userRepository.GetAllUsersByRole(role);
+            var userDtos = _userRepository.GetAllUsersByRole((Role)role);
             var users = _mapper.Map<IEnumerable<UserOutputModel>>(userDtos);
 
             return users;
         }
-        //public IEnumerable<UserOutputModel> GetAllUsersByRole(Role role)
-        //{
-        //    var usersDtoRole = _userRepository.GetAllUsersByRole(role);
-        //    var usersRole = _mapper.Map<IEnumerable<UserOutputModel>>(usersDtoRole);
-
-        //    return usersRole;
-        //}
 
         public IEnumerable<UserSpecializationOutputModel> GetAllUsersSpecializationByRole(RoleUI role)
         {
@@ -126,21 +105,12 @@ namespace YourDay.BLL.Services
             return user;
         }
 
-
-        public UserInputModel GetWorkerById(int id)
+        public void DeleteUser(int userId)
         {
-            UserDto userDto = _userRepository.GetUserById(id);
-            UserInputModel user = _mapper.Map<UserInputModel>(userDto);
-
-            return user;
+            UserDto user = _userRepository.GetUserById(userId);
+            user.IsDeleted = true;
+            _userRepository.UpdateUser(user);
         }
-
-        public void DeleteByManager(int id)
-        {
-             _userRepository.DeleteByManager(id);
-        }
-
-        
 
         public bool ConfirmMail(UserRegistrationInputModel user)
         {
@@ -153,7 +123,7 @@ namespace YourDay.BLL.Services
         public bool ConfirmPassword(UserAutenthicationInputModel user)
         {
             var mails = this.GetAllMailBoxesWithPasswords();
-            var userDb = mails.Where(u => u.Mail == user.Mail).Single();
+            var userDb = mails.Where(u => u.Mail == user.Mail.ToLower()).Single();
             var hash = PasswordService.GetHash(user.Password, userDb.Salt);
             bool result = (hash.SequenceEqual(userDb.Hash));
             user.Role = userDb.Role;
