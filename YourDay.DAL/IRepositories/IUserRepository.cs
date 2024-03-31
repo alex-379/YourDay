@@ -11,6 +11,8 @@ namespace YourDay.DAL.IRepositories
 
         public UserDto GetUserById(int userId);
 
+        public UserDto GetUserByMail(string userMail);
+
         public UserDto UpdateUser(UserDto user);
 
         public IEnumerable<UserDto> GetAllUsersByRole(Role role);

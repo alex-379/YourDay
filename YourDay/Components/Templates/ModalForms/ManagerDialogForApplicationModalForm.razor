@@ -1,0 +1,33 @@
+﻿<section class="text-style">
+    <dialog id="application" aria-labelledby="heading">
+        <h2 id="heading">Что сделать с заявкой?</h2>
+        <form method="dialog">
+            <button>
+                Закрыть
+            </button>
+            <button>
+                Архивировать
+            </button>
+            <button>
+                Создать заказ
+            </button>
+        </form>
+    </dialog>
+</section>
+
+@code {
+    [Parameter]
+    public int SelectedClientId { get; set; }
+
+    private IUserService _userService;
+
+    public ManagerDialogForApplicationModalForm()
+    {
+        _userService = new UserService();
+    }
+
+    private void DeleteUser()
+    {
+        _userService.DeleteUser(SelectedClientId);
+    }
+}

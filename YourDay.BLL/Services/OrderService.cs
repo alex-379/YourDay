@@ -4,6 +4,7 @@ using YourDay.BLL.IServices;
 using YourDay.BLL.Models.OrderModels.InputModels;
 using YourDay.BLL.Models.OrderModels.OutputModels;
 using YourDay.DAL.Dtos;
+using YourDay.DAL.IRepositories;
 using YourDay.DAL.Repositories;
 
 namespace YourDay.BLL.Services
@@ -11,11 +12,13 @@ namespace YourDay.BLL.Services
     public class OrderService : IOrderService
     {
         private OrderRepository _orderRepository;
+        private UserRepository _userRepository;
         private Mapper _mapper;
 
         public OrderService()
         {
             _orderRepository = new OrderRepository();
+            _userRepository = new UserRepository();
 
             var config = new MapperConfiguration(cfg =>
             {
@@ -34,6 +37,18 @@ namespace YourDay.BLL.Services
             return orderOutput;
         }
 
+        public void AddApplication(ApplicationInputModel application, string userMail)
+        {
+            HistoryDto historyDtoInput = _mapper.Map<HistoryDto>(application);
+            historyDtoInput.DateTime = DateTime.Now;
+            OrderDto orderDtoInput = new OrderDto();
+            orderDtoInput.Histories = new List<HistoryDto>()
+            {
+            historyDtoInput
+            };
+            orderDtoInput.Client = _userRepository.GetUserByMail(userMail);
+            _orderRepository.AddOrder(orderDtoInput);
+        }
 
         public IEnumerable<OrderOutputModel> GetAllOrders()
         {
@@ -46,6 +61,14 @@ namespace YourDay.BLL.Services
         public IEnumerable<OrderNameDateOutputModel> GetAllOrdersForCard()
         {
             var orderDtos = _orderRepository.GetAllOrders();
+            var orders = _mapper.Map<IEnumerable<OrderNameDateOutputModel>>(orderDtos);
+
+            return orders;
+        }
+
+        public IEnumerable<OrderNameDateOutputModel> GetAllApplications()
+        {
+            var orderDtos = _orderRepository.GetAllApplications();
             var orders = _mapper.Map<IEnumerable<OrderNameDateOutputModel>>(orderDtos);
 
             return orders;

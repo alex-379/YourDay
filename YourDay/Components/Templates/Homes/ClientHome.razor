@@ -2,7 +2,9 @@
     <div class="blok">
         <h2 class="h">Добро пожаловать в</h2>
         <h2 class="h yellow">Твой День!</h2>
-        <input type="submit" class="button" value="Оставить заявку">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#applicationNew">
+            Оставить заявку
+        </button>
     </div>
 </section>
 
@@ -10,7 +12,7 @@
     <div class="blok">
         <h1 class="h yellow" align="center">Немного о Нас</h1>
 
-        <p class="conteiner-for-text">
+        <p class="container-for-text">
             <big>
                 Празднование дней рождений, юбилеев и других важных событий в кругу близких людей всегда приятно.
                 Особенно когда мероприятие грамотно спланировано. Агентство праздников «Твой день» предоставляет полный спектр услуг.
@@ -20,8 +22,8 @@
         </p>
 
         <div class="aligncenter">
-            <a href="/"><img src="/images/29000411.jpg" alt=""> </a>
-            <a href="/"><img src="/images/96714381.jpg" alt=""></a>
+            <img src="/images/29000411.jpg" alt="">
+            <img src="/images/29000411.jpg" alt="">
         </div>
     </div>
 </section>
@@ -29,7 +31,7 @@
 <section>
     <footer class="footer">
         <div class="box-footer">
-            <p class=".font-weight-bold">Контакты:   пишите нам!</p>
+            <p class=".font-weight-bold">Контакты: пишите нам!</p>
         </div>
 
         <div class="box-footer">
@@ -41,3 +43,27 @@
         </div>
     </footer>
 </section>
+
+<GetClaims SendIsCompleted="b=>_isCompleted=b" SendMail="m=>_mail=m"></GetClaims>
+
+<div class="modal fade" id="applicationNew" tabindex="-1" aria-hidden="true">
+    <ApplicationModalForm AddApplication="AddApplication" />
+</div>
+
+@code {
+    private string _mail;
+
+    private bool _isCompleted;
+
+    private IOrderService _orderService;
+
+    public ClientHome()
+    {
+        _orderService = new OrderService();
+    }
+
+    private void AddApplication(ApplicationInputModel input)
+    {
+        _orderService.AddApplication(input, _mail);
+    }
+}

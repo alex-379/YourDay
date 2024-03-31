@@ -75,14 +75,6 @@ button:active {
             }
 }
 
-@font-face {
-    <link rel="preconnect" href="https://fonts.googleapis.com"> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap" rel="stylesheet">
-}
-
-@font-face {
-    <link rel="preconnect" href="https://fonts.googleapis.com"> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
-}
-
 .footer {
     display: flex;
     flex-direction: row;
@@ -304,7 +296,7 @@ h1 {
     color: #FFFEFF;
 }
 
-.conteiner-for-text {
+.container-for-text {
     display: flex;
     flex-direction: column;
 }
