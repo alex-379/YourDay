@@ -51,9 +51,9 @@ namespace YourDay.BLL.Services
             return orders;
         }
 
-        public List<OrderNameDateOutputModel> ShowAllCompletedOrdersForCard(IEnumerable<OrderNameDateOutputModel> orders)
+        public List<OrderNameDateOutputModel> ShowAllCompletedAndCanselledOrdersForCard(IEnumerable<OrderNameDateOutputModel> orders)
         {
-            List<OrderNameDateOutputModel> completedOrders = orders.Where(o => o.Status == StatusUI.Completed).ToList();
+            List<OrderNameDateOutputModel> completedOrders = orders.Where(o => o.Status == StatusUI.Completed || o.Status == StatusUI.Canselled).ToList();
 
             return completedOrders;
         }

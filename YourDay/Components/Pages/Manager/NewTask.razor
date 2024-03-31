@@ -3,17 +3,14 @@
 @attribute [StreamRendering]
 @rendermode InteractiveServer
 @inject NavigationManager NavigationManager
-
+@* 
 <Component SendName="name=>Name=name"></Component>
 
- @code
- {
-    public string Name { get; set; }
- }
+
 
 @if (Name != RoleUI.Manager.ToString())
 {
-   @*  <ReturnToStart></ReturnToStart> *@
+   @*  <ReturnToStart></ReturnToStart> 
     <div>
         NAMEEEEEEEEEE  @Name
     </div>
@@ -22,18 +19,21 @@
 else
 {
     <p>менеджер</p>
-}
+} *@
+
+ @code
+ {
+    public string Name { get; set; }
+ }
 
 
 
-
-@*  
-@if (Name != RoleUI.Manager.ToString())
+@* @if (Name != RoleUI.Manager.ToString())
 {
     <ReturnToStart></ReturnToStart>
 }
 else
-{
+{ *@
     <section>
         <div class="back">
             <section>
@@ -81,7 +81,7 @@ else
         </div>
     </section>
 
-}
+@* } *@
 
 @code {
 

@@ -29,7 +29,7 @@
 
     private void GetCompletedOrders123()
     {
-        _completedOrders = _orderService.ShowAllCompletedOrdersForCard(_orders);
+        _completedOrders = _orderService.ShowAllCompletedAndCanselledOrdersForCard(_orders);
         isClick = true;
     }
 } 
@@ -95,7 +95,7 @@
 
     private void GetCompletedOrders123()
     {
-        _completedOrders = _orderService.ShowAllCompletedOrdersForCard(_orders);
+        _completedOrders = _orderService.ShowAllCompletedAndCanselledOrdersForCard(_orders);
         isClick = true;
     }
 
