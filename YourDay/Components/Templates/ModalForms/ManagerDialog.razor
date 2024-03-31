@@ -18,7 +18,8 @@
 </dialog>
 
 @code {
-    private int selectedClientId;
+    [Parameter]
+    public int SelectedClientId { get; set; }
 
     private IUserService _userService;
 
@@ -29,6 +30,6 @@
 
     private void DeleteUser()
     {
-        _userService.DeleteUser(selectedClientId);
+        _userService.DeleteUser(SelectedClientId);
     }
 }
