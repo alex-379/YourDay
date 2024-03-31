@@ -28,5 +28,13 @@ namespace YourDay.DAL.Repositories
 
             return order;
         }
+
+        public OrderDto UpdateOrder(OrderDto order)
+        {
+            context.Orders.Update(order);
+            context.SaveChanges();
+
+            return order;
+        }
     }
 }

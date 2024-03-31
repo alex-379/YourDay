@@ -49,29 +49,5 @@ namespace YourDay.DAL.Repositories
                 .Where(u => u.IsDeleted == false).ToList();
             return users;
         }
-
-        //public void DeleteByManager(int id)
-        //{
-        //    UserDto user = context.Users.Where(c => c.Id == id).Single();
-        //    if (user.Role == Role.Worker || user.Role == Role.Client)
-        //    {
-        //        user.IsDeleted = true;
-        //        context.Users.Update(user);
-        //    }
-        //    context.SaveChanges();
-        //}
-
-        //public void AddManagerIdToOrder(int managerId, int orderId)
-        //{
-        //    UserDto manager = context.Users.Where(user => user.Id == managerId).Single();
-        //    OrderDto orderToAddManager = context.Orders.Where(order => order.Id == orderId).Single();
-
-        //    orderToAddManager.Manager = manager;
-
-        //    context.Orders.Update(orderToAddManager);
-
-        //    context.SaveChanges();
-        //}
-
     }
 }

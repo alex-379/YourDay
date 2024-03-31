@@ -14,7 +14,5 @@ namespace YourDay.DAL.IRepositories
         public UserDto UpdateUser(UserDto user);
 
         public IEnumerable<UserDto> GetAllUsersByRole(Role role);
-
-        //public void AddManagerIdToOrder(int managerId, int orderId);
     }
 }

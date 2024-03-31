@@ -9,5 +9,7 @@ namespace YourDay.DAL.IRepositories
         public List<OrderDto> GetAllOrders();
 
         public OrderDto GetOrderById(int id);
+
+        public OrderDto UpdateOrder(OrderDto order);
     }
 }
