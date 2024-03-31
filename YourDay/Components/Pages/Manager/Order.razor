@@ -2,6 +2,7 @@
 @attribute [StreamRendering]
 @rendermode InteractiveServer
 @inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
 
 @if (returnRole != RoleUI.Manager.ToString())
 {
@@ -78,6 +79,15 @@ else
 
         </dialog>
 
+        <dialog id="task" aria-labelledby="heading">
+            <h2 id="heading">Изменить статус: &#128054 </h2>
+            
+            <form method="dialog">
+                <button> Закрыть</button>
+            </form>
+
+        </dialog>
+
         <dialog id="manager" aria-labelledby="heading">
             <div class="manager-reassign-container">
                 <div>Назначить менеджера на заказ:</div>
@@ -99,13 +109,13 @@ else
         </dialog>
 
 
-
+        <ManagerDialogForTaskModalForm SelectedTaskId=selectedtaskId></ManagerDialogForTaskModalForm>
         <section>
             <h2 class="manager-h1"> Задачи:</h2>
             <div class="container-task">
                 @foreach (var i in task)
                 {
-                    <button class="task-button"><TaskManagerCard taskcCard=i> </TaskManagerCard> </button>
+                    <button @onclick="() => ShowModal(i.Id)" class="worker-button"><TaskManagerCard taskcCard="i" OnOpenModal="ShowModal"> </TaskManagerCard> </button>
                 }
             </div>
         </section>
@@ -156,6 +166,7 @@ else
     private IManagerService _managerService;
     public int selectedManagerId;
     public bool isSameManagerSelected = true;
+    private int selectedtaskId;
 
     public Order()
     {
@@ -171,6 +182,15 @@ else
         IEnumerable<TaskOutputModelWithSpecialization> task = new List<TaskOutputModelWithSpecialization>();
 
         status = StatusUI.Completed;
+    }
+
+     private async Task ShowModal(int taskId)
+    {
+        selectedtaskId = taskId;
+
+        await JSRuntime.InvokeVoidAsync("user.showModal");
+
+        StateHasChanged();
     }
 
     public void UpdateStatus()
