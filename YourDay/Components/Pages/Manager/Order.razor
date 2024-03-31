@@ -147,6 +147,7 @@ else
             OrderOutput.CountPeople = orderOutput.CountPeople;
             OrderOutput.Price = orderOutput.Price;
             OrderOutput.Manager = orderOutput.Manager;
+            OrderOutput.Client = orderOutput.Client;
             selectedManagerId = orderOutput.Manager.Id;
 
             _managers = _managerService.GetAllManagers();

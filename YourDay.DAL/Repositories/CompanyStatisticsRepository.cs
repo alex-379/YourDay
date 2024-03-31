@@ -13,6 +13,7 @@ namespace YourDay.DAL.Repositories
             List<TaskDto> tasksWithOrdersAndManagers = context.Tasks
                  .Include(task => task.Order)
                  .Include(task => task.Order.Manager)
+                 .Include(task => task.Order.Client)
                  .ToList();
 
            return tasksWithOrdersAndManagers;
