@@ -34,15 +34,18 @@ else
                 </tbody>
             </table>
         </section>
-        <div>
-            <select onchange="@ManagerSelection">
-                @foreach (ManagerNameAndPhoneOutputModel outputModel in _managers)
-                {
-                    <option value="@outputModel.Id">@outputModel.Name</option>
-                }
-            </select>
+        <div class="manager-reassign-container">
+            <div>Назначить менеджера на заказ:</div>
             <div>
-                <button onclick="@AddManagerToOrder">ОК</button>
+                <select onchange="@ManagerSelection" value="@selectedManagerId">
+                    @foreach (ManagerNameAndPhoneOutputModel outputModel in _managers)
+                    {
+                        <option value="@outputModel.Id">@outputModel.Name</option>
+                    }
+                </select>
+            </div>
+            <div>
+                <button onclick="@AddManagerToOrder" disabled="@isSameManagerSelected">Назначить</button>
             </div>
         </div>
 
@@ -114,9 +117,8 @@ else
 
 
     private IManagerService _managerService;
-    public int managerId;
-
-
+    public int selectedManagerId;
+    public bool isSameManagerSelected = true;
 
     public Order()
     {
@@ -144,6 +146,8 @@ else
             OrderOutput.Address = orderOutput.Address;
             OrderOutput.CountPeople = orderOutput.CountPeople;
             OrderOutput.Price = orderOutput.Price;
+            OrderOutput.Manager = orderOutput.Manager;
+            selectedManagerId = orderOutput.Manager.Id;
 
             _managers = _managerService.GetAllManagers();
 
@@ -165,13 +169,13 @@ else
     }
     public void ManagerSelection(ChangeEventArgs e)
     {
-        managerId = int.Parse(e.Value.ToString());
+        selectedManagerId = int.Parse(e.Value.ToString());
 
-        //_managerService.AddManagerIdToOrder(managerId,Id);
+        isSameManagerSelected = selectedManagerId == OrderOutput.Manager.Id;
     }
     public void AddManagerToOrder()
     {
-        _managerService.AddManagerIdToOrder(managerId, Id);
+        _managerService.AddManagerIdToOrder(selectedManagerId, Id);
     }
 }
     

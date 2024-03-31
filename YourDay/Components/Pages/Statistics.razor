@@ -30,7 +30,7 @@ else
                     @foreach (Column column in Columns)
                     {
                         <td>
-                            @typeof(CompanyStatisticOutputModel).GetProperty(column.Field).GetValue(_statistics)
+                            @typeof(CompanyStatisticOutputModel).GetProperty(column.Field).GetValue(outputModel)
                         </td>
                     }
                 </tr>
@@ -70,23 +70,37 @@ else
     protected override async Task OnInitializedAsync()
     {
         await GetClaims().ConfigureAwait(false);
-        if (returnRole == RoleUI.Worker.ToString())
+        if (returnRole == RoleUI.Manager.ToString())
         {
             Columns = new List<Column>();
 
             Columns.AddRange(
                 new Column[]
                 {
+                    new Column()
+                {
+                    Field="IdManager",
+                    LayoutHeader="Индификатор менеджера"
+                },
                 new Column()
                 {
                     Field="NameManager",
                     LayoutHeader="Имя менеджера"
                 },
-
+                new Column()
+                {
+                    Field="IdOrder",
+                    LayoutHeader="Индификатор заказа"
+                },
                 new Column()
                 {
                     Field="TitleOrder",
                     LayoutHeader="Название заказа"
+                },
+                new Column()
+                {
+                    Field="IdTask",
+                    LayoutHeader="Индификатор задачи"
                 },
                 new Column()
                 {
