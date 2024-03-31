@@ -1,0 +1,59 @@
+﻿@page "/e"
+
+@rendermode InteractiveServer
+@attribute [StreamRendering]
+
+@using System.ComponentModel.DataAnnotations
+
+<EditForm EditContext="context" FormName="Form" OnValidSubmit="Add" @* OnInvalidSubmit="NoAdd" *@>
+    <DataAnnotationsValidator />
+    <InputText @bind-Value="@student.FirstName"></InputText>
+    <ValidationMessage For="@(() => student.FirstName)" />
+
+    <button type="submit">Submit</button>
+</EditForm>
+
+@if (i== 1)
+    {
+     <p>Приём</p>   
+    }
+
+@if (i == 0)
+{
+    <p>НЕ Приём</p>
+}
+
+@code {
+    private int i = 2;
+
+    private Student student = new Student();
+    private EditContext context;
+
+    protected override void OnInitialized()
+    {
+        context = new EditContext(student);
+        base.OnInitializedAsync();
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+            context.Validate();
+    }
+
+    public class Student
+    {
+        [Required(ErrorMessage = "First Name is required")]
+        public string FirstName { get; set; }
+    }
+
+    public void Add()
+    {
+        i = 1;
+    }
+
+    public void NoAdd()
+    {
+        i = 0;
+    }
+}

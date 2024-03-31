@@ -1,0 +1,35 @@
+﻿<dialog id="user" aria-labelledby="heading">
+    <h2 id="heading">Что вы хотите сделать? &#128056 </h2>
+
+    <form method="dialog">
+        <button>
+            Полная информация
+        </button>
+        <button>
+            Изменить
+        </button>
+        <button @onclick="DeleteUser">
+            Удалить
+        </button>
+        <button>
+            Закрыть
+        </button>
+    </form>
+</dialog>
+
+@code {
+    [Parameter]
+    public int SelectedClientId { get; set; }
+
+    private IUserService _userService;
+
+    public ManagerDialogModalForm()
+    {
+        _userService = new UserService();
+    }
+
+    private void DeleteUser()
+    {
+        _userService.DeleteUser(SelectedClientId);
+    }
+}

@@ -1,0 +1,66 @@
+﻿<button type="button" class="btn btn-primary" @onclick="GetCompletedOrders">
+    История
+</button>
+<button type="button" class="btn btn-primary" @onclick="GetCurrentOrders">
+    Заказы
+</button>
+
+<div class="manager-container">
+    <section>
+        <div class="manager-blok">
+            @if (isClick == false)
+            {
+                <h2 class="manager-h1"> Наши заказы:</h2>
+                <div class="manager-button-container">
+                    @foreach (var i in _orders)
+                    {
+                        <button class="order-button"> <OrderCard order=i> </OrderCard> </button>
+                    }
+                </div>
+            }
+            else
+            {
+                <h2 class="manager-h1"> Прошлые заказы:</h2>
+                <div class="manager-button-container">
+                    @foreach (var i in _completedOrders)
+                    {
+                        <button class="order-button"> <OrderCard order=i> </OrderCard> </button>
+                    }
+                </div>
+            }
+        </div>
+    </section>
+</div>
+
+@code {
+    private bool isClick;
+
+    private IEnumerable<OrderNameDateOutputModel> _orders;
+
+    private IEnumerable<OrderNameDateOutputModel> _completedOrders;
+
+    private OrderService _orderService;
+
+    public ManagerHome()
+    {
+        _orderService = new OrderService();
+        _orders = Enumerable.Empty<OrderNameDateOutputModel>();
+        _completedOrders = Enumerable.Empty<OrderNameDateOutputModel>();
+    }
+
+    protected override void OnInitialized()
+    {
+        _orders = _orderService.GetAllOrdersForCard();
+    }
+
+    private void GetCompletedOrders()
+    {
+        _completedOrders = _orderService.ShowAllCompletedOrdersForCard(_orders);
+        isClick = true;
+    }
+
+    private void GetCurrentOrders()
+    {
+        isClick = false;
+    }
+}

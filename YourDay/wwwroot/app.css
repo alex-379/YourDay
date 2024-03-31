@@ -1,3 +1,79 @@
+/*ШАПКА СТРАНИЦЫ */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    .navbar .menu ul {
+        display: flex;
+        list-style: none;
+    }
+
+    .navbar .menu-yellow ul {
+        display: flex;
+        list-style: none;
+    }
+
+    .navbar .menu ul li {
+        margin: 20px 20px;
+    }
+
+    .navbar .menu-yellow ul li {
+        margin: 20px 20px;
+    }
+
+    .navbar .menu ul a {
+        color: #FFFEFF;
+    }
+
+    .navbar .menu-yellow ul a {
+        color: #FDD551
+    }
+
+
+.button-container {
+    display: flex;
+    height: 70px;
+}
+
+.yellow {
+    color: #FDD551
+}
+
+
+.button-quest:hover {
+    color: #fff;
+    background: #000;
+    padding: 1.2rem 2rem;
+    cursor: pointer;
+    user-select: none;
+    border: none;
+    outline: none;
+    transition: background 9999999s;
+}
+
+button:active {
+    background-color: #FDD551;
+    transition: background 0s;
+}
+
+
+
+@media screen and (max-width: 500px) {
+    .navbar {
+        flex-direction: column;
+    }
+
+        .navbar .menu ul {
+            flex-direction: column;
+            align-self: center;
+        }
+
+            .navbar .menu ul li {
+                margin: 5px;
+            }
+}
 
 @font-face {
     <link rel="preconnect" href="https://fonts.googleapis.com"> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap" rel="stylesheet">
@@ -184,7 +260,7 @@ h1 {
     margin: 20px auto;
 }
 
-.manager-button-contaiber {
+.manager-button-container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

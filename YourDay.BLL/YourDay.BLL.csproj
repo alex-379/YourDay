@@ -24,4 +24,8 @@
     <ProjectReference Include="..\YourDay.DAL\YourDay.DAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\ManagerModels\InputModels\" />
+  </ItemGroup>
+
 </Project>

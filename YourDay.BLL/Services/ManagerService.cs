@@ -11,12 +11,14 @@ namespace YourDay.BLL.Services
 {
     public class ManagerService : IManagerService
     {
-        private readonly IUserRepository _managerRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IOrderRepository _orderRepository;
         private readonly Mapper _mapper;
        
         public ManagerService()
         {
-            _managerRepository = new UserRepository();
+            _userRepository = new UserRepository();
+            _orderRepository = new OrderRepository();
 
             var config = new MapperConfiguration(cfg =>
             {
@@ -28,14 +30,17 @@ namespace YourDay.BLL.Services
 
         public List<ManagerNameAndPhoneOutputModel> GetAllManagers()
         {
-            List<UserDto> usersDtoManager = _managerRepository.GetAllUsersByRole(Role.Manager).ToList();
+            List<UserDto> usersDtoManager = _userRepository.GetAllUsersByRole(Role.Manager).ToList();
             List<ManagerNameAndPhoneOutputModel> managers = _mapper.Map<List<ManagerNameAndPhoneOutputModel>>(usersDtoManager);
 
             return managers;
         }
         public void AddManagerIdToOrder(int managerId, int orderId)
         {
-            _managerRepository.AddManagerIdToOrder(managerId, orderId);
+            UserDto manager = _userRepository.GetUserById(managerId);
+            OrderDto order = _orderRepository.GetOrderById(orderId);
+            order.Manager = manager;
+            _orderRepository.UpdateOrder(order);
         }
     }
 }

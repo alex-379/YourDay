@@ -6,8 +6,10 @@ namespace YourDay.DAL.IRepositories
     {
         public OrderDto AddOrder(OrderDto order);
 
-        public List<OrderDto> GetAllOrders();
+        public IEnumerable<OrderDto> GetAllOrders();
 
         public OrderDto GetOrderById(int id);
+
+        public OrderDto UpdateOrder(OrderDto order);
     }
 }

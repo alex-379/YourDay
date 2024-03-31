@@ -1,0 +1,36 @@
+﻿<header class="navbar">
+    <div>
+        <NavLink href="/"><img src="/images/logo.png" alt=""></NavLink>
+    </div>
+    <nav class="menu-yellow">
+        <ul>
+            <li>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#orderNew">
+                    Создать заказ
+                </button>
+            </li>
+            <li><NavLink href="/applications">Заявки</NavLink></li>
+            <li><NavLink href="/manager-statistics">Статистика</NavLink></li>
+            <li><NavLink href="/clients">Клиенты</NavLink></li>
+            <li><RefreshNavLink></RefreshNavLink></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="modal fade" id="orderNew" tabindex="-1" aria-hidden="true">
+    <OrderModalForm AddOrder="AddOrder" />
+</div>
+
+@code {
+    private IOrderService _orderService;
+
+    public ManagerNavMenu()
+    {
+        _orderService = new OrderService();
+    }
+
+    public void AddOrder(OrderForManagerInputModel input)
+    {
+        var u = _orderService.AddOrder(input);
+    }
+}

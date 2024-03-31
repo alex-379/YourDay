@@ -1,7 +1,9 @@
 ﻿@page "/applications"
 @rendermode InteractiveServer
 
-@if (returnRole != RoleUI.Manager.ToString() )
+<GetClaims SendIsCompleted="b=>_isCompleted=b" SendRole="p=>_role=p"></GetClaims>
+
+@if (_isCompleted && _role != RoleUI.Manager.ToString())
 {
     <ReturnToStart></ReturnToStart>
 }
@@ -27,7 +29,7 @@ else
     <section>
         <div class="manager-blok">
             <h2 class="manager-h1"> Наши заявки:</h2>
-            <div class="manager-button-contaiber">
+            <div class="manager-button-container">
                 @foreach (var s in tasks)
                 {
                     <button class="order-button" onclick="window.application.showModal()"> @s </button>
@@ -38,29 +40,9 @@ else
 }
 
 @code {
+    private string? _role;
+
+    private bool _isCompleted;
+
     List<string> tasks = new List<string>() { "День рождения", "Выпускной", "Просто хотим праздник", "GaguaygsJHGU hd" };
-
-    [CascadingParameter]
-    public Task<AuthenticationState> State { get; set; }
-
-    private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
-
-    private string returnRole;
-
-    protected override async Task OnInitializedAsync()
-    {
-        await GetClaims().ConfigureAwait(false);
-    }
-
-    private async Task GetClaims()
-    {
-        var authState = await State;
-        var user = authState.User;
-
-        if (user.Identity is not null && user.Identity.IsAuthenticated)
-        {
-            claims = user.Claims;
-            returnRole = claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).Single();
-        }
-    }
-}
+} 

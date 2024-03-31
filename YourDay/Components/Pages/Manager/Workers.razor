@@ -1,90 +1,74 @@
 ﻿@page "/workers"
-@using YourDay.DAL.Enums;
 @attribute [StreamRendering]
 @rendermode InteractiveServer
-@inject NavigationManager NavigationManager
 @inject IJSRuntime JSRuntime
+
+<GetClaims SendIsCompleted="b=>_isCompleted=b" SendRole="p=>_role=p"></GetClaims>
+
+@if (_isCompleted && _role != RoleUI.Manager.ToString())
+{
+    <ReturnToStart></ReturnToStart>
+}
+else
+{
+    <div class="body">
+        <ManagerDialog></ManagerDialog>
+
+        <section>
+            <h2 class="manager-h1"> Сотрудники:</h2>
+            <div class="container-task">
+                <button class="order-button" data-bs-toggle="modal" data-bs-target="#registrationForManager"> + </button>
+                @foreach (var i in _workers)
+                {
+                    <button @onclick="() => ShowModal(i.Id)" class="worker-button"> <WorkerCard worker="i" OnOpenModal="ShowModal"> </WorkerCard> </button>
+                }
+            </div>
+        </section>
+    </div>
+
+    <div class="modal fade" id="registrationForManager" tabindex="-1" aria-hidden="true">
+        <RegistrationForManagerModalForm AddUser="AddWorker" />
+    </div>
+}
 
 @code
 {
+    private string? _role;
+
+    private bool _isCompleted;
+
     private UserService _userService;
 
     private IEnumerable<UserSpecializationOutputModel> _workers;
 
-    public Role b;
-
     private int selectedWorkerId;
 
-    public Workers(){
-
-        Role role = new Role();
-
-        role = Role.Worker;
-
+    public Workers()
+    {
         UserService _userService = new UserService();
-
-        _workers = _userService.GetAllUsersSpecializationByRole(role);
     }
 
     protected override void OnInitialized()
     {
-      //что здесь писать 
+        _workers = _userService.GetAllUsersSpecializationByRole(RoleUI.Worker);
+    }
+
+    public void AddWorker(UserRegistrationForManagerInputModel input)
+    {
+        var u = _userService.AddWorkerForManager(input);
+    }
+
+    private void DeleteUser()
+    {
+        _userService.DeleteUser(selectedWorkerId);
     }
 
     private async Task ShowModal(int workerId)
     {
         selectedWorkerId = workerId;
 
-        await JSRuntime.InvokeVoidAsync("worker.showModal");
+        await JSRuntime.InvokeVoidAsync("user.showModal");
 
         StateHasChanged();
     }
-
-    private void DeleteWorker()
-    {
-        UserService _userService = new UserService();
-
-        _userService.DeleteByManager(selectedWorkerId);
-    }
-
-    private void NavigateToPage()
-    {
-        NavigationManager.NavigateTo("/newworker");
-    }
 }
-
-<div class="body">
-    
-    <dialog id="worker" aria-labelledby="heading">
-        <h2 id="heading">Что вы хотите сделать? &#128056 </h2>
-
-        <form method="dialog">
-            <button>
-                Полная информация
-            </button>
-            <button>
-                Изменить
-            </button>
-            <button @onclick="DeleteWorker">
-                Удалить
-            </button>
-            <button>
-                Закрыть
-            </button>
-        </form>
-    </dialog>
-
-    <section>
-        <h2 class="manager-h1"> Сотрудники:</h2>
-        <div class="container-task">
-            <button class="order-button" @onclick="NavigateToPage"> + </button>
-            @foreach (var i in _workers)
-            {
-                <button @onclick="() => ShowModal(i.Id)" class="worker-button"> <WorkerCard worker="i" OnOpenModal="ShowModal"> </WorkerCard> </button>
-            }
-            
-        </div>
-    </section>
-</div>
-
-

@@ -1,202 +1,26 @@
 @page "/"
 @rendermode InteractiveServer
-@inject NavigationManager navManager
-@using YourDay.BLL.Services
+
 <AuthorizeView>
     <NotAuthorized>
-        <section>
-            <div class="blok">
-                <h2 class="h">Добро пожаловать в</h2>
-                <h2 class="h yellow">Твой День!</h2>
-                <input type="submit" class="button" value="Оставить заявку">
-            </div>
-        </section>
-
-        <section>
-            <div class="blok">
-                <h1 class="h yellow" align="center">Немного о Нас</h1>
-
-                <p class="conteiner-for-text">
-                    <big>
-                        Празднование дней рождений, юбилеев и других важных событий в кругу близких людей всегда приятно.
-                        Особенно когда мероприятие грамотно спланировано. Агентство праздников «Твой день» предоставляет полный спектр услуг.
-                        Мы имеем более 10 лет успешного опыта в создании интересных, веселых тематических торжеств, команду профессионалов.
-                        Предоставляем гарантии каждому клиенту.
-                    </big>
-                </p>
-
-                <div class="aligncenter">
-                    <a href="/"><img src="/images/29000411.jpg" alt=""> </a>
-                    <a href="/"><img src="/images/96714381.jpg" alt=""></a>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <section>
-            <footer class="footer">
-                <div class="box-footer">
-                    <p class=".font-weight-bold">Контакты:   пишите нам!</p>
-                </div>
-
-                <div class="box-footer">
-                    <p>E-mail:     <a href="mailto:your.day@something.com">your.day@something.com</a>  </p>
-
-                </div>
-                <div class="box-footer">
-                    <p>Телефон: <a href="8(987)1234567">  8 (987) 123 45 67 </a></p>
-                </div>
-
-
-            </footer>
-        </section>
+        <NotAuthorizedHome></NotAuthorizedHome>
     </NotAuthorized>
 </AuthorizeView>
 
-
 <AuthorizeView Roles=@RoleUI.Client.ToString()>
     <Authorized>
-        <section>
-            <div class="blok">
-                <h2 class="h">Добро пожаловать в</h2>
-                <h2 class="h yellow">Твой День!</h2>
-                <input type="submit" class="button" value="Оставить заявку">
-            </div>
-        </section>
-
-        <section>
-            <div class="blok">
-                <h1 class="h yellow" align="center">Немного о Нас</h1>
-
-                <p class="conteiner-for-text">
-                    <big>
-                        Празднование дней рождений, юбилеев и других важных событий в кругу близких людей всегда приятно.
-                        Особенно когда мероприятие грамотно спланировано. Агентство праздников «Твой день» предоставляет полный спектр услуг.
-                        Мы имеем более 10 лет успешного опыта в создании интересных, веселых тематических торжеств, команду профессионалов.
-                        Предоставляем гарантии каждому клиенту.
-                    </big>
-                </p>
-
-                <div class="aligncenter">
-                    <a href="/"><img src="/images/29000411.jpg" alt=""> </a>
-                    <a href="/"><img src="/images/96714381.jpg" alt=""></a>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <footer class="footer">
-                <div class="box-footer">
-                    <p class=".font-weight-bold">Контакты:   пишите нам!</p>
-                </div>
-
-                <div class="box-footer">
-                    <p>E-mail:<a href="mailto:your.day@something.com">your.day@something.com</a>  </p>
-
-                </div>
-                <div class="box-footer">
-                    <p>Телефон:<a href="8(987)1234567">  8 (987) 123 45 67 </a></p>
-                </div>
-
-
-            </footer>
-        </section>
+        <ClientHome></ClientHome>
     </Authorized>
 </AuthorizeView>
 
 <AuthorizeView Roles=@RoleUI.Manager.ToString()>
     <Authorized>
-        <body>
-            <div class="manager-container">
-                <section class="navbar">
-                    <nav class="menu-yellow">
-                        <ul>
-                            <li><NavLink href="/" @onclick="CountLastCelebrates">История</NavLink></li>
-                        </ul>
-                    </nav>
-                </section>
-
-                <section>
-                    <div class="manager-blok">
-                        <h2 class="manager-h1"> Наши заказы:</h2>
-                        <div class="manager-button-contaiber">
-                            @foreach (var i in _orders)
-                            {
-                                <button class="order-button"> <OrderCard order=i> </OrderCard> </button>
-                            }
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </body>
-
-        <p class="w" role="status"> </p>
+        <ManagerHome></ManagerHome>
     </Authorized>
 </AuthorizeView>
 
 <AuthorizeView Roles=@RoleUI.Worker.ToString()>
     <Authorized>
-        <h2 class="manager-h1">Вы зашли как сотрудник : </h2>
-        <p>Аккаунт @returnAddress</p>
+        <WorkerHome></WorkerHome>
     </Authorized>
 </AuthorizeView>
-
-
-@code {
-    [CascadingParameter]
-    public Task<AuthenticationState> State { get; set; }
-
-    private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
-
-    private string returnAddress;
-
-    private string returnRole;
-
-    List<string> lastCelebrates = new List<string>() { "Юбилей", "8 марта", "Праздник осени", "Рождество" };
-
-    private int lc = 0;
-
-    private IEnumerable<OrderNameDateOutputModel> _orders;
-
-    private OrderService _orderClient;
-
-    public Home()
-    {
-        _orderClient = new OrderService();
-    }
-
-    protected override async Task OnInitializedAsync()
-    {
-        await GetClaims().ConfigureAwait(false);
-        if (returnRole == "Manager")
-        {
-            _orders = _orderClient.GetAllOrdersForCard();
-        }
-    }
-
-    private async Task GetClaims()
-    {
-        var authState = await State;
-        var user = authState.User;
-
-        if (user.Identity is not null && user.Identity.IsAuthenticated)
-        {
-            claims = user.Claims;
-            returnAddress = claims.Where(c => c.Type == ClaimTypes.Email).Select(c => c.Value).Single();
-            returnRole = claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).Single();
-        }
-    }
-
-    private void CountLastCelebrates()
-    {
-        lc++;
-    }
-
-    private void NavigateToPage()
-    {
-        navManager.NavigateTo("/order");
-    }
-}

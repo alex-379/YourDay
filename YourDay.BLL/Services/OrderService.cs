@@ -1,4 +1,5 @@
 using AutoMapper;
+using YourDay.BLL.Enums;
 using YourDay.BLL.IServices;
 using YourDay.BLL.Models.OrderModels.InputModels;
 using YourDay.BLL.Models.OrderModels.OutputModels;
@@ -26,8 +27,9 @@ namespace YourDay.BLL.Services
 
         public OrderOutputModel AddOrder(OrderForManagerInputModel order)
         {
-            OrderDto orderDtoOutput = _orderRepository.AddOrder(_mapper.Map<OrderDto>(order));
-            OrderOutputModel orderOutput = _mapper.Map<OrderOutputModel>(orderDtoOutput);
+            order.Status = StatusUI.Received;
+            OrderDto orderDtoInput = _orderRepository.AddOrder(_mapper.Map<OrderDto>(order));
+            OrderOutputModel orderOutput = _mapper.Map<OrderOutputModel>(orderDtoInput);
 
             return orderOutput;
         }
@@ -47,6 +49,13 @@ namespace YourDay.BLL.Services
             var orders = _mapper.Map<IEnumerable<OrderNameDateOutputModel>>(orderDtos);
 
             return orders;
+        }
+
+        public List<OrderNameDateOutputModel> ShowAllCompletedOrdersForCard(IEnumerable<OrderNameDateOutputModel> orders)
+        {
+            List<OrderNameDateOutputModel> completedOrders = orders.Where(o => o.Status == StatusUI.Completed).ToList();
+
+            return completedOrders;
         }
 
         public OrderOutputModel GetOrderById(int id)
