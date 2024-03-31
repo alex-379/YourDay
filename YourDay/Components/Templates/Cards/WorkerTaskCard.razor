@@ -22,19 +22,19 @@
         switch (index)
         {
             case 0:
-                statusName = "�������";
+                statusName = StatusUI.Received.GetDisplayName();
 
                 break;
             case 1:
-                statusName = "� ������";
+                statusName = StatusUI.InProgress.GetDisplayName();
 
                 break;
             case 2:
-                statusName = "��������";
+                statusName = StatusUI.Completed.GetDisplayName();
 
                 break;
             case 3:
-                statusName = "��������";
+                statusName = StatusUI.Canselled.GetDisplayName();
 
                 break;
         }
