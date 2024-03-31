@@ -1,4 +1,4 @@
-﻿using YourDay.DAL.Enums;
+﻿using YourDay.BLL.Enums;
 
 namespace YourDay.BLL.Models.OrderModels.OutputModels
 {
@@ -16,6 +16,6 @@ namespace YourDay.BLL.Models.OrderModels.OutputModels
 
         public int Price { get; set; }
 
-        public Status Status { get; set; }
+        public StatusUI Status { get; set; }
     }
 }

@@ -1,0 +1,49 @@
+﻿@page "/registration/{Id:int}"
+@rendermode InteractiveServer
+
+@code
+{
+    [Parameter]
+    public int Id { get; set; }
+
+    [Parameter]
+    public UserOutputModel UserOutput { get; set; }
+
+    private IUserService _userService;
+
+    public UserPage()
+    {
+        _userService = new UserService();
+        UserOutput = new UserOutputModel();
+    }
+
+    protected override void OnInitialized()
+    {
+        UserOutputModel userOutput = _userService.GetUserById(Id);
+        UserOutput.Id = userOutput.Id;
+        UserOutput.UserName = userOutput.UserName;
+        UserOutput.Mail = userOutput.Mail;
+        UserOutput.Phone = userOutput.Phone;
+    }
+}
+
+<section>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Имя</th>
+                <th>e-mail</th>
+                <th>Телефон</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@UserOutput.Id</td>
+                <td>@UserOutput.UserName</td>
+                <td>@UserOutput.Mail</td>
+                <td>@UserOutput.Phone</td>
+            </tr>
+        </tbody>
+    </table>
+</section>

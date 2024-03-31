@@ -7,6 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Blazor.Bootstrap" Version="2.1.0" />
+    <PackageReference Include="Blazorise.Bootstrap" Version="1.5.1" />
+    <PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.5.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -19,6 +22,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\YourDay.BLL\YourDay.BLL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\fonts\" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,6 @@
 using YourDay.DAL.Dtos;
 using YourDay.DAL.IRepositories;
+using YourDay.DAL.Enums;
 
 namespace YourDay.DAL.Repositories
 {
@@ -15,9 +16,9 @@ namespace YourDay.DAL.Repositories
             return order;
         }
 
-        public List<OrderDto> GetAllOrders()
+        public IEnumerable<OrderDto> GetAllOrders()
         {
-            List<OrderDto> orders = context.Orders.ToList();
+            IEnumerable<OrderDto> orders = context.Orders;
 
             return orders;
         }
@@ -25,6 +26,14 @@ namespace YourDay.DAL.Repositories
         public OrderDto GetOrderById(int id)
         {
             OrderDto order = context.Orders.Where(o => o.Id == id).Single();
+
+            return order;
+        }
+
+        public OrderDto UpdateOrder(OrderDto order)
+        {
+            context.Orders.Update(order);
+            context.SaveChanges();
 
             return order;
         }

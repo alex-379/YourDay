@@ -9,6 +9,10 @@ namespace YourDay.BLL.IServices
 
         public IEnumerable<OrderOutputModel> GetAllOrders();
 
+        public IEnumerable<OrderNameDateOutputModel> GetAllOrdersForCard();
+
+        public List<OrderNameDateOutputModel> ShowAllCompletedAndCanselledOrdersForCard(IEnumerable<OrderNameDateOutputModel> orders);
+
         public OrderOutputModel GetOrderById(int id);
 
         public OrderInputModel GetOrderByIdForAddTask(int id);
