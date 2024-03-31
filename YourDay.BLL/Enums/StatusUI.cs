@@ -15,6 +15,6 @@ namespace YourDay.BLL.Enums
         Completed = Status.Completed,
 
         [Display(Name = "Отменён")]
-        Canselled = Status.Cancelled
+        Canselled = Status.Cancelled,
     }
 }

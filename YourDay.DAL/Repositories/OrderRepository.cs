@@ -23,6 +23,13 @@ namespace YourDay.DAL.Repositories
             return orders;
         }
 
+        public IEnumerable<OrderDto> GetAllApplications()
+        {
+            IEnumerable<OrderDto> orders = context.Orders.Where(o=>o.Status==Status.Received).ToList();
+
+            return orders;
+        }
+
         public OrderDto GetOrderById(int id)
         {
             OrderDto order = context.Orders.Where(o => o.Id == id).Single();

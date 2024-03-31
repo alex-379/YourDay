@@ -7,9 +7,13 @@ namespace YourDay.BLL.IServices
     {
         public OrderOutputModel AddOrder(OrderForManagerInputModel order);
 
+        public void AddApplication(ApplicationInputModel application, string userMail);
+
         public IEnumerable<OrderOutputModel> GetAllOrders();
 
         public IEnumerable<OrderNameDateOutputModel> GetAllOrdersForCard();
+
+        public IEnumerable<OrderNameDateOutputModel> GetAllApplications();
 
         public List<OrderNameDateOutputModel> ShowAllCompletedAndCanselledOrdersForCard(IEnumerable<OrderNameDateOutputModel> orders);
 

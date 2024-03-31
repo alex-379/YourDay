@@ -1,5 +1,7 @@
 ﻿@page "/applications"
+@attribute [StreamRendering]
 @rendermode InteractiveServer
+@inject IJSRuntime JSRuntime
 
 <GetClaims SendIsCompleted="b=>_isCompleted=b" SendRole="p=>_role=p"></GetClaims>
 
@@ -9,34 +11,21 @@
 }
 else
 {
-    <section class="text-style">
-        <dialog id="application" aria-labelledby="heading">
-            <h2 id="heading">Что сделать с заявкой?</h2>
-            <form method="dialog">
-                <button>
-                    Закрыть
-                </button>
-                <button>
-                    Архивировать
-                </button>
-                <button>
-                    Создать заказ
-                </button>
-            </form>
-        </dialog>
-    </section>
+    <div class="body">
+        <ManagerDialogForApplicationModalForm SelectedClientId="selectedClientId"></ManagerDialogForApplicationModalForm>
 
-    <section>
-        <div class="manager-blok">
-            <h2 class="manager-h1"> Наши заявки:</h2>
-            <div class="manager-button-container">
-                @foreach (var s in tasks)
-                {
-                    <button class="order-button" onclick="window.application.showModal()"> @s </button>
-                }
+        <section>
+            <div class="manager-blok">
+                <h2 class="manager-h1"> Наши заявки:</h2>
+                <div class="manager-button-container">
+                    @foreach (var i in _orders)
+                    {
+                        <button @onclick="() => ShowModal(i.Id)" class="worker-button"> <OrderCard order="i" OnOpenModal="ShowModal"> </OrderCard> </button>
+                    }
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 }
 
 @code {
@@ -44,5 +33,29 @@ else
 
     private bool _isCompleted;
 
-    List<string> tasks = new List<string>() { "День рождения", "Выпускной", "Просто хотим праздник", "GaguaygsJHGU hd" };
-} 
+    private IOrderService _orderService;
+
+    private IEnumerable<OrderNameDateOutputModel> _orders;
+
+    private int selectedClientId;
+
+    public Application()
+    {
+        _orderService = new OrderService();
+        _orders = Enumerable.Empty<OrderNameDateOutputModel>();
+    }
+
+    protected override void OnInitialized()
+    {
+        _orders = _orderService.GetAllApplications();
+    }
+
+    private async Task ShowModal(int clientId)
+    {
+        selectedClientId = clientId;
+
+        await JSRuntime.InvokeVoidAsync("order.showModal");
+
+        StateHasChanged();
+    }
+}
