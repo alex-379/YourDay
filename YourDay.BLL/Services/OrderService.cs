@@ -4,6 +4,7 @@ using YourDay.BLL.IServices;
 using YourDay.BLL.Models.OrderModels.InputModels;
 using YourDay.BLL.Models.OrderModels.OutputModels;
 using YourDay.DAL.Dtos;
+using YourDay.DAL.Enums;
 using YourDay.DAL.IRepositories;
 using YourDay.DAL.Repositories;
 
@@ -102,6 +103,13 @@ namespace YourDay.BLL.Services
             string? dateString = date?.ToString("dd/MM/yyyy");
 
             return dateString;
+        }
+
+        public void UpdateOrderStatus(int orderId, StatusUI newOrderStatus)
+        {
+            Status orderStatus = _mapper.Map<Status>(newOrderStatus);
+            _orderRepository.UpdateOrderStatus(orderId, orderStatus);
+
         }
     }
 }

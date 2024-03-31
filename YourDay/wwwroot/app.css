@@ -137,6 +137,7 @@ button {
 .purple-button {
     color: #AF8DFE;
     border: none;
+    height: 50px;
 }
 .button {
     background-color: #FFFEFF;
