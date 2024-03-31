@@ -33,6 +33,13 @@ namespace YourDay.DAL.Repositories
             return user;
         }
 
+        public UserDto GetUserByMail(string userMail)
+        {
+            UserDto user = context.Users.Where(u => u.Mail == userMail).Single();
+
+            return user;
+        }
+
         public UserDto UpdateUser(UserDto user)
         {
             context.Users.Update(user);

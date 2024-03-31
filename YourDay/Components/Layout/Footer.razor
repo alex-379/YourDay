@@ -1,1 +1,22 @@
 ﻿
+<AuthorizeView>
+    <NotAuthorized>
+        <FooterTemplate></FooterTemplate>
+    </NotAuthorized>
+</AuthorizeView>
+
+<AuthorizeView Roles="@RoleUI.Client.ToString()">
+    <Authorized>
+        <FooterTemplate></FooterTemplate>
+    </Authorized>
+</AuthorizeView>
+
+<AuthorizeView Roles="@RoleUI.Manager.ToString()">
+    <Authorized>
+    </Authorized>
+</AuthorizeView>
+
+<AuthorizeView Roles="@RoleUI.Worker.ToString()">
+    <Authorized>
+    </Authorized>
+</AuthorizeView>

@@ -5,7 +5,7 @@ namespace YourDay.BLL.Services
 {
     public static class EnumService
     {
-        public static string GetDisplayName(this Enum enumValue)
+        public static string? GetDisplayName(this Enum enumValue)
         {
             return enumValue
                       .GetType()

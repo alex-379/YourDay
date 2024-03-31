@@ -1,4 +1,6 @@
-﻿using YourDay.DAL.Dtos;
+﻿using YourDay.BLL.Models.SpecializationModels.InputModels;
+using YourDay.BLL.Models.UserModels.OutputModels;
+using YourDay.DAL.Dtos;
 using YourDay.DAL.Enums;
 
 namespace YourDay.BLL.Models.TaskModels.OutputModels
@@ -21,6 +23,6 @@ namespace YourDay.BLL.Models.TaskModels.OutputModels
 
         public OrderDto? Order { get; set; }
 
-        public SpecializationDto? Specialization { get; set; }
+        public SpecializationOutputModel? Specialization { get; set; }
     }
 }

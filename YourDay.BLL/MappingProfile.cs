@@ -53,6 +53,8 @@ namespace YourDay.BLL
             CreateMap<OrderDto, OrderNameDateOutputModel>()
                 .ForMember(d => d.Date, opt => opt.MapFrom(s => OrderService.GetDateStringForOrder(s.Date)));
 
+            CreateMap<ApplicationInputModel, HistoryDto>();
+
             CreateMap<TaskInputModel, TaskDto>();
 
             CreateMap<TaskUpdateInputModelAllInfo, TaskDto>();

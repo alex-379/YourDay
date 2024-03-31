@@ -9,6 +9,8 @@ namespace YourDay.DAL.IRepositories
 
         public IEnumerable<OrderDto> GetAllOrders();
 
+        public IEnumerable<OrderDto> GetAllApplications();
+
         public OrderDto GetOrderById(int id);
 
         public OrderDto UpdateOrder(OrderDto order);
