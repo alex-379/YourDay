@@ -34,7 +34,7 @@ else
         <section>
             <h2 class="manager-h1"> Клиенты:</h2>
             <div class="container-task">
-                <button class="order-button" data-bs-toggle="modal" data-bs-target="#registration"> + </button>
+                <button class="order-button" data-bs-toggle="modal" data-bs-target="#registrationForManager"> + </button>
                 @foreach (var i in _clients)
                 {
                     <button @onclick="() => ShowModal(i.Id)" class="worker-button"> <WorkerCard worker="i" OnOpenModal="ShowModal"> </WorkerCard> </button>
@@ -43,7 +43,7 @@ else
         </section>
     </div>
 
-    <div class="modal fade" id="registration" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="registrationForManager" tabindex="-1" aria-hidden="true">
         <RegistrationModalForm AddUser="AddClient" />
     </div>
 }
