@@ -1,7 +1,6 @@
 ﻿@page "/clients"
 @attribute [StreamRendering]
 @rendermode InteractiveServer
-@inject NavigationManager NavigationManager
 @inject IJSRuntime JSRuntime
 
 <GetClaims SendIsCompleted="b=>_isCompleted=b" SendRole="p=>_role=p"></GetClaims>
@@ -13,23 +12,7 @@
 else
 {
     <div class="body">
-        <dialog id="worker" aria-labelledby="heading">
-            <h2 id="heading">Что вы хотите сделать? &#128056 </h2>
-            <form method="dialog">
-                <button>
-                    Полная информация
-                </button>
-                <button>
-                    Изменить
-                </button>
-                <button @onclick="DeleteUser">
-                    Удалить
-                </button>
-                <button>
-                    Закрыть
-                </button>
-            </form>
-        </dialog>
+        <ManagerDialog></ManagerDialog>
 
         <section>
             <h2 class="manager-h1"> Клиенты:</h2>
@@ -71,7 +54,7 @@ else
 
     public void AddClient(UserRegistrationInputModel input)
     {
-        var u = _userService.AddUser(input);
+        var u = _userService.AddClientForManager(input);
     }
 
     private void DeleteUser()
@@ -83,7 +66,7 @@ else
     {
         selectedClientId = clientId;
 
-        await JSRuntime.InvokeVoidAsync("worker.showModal");
+        await JSRuntime.InvokeVoidAsync("user.showModal");
 
         StateHasChanged();
     }
