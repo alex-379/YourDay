@@ -2,7 +2,7 @@
 
 namespace YourDay.BLL.Models.UserModels.InputModels
 {
-    public class UserRegistrationInputModel
+    public class UserRegistrationForManagerInputModel
     {
         [Required(ErrorMessage = "Введите Имя")]
         public string UserName { get; set; }
@@ -13,7 +13,6 @@ namespace YourDay.BLL.Models.UserModels.InputModels
         [Required(ErrorMessage = "Введите телефон")]
         public string Phone { get; set; }
 
-        [Required(ErrorMessage = "Введите пароль")]
         public string Password { get; set; }
 
         public byte[] Hash { get; set; }

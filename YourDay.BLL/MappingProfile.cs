@@ -20,6 +20,8 @@ namespace YourDay.BLL
         {
             CreateMap<UserRegistrationInputModel, UserDto>();
 
+            CreateMap<UserRegistrationForManagerInputModel, UserDto>();
+
             CreateMap<UserDto, UserOutputModel>();
 
             CreateMap<UserDto, UserMailOutputModel>();

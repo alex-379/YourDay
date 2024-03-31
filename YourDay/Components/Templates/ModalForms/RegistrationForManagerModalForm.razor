@@ -1,6 +1,6 @@
 ﻿<div class="modal-dialog">
     <div class="modal-content">
-        <EditForm Model="RegistrationForManagerModel" FormName="RegistrationForManagerModel" OnValidSubmit="Add" OnInvalidSubmit="Add">
+        <EditForm Model="RegistrationForManagerModel" FormName="RegistrationForManagerModel" OnValidSubmit="Add">
             <DataAnnotationsValidator />
             <ValidationSummary />
             <div class="modal-body">
@@ -23,9 +23,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <input type="button" value="Регистрация" />
-                <button type="submit" value="Регистрация2" />
-                <button type="submit" class="purple-button" data-backdrop="static">Регистрация</button>
+                <button type="submit" class="purple-button">Регистрация</button>
                 <button type="button" class="purple-button" data-bs-dismiss="modal">Отмена</button>
             </div>
         </EditForm>
@@ -34,19 +32,20 @@
 
 @code {
     [SupplyParameterFromForm(FormName = "RegistrationForManagerModel")]
-    public UserRegistrationInputModel RegistrationForManagerModel { get; set; }
+    public UserRegistrationForManagerInputModel RegistrationForManagerModel { get; set; }
 
     [Parameter]
-    public Action<UserRegistrationInputModel> AddUser { get; set; }
+    public Action<UserRegistrationForManagerInputModel> AddUser { get; set; }
 
     public RegistrationForManagerModalForm()
     {
-        RegistrationForManagerModel = new UserRegistrationInputModel();
+        RegistrationForManagerModel = new UserRegistrationForManagerInputModel();
     }
 
     private void Add()
     {
-        RegistrationForManagerModel.Mail.ToLower();
+        RegistrationForManagerModel.UserName = RegistrationForManagerModel.UserName.ToLower();
+        RegistrationForManagerModel.Mail = RegistrationForManagerModel.Mail.ToLower();
         AddUser(RegistrationForManagerModel);
     }
 }

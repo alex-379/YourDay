@@ -53,7 +53,7 @@ namespace YourDay.BLL.Services
 
         public List<OrderNameDateOutputModel> ShowAllCompletedOrdersForCard(IEnumerable<OrderNameDateOutputModel> orders)
         {
-            List<OrderNameDateOutputModel> completedOrders = orders.Where(o => o.Status == (Status)StatusUI.Completed).ToList();
+            List<OrderNameDateOutputModel> completedOrders = orders.Where(o => o.Status == StatusUI.Completed).ToList();
 
             return completedOrders;
         }

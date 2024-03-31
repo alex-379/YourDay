@@ -28,9 +28,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <input type="button" value="Регистрация" />
-                <button type="submit" value="Регистрация2" />
-                <button type="submit" class="purple-button" data-backdrop="static">Регистрация</button>
+                <button type="submit" class="purple-button">Регистрация</button>
                 <button type="button" class="purple-button" data-bs-dismiss="modal">Отмена</button>
             </div>
         </EditForm>
@@ -51,7 +49,8 @@
 
     private void Add()
     {
-        RegistrationModel.Mail.ToLower();
+        RegistrationModel.UserName = RegistrationModel.UserName.ToLower();
+        RegistrationModel.Mail = RegistrationModel.Mail.ToLower();
         AddUser(RegistrationModel);
     }
 }

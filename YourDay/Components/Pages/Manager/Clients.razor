@@ -12,7 +12,7 @@
 else
 {
     <div class="body">
-        <ManagerDialog SelectedClientId=selectedClientId></ManagerDialog>
+        <ManagerDialogModalForm SelectedClientId=selectedClientId></ManagerDialogModalForm>
 
         <section>
             <h2 class="manager-h1"> Клиенты:</h2>
@@ -27,7 +27,7 @@ else
     </div>
 
     <div class="modal fade" id="registrationForManager" tabindex="-1" aria-hidden="true">
-        <RegistrationModalForm AddUser="AddClient" />
+        <RegistrationForManagerModalForm AddUser="AddClient" />
     </div>
 }
 
@@ -53,7 +53,7 @@ else
         _clients = _userService.GetAllUsersSpecializationByRole(RoleUI.Client);
     }
 
-    private void AddClient(UserRegistrationInputModel input)
+    private void AddClient(UserRegistrationForManagerInputModel input)
     {
         _userService.AddClientForManager(input);
     }

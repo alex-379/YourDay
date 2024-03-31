@@ -27,7 +27,7 @@ else
     </div>
 
     <div class="modal fade" id="registrationForManager" tabindex="-1" aria-hidden="true">
-        <RegistrationModalForm AddUser="AddWorker" />
+        <RegistrationForManagerModalForm AddUser="AddWorker" />
     </div>
 }
 
@@ -53,7 +53,7 @@ else
         _workers = _userService.GetAllUsersSpecializationByRole(RoleUI.Worker);
     }
 
-    public void AddWorker(UserRegistrationInputModel input)
+    public void AddWorker(UserRegistrationForManagerInputModel input)
     {
         var u = _userService.AddWorkerForManager(input);
     }

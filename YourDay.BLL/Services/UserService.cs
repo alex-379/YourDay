@@ -39,18 +39,23 @@ namespace YourDay.BLL.Services
             return userOutput;
         }
 
-        public UserOutputModel AddClientForManager(UserRegistrationInputModel client)
+        public UserOutputModel AddClientForManager(UserRegistrationForManagerInputModel client)
         {
             client.Password = PasswordService.GetRandomPassword();
-            UserOutputModel clientOutput = this.AddUser(client);
+            this.GetSaltHashForManager(client);
+            UserDto userDtoInput = _mapper.Map<UserDto>(client);
+            this.SetRole(userDtoInput, Role.Client);
+            this.SetIsUndeleted(userDtoInput);
+            UserDto userDtoOutput = _userRepository.AddUser(userDtoInput);
+            UserOutputModel userOutput = _mapper.Map<UserOutputModel>(userDtoOutput);
 
-            return clientOutput;
+            return userOutput;
         }
 
-        public UserOutputModel AddWorkerForManager(UserRegistrationInputModel worker)
+        public UserOutputModel AddWorkerForManager(UserRegistrationForManagerInputModel worker)
         {
             worker.Password = PasswordService.GetRandomPassword();
-            this.GetSaltHash(worker);
+            this.GetSaltHashForManager(worker);
             UserDto userDtoInput = _mapper.Map<UserDto>(worker);
             this.SetRole(userDtoInput, Role.Worker);
             this.SetIsUndeleted(userDtoInput);
@@ -60,10 +65,10 @@ namespace YourDay.BLL.Services
             return userOutput;
         }
 
-        public UserOutputModel AddManager(UserRegistrationInputModel manager)
+        public UserOutputModel AddManager(UserRegistrationForManagerInputModel manager)
         {
             manager.Password = PasswordService.GetRandomPassword();
-            this.GetSaltHash(manager);
+            this.GetSaltHashForManager(manager);
             UserDto userDtoInput = _mapper.Map<UserDto>(manager);
             this.SetRole(userDtoInput, Role.Manager);
             this.SetIsUndeleted(userDtoInput);
@@ -162,6 +167,14 @@ namespace YourDay.BLL.Services
         }
 
         private UserRegistrationInputModel GetSaltHash(UserRegistrationInputModel user)
+        {
+            user.Salt = PasswordService.GetSalt();
+            user.Hash = PasswordService.GetHash(user.Password, user.Salt);
+
+            return user;
+        }
+
+        private UserRegistrationForManagerInputModel GetSaltHashForManager(UserRegistrationForManagerInputModel user)
         {
             user.Salt = PasswordService.GetSalt();
             user.Hash = PasswordService.GetHash(user.Password, user.Salt);

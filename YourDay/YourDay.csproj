@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Components\Templates\ModalForms\RegistrationForManagerModalForm.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -23,10 +19,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\YourDay.BLL\YourDay.BLL.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Components\Templates\ModalForms\RegistrationForManagerModalForm.razor" />
   </ItemGroup>
 
 </Project>
