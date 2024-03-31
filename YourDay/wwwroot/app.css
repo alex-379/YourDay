@@ -260,7 +260,7 @@ h1 {
     margin: 20px auto;
 }
 
-.manager-button-contaiber {
+.manager-button-container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

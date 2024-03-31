@@ -1,8 +1,10 @@
 using AutoMapper;
+using YourDay.BLL.Enums;
 using YourDay.BLL.IServices;
 using YourDay.BLL.Models.OrderModels.InputModels;
 using YourDay.BLL.Models.OrderModels.OutputModels;
 using YourDay.DAL.Dtos;
+using YourDay.DAL.Enums;
 using YourDay.DAL.Repositories;
 
 namespace YourDay.BLL.Services
@@ -47,6 +49,13 @@ namespace YourDay.BLL.Services
             var orders = _mapper.Map<IEnumerable<OrderNameDateOutputModel>>(orderDtos);
 
             return orders;
+        }
+
+        public List<OrderNameDateOutputModel> ShowAllCompletedOrdersForCard(IEnumerable<OrderNameDateOutputModel> orders)
+        {
+            List<OrderNameDateOutputModel> completedOrders = orders.Where(o => o.Status == (Status)StatusUI.Completed).ToList();
+
+            return completedOrders;
         }
 
         public OrderOutputModel GetOrderById(int id)

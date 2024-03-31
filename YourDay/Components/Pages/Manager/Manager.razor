@@ -11,13 +11,13 @@
 
     private IEnumerable<OrderNameDateOutputModel> _orders;
 
-    private OrderService _orderClient;
+    private OrderService _orderService;
 
     public Manager()
     {
-        _orderClient = new OrderService();
+        _orderService = new OrderService();
 
-        _orders = _orderClient.GetAllOrdersForCard();
+        _orders = _orderService.GetAllOrdersForCard();
     }  
 
     private void CountLastCelebrates()
@@ -72,7 +72,7 @@ workers
         <section>
             <div class="manager-blok">
                 <h2 class="manager-h1"> Наши заказы:</h2>
-                <div class="manager-button-contaiber">
+                <div class="manager-button-container">
                     @foreach (var i in _orders)
                     {
                         <button class="order-button"> <OrderCard order=i> </OrderCard> </button>

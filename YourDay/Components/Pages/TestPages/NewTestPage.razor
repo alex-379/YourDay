@@ -1,55 +1,106 @@
-﻿@page "/1"
+﻿@page "/man"
 @rendermode InteractiveServer
 @attribute [StreamRendering]
-@using YourDay.Components.Pages.TestPages
 
-<Component SendName="name=>Name=name"></Component>
+<button type="button" class="btn btn-primary" @onclick="GetCompletedOrders123" CausesValidation="False">
+    История
+</button>
 
+@code {
+    private bool isClick;
 
-@if (Name != RoleUI.Manager.ToString())
-{
-    @*  <ReturnToStart></ReturnToStart> *@
-    <div>
-        NAMEEEEEEEEEE  @Name
+    private IEnumerable<OrderNameDateOutputModel> _orders;
+
+    private IEnumerable<OrderNameDateOutputModel> _completedOrders;
+
+    private OrderService _orderService;
+
+    public NewTestPage()
+    {
+        _orderService = new OrderService();
+        _orders = Enumerable.Empty<OrderNameDateOutputModel>();
+        _completedOrders = Enumerable.Empty<OrderNameDateOutputModel>();
+    }
+
+    protected override void OnInitialized()
+    {
+        _orders = _orderService.GetAllOrdersForCard();
+    }
+
+    private void GetCompletedOrders123()
+    {
+        _completedOrders = _orderService.ShowAllCompletedOrdersForCard(_orders);
+        isClick = true;
+    }
+} 
+ 
+@* <button type="button" class="btn btn-primary" @onclick="GetCompletedOrders123" CausesValidation="False">
+    История
+</button>
+
+<body>
+
+    @*     <button type="button" class="btn btn-primary" @onclick="GetCurrentOrders">
+    Заказы
+    </button> 
+
+    <div class="manager-container">
+        <section>
+            <div class="manager-blok">
+                @if (isClick == false)
+                {
+                    <h2 class="manager-h1"> Наши заказы:</h2>
+                    <div class="manager-button-container">
+                        @foreach (var i in _orders)
+                        {
+                            <button class="order-button"> <OrderCard order=i> </OrderCard> </button>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <h2 class="manager-h1"> Прошлые заказы:</h2>
+                    <div class="manager-button-container">
+                        @foreach (var i in _completedOrders)
+                        {
+                            <button class="order-button"> <OrderCard order=i> </OrderCard> </button>
+                        }
+                    </div>
+                }
+            </div>
+        </section>
     </div>
-
-}
-else
-{
-    <p>менеджер</p>
-}
-
-
+</body>
 
 @code {
-    public string Name { get; set; }
-}
+    private bool isClick;
 
-@code {
-    [CascadingParameter]
-    public Task<AuthenticationState> State { get; set; }
+    private IEnumerable<OrderNameDateOutputModel> _orders;
 
-    private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
+    private IEnumerable<OrderNameDateOutputModel> _completedOrders;
 
-    private string returnAddress;
+    private OrderService _orderService;
 
-    private string returnRole;
-
-    protected override async Task OnInitializedAsync()
+    public NewTestPage()
     {
-        await GetClaims().ConfigureAwait(false);
+        _orderService = new OrderService();
+        _orders = Enumerable.Empty<OrderNameDateOutputModel>();
+        _completedOrders = Enumerable.Empty<OrderNameDateOutputModel>();
     }
 
-    private async Task GetClaims()
+    protected override void OnInitialized()
     {
-        var authState = await State;
-        var user = authState.User;
-
-        if (user.Identity is not null && user.Identity.IsAuthenticated)
-        {
-            claims = user.Claims;
-            returnAddress = claims.Where(c => c.Type == ClaimTypes.Email).Select(c => c.Value).Single();
-            returnRole = claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).Single();
-        }
+        _orders = _orderService.GetAllOrdersForCard();
     }
-}
+
+    private void GetCompletedOrders123()
+    {
+        _completedOrders = _orderService.ShowAllCompletedOrdersForCard(_orders);
+        isClick = true;
+    }
+
+    // private void GetCurrentOrders()
+    // {
+    //     isClick = false;
+    // }
+} *@

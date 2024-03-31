@@ -1,4 +1,6 @@
-﻿namespace YourDay.BLL.Models.OrderModels.OutputModels
+﻿using YourDay.DAL.Enums;
+
+namespace YourDay.BLL.Models.OrderModels.OutputModels
 {
     public class OrderNameDateOutputModel
     {
@@ -7,5 +9,7 @@
         public string? OrderName { get; set; }
 
         public string? Date { get; set; }
+
+        public Status Status { get; set; }
     }
 }

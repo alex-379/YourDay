@@ -45,6 +45,7 @@ else
     public Clients()
     {
         _userService = new UserService();
+        _clients = Enumerable.Empty<UserSpecializationOutputModel>();
     }
 
     protected override void OnInitialized()
@@ -54,7 +55,7 @@ else
 
     private void AddClient(UserRegistrationInputModel input)
     {
-        var u = _userService.AddClientForManager(input);
+        _userService.AddClientForManager(input);
     }
 
     private async Task ShowModal(int clientId)

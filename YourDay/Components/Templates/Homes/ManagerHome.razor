@@ -1,52 +1,66 @@
-﻿@inject NavigationManager navManager
-<body>
-    <div class="manager-container">
-        <section class="navbar">
-            <nav class="menu-yellow">
-                <ul>
-                    <li><NavLink href="/" @onclick="CountLastCelebrates">История</NavLink></li>
-                </ul>
-            </nav>
-        </section>
+﻿<button type="button" class="btn btn-primary" @onclick="GetCompletedOrders">
+    История
+</button>
+<button type="button" class="btn btn-primary" @onclick="GetCurrentOrders">
+    Заказы
+</button>
 
-        <section>
-            <div class="manager-blok">
+<div class="manager-container">
+    <section>
+        <div class="manager-blok">
+            @if (isClick == false)
+            {
                 <h2 class="manager-h1"> Наши заказы:</h2>
-                <div class="manager-button-contaiber">
+                <div class="manager-button-container">
                     @foreach (var i in _orders)
                     {
                         <button class="order-button"> <OrderCard order=i> </OrderCard> </button>
                     }
                 </div>
-            </div>
-        </section>
-    </div>
-</body>
-
-<p class="w" role="status"> </p>
+            }
+            else
+            {
+                <h2 class="manager-h1"> Прошлые заказы:</h2>
+                <div class="manager-button-container">
+                    @foreach (var i in _completedOrders)
+                    {
+                        <button class="order-button"> <OrderCard order=i> </OrderCard> </button>
+                    }
+                </div>
+            }
+        </div>
+    </section>
+</div>
 
 @code {
-    List<string> lastCelebrates = new List<string>() { "Юбилей", "8 марта", "Праздник осени", "Рождество" };
-
-    private int lc = 0;
+    private bool isClick;
 
     private IEnumerable<OrderNameDateOutputModel> _orders;
 
-    private OrderService _orderClient;
+    private IEnumerable<OrderNameDateOutputModel> _completedOrders;
+
+    private OrderService _orderService;
 
     public ManagerHome()
     {
-        _orderClient = new OrderService();
-        _orders = _orderClient.GetAllOrdersForCard();
+        _orderService = new OrderService();
+        _orders = Enumerable.Empty<OrderNameDateOutputModel>();
+        _completedOrders = Enumerable.Empty<OrderNameDateOutputModel>();
     }
 
-    private void CountLastCelebrates()
+    protected override void OnInitialized()
     {
-        lc++;
+        _orders = _orderService.GetAllOrdersForCard();
     }
 
-    private void NavigateToPage()
+    private void GetCompletedOrders()
     {
-        navManager.NavigateTo("/order");
+        _completedOrders = _orderService.ShowAllCompletedOrdersForCard(_orders);
+        isClick = true;
+    }
+
+    private void GetCurrentOrders()
+    {
+        isClick = false;
     }
 }
