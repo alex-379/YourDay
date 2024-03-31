@@ -1,6 +1,7 @@
 using YourDay.DAL.Dtos;
 using YourDay.DAL.IRepositories;
 using YourDay.DAL.Enums;
+using Microsoft.EntityFrameworkCore;
 
 namespace YourDay.DAL.Repositories
 {
@@ -32,7 +33,8 @@ namespace YourDay.DAL.Repositories
 
         public OrderDto GetOrderById(int id)
         {
-            OrderDto order = context.Orders.Where(o => o.Id == id).Single();
+            OrderDto order = context.Orders.Where(o => o.Id == id)
+                .Include(order => order.Manager).Single();
 
             return order;
         }
