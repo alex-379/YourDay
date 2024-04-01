@@ -2,15 +2,13 @@
     display: flex;
     justify-content: space-between;
 }
-.box {
+
+.box-footer {
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-around;
 }
+
 p {
     font-size: 20px;
 }
-
-    
-
-
