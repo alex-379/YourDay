@@ -47,6 +47,7 @@ namespace YourDay.BLL.Services
         public async Task<IEnumerable<OrderNameDateOutputModel>> GetAllOrdersForCard()
         {
             var orderDtos = await _orderRepository.GetAllOrdersWithManager();
+
             var orders = _mapper.Map<IEnumerable<OrderNameDateOutputModel>>(orderDtos);
 
             return orders;
@@ -91,13 +92,6 @@ namespace YourDay.BLL.Services
             OrderOutputModel orderOutput = _mapper.Map<OrderOutputModel>(orderDtoInput);
 
             return orderOutput;
-        }
-
-        public string? GetDateStringForOrder(DateTime? date)
-        {
-            string? dateString = date?.ToString("dd/MM/yyyy");
-
-            return dateString;
         }
     }
 }

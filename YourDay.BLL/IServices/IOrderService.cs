@@ -21,7 +21,5 @@ namespace YourDay.BLL.IServices
         public Task<OrderInputModel> GetOrderByIdForAddTask(int id);
 
         public Task<OrderOutputModel> UpdateOrderStatus(int orderId, StatusUI newOrderStatus);
-
-        public string? GetDateStringForOrder(DateTime? date);
     }
 }

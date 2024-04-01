@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using YourDay.BLL.IServices;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using YourDay.BLL.Models.CompanyModels.OutputModels;
 using YourDay.BLL.Models.HistoryModels.OutputModels;
 using YourDay.BLL.Models.ManagerModels.OutputModel;
@@ -11,19 +11,16 @@ using YourDay.BLL.Models.TaskModels.InputModels;
 using YourDay.BLL.Models.TaskModels.OutputModels;
 using YourDay.BLL.Models.UserModels.InputModels;
 using YourDay.BLL.Models.UserModels.OutputModels;
-using YourDay.BLL.Services;
+using YourDay.BLL.Mappers;
 using YourDay.DAL.Dtos;
 
 namespace YourDay.BLL
 {
     public class MappingProfile : Profile
     {
-        private IOrderService _orderService;
         public MappingProfile()
         {
-            _orderService = new OrderService();
-
-            CreateMap<UserRegistrationInputModel, UserDto>();
+            CreateMap<Task<UserRegistrationInputModel>, Task<UserDto>>();
 
             CreateMap<UserRegistrationForManagerInputModel, UserDto>();
 
@@ -43,8 +40,7 @@ namespace YourDay.BLL
             CreateMap<OrderDto, OrderOutputModel>();
 
             CreateMap<OrderDto, OrderNameDateOutputModel>()
-                .ForMember(d => d.Date, opt => opt.MapFrom(s => _orderService.GetDateStringForOrder(s.Date)));
-
+                .ForMember<string>(outputModel => outputModel.Date, date => date.MapFrom(orderDto => orderDto.Date != null ? orderDto.Date.Value.ToString("yyyy-MM-dd") : null));
             CreateMap<OrderInputModel, OrderDto>();
 
             CreateMap<ApplicationInputModel, HistoryDto>();
