@@ -8,54 +8,70 @@ namespace YourDay.DAL.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private readonly Context context = SingletoneStorage.GetStorage().Сontext;
-
         public async Task<UserDto> AddUser(UserDto user)
         {
-            context.Users.Add(user);
-            await context.SaveChangesAsync();
+            using (Context context = new Context())
+            {
+                context.Users.Add(user);
+                await context.SaveChangesAsync();
 
-            return user;
+                return user;
+            }
         }
 
         public async Task<IEnumerable<UserDto>> GetAllUsers()
         {
-            var users = await context.Users.AsQueryable().Where(u => u.IsDeleted != true).ToListAsync();
+            using (Context context = new Context())
+            {
+                var users = await context.Users.AsQueryable().Where(u => u.IsDeleted != true).ToListAsync();
 
-            return users;
+                return users;
+            }
         }
 
         public async Task<UserDto> GetUserById(int userId)
         {
-            UserDto user = await context.Users.AsQueryable().Where(u => u.Id == userId).SingleAsync();
+            using (Context context = new Context())
+            {
+                UserDto user = await context.Users.AsQueryable().Where(u => u.Id == userId).SingleAsync();
 
-            return user;
+                return user;
+            }
         }
 
         public async Task<UserDto> GetUserByMail(string userMail)
         {
-            UserDto user = await context.Users.AsQueryable().Where(u => u.Mail == userMail).SingleAsync();
+            using (Context context = new Context())
+            {
+                UserDto user = await context.Users.AsQueryable().Where(u => u.Mail == userMail).SingleAsync();
 
-            return user;
+                return user;
+            }
         }
 
         public async Task<UserDto> UpdateUser(UserDto user)
         {
-            context.Users.Update(user);
-            await context.SaveChangesAsync();
+            using (Context context = new Context())
+            {
+                context.Users.Update(user);
+                await context.SaveChangesAsync();
 
-            return user;
+                return user;
+            }
         }
 
         public async Task<IEnumerable<UserDto>> GetAllUsersByRole(Role role)
         {
-            var users = await context.Users
-                .AsQueryable()
-                .Include(c => c.Specializations)
-                .Where(u => u.Role == role)
-                .Where(u => u.IsDeleted == false).ToListAsync();
+            using (Context context = new Context())
+            {
+                var users = await context.Users
+                    .AsQueryable()
+                    .Include(c => c.Specializations)
+                    .Where(u => u.Role == role)
+                    .Where(u => u.IsDeleted == false).ToListAsync();
 
-            return users;
+                return users;
+            }
         }
     }
 }

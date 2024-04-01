@@ -1,41 +1,39 @@
-﻿    <div style="display: flex;">
-        <div>В период :</div>
-        <div style="display: flex;">
-            <div class="container-for-text" style="width: 190px;">
-                <input class="field" type="datetime" id="StartDateFrom" @bind="@dateFrom" placeholder="dd/mm/yyyy">
-            </div>
-            <div class="container-for-text" style="width: 190px;">
-                <input class="field" type="datetime" id="EndDateTo" @bind="dateTo" placeholder="dd/mm/yyyy">
-            </div>
+﻿<div style="display: flex;">
+    <div>В период :</div>
+    <div style="display: flex;">
+        <div class="container-for-text" style="width: 190px;">
+            <input class="field" type="datetime" id="StartDateFrom" @bind="@dateFrom" placeholder="dd/mm/yyyy">
+        </div>
+        <div class="container-for-text" style="width: 190px;">
+            <input class="field" type="datetime" id="EndDateTo" @bind="dateTo" placeholder="dd/mm/yyyy">
         </div>
     </div>
+</div>
 
-    <div style="display: flex;width: 190px;">
-        <div>Со статусом :</div>
-        <form>
-            <select @bind="@status">
-                <option value="0">@_enumService.GetDisplayName(StatusUI.Received)</option>
-                <option value="1">@_enumService.GetDisplayName(StatusUI.InProgress)</option>
-                <option value="2">@_enumService.GetDisplayName(StatusUI.Completed)</option>
-                <option value="3">@_enumService.GetDisplayName(StatusUI.Canselled)</option>
-            </select>
-        </form>
+<div style="display: flex;width: 190px;">
+    <div>Со статусом :</div>
+    <form>
+        <select @bind="@status">
+            <option value="0">@_enumService.GetDisplayName(StatusUI.Received)</option>
+            <option value="1">@_enumService.GetDisplayName(StatusUI.InProgress)</option>
+            <option value="2">@_enumService.GetDisplayName(StatusUI.Completed)</option>
+            <option value="3">@_enumService.GetDisplayName(StatusUI.Canselled)</option>
+        </select>
+    </form>
+</div>
+
+<div class="button-quest">
+    <button @onclick="TaskFilter">Поиск</button>
+</div>
+
+@if (_isCompletedTask)
+{
+    <div class="container-task">
+        @foreach (TaskOutputModelAllInfo task in _tasks)
+        {
+            <WorkerTaskCard task="task"></WorkerTaskCard>
+        }
     </div>
-
-    <div class="button-quest">
-        <button @onclick="TaskFilter">Поиск</button>
-    </div>
-
-    @if (_isCompletedTask)
-    {
-        <div class="container-task">
-            @foreach (TaskOutputModelAllInfo task in _tasks)
-            {
-                <WorkerTaskCard task="task"></WorkerTaskCard>
-            }
-        </div>
-    }
-
 }
 
 @code
