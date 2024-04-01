@@ -84,11 +84,11 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        dateFrom = null;
-        dateTo = null;
-        status = null;
-        _tasks = await _workerService.GetAllTasksWithAll();
-        _isCompletedTask = true;
+            dateFrom = null;
+            dateTo = null;
+            status = null;
+            _tasks = await _workerService.GetAllTasksWithAll();
+            _isCompletedTask = true;
     }
 
     public async Task TaskFilter()

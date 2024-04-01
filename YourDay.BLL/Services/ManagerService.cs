@@ -24,6 +24,7 @@ namespace YourDay.BLL.Services
         {
             _userRepository = new UserRepository();
             _orderRepository = new OrderRepository();
+            _taskRepository = new TaskRepository();
 
             var config = new MapperConfiguration(cfg =>
             {
