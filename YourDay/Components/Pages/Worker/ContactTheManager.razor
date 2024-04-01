@@ -45,7 +45,7 @@ else
 
     private bool _isCompleted;
 
-    private Tables _table; 
+    private Tables _table;
 
     private IEnumerable<ManagerNameAndPhoneOutputModel> _models;
 
@@ -60,8 +60,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-            _table.GetTableForPrintManagers();
-
-            _models = await _managers.GetAllManagers();
+        _table.GetTableForPrintManagers();
+        _models = await _managers.GetAllManagers();
     }
 }

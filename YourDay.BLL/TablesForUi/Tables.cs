@@ -26,5 +26,43 @@
                 }
         });
         }
+
+        public void GetTableForStatistics()
+        {
+            Columns.AddRange(
+                    new Column[]
+                    {
+                    new Column()
+                {
+                    Field="IdManager",
+                    LayoutHeader="Индификатор менеджера"
+                },
+                new Column()
+                {
+                    Field="NameManager",
+                    LayoutHeader="Имя менеджера"
+                },
+                new Column()
+                {
+                    Field="IdOrder",
+                    LayoutHeader="Индификатор заказа"
+                },
+                new Column()
+                {
+                    Field="TitleOrder",
+                    LayoutHeader="Название заказа"
+                },
+                new Column()
+                {
+                    Field="IdTask",
+                    LayoutHeader="Индификатор задачи"
+                },
+                new Column()
+                {
+                    Field="TitleTask",
+                    LayoutHeader="название задачи"
+                }
+                    });
+        }
     }
 }

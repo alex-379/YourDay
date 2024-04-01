@@ -18,7 +18,7 @@ else
 
     <table>
         <thead>
-            @foreach (Column column in Columns)
+            @foreach (Column column in _table.Columns)
             {
             <th>
                     @column.LayoutHeader
@@ -29,7 +29,7 @@ else
             @foreach (CompanyStatisticOutputModel outputModel in _model)
             {
                 <tr>
-                    @foreach (Column column in Columns)
+                    @foreach (Column column in _table.Columns)
                     {
                         <td>
                             @typeof(CompanyStatisticOutputModel).GetProperty(column.Field).GetValue(outputModel)
@@ -46,67 +46,22 @@ else
 
     private bool _isCompleted;
 
+    private Tables _table;
+
     private IEnumerable<CompanyStatisticOutputModel> _model;
 
     private IManagerService _statistics;
-
-    private List<Column> Columns { get; set; }
-
-    class Column
-    {
-        public string Field { get; set; }
-        public string LayoutHeader { get; set; }
-    }
 
     public Statistics()
     {
         _model = new List<CompanyStatisticOutputModel>();
         _statistics = new ManagerService();
-        Columns = new List<Column>();
+        _table = new Tables();
     }
 
     protected override async Task OnInitializedAsync()
     {
-        {
-            Columns = new List<Column>();
-
-            Columns.AddRange(
-                new Column[]
-                {
-                    new Column()
-                {
-                    Field="IdManager",
-                    LayoutHeader="Индификатор менеджера"
-                },
-                new Column()
-                {
-                    Field="NameManager",
-                    LayoutHeader="Имя менеджера"
-                },
-                new Column()
-                {
-                    Field="IdOrder",
-                    LayoutHeader="Индификатор заказа"
-                },
-                new Column()
-                {
-                    Field="TitleOrder",
-                    LayoutHeader="Название заказа"
-                },
-                new Column()
-                {
-                    Field="IdTask",
-                    LayoutHeader="Индификатор задачи"
-                },
-                new Column()
-                {
-                    Field="TitleTask",
-                    LayoutHeader="название задачи"
-                }
-
-                });
-
-            _model = await _statistics.GetAllTaskOfOrderOfTheirManager();
-        }
+        _table.GetTableForStatistics();
+        _model = await _statistics.GetAllTaskOfOrderOfTheirManager();
     }
 }
