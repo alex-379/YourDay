@@ -17,7 +17,7 @@ else
         <section>
             <div class="manager-blok">
                 <h2 class="manager-h1"> Наши заявки:</h2>
-                <div class="manager-button-container">
+                <div @* class="manager-button-container" *@>
                     @foreach (var i in _orders)
                     {
                         <button @onclick="() => ShowModal(i.Id)" class="worker-button"> <OrderCard order="i" OnOpenModal="ShowModal"> </OrderCard> </button>
