@@ -15,7 +15,12 @@
     [Parameter]
     public TaskOutputModelAllInfo task { get; set; }
 
-    private GetDisplayName _name;
+    private IEnumService _enumService;
+
+    public WorkerTaskCard()
+    {
+        _enumService = new EnumService();
+    }
 
     public string getStatusNameByIndex(int index)
     {
@@ -24,19 +29,19 @@
         switch (index)
         {
             case 0:
-                statusName = StatusUI.Received.GetDisplayName();
+                statusName = _enumService.GetDisplayName(StatusUI.Received);
 
                 break;
             case 1:
-                statusName = StatusUI.InProgress.GetDisplayName();
+                statusName = _enumService.GetDisplayName(StatusUI.InProgress);
 
                 break;
             case 2:
-                statusName = StatusUI.Completed.GetDisplayName();
+                statusName = _enumService.GetDisplayName(StatusUI.Completed);
 
                 break;
             case 3:
-                statusName = StatusUI.Canselled.GetDisplayName();
+                statusName = _enumService.GetDisplayName(StatusUI.Canselled);
 
                 break;
         }
