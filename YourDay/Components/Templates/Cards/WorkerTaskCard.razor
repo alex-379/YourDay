@@ -1,16 +1,18 @@
 <div class="container-buttons">
     <a href="./taskWorker/task/@task.Id">
 
-    <div class="taskWorker-card">
-        <p>@task.Title </p>
-        <p>@task.Specialization</p>
+        <div class="taskWorker-card">
+            <p>@task.Title </p>
+            @if (task.Specialization !=null)
+            {
+                <p>@task.Specialization.Name</p>
+            }
             <p>@task.TimeStart.ToShortTimeString() - @task.TimeEnd.ToShortTimeString()</p>
-       @*  <p>@getStatusNameByIndex(task.Status)</p> *@
-        <p>@task.TimeStart - @task.TimeEnd</p>
-        <p>@getStatusNameByIndex((int)task.Status)</p>
-    </div>
-</a>
- </div>
+            <p>@task.TimeStart - @task.TimeEnd</p>
+            <p>@getStatusNameByIndex((int)task.Status)</p>
+        </div>
+    </a>
+</div>
 @code {
     [Parameter]
     public TaskOutputModelAllInfo task { get; set; }

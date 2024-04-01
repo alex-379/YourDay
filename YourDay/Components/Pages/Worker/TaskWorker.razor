@@ -4,7 +4,7 @@
 
 <GetClaims SendIsCompleted="b=>_isCompleted=b" SendRole="p=>_role=p"></GetClaims>
 
-@if (_isCompleted && _role != RoleUI.Manager.ToString())
+@if (_isCompleted && _role != RoleUI.Worker.ToString())
 {
     <ReturnToStart></ReturnToStart>
 }
@@ -27,11 +27,10 @@ else
         <form>
             <select @bind="@status">
                 <option value="0">@_enumService.GetDisplayName(StatusUI.Received)</option>
-                <option value="1">@_enumService.GetDisplayName(StatusUI.Received)</option>
-                <option value="2">@_enumService.GetDisplayName(StatusUI.Received)</option>
-                <option value="3">@_enumService.GetDisplayName(StatusUI.Received)</option>
+                <option value="1">@_enumService.GetDisplayName(StatusUI.InProgress)</option>
+                <option value="2">@_enumService.GetDisplayName(StatusUI.Completed)</option>
+                <option value="3">@_enumService.GetDisplayName(StatusUI.Canselled)</option>
             </select>
-
         </form>
     </div>
 
@@ -39,12 +38,16 @@ else
         <button @onclick="TaskFilter">Поиск</button>
     </div>
 
-    <div class="container-task">
-        @foreach (TaskOutputModelAllInfo task in _tasks)
-        {
-            <WorkerTaskCard task="task"></WorkerTaskCard>
-        }
-    </div>
+    @if (_isCompletedTask)
+    {
+        <div class="container-task">
+            @foreach (TaskOutputModelAllInfo task in _tasks)
+            {
+                <WorkerTaskCard task="task"></WorkerTaskCard>
+            }
+        </div>
+    }
+
 }
 
 @code 
@@ -52,6 +55,8 @@ else
     private string? _role;
 
     private bool _isCompleted;
+
+    private bool _isCompletedTask;
 
     private IEnumerable<TaskOutputModelAllInfo> _tasks;
 
@@ -79,13 +84,11 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        if (_role == RoleUI.Worker.ToString())
-        {
-            dateFrom = null;
-            dateTo = null;
-            status = null;
-            _tasks = await _workerService.GetAllTasksWithAll();
-        }
+        dateFrom = null;
+        dateTo = null;
+        status = null;
+        _tasks = await _workerService.GetAllTasksWithAll();
+        _isCompletedTask = true;
     }
 
     public async Task TaskFilter()

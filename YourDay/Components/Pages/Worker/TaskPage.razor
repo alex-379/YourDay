@@ -3,7 +3,7 @@
 
 <GetClaims SendIsCompleted="b=>_isCompleted=b" SendRole="p=>_role=p"></GetClaims>
 
-@if (_isCompleted && _role != RoleUI.Manager.ToString())
+@if (_isCompleted && _role != RoleUI.Worker.ToString())
 {
     <ReturnToStart></ReturnToStart>
 }

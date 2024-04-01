@@ -3,7 +3,7 @@
 
 <GetClaims SendIsCompleted="b=>_isCompleted=b" SendRole="p=>_role=p"></GetClaims>
 
-@if (_isCompleted && _role != RoleUI.Manager.ToString())
+@if (_isCompleted && _role != RoleUI.Worker.ToString())
 {
     <ReturnToStart></ReturnToStart>
 }
@@ -57,13 +57,6 @@ else
         public string LayoutHeader { get; set; }
     }
 
-    [CascadingParameter]
-    public Task<AuthenticationState> State { get; set; }
-
-    private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
-
-    private string returnRole;
-
     public ContactTheManager()
     {
         _models = new List<ManagerNameAndPhoneOutputModel>();
@@ -73,7 +66,6 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        if (_role == RoleUI.Worker.ToString())
         {
             Columns = new List<Column>();
 
