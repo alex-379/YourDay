@@ -25,7 +25,7 @@ namespace YourDay.BLL.Services
             _mapper = new Mapper(config);
         }
 
-         public List<CompanyStatisticOutputModel> GetAllTaskOfOrderOfTheirManager()
+        public List<CompanyStatisticOutputModel> GetAllTaskOfOrderOfTheirManager()
         {
             List<TaskDto> tasks = _statisticsRepository.GetAllTaskOfOrderOfTheirManager();
             List<CompanyStatisticOutputModel> result = _mapper.Map<List<CompanyStatisticOutputModel>>(tasks);

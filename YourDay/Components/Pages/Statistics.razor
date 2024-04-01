@@ -1,4 +1,5 @@
 ﻿@page "/manager-statistics"
+@using static Microsoft.EntityFrameworkCore.DbLoggerCategory
 @attribute [StreamRendering]
 @inject NavigationManager NavigationWorker
 
@@ -16,7 +17,7 @@ else
 
     <table>
         <thead>
-            @foreach (Column column in Columns)
+            @foreach (ManagerRowsColumn column in ColumnsManager)
             {
             <th>
                     @column.LayoutHeader
@@ -24,15 +25,40 @@ else
             }
         </thead>
         <tbody>
-            @foreach (CompanyStatisticOutputModel outputModel in _model)
+            @foreach (ManagerRow managerRow in orderByManagerGroups)
             {
                 <tr>
-                    @foreach (Column column in Columns)
+                    @foreach (ManagerRowsColumn column in ColumnsManager)
                     {
                         <td>
-                            @typeof(CompanyStatisticOutputModel).GetProperty(column.Field).GetValue(outputModel)
+                            @typeof(ManagerRow).GetProperty(column.Field).GetValue(managerRow)
                         </td>
                     }
+                </tr>
+                <tr>
+                     <table>
+                         <thead>
+                            @foreach (Column column in SubTableColumns)
+                            {
+                                <th >
+                                        @column.LayoutHeader
+                                </th>
+                            }
+                        </thead>
+                        <tbody>
+                            @foreach (OrderSubRow subRow in outputModel.SubRows)
+                            {
+                                <tr >
+                                    @foreach (Column column in SubTableColumns)
+                                    {
+                                        <td >
+                                            @typeof(SubRow).GetProperty(column.Field).GetValue(subRow)
+                                        </td>
+                                    }
+                                </tr>
+                             }
+                        </tbody>
+                    </table>
                 </tr>
             }
         </tbody>
@@ -41,11 +67,21 @@ else
 
 
 @code {
-    private List<CompanyStatisticOutputModel> _model;
+    private List<CompanyStatisticOutputModel> _tasks;
 
     private CompanyStatisticsService _statistics;
 
-    private List<Column> Columns { get; set; }
+    private List<ManagerRowsColumn> ColumnsManager { get; set; }
+
+    private List<OrderRowColumn> ColumnsOrder { get; set; }
+
+    private List<ManagerRow> ManagerRows{ get; set; }
+
+    private List<OrderRow> OrderRows { get; set; }
+
+    private IEnumerable<ManagerRow> orderByManagerGroups { get; set; }
+
+
 
     class Column
     {
@@ -62,9 +98,10 @@ else
 
     public Statistics()
     {
-        _model = new List<CompanyStatisticOutputModel>();
+        _tasks = new List<CompanyStatisticOutputModel>();
         _statistics = new CompanyStatisticsService();
-        Columns = new List<Column>();
+        ColumnsManager = new List<ManagerRowsColumn>();
+        ColumnsOrder = new List<OrderRowColumn>();
     }
 
     protected override async Task OnInitializedAsync()
@@ -72,55 +109,61 @@ else
         await GetClaims().ConfigureAwait(false);
         if (returnRole == RoleUI.Manager.ToString())
         {
-            Columns = new List<Column>();
+            ColumnsManager = new List<ManagerRowsColumn>();
 
-            Columns.AddRange(
-                new Column[]
+            ColumnsManager.AddRange(
+                new ManagerRowsColumn[]
                 {
-                    new Column()
+                    new ManagerRowsColumn()
                 {
-                    Field="IdManager",
+                    Field="ManagerId",
                     LayoutHeader="Индификатор менеджера"
                 },
-                new Column()
+                new ManagerRowsColumn()
                 {
-                    Field="NameManager",
+                    Field="ManagerName",
                     LayoutHeader="Имя менеджера"
-                },
-                new Column()
-                {
-                    Field="IdOrder",
-                    LayoutHeader="Индификатор заказа"
-                },
-                new Column()
-                {
-                    Field="TitleOrder",
-                    LayoutHeader="Название заказа"
-                },
-                new Column()
-                {
-                    Field="IdTask",
-                    LayoutHeader="Индификатор задачи"
-                },
-                new Column()
-                {
-                    Field="TitleTask",
-                    LayoutHeader="Название задачи"
-                },
-                new Column()
-                {
-                    Field="ClientId",
-                    LayoutHeader="Индификатор клиента"
-                },
-                 new Column()
-                {
-                    Field="NameClient",
-                    LayoutHeader="Имя клиента"
-                },
-
+                }
                 });
 
-            _model = _statistics.GetAllTaskOfOrderOfTheirManager();
+            ColumnsOrder = new List<OrderRowColumn>();
+            ColumnsOrder.AddRange(
+                new OrderRowColumn[]
+                {
+                    new OrderRowColumn()
+                    {
+                        Field = "IdOrder",
+                        LayoutHeader = "Индификатор заказа"
+                    },
+                    new OrderRowColumn()
+                    {
+                        Field = "TitleOrder",
+                        LayoutHeader = "Название заказа"
+                    }
+                });
+            _tasks = _statistics.GetAllTaskOfOrderOfTheirManager();
+
+            orderByManagerGroups = _tasks
+                .GroupBy(task => task.IdManager)
+                .Select((tasksGroupByManager) => {
+                    CompanyStatisticOutputModel? currentTask = _tasks.Find((taskFromOutputModel) => taskFromOutputModel.IdManager == tasksGroupByManager.Key);
+
+                    IEnumerable<IGrouping<int, TaskRow>> TasksByOrder = tasksGroupByManager
+                                .Select(taskFromOutputModel => new TaskRow()
+                                {
+                                    OrderId = taskFromOutputModel.IdOrder,
+                                    ManagerId = taskFromOutputModel.IdManager,
+                                    TaskName = taskFromOutputModel.TitleTask
+                                })
+                                .GroupBy(task => task.OrderId);
+
+                    return new ManagerRow()
+                    {
+                        ManagerId = tasksGroupByManager.Key,
+                        ManagerName = currentTask?.NameManager,
+                        TasksByOrder = TasksByOrder
+                    };
+                });
         }
     }
     private async Task GetClaims()
