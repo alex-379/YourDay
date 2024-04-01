@@ -1,7 +1,8 @@
 using AutoMapper;
 using YourDay.BLL.IServices;
 using YourDay.BLL.Models.ManagerModels.OutputModel;
-using YourDay.BLL.Models.UserModels.OutputModels;
+using YourDay.BLL.Models.OrderModels.OutputModels;
+using YourDay.DAL;
 using YourDay.DAL.Dtos;
 using YourDay.DAL.Enums;
 using YourDay.DAL.IRepositories;
@@ -14,7 +15,7 @@ namespace YourDay.BLL.Services
         private readonly IUserRepository _userRepository;
         private readonly IOrderRepository _orderRepository;
         private readonly Mapper _mapper;
-       
+
         public ManagerService()
         {
             _userRepository = new UserRepository();
@@ -28,19 +29,26 @@ namespace YourDay.BLL.Services
             _mapper = new Mapper(config);
         }
 
-        public List<ManagerNameAndPhoneOutputModel> GetAllManagers()
+        public async Task<IEnumerable<ManagerNameAndPhoneOutputModel>> GetAllManagers()
         {
-            List<UserDto> usersDtoManager = _userRepository.GetAllUsersByRole(Role.Manager).ToList();
-            List<ManagerNameAndPhoneOutputModel> managers = _mapper.Map<List<ManagerNameAndPhoneOutputModel>>(usersDtoManager);
+            var usersDtoManager = await _userRepository.GetAllUsersByRole(Role.Manager);
+            var managers = _mapper.Map<IEnumerable<ManagerNameAndPhoneOutputModel>>(usersDtoManager);
 
             return managers;
         }
-        public void AddManagerIdToOrder(int managerId, int orderId)
+        public async Task<OrderOutputModel> AddManagerIdToOrder(int managerId, int orderId)
         {
-            UserDto manager = _userRepository.GetUserById(managerId);
-            OrderDto order = _orderRepository.GetOrderById(orderId);
+            UserDto manager = await _userRepository.GetUserById(managerId);
+            OrderDto order = await _orderRepository.GetOrderById(orderId);
             order.Manager = manager;
             _orderRepository.UpdateOrder(order);
+        }
+
+        public async Task<OrderOutputModel> AddTaskManager(TaskDto task, int orderId)
+        {
+            context.Tasks.Add(task);
+            task.Order = orderRepository.GetOrderById(orderId);
+            context.SaveChanges();
         }
     }
 }

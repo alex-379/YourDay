@@ -6,26 +6,26 @@ namespace YourDay.BLL.IServices
 {
     public interface IUserService
     {
-        public UserOutputModel AddUser(UserRegistrationInputModel client);
+        public Task<UserOutputModel> AddUser(UserRegistrationInputModel user);
 
-        public UserOutputModel AddClientForManager(UserRegistrationForManagerInputModel client);
+        public Task<UserOutputModel> AddClientForManager(UserRegistrationForManagerInputModel client);
 
-        public UserOutputModel AddWorkerForManager(UserRegistrationForManagerInputModel worker);
+        public Task<UserOutputModel> AddWorkerForManager(UserRegistrationForManagerInputModel worker);
 
-        public UserOutputModel AddManager(UserRegistrationForManagerInputModel manager);
+        public Task<UserOutputModel> AddManager(UserRegistrationForManagerInputModel manager);
 
-        public IEnumerable<UserOutputModel> GetAllUsers();
+        public Task<IEnumerable<UserOutputModel>> GetAllUsers();
 
-        public UserOutputModel GetUserById(int userId);
+        public Task<UserOutputModel> GetUserById(int userId);
 
-        public void DeleteUser(int userId);
+        public Task<UserOutputModel> DeleteUser(int userId);
 
-        public IEnumerable<UserOutputModel> GetAllUsersByRole(RoleUI role);
+        public Task<IEnumerable<UserOutputModel>> GetAllUsersByRole(RoleUI role);
 
-        public IEnumerable<UserSpecializationOutputModel> GetAllUsersSpecializationByRole(RoleUI role);
+        public Task<IEnumerable<UserSpecializationOutputModel>> GetAllUsersSpecializationByRole(RoleUI role);
 
-        public bool ConfirmMail(UserRegistrationInputModel user);
+        public Task<bool> ConfirmMail(UserRegistrationInputModel user);
 
-        public bool ConfirmPassword(UserAutenthicationInputModel user);
+        public Task<bool> ConfirmPassword(UserAutenthicationInputModel user);
     }
 }

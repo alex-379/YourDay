@@ -16,6 +16,7 @@ using YourDay.BLL.Models.OrderModels.OutputModels;
 using YourDay.DAL.IRepositories;
 using YourDay.BLL.Models.UserModels.OutputModels;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using YourDay.DAL;
 
 namespace YourDay.BLL.Services
 {
@@ -128,6 +129,17 @@ namespace YourDay.BLL.Services
             TaskOutputModelAllInfo taskOutput = _mapper.Map<TaskOutputModelAllInfo>(taskDtoOutput);
 
             return taskOutput;
+        }
+        public async Task<TaskDto> UpdateTaskStatus(int taskId, Status newTaskStatus)
+        {
+            TaskDto task = context.Tasks.Single(task => task.Id == taskId);
+
+            if (task != null)
+            {
+                task.Status = newTaskStatus;
+            }
+
+            context.SaveChanges();
         }
 
         public IEnumerable<TaskOutputModelAllInfo> FilterTasks(DateTime? startDate, DateTime? endDate, StatusUI? statusUi)

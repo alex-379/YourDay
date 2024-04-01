@@ -3,6 +3,7 @@ using YourDay.BLL.Enums;
 using YourDay.BLL.IServices;
 using YourDay.BLL.Models.OrderModels.InputModels;
 using YourDay.BLL.Models.OrderModels.OutputModels;
+using YourDay.DAL;
 using YourDay.DAL.Dtos;
 using YourDay.DAL.Enums;
 using YourDay.DAL.IRepositories;
@@ -110,6 +111,18 @@ namespace YourDay.BLL.Services
             Status orderStatus = _mapper.Map<Status>(newOrderStatus);
             _orderRepository.UpdateOrderStatus(orderId, orderStatus);
 
+        }
+
+        public void UpdateOrderStatus(int orderId, Status newOrderStatus)
+        {
+            OrderDto order = context.Orders.Single(order => order.Id == orderId);
+
+            if (order != null)
+            {
+                order.Status = newOrderStatus;
+            }
+
+            context.SaveChanges();
         }
     }
 }

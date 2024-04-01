@@ -4,7 +4,9 @@
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JSRuntime
 
-@if (returnRole != RoleUI.Manager.ToString())
+<GetClaims SendIsCompleted="b=>_isCompleted=b" SendRole="p=>_role=p"></GetClaims>
+
+@if (_isCompleted && _role != RoleUI.Manager.ToString())
 {
     <ReturnToStart></ReturnToStart>
 }
@@ -136,6 +138,10 @@ else
 
 @code
 {
+    private string? _role;
+
+    private bool _isCompleted;
+
     [Parameter]
     public int Id { get; set; }
 
@@ -152,16 +158,9 @@ else
 
     public StatusUI status;
 
-    [CascadingParameter]
-    public Task<AuthenticationState> State { get; set; }
-
     public List<ManagerNameAndPhoneOutputModel> _managers;
 
     private List<TaskOutputModelAllInfo> _tasks;
-
-    private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
-    private string returnRole;
-
 
     private IManagerService _managerService;
     public int selectedManagerId;
@@ -175,6 +174,7 @@ else
         _taskService = new TaskService();
 
         OrderOutput = new OrderOutputModel();
+
         _managerService = new ManagerService();
 
         TaskOutput = new TaskOutputModel();
@@ -205,8 +205,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        await GetClaims().ConfigureAwait(false);
-        if (returnRole == "Manager")
+        if (_role == "Manager")
         {
             OrderOutputModel orderOutput = _orderService.GetOrderById(Id);
             OrderOutput.Id = orderOutput.Id;
@@ -254,19 +253,6 @@ else
         _orderService.UpdateOrderStatus(Id, newStatus);
     }
 
-
-    private async Task GetClaims()
-    {
-        var authState = await State;
-        var user = authState.User;
-
-
-        if (user.Identity is not null && user.Identity.IsAuthenticated)
-        {
-            claims = user.Claims;
-            returnRole = claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).Single();
-        }
-    }
     public void ManagerSelection(ChangeEventArgs e)
     {
         selectedManagerId = int.Parse(e.Value.ToString());
@@ -278,8 +264,3 @@ else
         _managerService.AddManagerIdToOrder(selectedManagerId, Id);
     }
 }
-    
-
-   
-
-    

@@ -1,160 +1,113 @@
 using Microsoft.EntityFrameworkCore;
 using YourDay.DAL.Dtos;
-using YourDay.DAL.IRepositories;
 using YourDay.DAL.Enums;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Threading.Tasks;
+using YourDay.DAL.IRepositories;
 
 namespace YourDay.DAL.Repositories
 {
     public class TaskRepository : ITaskRepository
     {
-        readonly Context context = SingletoneStorage.GetStorage().Сontext;
+        private readonly Context context = SingletoneStorage.GetStorage().Сontext;
+
         public OrderRepository orderRepository = new OrderRepository();
-        public TaskDto AddTask(TaskDto task)
 
+        public async Task<TaskDto> AddTask(TaskDto task)
         {
             context.Tasks.Add(task);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
 
             return task;
         }
 
-        public IEnumerable<TaskDto> GetAllTasksWithOrderWithSpecialization()
+        public async Task<IEnumerable<TaskDto>> GetAllTasksWithOrderWithSpecialization()
         {
-            var tasks = context.Tasks.Include(t=>t.Order).Include(t=>t.Specialization);
+            var tasks = await context.Tasks.AsQueryable().Include(t => t.Order).Include(t => t.Specialization).ToListAsync();
 
             return tasks;
         }
 
-        public List<TaskDto> GetAllTasks()
+        public async Task<IEnumerable<TaskDto>> GetAllTasks()
         {
-            List<TaskDto> tasks = context.Tasks.ToList();
+            var tasks = await context.Tasks.AsQueryable().ToListAsync();
 
             return tasks;
         }
 
-        public TaskDto GetTaskById(int Id)
+        public async Task<TaskDto> GetTaskById(int taskId)
         {
-            TaskDto tasks = context.Tasks.Single(task => task.Id == Id);
+            TaskDto tasks = await context.Tasks.AsQueryable().Where(t => t.Id == taskId).SingleAsync();
 
             return tasks;
         }
 
-        public List<TaskDto> FilterTasks(DateTime? startDate, DateTime? endDate)
+        public async Task<IEnumerable<TaskDto>> FilterTasks(DateTime? startDate, DateTime? endDate)
         {
-            return context.Tasks.Where(task =>
-                (startDate != null ? task.TimeStart >= startDate : true)
-                && (endDate != null ? task.TimeStart <= endDate : true)
-            ).ToList();
+            var filteredTasks = await context.Tasks.AsQueryable().Where(task =>
+               (startDate != null ? task.TimeStart >= startDate : true)
+               && (endDate != null ? task.TimeStart <= endDate : true)
+           ).ToListAsync();
+
+            return filteredTasks;
         }
 
-        //public void AddTaskManager(TaskDto task, int orderId, int taskId)
-        //{
-        //    context.Tasks.Add(task);
-        //    task.Order = orderRepository.GetOrderById(orderId);
-        //    task.Specialization = GetSpecializationById(taskId);
-        //    context.SaveChanges();
-        //}
-
-        //public void AddTaskManager(TaskDto task, int orderId)
-        //{
-        //    context.Tasks.Add(task);
-        //    task.Order = orderRepository.GetOrderById(orderId);
-        //    context.SaveChanges();
-        //}
-        public void AddTaskManager(TaskDto task, int orderId)
+        public async Task<IEnumerable<TaskDto>> GetAllTasksWithAll()
         {
-            context.Tasks.Add(task);
-            task.Order = orderRepository.GetOrderById(orderId);
-            context.SaveChanges();
-        }
-
-        public IEnumerable<TaskDto> GetAllTasksWithAll()
-        {
-            var tasks = context.Tasks.Include(t => t.Order).Include(t => t.Specialization).Include(t => t.Workers);
-
-            return tasks;
-        }
-        public IEnumerable<TaskDto> GetTaskByOrderId(int id)
-        {
-            var tasks = context.Tasks.Where(t => t.Order.Id == id).ToList();
+            var tasks = await context.Tasks.AsQueryable().Include(t => t.Order).Include(t => t.Specialization).Include(t => t.Workers).ToListAsync();
 
             return tasks;
         }
 
-        public TaskDto GetTaskByIdWithAll(int taskId)
+        public async Task<IEnumerable<TaskDto>> GetTaskByOrderId(int orderId)
         {
-            TaskDto task = context.Tasks
+            var tasks = await context.Tasks.AsQueryable().Where(t => t.Order.Id == orderId).ToListAsync();
+
+            return tasks;
+        }
+
+        public async Task<TaskDto> GetTaskByIdWithAll(int taskId)
+        {
+            TaskDto task = await context.Tasks
+                .AsQueryable()
                 .Include(t => t.Order)
                 .Include(t => t.Specialization)
-                .Include(t => t.Workers).Where(t => t.Id == taskId).Single();
-
+                .Include(t => t.Workers).Where(t => t.Id == taskId).SingleAsync();
             return task;
         }
 
-        public IEnumerable<TaskDto> GetTasksByOrderIdWithSpecialization(int orderId)
+        public async Task<IEnumerable<TaskDto>> GetTasksByOrderIdWithSpecialization(int orderId)
         {
-            var tasks = context.Tasks.Include(t => t.Specialization).Where(t => t.Order.Id == orderId);
+            var tasks = await context.Tasks.Include(t => t.Specialization).Where(t => t.Order.Id == orderId).ToListAsync();
 
             return tasks;
         }
 
-        public IEnumerable<TaskDto> GetTasksByWorkerIdWithOrderWithSpecialization(int workerId)
+        public async Task<IEnumerable<TaskDto>> GetTasksByWorkerIdWithOrderWithSpecialization(int workerId)
         {
-            var tasks = context.Tasks
+            var tasks = await context.Tasks
+                .AsQueryable()
                 .Include(t => t.Order)
                 .Include(t => t.Specialization)
-                .Include(t => t.Workers).Where(t => t.Workers.Any(u => u.Id == 9));
+                .Include(t => t.Workers).Where(t => t.Workers.Any(u => u.Id == workerId)).ToListAsync();
 
             return tasks;
         }
 
-        public TaskDto UpdateTask(TaskDto task)
+        public async Task<TaskDto> UpdateTask(TaskDto task)
         {
             context.Tasks.Update(task);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
 
             return task;
         }
 
-        public IEnumerable<TaskDto> FilterTasks(DateTime? startDate, DateTime? endDate, Status? status)
+        public async Task<IEnumerable<TaskDto>> FilterTasks(DateTime? startDate, DateTime? endDate, Status? status)
         {
-            var filterdTasks = context.Tasks.Where(task =>
+            var filterdTasks = await context.Tasks.AsQueryable().Where(task =>
                 (startDate != null ? task.TimeStart >= startDate : true)
                 && (endDate != null ? task.TimeStart <= endDate : true)
-                && (status != null ? task.Status == status : true));
+                && (status != null ? task.Status == status : true)).ToListAsync();
 
             return filterdTasks;
-        }
-
-        
-
-        public SpecializationDto GetSpecializationById(int Id)
-        {
-            SpecializationDto specialization = context.Specializations.Single(specialization => specialization.Id == Id);
-
-            return specialization;
-        }
-
-        public List<TaskDto> GetTaskByMasterId(int id)
-        {
-
-            var tasks = context.Tasks.Where(t => t.Order.Id == id).ToList();
-            return tasks;
-        }
-
-        public void UpdateTaskStatus(int taskId, Status newTaskStatus)
-        {
-            TaskDto task = context.Tasks.Single(task => task.Id == taskId);
-
-            if (task != null)
-            {
-                task.Status = newTaskStatus;
-            }
-
-            context.SaveChanges();
         }
     }
 }
