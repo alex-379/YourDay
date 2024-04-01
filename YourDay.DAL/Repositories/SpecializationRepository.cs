@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using YourDay.DAL.Dtos;
 using YourDay.DAL.IRepositories;
@@ -28,11 +29,15 @@ namespace YourDay.DAL.Repositories
             }
         }
 
-        public IEnumerable<SpecializationDto> GetAllSpecialization()
+        public async Task<SpecializationDto> GetAllSpecialization()
         {
-            IEnumerable<SpecializationDto> specialization = context.Specializations;
+            using (Context context = new Context())
+            {
+                SpecializationDto specialization = await context.Specializations.AsQueryable().SingleAsync();
 
-            return specialization;
+                return specialization;
+            }
+
         }
     }
 }

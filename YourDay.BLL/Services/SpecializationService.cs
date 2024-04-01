@@ -37,20 +37,20 @@ namespace YourDay.BLL.Services
             return specializationOutput;
         }
 
-        public SpecializationTaskInputModel GetSpecializationById(int id)
-        {
-            SpecializationDto specialization = _specializationRepository.GetSpecializationById(id);
-            SpecializationTaskInputModel specializationModel = _mapper.Map<SpecializationTaskInputModel>(specialization);
+        //public SpecializationTaskInputModel GetSpecializationById(int id)
+        //{
+        //    SpecializationDto specialization = _specializationRepository.GetSpecializationById(id);
+        //    SpecializationTaskInputModel specializationModel = _mapper.Map<SpecializationTaskInputModel>(specialization);
 
-            return specializationModel;
-        }
+        //    return specializationModel;
+        //}
 
-        public IEnumerable<SpecializationIdNameOutputModel> GetAllSpecialization()
-        {
-            IEnumerable<SpecializationDto> specializations = _specializationRepository.GetAllSpecialization();
-            IEnumerable<SpecializationIdNameOutputModel> specializationModel = _mapper.Map<IEnumerable<SpecializationIdNameOutputModel>>(specializations);
+        //public IEnumerable<SpecializationIdNameOutputModel> GetAllSpecialization()
+        //{
+        //    IEnumerable<SpecializationDto> specializations = _specializationRepository.GetAllSpecialization();
+        //    IEnumerable<SpecializationIdNameOutputModel> specializationModel = _mapper.Map<IEnumerable<SpecializationIdNameOutputModel>>(specializations);
 
-            return specializationModel;
-        }
+        //    return specializationModel;
+        //}
     }
 }

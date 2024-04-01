@@ -6,11 +6,6 @@ namespace YourDay.DAL.IRepositories
     {
         public Task<SpecializationDto> AddSpecialization(SpecializationDto specialization);
 
-        public SpecializationDto GetSpecializationById(int id);
-
-        public IEnumerable<SpecializationDto> GetAllSpecialization();
-
-
         public Task<SpecializationDto> GetSpecializationById(int id);
     }
 }

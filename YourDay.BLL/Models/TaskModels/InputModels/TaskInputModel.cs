@@ -1,4 +1,4 @@
-using YourDay.DAL.Enums;
+using YourDay.BLL.Enums;
 using YourDay.BLL.Models.UserModels.InputModels;
 using YourDay.BLL.Models.OrderModels.InputModels;
 using YourDay.BLL.Models.SpecializationModels.InputModels;
