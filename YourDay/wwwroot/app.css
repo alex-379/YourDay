@@ -95,6 +95,7 @@ a {
 }
 
 html, body {
+    display: flex;
     min-height: 100vh;
     overflow: auto;
     padding: 0;

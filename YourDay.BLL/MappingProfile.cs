@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using YourDay.BLL.Models.CompanyModels.OutputModels;
 using YourDay.BLL.Models.HistoryModels.OutputModels;
 using YourDay.BLL.Models.ManagerModels.OutputModel;
@@ -11,7 +10,6 @@ using YourDay.BLL.Models.TaskModels.InputModels;
 using YourDay.BLL.Models.TaskModels.OutputModels;
 using YourDay.BLL.Models.UserModels.InputModels;
 using YourDay.BLL.Models.UserModels.OutputModels;
-using YourDay.BLL.Mappers;
 using YourDay.DAL.Dtos;
 
 namespace YourDay.BLL
@@ -20,7 +18,7 @@ namespace YourDay.BLL
     {
         public MappingProfile()
         {
-            CreateMap<Task<UserRegistrationInputModel>, Task<UserDto>>();
+            CreateMap<UserRegistrationInputModel, UserDto>();
 
             CreateMap<UserRegistrationForManagerInputModel, UserDto>();
 
