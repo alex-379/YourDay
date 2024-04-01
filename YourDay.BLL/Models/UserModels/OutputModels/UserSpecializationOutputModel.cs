@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using YourDay.BLL.Models.SpecializationModels.OutputModels;
 
 namespace YourDay.BLL.Models.UserModels.OutputModels
 {
@@ -12,6 +8,6 @@ namespace YourDay.BLL.Models.UserModels.OutputModels
 
         public string UserName { get; set; }
 
-        public IEnumerable<SpecializationOutputModel> Specializations { get; set; }
+        public IEnumerable<SpecializationOnlyNameOutputModel> Specializations { get; set; }
     }
 }

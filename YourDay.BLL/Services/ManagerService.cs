@@ -1,4 +1,5 @@
 using AutoMapper;
+using System.Threading.Tasks;
 using YourDay.BLL.IServices;
 using YourDay.BLL.Models.CompanyModels.OutputModels;
 using YourDay.BLL.Models.ManagerModels.OutputModel;
@@ -18,6 +19,7 @@ namespace YourDay.BLL.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly IOrderRepository _orderRepository;
+        private readonly ITaskRepository _taskRepository;
         private readonly Mapper _mapper;
 
         public ManagerService()
@@ -46,25 +48,38 @@ namespace YourDay.BLL.Services
             UserDto manager = await _userRepository.GetUserById(managerId);
             OrderDto order = await _orderRepository.GetOrderById(orderId);
             order.Manager = manager;
-            _orderRepository.UpdateOrder(order);
+            OrderDto orderDtoInput = await _orderRepository.UpdateOrder(order);
+            OrderOutputModel orderOutput = _mapper.Map<OrderOutputModel>(orderDtoInput);
+
+            return orderOutput;
         }
 
-        public async Task<OrderOutputModel> AddTaskManager(TaskDto task, int orderId)
+        public async Task<OrderOutputModel> AddTaskManager(TaskInputModel task, int orderId)
         {
-            context.Tasks.Add(task);
-            task.Order = orderRepository.GetOrderById(orderId);
-            context.SaveChanges();
+            OrderDto order = await _orderRepository.GetOrderById(orderId);
+            TaskDto taskDtoInput = _mapper.Map<TaskDto>(task);
+
+            if (order.Tasks == null)
+            {
+                order.Tasks = new List<TaskDto>() { taskDtoInput };
+            }
+            else
+            {
+                List<TaskDto> Tasks = order.Tasks.ToList();
+                Tasks.Add(taskDtoInput);
+                order.Tasks = Tasks;
+            }
+
+            OrderDto orderDtoInput = await _orderRepository.UpdateOrder(order);
+            OrderOutputModel orderOutput = _mapper.Map<OrderOutputModel>(orderDtoInput);
+
+            return orderOutput;
         }
 
-        public async Task<TaskOutputModelWithOrderWithSpecialization> AddTaskManager(TaskInputModel task, int orderId)
+        public async Task<TaskOutputModelAllInfo> AddWorkerForTask(int taskId, int workerId)
         {
-            var a = _taskRepository.AddTaskManager(_mapper.Map<TaskDto>(task), orderId);
-        }
-
-        public TaskOutputModelAllInfo AddWorkerForTask(int taskId, int workerId)
-        {
-            TaskDto taskDto = _taskRepository.GetTaskByIdWithAll(taskId);
-            UserDto userDtoInput = _userRepository.GetUserById(workerId);
+            TaskDto taskDto = await _taskRepository.GetTaskByIdWithAll(taskId);
+            UserDto userDtoInput = await _userRepository.GetUserById(workerId);
 
             if (taskDto.Workers == null)
             {
@@ -77,13 +92,13 @@ namespace YourDay.BLL.Services
                 taskDto.Workers = Workers;
             }
 
-            TaskDto taskDtoOutput = _taskRepository.UpdateTask(taskDto);
+            TaskDto taskDtoOutput = await _taskRepository.UpdateTask(taskDto);
             TaskOutputModelAllInfo taskOutput = _mapper.Map<TaskOutputModelAllInfo>(taskDtoOutput);
 
             return taskOutput;
         }
 
-        public void AddApplication(ApplicationInputModel application, string userMail)
+        public async Task<ApplicationOutputModel> AddApplication(ApplicationInputModel application, string userMail)
         {
             HistoryDto historyDtoInput = _mapper.Map<HistoryDto>(application);
             historyDtoInput.DateTime = DateTime.Now;
@@ -92,16 +107,18 @@ namespace YourDay.BLL.Services
             {
             historyDtoInput
             };
-            orderDtoInput.Client = _userRepository.GetUserByMail(userMail);
-            _orderRepository.AddOrder(orderDtoInput);
+            orderDtoInput.Client = await _userRepository.GetUserByMail(userMail);
+            OrderDto orderDtoOutput = await _orderRepository.AddOrder(orderDtoInput);
+            ApplicationOutputModel applicationOutput = _mapper.Map<ApplicationOutputModel>(orderDtoOutput);
+
+            return applicationOutput;
         }
 
-        public List<CompanyStatisticOutputModel> GetAllTaskOfOrderOfTheirManager()
+        public async Task<IEnumerable<CompanyStatisticOutputModel>> GetAllTaskOfOrderOfTheirManager()
         {
-            List<TaskDto> tasks = _statisticsRepository.GetAllTaskOfOrderOfTheirManager();
-            List<CompanyStatisticOutputModel> result = _mapper.Map<List<CompanyStatisticOutputModel>>(tasks);
-            return result;
+            var tasks = await _taskRepository.GetAllTaskOfOrderOfTheirManager();
+            var statistics = _mapper.Map<List<CompanyStatisticOutputModel>>(tasks);
+            return statistics;
         }
-
     }
 }

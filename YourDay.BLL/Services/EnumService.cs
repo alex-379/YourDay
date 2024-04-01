@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Reflection;
+using YourDay.BLL.IServices;
 
 namespace YourDay.BLL.Services
 {

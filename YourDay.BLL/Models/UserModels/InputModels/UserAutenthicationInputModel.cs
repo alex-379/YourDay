@@ -1,4 +1,4 @@
-﻿using YourDay.DAL.Enums;
+﻿using YourDay.BLL.Enums;
 
 namespace YourDay.BLL.Models.UserModels.InputModels
 {
@@ -8,6 +8,6 @@ namespace YourDay.BLL.Models.UserModels.InputModels
 
         public string Password { get; set; }
 
-        public Role Role { get; set; }
+        public RoleUI Role { get; set; }
     }
 }
