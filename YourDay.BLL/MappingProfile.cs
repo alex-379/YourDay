@@ -67,9 +67,17 @@ namespace YourDay.BLL
 
             CreateMap<TaskDto, TaskOutputModel>();
 
-            CreateMap<SpecializationInputModel, SpecializationDto>();
+            CreateMap<SpecializationInputModel, SpecializationDto>(); 
 
-            CreateMap<SpecializationDto, SpecializationOutputModel>();
+            CreateMap<SpecializationTaskInputModel, SpecializationDto>();
+
+            CreateMap<SpecializationDto, SpecializationTaskInputModel>();
+
+            CreateMap<SpecializationDto, SpecializationIdNameOutputModel>();
+
+            CreateMap<SpecializationIdNameOutputModel, SpecializationDto>();
+
+            CreateMap<OrderDto, OrderOutputModel>();
 
             CreateMap<TaskDto, CompanyStatisticOutputModel>()
                 .ForMember(outputModel => outputModel.NameManager, taskdto => taskdto.MapFrom(task => task.Order.Manager.UserName))

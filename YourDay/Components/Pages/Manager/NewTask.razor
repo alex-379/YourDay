@@ -98,6 +98,7 @@ else
 
     private ITaskService _taskService;
     private IOrderService _orderService;
+    private ISpecializationService _specializationService;
 
     public NewTask()
     {
@@ -105,6 +106,8 @@ else
         _taskService = new TaskService();
 
         _orderService = new OrderService();
+
+        _specializationService = new SpecializationService();
 
         taskInputModel = new TaskInputModel();
     }
@@ -125,19 +128,20 @@ else
             returnRole = claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).Single();
         }
     }
-    
+
 
 
     private void AddTask()
     {
+        taskInputModel.Specialization = _specializationService.GetSpecializationById(selectedSpecialization);
         //taskInputModel.Order = _orderService.GetOrderByIdForAddTask(Id);
         _taskService.AddTaskManager(taskInputModel, Id);
 
-        NavigationManager.NavigateTo("/manager");
+        NavigationManager.NavigateTo($"/order/{Id}");
     }
     private void Main()
     {
-        NavigationManager.NavigateTo("/manager");
+        NavigationManager.NavigateTo($"/order/{Id}");
     }
 
     // Переменная для хранения выбранного значения

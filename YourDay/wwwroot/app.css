@@ -58,8 +58,9 @@ button:active {
     transition: background 0s;
 }
 
-
-
+.task-card {
+    color: #fff;
+}
 @media screen and (max-width: 500px) {
     .navbar {
         flex-direction: column;
@@ -161,7 +162,11 @@ button {
     padding: 10px 40px;
     margin: 10px 10px;
     border-radius: 20px;
-    color: #AF8DFE;
+    color: #554874;
+}
+
+.black {
+    color: #554874;
 }
 .task-button {
     border: 1px solid #92dea8;
@@ -171,8 +176,15 @@ button {
     padding: 10px 40px;
     margin: 10px 10px;
     border-radius: 20px;
-    color: #AF8DFE;
+    color: #554874;
 }
+
+
+.task-card {
+    color: #fff;
+}
+
+
 /*�������� ��������*/
 .client-button {
     border: 1px solid #92dea8;

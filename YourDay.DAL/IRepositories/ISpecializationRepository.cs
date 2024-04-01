@@ -7,5 +7,9 @@ namespace YourDay.DAL.IRepositories
         public SpecializationDto AddSpecialization(SpecializationDto specialization);
 
         public SpecializationDto GetSpecializationById(int id);
+
+        public IEnumerable<SpecializationDto> GetAllSpecialization();
+
+
     }
 }

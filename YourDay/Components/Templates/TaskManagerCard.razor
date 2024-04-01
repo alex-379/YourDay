@@ -1,24 +1,40 @@
-﻿
+﻿@inject IJSRuntime JSRuntime
+<button @onclick="() => ShowModal(taskcCard.Id)" class="worker-button">	&#128051;</button>
+@* <ManagerDialogForTaskModalForm aaa=selectedtaskId></ManagerDialogForTaskModalForm> *@
 
 
 
-<button @onclick="() => OpenModal(taskcCard.Id)">gegege</button>
-<div class="product-card">
+<div class="task-card black">
      <p>@taskcCard.Title </p>
-     <p>aaaaaaaaa</p>
-    @* <p>@taskcCard.Specialization </p>  *@
+    <p>@taskcCard.Description </p>
     <p>@taskcCard.TimeStart.ToShortTimeString() - @taskcCard.TimeEnd.ToShortTimeString()</p>
+    <p>@taskcCard.Specialization.Name</p>
+    <p>@taskcCard.Id </p>
+     
+    @* <p>@taskcCard.Specialization </p>  *@
+    @* <p>@taskcCard.TimeStart.ToShortTimeString() - @taskcCard.TimeEnd.ToShortTimeString()</p> *@
  </div>
 
 
-@code {
+ @code {
     [Parameter]
     public TaskOutputModelWithSpecialization taskcCard { get; set; }
+
     [Parameter] public EventCallback<int> OnOpenModal { get; set; }
 
-    private async Task OpenModal(int id)
+    public int selectedtaskId;
+
+    private async Task ShowModal(int taskId)
     {
-        await OnOpenModal.InvokeAsync(id);
+        
+
+        selectedtaskId = taskId;
+
+        await JSRuntime.InvokeVoidAsync("aaa.showModal");
+
+        StateHasChanged();
+
+        await OnOpenModal.InvokeAsync(taskId);
     }
 
 }

@@ -96,7 +96,9 @@ namespace YourDay.DAL.Repositories
 
         public IEnumerable<TaskDto> GetTasksByOrderIdWithSpecialization(int orderId)
         {
-            var tasks = context.Tasks.Include(t => t.Specialization).Where(t => t.Order.Id == orderId);
+            var tasks = context.Tasks.Include(t => t.Specialization)
+                .Where(t => t.Order.Id == orderId)
+                .Where(t => t.Status != Status.Cancelled);
 
             return tasks;
         }

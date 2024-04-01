@@ -21,5 +21,12 @@ namespace YourDay.DAL.Repositories
 
             return specialization;
         }
+
+        public IEnumerable<SpecializationDto> GetAllSpecialization()
+        {
+            IEnumerable<SpecializationDto> specialization = context.Specializations;
+
+            return specialization;
+        }
     }
 }
