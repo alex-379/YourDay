@@ -17,9 +17,9 @@
         UserOutput = new UserOutputModel();
     }
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        UserOutputModel userOutput = _userService.GetUserById(Id);
+        UserOutputModel userOutput = await _userService.GetUserById(Id);
         UserOutput.Id = userOutput.Id;
         UserOutput.UserName = userOutput.UserName;
         UserOutput.Mail = userOutput.Mail;

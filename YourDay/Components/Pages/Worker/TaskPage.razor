@@ -46,7 +46,7 @@ else
         await GetClaims().ConfigureAwait(false);
         if (returnRole == RoleUI.Worker.ToString())
         {
-            _task = taskClient.GetTaskByIdWithAll(Id);
+            _task = await taskClient.GetTaskByIdWithAll(Id);
         }
     }
 

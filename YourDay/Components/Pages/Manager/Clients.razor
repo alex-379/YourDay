@@ -48,9 +48,9 @@ else
         _clients = Enumerable.Empty<UserSpecializationOutputModel>();
     }
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        _clients = _userService.GetAllUsersSpecializationByRole(RoleUI.Client);
+        _clients = await _userService.GetAllUsersSpecializationByRole(RoleUI.Client);
     }
 
     private void AddClient(UserRegistrationForManagerInputModel input)

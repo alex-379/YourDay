@@ -48,9 +48,9 @@
         _completedOrders = Enumerable.Empty<OrderNameDateOutputModel>();
     }
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        _orders = _orderService.GetAllOrdersForCard();
+        _orders = await _orderService.GetAllOrdersForCard();
     }
 
     private void GetCompletedOrders()

@@ -43,7 +43,7 @@ else
 @code {
     private List<CompanyStatisticOutputModel> _model;
 
-    private CompanyStatisticsService _statistics;
+    private IManagerService _statistics;
 
     private List<Column> Columns { get; set; }
 
@@ -63,7 +63,7 @@ else
     public Statistics()
     {
         _model = new List<CompanyStatisticOutputModel>();
-        _statistics = new CompanyStatisticsService();
+        _statistics = new ManagerService();
         Columns = new List<Column>();
     }
 
@@ -110,7 +110,7 @@ else
 
                 });
 
-            _model = _statistics.GetAllTaskOfOrderOfTheirManager();
+            _model = await _statistics.GetAllTaskOfOrderOfTheirManager();
         }
     }
     private async Task GetClaims()

@@ -1,5 +1,4 @@
 using AutoMapper;
-using System.Threading.Tasks;
 using YourDay.BLL.IServices;
 using YourDay.BLL.Models.CompanyModels.OutputModels;
 using YourDay.BLL.Models.ManagerModels.OutputModel;
@@ -7,7 +6,6 @@ using YourDay.BLL.Models.OrderModels.InputModels;
 using YourDay.BLL.Models.OrderModels.OutputModels;
 using YourDay.BLL.Models.TaskModels.InputModels;
 using YourDay.BLL.Models.TaskModels.OutputModels;
-using YourDay.DAL;
 using YourDay.DAL.Dtos;
 using YourDay.DAL.Enums;
 using YourDay.DAL.IRepositories;

@@ -43,8 +43,8 @@
         _orderService = new OrderService();
     }
 
-    private void AddApplication(ApplicationInputModel input)
+    private async Task AddApplication(ApplicationInputModel input)
     {
-        _orderService.AddApplication(input, _mail);
+        await _orderService.AddApplication(input, _mail);
     }
 }

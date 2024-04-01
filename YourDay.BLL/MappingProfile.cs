@@ -6,6 +6,7 @@ using YourDay.BLL.Models.ManagerModels.OutputModel;
 using YourDay.BLL.Models.OrderModels.InputModels;
 using YourDay.BLL.Models.OrderModels.OutputModels;
 using YourDay.BLL.Models.SpecializationModels.InputModels;
+using YourDay.BLL.Models.SpecializationModels.OutputModels;
 using YourDay.BLL.Models.TaskModels.InputModels;
 using YourDay.BLL.Models.TaskModels.OutputModels;
 using YourDay.BLL.Models.UserModels.InputModels;
@@ -74,7 +75,7 @@ namespace YourDay.BLL
 
             CreateMap<SpecializationInputModel, SpecializationDto>();
 
-            CreateMap<SpecializationDto, SpecializationOutputModel>();
+            CreateMap<SpecializationDto, SpecializationOnlyNameOutputModel>();
         }
     }
 }

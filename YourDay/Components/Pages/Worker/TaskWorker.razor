@@ -84,13 +84,13 @@ else
             dateFrom = null;
             dateTo = null;
             status = null;
-            _tasks = _workerClient.GetAllTasksWithAll();
+            _tasks = await _workerClient.GetAllTasksWithAll();
         }
     }
 
-    public void TaskFilter()
+    public async Task TaskFilter()
     {
-        _tasks = _workerClient.FilterTasks(dateFrom, dateTo, status);
+        _tasks = await _workerClient.FilterTasks(dateFrom, dateTo, status);
     }
 
     private async Task GetClaims()
