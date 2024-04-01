@@ -6,7 +6,7 @@
 }
 
     .image-gallery > li {
-        flex-basis: auto; /* width: 350px; */
+        flex-basis: 350px; /* width: 350px; */
     }
 
     .image-gallery li img {
@@ -19,7 +19,7 @@
 
     .image-gallery::after {
         content: "";
-        flex-basis: auto;
+        flex-basis: 350px;
     }
 
     .image-gallery > li { /* ... */
