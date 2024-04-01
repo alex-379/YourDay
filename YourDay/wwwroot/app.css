@@ -12,7 +12,7 @@
     font-style: normal;
 }
 
-ШАПКА СТРАНИЦЫ 
+/*ШАПКА СТРАНИЦЫ */
 .navbar {
     display: flex;
     justify-content: space-between;
