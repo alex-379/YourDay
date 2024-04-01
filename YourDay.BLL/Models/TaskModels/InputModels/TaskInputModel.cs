@@ -1,7 +1,7 @@
-using YourDay.DAL.Dtos;
-using YourDay.DAL.Enums;
-using YourDay.BLL.Models.UserModels.InputModels;
+using YourDay.BLL.Enums;
 using YourDay.BLL.Models.OrderModels.InputModels;
+using YourDay.BLL.Models.SpecializationModels.InputModels;
+using YourDay.BLL.Models.UserModels.InputModels;
 
 namespace YourDay.BLL.Models.TaskModels.InputModels
 {
@@ -15,12 +15,12 @@ namespace YourDay.BLL.Models.TaskModels.InputModels
 
         public DateTime TimeEnd { get; set; }
 
-        public List<UserInputModel>? Workers { get; set; }
+        public IEnumerable<UserInputModel>? Workers { get; set; }
 
         public OrderInputModel? Order { get; set; }
 
-        public SpecializationIntputModel? Specialization { get; set; }
+        public SpecializationInputModel? Specialization { get; set; }
 
-        public Status? Status { get; set; }
+        public StatusUI? Status { get; set; }
     }
 }

@@ -45,7 +45,7 @@
 
     public async Task StartLogin()
     {
-        bool result = _userService.ConfirmPassword(LoginModel);
+        bool result = await _userService.ConfirmPassword(LoginModel);
 
         if (result){
             List<Claim> claims = new List<Claim>()

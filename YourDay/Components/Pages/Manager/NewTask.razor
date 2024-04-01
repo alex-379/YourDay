@@ -98,6 +98,7 @@ else
 
     private ITaskService _taskService;
     private IOrderService _orderService;
+    private IManagerService _managerService;
 
     public NewTask()
     {
@@ -105,6 +106,8 @@ else
         _taskService = new TaskService();
 
         _orderService = new OrderService();
+
+        _managerService = new ManagerService();
 
         taskInputModel = new TaskInputModel();
     }
@@ -126,12 +129,10 @@ else
         }
     }
     
-
-
-    private void AddTask()
+    private async Task AddTask()
     {
         //taskInputModel.Order = _orderService.GetOrderByIdForAddTask(Id);
-        _taskService.AddTaskManager(taskInputModel, Id);
+        await _managerService.AddTaskManager(taskInputModel, Id);
 
         NavigationManager.NavigateTo("/manager");
     }

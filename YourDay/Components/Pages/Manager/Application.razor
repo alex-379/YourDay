@@ -45,9 +45,9 @@ else
         _orders = Enumerable.Empty<OrderNameDateOutputModel>();
     }
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        _orders = _orderService.GetAllApplications();
+        _orders = await _orderService.GetAllApplications();
     }
 
     private async Task ShowModal(int clientId)

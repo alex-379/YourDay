@@ -2,7 +2,9 @@
 @attribute [StreamRendering]
 @inject NavigationManager NavigationWorker
 
-@if (returnRole != RoleUI.Manager.ToString())
+<GetClaims SendIsCompleted="b=>_isCompleted=b" SendRole="p=>_role=p"></GetClaims>
+
+@if (_isCompleted && _role != RoleUI.Manager.ToString())
 {
     <ReturnToStart></ReturnToStart>
 }
@@ -39,11 +41,14 @@ else
     </table>
 }
 
-
 @code {
-    private List<CompanyStatisticOutputModel> _model;
+    private string? _role;
 
-    private CompanyStatisticsService _statistics;
+    private bool _isCompleted;
+
+    private IEnumerable<CompanyStatisticOutputModel> _model;
+
+    private IManagerService _statistics;
 
     private List<Column> Columns { get; set; }
 
@@ -53,24 +58,15 @@ else
         public string LayoutHeader { get; set; }
     }
 
-    [CascadingParameter]
-    public Task<AuthenticationState> State { get; set; }
-
-    private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
-
-    private string returnRole;
-
     public Statistics()
     {
         _model = new List<CompanyStatisticOutputModel>();
-        _statistics = new CompanyStatisticsService();
+        _statistics = new ManagerService();
         Columns = new List<Column>();
     }
 
     protected override async Task OnInitializedAsync()
     {
-        await GetClaims().ConfigureAwait(false);
-        if (returnRole == RoleUI.Manager.ToString())
         {
             Columns = new List<Column>();
 
@@ -110,18 +106,7 @@ else
 
                 });
 
-            _model = _statistics.GetAllTaskOfOrderOfTheirManager();
-        }
-    }
-    private async Task GetClaims()
-    {
-        var authState = await State;
-        var user = authState.User;
-
-        if (user.Identity is not null && user.Identity.IsAuthenticated)
-        {
-            claims = user.Claims;
-            returnRole = claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).Single();
+            _model = await _statistics.GetAllTaskOfOrderOfTheirManager();
         }
     }
 }

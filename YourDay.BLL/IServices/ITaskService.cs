@@ -1,32 +1,27 @@
 using YourDay.BLL.Enums;
 using YourDay.BLL.Models.TaskModels.InputModels;
 using YourDay.BLL.Models.TaskModels.OutputModels;
-using YourDay.DAL.Enums;
 
 namespace YourDay.BLL.IServices
 {
     public interface ITaskService
     {
-        public TaskOutputModelWithOrderWithSpecialization AddTask(TaskInputModel task);
+        public Task<TaskOutputModelWithOrderWithSpecialization> AddTask(TaskInputModel task);
 
-        public void AddTaskManager(TaskInputModel task, int orderId);
+        public Task<IEnumerable<TaskOutputModelWithOrderWithSpecialization>> GetAllTasksWithOrderWithSpecialization();
 
-        public TaskOutputModelAllInfo AddWorkerForTask(int taskId, int workerId);
+        public Task<IEnumerable<TaskOutputModelAllInfo>> GetAllTasksWithAll();
 
-        public IEnumerable<TaskOutputModelWithOrderWithSpecialization> GetAllTasksWithOrderWithSpecialization();
+        public Task<TaskOutputModelAllInfo> GetTaskByIdWithAll(int taskId);
 
-        public IEnumerable<TaskOutputModelAllInfo> GetAllTasksWithAll();
+        public Task<IEnumerable<TaskOutputModelWithSpecialization>> GetTasksByOrderIdWithSpecialization(int orderId);
 
-        public TaskOutputModelAllInfo GetTaskByIdWithAll(int taskId);
+        public Task<IEnumerable<TaskOutputModelWithOrderWithSpecialization>> GetTasksByWorkerIdWithOrderWithSpecialization(int workerId);
 
-        public IEnumerable<TaskOutputModelWithSpecialization> GetTasksByOrderIdWithSpecialization(int orderId);
+        public Task<TaskOutputModelAllInfo> UpdateTaskStatusByTaskId(int taskId, StatusUI newTaskStatus);
 
-        public IEnumerable<TaskOutputModelWithOrderWithSpecialization> GetTasksByWorkerIdWithOrderWithSpecialization(int workerId);
+        public Task<IEnumerable<TaskOutputModelAllInfo>> FilterTasks(DateTime? startDate, DateTime? endDate, StatusUI? statusUi);
 
-        public TaskOutputModelAllInfo UpdateTaskStatusByTaskId(int taskId, StatusUI newTaskStatus);
-
-        public IEnumerable<TaskOutputModelAllInfo> FilterTasks(DateTime? startDate, DateTime? endDate, StatusUI? status);
-
-        public TaskOutputModelAllInfo UpdateTask(TaskUpdateInputModelAllInfo task);
+        public Task<TaskOutputModelAllInfo> UpdateTask(TaskUpdateInputModelAllInfo task);
     }
 }

@@ -7,9 +7,9 @@ namespace YourDay.DAL.Repositories
 {
     public class OrderRepository:IOrderRepository
     {
-        readonly Context context = SingletoneStorage.GetStorage().Сontext;
+        private readonly Context context = SingletoneStorage.GetStorage().Сontext;
 
-        public OrderDto AddOrder(OrderDto order)
+        public async Task<OrderDto> AddOrder(OrderDto order)
         {
             order.Status = Status.Received;
             context.Orders.Add(order);
@@ -18,46 +18,34 @@ namespace YourDay.DAL.Repositories
             return order;
         }
 
-        public IEnumerable<OrderDto> GetAllOrders()
+        public async Task<IEnumerable<OrderDto>> GetAllOrdersWithManager()
         {
-            IEnumerable<OrderDto> orders = context.Orders.Where(o=>o.Manager!=null);
+            var orders = await context.Orders.AsQueryable().Where(o=>o.Manager!=null).ToListAsync();
 
             return orders;
         }
 
-        public IEnumerable<OrderDto> GetAllApplications()
+        public async Task<IEnumerable<OrderDto>> GetAllApplications()
         {
-            IEnumerable<OrderDto> orders = context.Orders.Where(o=>o.Status==Status.Received).ToList();
+            var orders = await context.Orders.AsQueryable().Where(o=>o.Status==Status.Received).ToListAsync();
 
             return orders;
         }
 
-        public OrderDto GetOrderById(int id)
+        public async Task<OrderDto> GetOrderById(int id)
         {
-            OrderDto order = context.Orders.Where(o => o.Id == id)
-                .Include(order => order.Manager).Single();
+            OrderDto order = await context.Orders.AsQueryable().Where(o => o.Id == id)
+                .Include(order => order.Manager).SingleAsync();
 
             return order;
         }
 
-        public OrderDto UpdateOrder(OrderDto order)
+        public async Task<OrderDto> UpdateOrder(OrderDto order)
         {
             context.Orders.Update(order);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
 
             return order;
-        }
-
-        public void UpdateOrderStatus(int orderId, Status newOrderStatus)
-        {
-            OrderDto order = context.Orders.Single(order => order.Id == orderId);
-
-            if (order != null)
-            {
-                order.Status = newOrderStatus;
-            }
-
-            context.SaveChanges();
         }
     }
 }

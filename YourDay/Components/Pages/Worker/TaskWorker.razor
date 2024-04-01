@@ -2,7 +2,9 @@
 @attribute [StreamRendering]
 @rendermode InteractiveServer
 
-@if (returnRole != RoleUI.Worker.ToString())
+<GetClaims SendIsCompleted="b=>_isCompleted=b" SendRole="p=>_role=p"></GetClaims>
+
+@if (_isCompleted && _role != RoleUI.Worker.ToString())
 {
     <ReturnToStart></ReturnToStart>
 }
@@ -24,12 +26,11 @@ else
         <div>Со статусом :</div>
         <form>
             <select @bind="@status">
-                <option value="0">@StatusUI.Received.GetDisplayName()</option>
-                <option value="1">@StatusUI.InProgress.GetDisplayName()</option>
-                <option value="2">@StatusUI.Completed.GetDisplayName()</option>
-                <option value="3">@StatusUI.Canselled.GetDisplayName()</option>
+                <option value="0">@_enumService.GetDisplayName(StatusUI.Received)</option>
+                <option value="1">@_enumService.GetDisplayName(StatusUI.InProgress)</option>
+                <option value="2">@_enumService.GetDisplayName(StatusUI.Completed)</option>
+                <option value="3">@_enumService.GetDisplayName(StatusUI.Canselled)</option>
             </select>
-
         </form>
     </div>
 
@@ -37,16 +38,26 @@ else
         <button @onclick="TaskFilter">Поиск</button>
     </div>
 
-    <div class="container-task">
-        @foreach (TaskOutputModelAllInfo task in _tasks)
-        {
-            <WorkerTaskCard task="task"></WorkerTaskCard>
-        }
-    </div>
+    @if (_isCompletedTask)
+    {
+        <div class="container-task">
+            @foreach (TaskOutputModelAllInfo task in _tasks)
+            {
+                <WorkerTaskCard task="task"></WorkerTaskCard>
+            }
+        </div>
+    }
+
 }
 
 @code 
 {
+    private string? _role;
+
+    private bool _isCompleted;
+
+    private bool _isCompletedTask;
+
     private IEnumerable<TaskOutputModelAllInfo> _tasks;
 
     private IEnumerable<TaskOutputModel> _tasksFilter;
@@ -55,7 +66,9 @@ else
 
     private const string Format = "hh:mm:ss";
 
-    private ITaskService _workerClient;
+    private ITaskService _workerService;
+
+    private IEnumService _enumService;
 
     public DateTime? dateFrom;
 
@@ -63,45 +76,23 @@ else
 
     public StatusUI? status;
 
-    [CascadingParameter]
-    public Task<AuthenticationState> State { get; set; }
-
-    private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
-
-    private string returnRole;
-
     public TaskWorker()
     {
-        _workerClient = new TaskService();
-
+        _workerService = new TaskService();
+        _enumService = new EnumService();
     }
 
     protected override async Task OnInitializedAsync()
     {
-        await GetClaims().ConfigureAwait(false);
-        if (returnRole == RoleUI.Worker.ToString())
-        {
             dateFrom = null;
             dateTo = null;
             status = null;
-            _tasks = _workerClient.GetAllTasksWithAll();
-        }
+            _tasks = await _workerService.GetAllTasksWithAll();
+            _isCompletedTask = true;
     }
 
-    public void TaskFilter()
+    public async Task TaskFilter()
     {
-        _tasks = _workerClient.FilterTasks(dateFrom, dateTo, status);
-    }
-
-    private async Task GetClaims()
-    {
-        var authState = await State;
-        var user = authState.User;
-
-        if (user.Identity is not null && user.Identity.IsAuthenticated)
-        {
-            claims = user.Claims;
-            returnRole = claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).Single();
-        }
+        _tasks = await _workerService.FilterTasks(dateFrom, dateTo, status);
     }
 }

@@ -18,10 +18,10 @@
         </p>
     </div>
     <div>
-        <img src="/images/29000411.jpg" alt="">
+        <img src="/images/29000411.jpg">
     </div>
     <div>
-        <img src="/images/96714381.jpg" alt="">
+        <img src="/images/96714381.jpg">
     </div>
 </div>
 
@@ -36,15 +36,15 @@
 
     private bool _isCompleted;
 
-    private IOrderService _orderService;
+    private IManagerService _managerService;
 
     public ClientHome()
     {
-        _orderService = new OrderService();
+        _managerService = new ManagerService();
     }
 
     private void AddApplication(ApplicationInputModel input)
     {
-        _orderService.AddApplication(input, _mail);
+        _managerService.AddApplication(input, _mail);
     }
 }

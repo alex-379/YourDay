@@ -12,7 +12,7 @@
     font-style: normal;
 }
 
-ШАПКА СТРАНИЦЫ 
+/*ШАПКА СТРАНИЦЫ */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -85,6 +85,7 @@ button:active {
 .table {
     color: #FFFEFF;
 }
+
 p {
     font-size: 20px;
 }
@@ -94,7 +95,9 @@ a {
 }
 
 html, body {
+    display: flex;
     min-height: 100vh;
+    overflow: auto;
     padding: 0;
     margin: 20px;
     font-family: 'DelaGothicOne', sans-serif;
@@ -117,6 +120,7 @@ button {
     padding: 15px 15px;
     margin: 20px 20px 20px 20px;
 }
+
 ������� ������
 .purple-button {
     color: #AF8DFE;
@@ -147,6 +151,7 @@ button {
     border-radius: 20px;
     color: #AF8DFE;
 }
+
 .task-button {
     border: 1px solid #92dea8;
     height: 150px;
@@ -157,6 +162,7 @@ button {
     border-radius: 20px;
     color: #AF8DFE;
 }
+
 �������� ��������
 .client-button {
     border: 1px solid #92dea8;
@@ -168,6 +174,7 @@ button {
     border-radius: 20px;
     color: #AF8DFE;
 }
+
 .worker-button {
     border: 1px solid #92dea8;
     line-height: 30px;
@@ -177,19 +184,22 @@ button {
     border-radius: 20px;
     color: #AF8DFE;
 }
+
 .background {
     position: relative;
     width: 100%;
     height: 100vh;
-    background-color: #f0f0f0;  ���� ���� 
+    background-color: #f0f0f0;
+    ���� ����
 }
 
 .top-right {
     position: absolute;
-    top: 10px;  ������ ������ 
-    right: 10px;  ������ ������ 
-    max-width: 100px;  ������������ ������ �������� 
-    max-height: 100px;  ������������ ������ �������� 
+    top: 10px;
+    ������ ������ right: 10px;
+    ������ ������ max-width: 100px;
+    ������������ ������ �������� max-height: 100px;
+    ������������ ������ ��������
 }
 
 .block {
@@ -198,6 +208,7 @@ button {
     flex-wrap: wrap;
     background-color: #AF8DFE;
 }
+
 .box-button-tekst {
     justify-content: space-around;
     flex-direction: row;
@@ -290,6 +301,7 @@ h1 {
     justify-content: center;
     align-items: center;
 }
+
 //������������ �� ������
 .aligncenter {
     text-align: center;
@@ -307,14 +319,13 @@ tr {
         background: #ddd;
     }
 
-    .navbar .menu ul a {
-       
-        color: #FFFEFF;
-    }
+.navbar .menu ul a {
+    color: #FFFEFF;
+}
 
-    .navbar .menu-yellow ul a {
-        color: #FDD551
-    }
+.navbar .menu-yellow ul a {
+    color: #FDD551
+}
 
 
 
