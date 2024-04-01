@@ -1,0 +1,58 @@
+﻿<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title">Здесь вы можете связаться с менеджером:</h1>
+        </div>
+        <table>
+            <thead>
+                @foreach (Column column in _table.Columns)
+                {
+                <th>
+                        @column.LayoutHeader
+                </th>
+                }
+            </thead>
+            <tbody>
+                @foreach (ManagerNameAndPhoneOutputModel manager in _models)
+                {
+                    <tr>
+                        @foreach (Column column in _table.Columns)
+                        {
+                            <td>
+                                @typeof(ManagerNameAndPhoneOutputModel).GetProperty(column.Field).GetValue(manager)
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@if (IsOpened)
+    {
+        _table.GetTableForPrintManagers();
+    }
+
+@code {
+    [Parameter]
+    public bool IsOpened { get; set; }
+
+    private Tables _table;
+
+    private IEnumerable<ManagerNameAndPhoneOutputModel> _models;
+
+    private IManagerService _managerService;
+
+    public ContactWithManagerModalForm()
+    {
+        _table = new Tables();
+        _models = new List<ManagerNameAndPhoneOutputModel>();
+        _managerService = new ManagerService();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _models = await _managerService.GetAllManagers();
+    }
+}

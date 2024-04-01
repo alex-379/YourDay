@@ -1,5 +1,5 @@
 <div class="container-buttons">
-    <a href="./taskWorker/task/@task.Id">
+    <a href="./task/@task.Id">
 
         <div class="taskWorker-card">
             <p>@task.Title </p>
@@ -13,6 +13,7 @@
         </div>
     </a>
 </div>
+
 @code {
     [Parameter]
     public TaskOutputModelAllInfo task { get; set; }

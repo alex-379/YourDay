@@ -17,7 +17,7 @@ else
 
     <table>
         <thead>
-            @foreach (Column column in Columns)
+            @foreach (Column column in _table.Columns)
             {
             <th>
                     @column.LayoutHeader
@@ -28,7 +28,7 @@ else
             @foreach (ManagerNameAndPhoneOutputModel manager in _models)
             {
                 <tr>
-                    @foreach (Column column in Columns)
+                    @foreach (Column column in _table.Columns)
                     {
                         <td>
                             @typeof(ManagerNameAndPhoneOutputModel).GetProperty(column.Field).GetValue(manager)
@@ -45,45 +45,22 @@ else
 
     private bool _isCompleted;
 
+    private Tables _table;
+
     private IEnumerable<ManagerNameAndPhoneOutputModel> _models;
 
     private IManagerService _managers;
-
-    private List<Column> Columns { get; set; }
-
-    class Column
-    {
-        public string Field { get; set; }
-        public string LayoutHeader { get; set; }
-    }
 
     public ContactTheManager()
     {
         _models = new List<ManagerNameAndPhoneOutputModel>();
         _managers = new ManagerService();
-        Columns = new List<Column>();
+        _table = new Tables();
     }
 
     protected override async Task OnInitializedAsync()
     {
-            Columns = new List<Column>();
-
-            Columns.AddRange(
-                new Column[]
-                {
-                new Column()
-                {
-                    Field="Name",
-                    LayoutHeader="Имя"
-                },
-
-                new Column()
-                {
-                    Field="Phone",
-                    LayoutHeader="Телефон"
-                }
-                });
-
-            _models = await _managers.GetAllManagers();
+        _table.GetTableForPrintManagers();
+        _models = await _managers.GetAllManagers();
     }
 }
