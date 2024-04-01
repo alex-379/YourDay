@@ -7,57 +7,58 @@ namespace YourDay.DAL.Repositories
 {
     public class OrderRepository:IOrderRepository
     {
-        readonly Context context = SingletoneStorage.GetStorage().Сontext;
-
-        public OrderDto AddOrder(OrderDto order)
+        public async Task<OrderDto> AddOrder(OrderDto order)
         {
-            order.Status = Status.Received;
-            context.Orders.Add(order);
-            context.SaveChanges();
-
-            return order;
-        }
-
-        public IEnumerable<OrderDto> GetAllOrders()
-        {
-            IEnumerable<OrderDto> orders = context.Orders.Where(o=>o.Manager!=null);
-
-            return orders;
-        }
-
-        public IEnumerable<OrderDto> GetAllApplications()
-        {
-            IEnumerable<OrderDto> orders = context.Orders.Where(o=>o.Status==Status.Received).ToList();
-
-            return orders;
-        }
-
-        public OrderDto GetOrderById(int id)
-        {
-            OrderDto order = context.Orders.Where(o => o.Id == id)
-                .Include(order => order.Manager).Single();
-
-            return order;
-        }
-
-        public OrderDto UpdateOrder(OrderDto order)
-        {
-            context.Orders.Update(order);
-            context.SaveChanges();
-
-            return order;
-        }
-
-        public void UpdateOrderStatus(int orderId, Status newOrderStatus)
-        {
-            OrderDto order = context.Orders.Single(order => order.Id == orderId);
-
-            if (order != null)
+            using (Context context = new Context())
             {
-                order.Status = newOrderStatus;
-            }
+                order.Status = Status.Received;
+                context.Orders.Add(order);
+                context.SaveChanges();
 
-            context.SaveChanges();
+                return order;
+            }
+        }
+
+        public async Task<IEnumerable<OrderDto>> GetAllOrdersWithManager()
+        {
+            using (Context context = new Context())
+            {
+                var orders = await context.Orders.AsQueryable().Where(o => o.Manager != null).ToListAsync();
+
+                return orders;
+            }
+        }
+
+        public async Task<IEnumerable<OrderDto>> GetAllApplications()
+        {
+            using (Context context = new Context())
+            {
+                var orders = await context.Orders.AsQueryable().Where(o => o.Status == Status.Received).ToListAsync();
+
+                return orders;
+            }
+        }
+
+        public async Task<OrderDto> GetOrderById(int id)
+        {
+            using (Context context = new Context())
+            {
+                OrderDto order = await context.Orders.AsQueryable().Where(o => o.Id == id)
+                    .Include(order => order.Manager).SingleAsync();
+
+                return order;
+            }
+        }
+
+        public async Task<OrderDto> UpdateOrder(OrderDto order)
+        {
+            using (Context context = new Context())
+            {
+                context.Orders.Update(order);
+                await context.SaveChangesAsync();
+
+                return order;
+            }
         }
     }
 }

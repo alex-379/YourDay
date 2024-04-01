@@ -45,12 +45,12 @@ else
 
     public Workers()
     {
-        UserService _userService = new UserService();
+        _userService = new UserService();
     }
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        _workers = _userService.GetAllUsersSpecializationByRole(RoleUI.Worker);
+        _workers = await _userService.GetAllUsersSpecializationByRole(RoleUI.Worker);
     }
 
     public void AddWorker(UserRegistrationForManagerInputModel input)

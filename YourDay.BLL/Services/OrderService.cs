@@ -12,14 +12,12 @@ namespace YourDay.BLL.Services
 {
     public class OrderService : IOrderService
     {
-        private OrderRepository _orderRepository;
-        private UserRepository _userRepository;
+        private IOrderRepository _orderRepository;
         private Mapper _mapper;
 
         public OrderService()
         {
             _orderRepository = new OrderRepository();
-            _userRepository = new UserRepository();
 
             var config = new MapperConfiguration(cfg =>
             {
@@ -29,87 +27,71 @@ namespace YourDay.BLL.Services
             _mapper = new Mapper(config);
         }
 
-        public OrderOutputModel AddOrder(OrderForManagerInputModel order)
+        public async Task<OrderOutputModel> AddOrder(OrderForManagerInputModel order)
         {
             order.Status = StatusUI.Received;
-            OrderDto orderDtoInput = _orderRepository.AddOrder(_mapper.Map<OrderDto>(order));
+            OrderDto orderDtoInput = await _orderRepository.AddOrder(_mapper.Map<OrderDto>(order));
             OrderOutputModel orderOutput = _mapper.Map<OrderOutputModel>(orderDtoInput);
 
             return orderOutput;
         }
 
-        public void AddApplication(ApplicationInputModel application, string userMail)
+        public async Task<IEnumerable<OrderOutputModel>> GetAllOrders()
         {
-            HistoryDto historyDtoInput = _mapper.Map<HistoryDto>(application);
-            historyDtoInput.DateTime = DateTime.Now;
-            OrderDto orderDtoInput = new OrderDto();
-            orderDtoInput.Histories = new List<HistoryDto>()
-            {
-            historyDtoInput
-            };
-            orderDtoInput.Client = _userRepository.GetUserByMail(userMail);
-            _orderRepository.AddOrder(orderDtoInput);
-        }
-
-        public IEnumerable<OrderOutputModel> GetAllOrders()
-        {
-            var orderDtos = _orderRepository.GetAllOrders();
+            var orderDtos = await _orderRepository.GetAllOrdersWithManager();
             var orders = _mapper.Map<IEnumerable<OrderOutputModel>>(orderDtos);
 
             return orders;
         }
 
-        public IEnumerable<OrderNameDateOutputModel> GetAllOrdersForCard()
+        public async Task<IEnumerable<OrderNameDateOutputModel>> GetAllOrdersForCard()
         {
-            var orderDtos = _orderRepository.GetAllOrders();
+            var orderDtos = await _orderRepository.GetAllOrdersWithManager();
+
             var orders = _mapper.Map<IEnumerable<OrderNameDateOutputModel>>(orderDtos);
 
             return orders;
         }
 
-        public IEnumerable<OrderNameDateOutputModel> GetAllApplications()
+        public async Task<IEnumerable<OrderNameDateOutputModel>> GetAllApplications()
         {
-            var orderDtos = _orderRepository.GetAllApplications();
+            var orderDtos = await _orderRepository.GetAllApplications();
             var orders = _mapper.Map<IEnumerable<OrderNameDateOutputModel>>(orderDtos);
 
             return orders;
         }
 
-        public List<OrderNameDateOutputModel> ShowAllCompletedAndCanselledOrdersForCard(IEnumerable<OrderNameDateOutputModel> orders)
+        public IEnumerable<OrderNameDateOutputModel> ShowAllCompletedAndCanselledOrdersForCard(IEnumerable<OrderNameDateOutputModel> orders)
         {
-            List<OrderNameDateOutputModel> completedOrders = orders.Where(o => o.Status == StatusUI.Completed || o.Status == StatusUI.Canselled).ToList();
+            var completedOrders = orders.Where(o => o.Status == StatusUI.Completed || o.Status == StatusUI.Canselled);
 
             return completedOrders;
         }
 
-        public OrderOutputModel GetOrderById(int id)
+        public async Task<OrderOutputModel> GetOrderById(int id)
         {
-            OrderDto orderDto = _orderRepository.GetOrderById(id);
+            OrderDto orderDto = await _orderRepository.GetOrderById(id);
             OrderOutputModel order = _mapper.Map<OrderOutputModel>(orderDto);
 
             return order;
         }
 
-        public OrderInputModel GetOrderByIdForAddTask(int id)
+        public async Task<OrderInputModel> GetOrderByIdForAddTask(int id)
         {
-            OrderDto orderDto = _orderRepository.GetOrderById(id);
+            OrderDto orderDto = await _orderRepository.GetOrderById(id);
             OrderInputModel order = _mapper.Map<OrderInputModel>(orderDto);
 
             return order;
         }
 
-        public static string? GetDateStringForOrder(DateTime? date)
+        public async Task<OrderOutputModel> UpdateOrderStatus(int orderId, StatusUI newOrderStatus)
         {
-            string? dateString = date?.ToString("dd/MM/yyyy");
+            OrderDto orderDto = await _orderRepository.GetOrderById(orderId);
+            orderDto.Status = (Status)newOrderStatus;
+            OrderDto orderDtoInput = await _orderRepository.UpdateOrder(orderDto);
+            OrderOutputModel orderOutput = _mapper.Map<OrderOutputModel>(orderDtoInput);
 
-            return dateString;
-        }
-
-        public void UpdateOrderStatus(int orderId, StatusUI newOrderStatus)
-        {
-            Status orderStatus = _mapper.Map<Status>(newOrderStatus);
-            _orderRepository.UpdateOrderStatus(orderId, orderStatus);
-
+            return orderOutput;
         }
     }
 }

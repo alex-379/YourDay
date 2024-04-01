@@ -2,7 +2,9 @@
 @attribute [StreamRendering]
 @inject NavigationManager NavigationWorker
 
-@if (returnRole != RoleUI.Manager.ToString())
+<GetClaims SendIsCompleted="b=>_isCompleted=b" SendRole="p=>_role=p"></GetClaims>
+
+@if (_isCompleted && _role != RoleUI.Manager.ToString())
 {
     <ReturnToStart></ReturnToStart>
 }
@@ -16,7 +18,7 @@ else
 
     <table>
         <thead>
-            @foreach (Column column in Columns)
+            @foreach (Column column in _table.Columns)
             {
             <th>
                     @column.LayoutHeader
@@ -27,7 +29,7 @@ else
             @foreach (CompanyStatisticOutputModel outputModel in _model)
             {
                 <tr>
-                    @foreach (Column column in Columns)
+                    @foreach (Column column in _table.Columns)
                     {
                         <td>
                             @typeof(CompanyStatisticOutputModel).GetProperty(column.Field).GetValue(outputModel)
@@ -39,89 +41,27 @@ else
     </table>
 }
 
-
 @code {
-    private List<CompanyStatisticOutputModel> _model;
+    private string? _role;
 
-    private CompanyStatisticsService _statistics;
+    private bool _isCompleted;
 
-    private List<Column> Columns { get; set; }
+    private Tables _table;
 
-    class Column
-    {
-        public string Field { get; set; }
-        public string LayoutHeader { get; set; }
-    }
+    private IEnumerable<CompanyStatisticOutputModel> _model;
 
-    [CascadingParameter]
-    public Task<AuthenticationState> State { get; set; }
-
-    private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
-
-    private string returnRole;
+    private IManagerService _statistics;
 
     public Statistics()
     {
         _model = new List<CompanyStatisticOutputModel>();
-        _statistics = new CompanyStatisticsService();
-        Columns = new List<Column>();
+        _statistics = new ManagerService();
+        _table = new Tables();
     }
 
     protected override async Task OnInitializedAsync()
     {
-        await GetClaims().ConfigureAwait(false);
-        if (returnRole == RoleUI.Manager.ToString())
-        {
-            Columns = new List<Column>();
-
-            Columns.AddRange(
-                new Column[]
-                {
-                    new Column()
-                {
-                    Field="IdManager",
-                    LayoutHeader="Индификатор менеджера"
-                },
-                new Column()
-                {
-                    Field="NameManager",
-                    LayoutHeader="Имя менеджера"
-                },
-                new Column()
-                {
-                    Field="IdOrder",
-                    LayoutHeader="Индификатор заказа"
-                },
-                new Column()
-                {
-                    Field="TitleOrder",
-                    LayoutHeader="Название заказа"
-                },
-                new Column()
-                {
-                    Field="IdTask",
-                    LayoutHeader="Индификатор задачи"
-                },
-                new Column()
-                {
-                    Field="TitleTask",
-                    LayoutHeader="название задачи"
-                }
-
-                });
-
-            _model = _statistics.GetAllTaskOfOrderOfTheirManager();
-        }
-    }
-    private async Task GetClaims()
-    {
-        var authState = await State;
-        var user = authState.User;
-
-        if (user.Identity is not null && user.Identity.IsAuthenticated)
-        {
-            claims = user.Claims;
-            returnRole = claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).Single();
-        }
+        _table.GetTableForStatistics();
+        _model = await _statistics.GetAllTaskOfOrderOfTheirManager();
     }
 }

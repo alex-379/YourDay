@@ -1,4 +1,4 @@
-﻿using YourDay.DAL.Enums;
+﻿using YourDay.BLL.Enums;
 
 namespace YourDay.BLL.Models.UserModels.OutputModels
 {
@@ -10,6 +10,6 @@ namespace YourDay.BLL.Models.UserModels.OutputModels
 
         public byte[] Salt { get; set; }
 
-        public Role Role { get; set; }
+        public RoleUI Role { get; set; }
     }
 }

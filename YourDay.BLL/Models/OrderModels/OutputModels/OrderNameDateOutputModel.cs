@@ -1,5 +1,4 @@
 ﻿using YourDay.BLL.Enums;
-using YourDay.DAL.Enums;
 
 namespace YourDay.BLL.Models.OrderModels.OutputModels
 {

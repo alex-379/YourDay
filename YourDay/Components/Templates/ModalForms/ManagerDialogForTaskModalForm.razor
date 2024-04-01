@@ -1,4 +1,4 @@
-﻿@rendermode InteractiveServer
+@rendermode InteractiveServer
 <dialog id="aaa" aria-labelledby="heading">
     <h2 id="heading">Что вы хотите сделать?</h2>
     <h3> @aaa </h3>
@@ -30,30 +30,4 @@
 
         //task = _taskService.GetTaskByIdWithAll(SelectedTaskId);
     }
-
-    protected override void OnInitialized()
-    {
-        StateHasChanged();
-
-
-    }
-
-    
-
-    protected override void OnParametersSet()
-    {
-        StateHasChanged();
-        // Вызов базовой реализации метода
-        base.OnParametersSet();
-
- 
-    }
-
-
-    private void DeleteUser()
-    {
-
-        task = _taskService.GetTaskByIdWithAll(aaa);
-    }
-    
 }

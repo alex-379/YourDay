@@ -1,17 +1,13 @@
-﻿<section>
-    <div class="blok">
-        <h2 class="h">Добро пожаловать в</h2>
-        <h2 class="h yellow">Твой День!</h2>
+﻿<div class="home-client">
+    <div>
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#applicationNew">
             Оставить заявку
         </button>
     </div>
-</section>
-
-<section>
-    <div class="blok">
-        <h1 class="h yellow" align="center">Немного о Нас</h1>
-
+    <div class="welcome">
+        <h1 class="h yellow">Добро пожаловать в Твой День!</h1>
+    </div>
+    <div class="welcome">
         <p class="container-for-text">
             <big>
                 Празднование дней рождений, юбилеев и других важных событий в кругу близких людей всегда приятно.
@@ -20,29 +16,14 @@
                 Предоставляем гарантии каждому клиенту.
             </big>
         </p>
-
-        <div class="aligncenter">
-            <img src="/images/29000411.jpg" alt="">
-            <img src="/images/29000411.jpg" alt="">
-        </div>
     </div>
-</section>
-
-<section>
-    <footer class="footer">
-        <div class="box-footer">
-            <p class=".font-weight-bold">Контакты: пишите нам!</p>
-        </div>
-
-        <div class="box-footer">
-            <p>E-mail:<a href="mailto:your.day@something.com">your.day@something.com</a>  </p>
-
-        </div>
-        <div class="box-footer">
-            <p>Телефон:<a href="8(987)1234567">  8 (987) 123 45 67 </a></p>
-        </div>
-    </footer>
-</section>
+    <div>
+        <img src="/images/29000411.jpg">
+    </div>
+    <div>
+        <img src="/images/96714381.jpg">
+    </div>
+</div>
 
 <GetClaims SendIsCompleted="b=>_isCompleted=b" SendMail="m=>_mail=m"></GetClaims>
 
@@ -55,15 +36,15 @@
 
     private bool _isCompleted;
 
-    private IOrderService _orderService;
+    private IManagerService _managerService;
 
     public ClientHome()
     {
-        _orderService = new OrderService();
+        _managerService = new ManagerService();
     }
 
     private void AddApplication(ApplicationInputModel input)
     {
-        _orderService.AddApplication(input, _mail);
+        _managerService.AddApplication(input, _mail);
     }
 }

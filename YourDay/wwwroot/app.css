@@ -1,3 +1,17 @@
+@font-face {
+    font-family: 'manrope';
+    src: url(/fonts/Manrope-VariableFont_wght.ttf) format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'DelaGothicOne';
+    src: url(/fonts/DelaGothicOne-Regular.ttf) format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 /*ШАПКА СТРАНИЦЫ */
 .navbar {
     display: flex;
@@ -30,7 +44,6 @@
     .navbar .menu-yellow ul a {
         color: #FDD551
     }
-
 
 .button-container {
     display: flex;
@@ -98,23 +111,22 @@ button:active {
 .table {
     color: #FFFEFF;
 }
+
 p {
     font-size: 20px;
 }
 
 a {
     color: #54494B;
-}    
+}
 
 html, body {
     display: flex;
-    box-sizing: border-box;
+    min-height: 100vh;
+    overflow: auto;
     padding: 0;
     margin: 20px;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    font-family: 'Dela Gothic One', sans-serif;
+    font-family: 'DelaGothicOne', sans-serif;
     font-size: 20px;
     line-height: 20px;
     color: #54494B;
@@ -122,7 +134,7 @@ html, body {
 }
 
 .text-style {
-    font-family: 'Manrope-VariableFont_wght', sans-serif;
+    font-family: 'Manrope', sans-serif;
     font-size: 20px;
     line-height: 20px;
 }
@@ -134,7 +146,8 @@ button {
     padding: 15px 15px;
     margin: 20px 20px 20px 20px;
 }
-/*������� ������*/
+
+������� ������
 .purple-button {
     color: #AF8DFE;
     border: none;
@@ -156,7 +169,7 @@ button {
 
 .order-button {
     border: 1px solid #92dea8;
-    /*height: 100px;*/
+    height: 100px;
     line-height: 30px;
     align-items: baseline;
     padding: 10px 40px;
@@ -196,6 +209,7 @@ button {
     border-radius: 20px;
     color: #AF8DFE;
 }
+
 .worker-button {
     border: 1px solid #92dea8;
     line-height: 30px;
@@ -205,19 +219,22 @@ button {
     border-radius: 20px;
     color: #AF8DFE;
 }
+
 .background {
     position: relative;
     width: 100%;
     height: 100vh;
-    background-color: #f0f0f0; /* ���� ���� */
+    background-color: #f0f0f0;
+    ���� ����
 }
 
 .top-right {
     position: absolute;
-    top: 10px; /* ������ ������ */
-    right: 10px; /* ������ ������ */
-    max-width: 100px; /* ������������ ������ �������� */
-    max-height: 100px; /* ������������ ������ �������� */
+    top: 10px;
+    ������ ������ right: 10px;
+    ������ ������ max-width: 100px;
+    ������������ ������ �������� max-height: 100px;
+    ������������ ������ ��������
 }
 
 .block {
@@ -226,6 +243,7 @@ button {
     flex-wrap: wrap;
     background-color: #AF8DFE;
 }
+
 .box-button-tekst {
     justify-content: space-around;
     flex-direction: row;
@@ -260,7 +278,7 @@ h1 {
     flex-wrap: wrap;
 }
 
-/*��� ��� ��� ���������� ������ �� ��������*/
+��� ��� ��� ���������� ������ �� ��������
 .manager-h1 {
     font-family: 'Dela Gothic One', sans-serif;
     font-size: 40px;
@@ -318,6 +336,7 @@ h1 {
     justify-content: center;
     align-items: center;
 }
+
 //������������ �� ������
 .aligncenter {
     text-align: center;
@@ -335,14 +354,13 @@ tr {
         background: #ddd;
     }
 
-    .navbar .menu ul a {
-       
-        color: #FFFEFF;
-    }
+.navbar .menu ul a {
+    color: #FFFEFF;
+}
 
-    .navbar .menu-yellow ul a {
-        color: #FDD551
-    }
+.navbar .menu-yellow ul a {
+    color: #FDD551
+}
 
 
 
@@ -351,6 +369,7 @@ tr {
 
 .button-container {
     display: flex;
+}
 
 td {
     border: 1px solid black;
@@ -369,23 +388,6 @@ th {
     border-top: 1px solid gray;
     text-align: left;
     padding: 16px;
-}
-
-
-
-@media screen and (max-width: 500px) {
-    .navbar {
-        flex-direction: column;
-    }
-
-        .navbar .menu ul {
-            flex-direction: column;
-            align-self: center;
-        }
-
-            .navbar .menu ul li {
-                margin: 5px;
-            }
 }
 
 

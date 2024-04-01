@@ -99,6 +99,7 @@ else
     private ITaskService _taskService;
     private IOrderService _orderService;
     private ISpecializationService _specializationService;
+    private IManagerService _managerService;
 
     public NewTask()
     {
@@ -106,6 +107,8 @@ else
         _taskService = new TaskService();
 
         _orderService = new OrderService();
+
+        _managerService = new ManagerService();
 
         _specializationService = new SpecializationService();
 
@@ -128,14 +131,12 @@ else
             returnRole = claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).Single();
         }
     }
-
-
-
-    private void AddTask()
+    
+    private async Task AddTask()
     {
         taskInputModel.Specialization = _specializationService.GetSpecializationById(selectedSpecialization);
         //taskInputModel.Order = _orderService.GetOrderByIdForAddTask(Id);
-        _taskService.AddTaskManager(taskInputModel, Id);
+        await _managerService.AddTaskManager(taskInputModel, Id);
 
         NavigationManager.NavigateTo($"/order/{Id}");
     }

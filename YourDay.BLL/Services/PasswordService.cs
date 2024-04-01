@@ -1,14 +1,15 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
+using YourDay.BLL.IServices;
 using YourDay.DAL.Enums;
 
 namespace YourDay.BLL.Services
 {
-    public class PasswordService
+    public class PasswordService:IPasswordService
     {
-        private static readonly RandomNumberGenerator _rng = RandomNumberGenerator.Create();
+        private readonly RandomNumberGenerator _rng = RandomNumberGenerator.Create();
 
-        public static string GetRandomPassword()
+        public string GetRandomPassword()
         {
             byte[] passwordByte = new byte[(int)Length.PasswordLength];
             _rng.GetBytes(passwordByte);
@@ -17,7 +18,7 @@ namespace YourDay.BLL.Services
             return password;
         }
 
-        public static byte[] GetSalt()
+        public byte[] GetSalt()
         {
             byte[] salt = new byte[(int)Length.SaltLength];
             _rng.GetBytes(salt);
@@ -25,7 +26,7 @@ namespace YourDay.BLL.Services
             return salt;
         }
 
-        public static byte[] GetHash(string password, byte[] salt)
+        public byte[] GetHash(string password, byte[] salt)
         {
             byte[] passwordByte = Encoding.UTF8.GetBytes(password);
             byte[] saltedPassword = passwordByte.Concat(salt).ToArray();

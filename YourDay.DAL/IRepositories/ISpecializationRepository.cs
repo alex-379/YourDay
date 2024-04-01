@@ -1,15 +1,16 @@
-﻿using YourDay.DAL.Dtos;
+using YourDay.DAL.Dtos;
 
 namespace YourDay.DAL.IRepositories
 {
     public interface ISpecializationRepository
     {
-        public SpecializationDto AddSpecialization(SpecializationDto specialization);
+        public Task<SpecializationDto> AddSpecialization(SpecializationDto specialization);
 
         public SpecializationDto GetSpecializationById(int id);
 
         public IEnumerable<SpecializationDto> GetAllSpecialization();
 
 
+        public Task<SpecializationDto> GetSpecializationById(int id);
     }
 }

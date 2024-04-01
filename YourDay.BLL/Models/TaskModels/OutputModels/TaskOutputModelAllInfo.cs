@@ -1,6 +1,6 @@
-﻿using YourDay.BLL.Models.SpecializationModels.InputModels;
+﻿using YourDay.BLL.Models.OrderModels.OutputModels;
+using YourDay.BLL.Models.SpecializationModels.OutputModels;
 using YourDay.BLL.Models.UserModels.OutputModels;
-using YourDay.DAL.Dtos;
 using YourDay.DAL.Enums;
 
 namespace YourDay.BLL.Models.TaskModels.OutputModels
@@ -19,10 +19,10 @@ namespace YourDay.BLL.Models.TaskModels.OutputModels
 
         public Status? Status { get; set; }
 
-        public IEnumerable<UserDto>? Workers { get; set; }
+        public IEnumerable<UserSpecializationOutputModel>? Workers { get; set; }
 
-        public OrderDto? Order { get; set; }
+        public OrderOutputModel? Order { get; set; }
 
-        public SpecializationOutputModel? Specialization { get; set; }
+        public SpecializationOnlyNameOutputModel? Specialization { get; set; }
     }
 }

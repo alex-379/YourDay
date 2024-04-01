@@ -5,16 +5,16 @@ namespace YourDay.DAL.IRepositories
 {
     public interface IUserRepository
     {
-        public UserDto AddUser(UserDto person);
+        public Task<UserDto> AddUser(UserDto user);
 
-        public IEnumerable<UserDto> GetAllUsers();
+        public Task<IEnumerable<UserDto>> GetAllUsers();
 
-        public UserDto GetUserById(int userId);
+        public Task<UserDto> GetUserById(int userId);
 
-        public UserDto GetUserByMail(string userMail);
+        public Task<UserDto> GetUserByMail(string userMail);
 
-        public UserDto UpdateUser(UserDto user);
+        public Task<UserDto> UpdateUser(UserDto user);
 
-        public IEnumerable<UserDto> GetAllUsersByRole(Role role);
+        public Task<IEnumerable<UserDto>> GetAllUsersByRole(Role role);
     }
 }

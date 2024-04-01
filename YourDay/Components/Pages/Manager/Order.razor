@@ -4,7 +4,9 @@
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JSRuntime
 
-@if (returnRole != RoleUI.Manager.ToString())
+<GetClaims SendIsCompleted="b=>_isCompleted=b" SendRole="p=>_role=p"></GetClaims>
+
+@if (_isCompleted && _role != RoleUI.Manager.ToString())
 {
     <ReturnToStart></ReturnToStart>
 }
@@ -33,7 +35,7 @@ else
                         <td>@OrderOutput.Address</td>
                         <td>@OrderOutput.CountPeople</td>
                         <td>@OrderOutput.Price</td>
-                        <td>@OrderOutput.Status.GetDisplayName()</td>
+                        <td>@_enumService.GetDisplayName(OrderOutput.Status)</td>
                         <td>@OrderOutput.Manager = orderOutput.Manager</td>
                         <td>@OrderOutput.Manager = orderOutput.Client</td>
                     </tr>
@@ -67,10 +69,10 @@ else
             <h2 id="heading">Изменить статус: &#128054 </h2>
             <form>
                 <select @onchange="UpdateStatusOrder">
-                    <option value="0">@StatusUI.Received.GetDisplayName()</option>
-                    <option value="1">@StatusUI.InProgress.GetDisplayName()</option>
-                    <option value="2">@StatusUI.Completed.GetDisplayName()</option>
-                    <option value="3">@StatusUI.Canselled.GetDisplayName()</option>
+                    <option value="0">@_enumService.GetDisplayName(StatusUI.Received)</option>
+                    <option value="1">@_enumService.GetDisplayName(StatusUI.Received)</option>
+                    <option value="2">@_enumService.GetDisplayName(StatusUI.Received)</option>
+                    <option value="3">@_enumService.GetDisplayName(StatusUI.Received)</option>
                 </select>
             </form>
             <form method="dialog">
@@ -137,6 +139,10 @@ else
 
 @code
 {
+    private string? _role;
+
+    private bool _isCompleted;
+
     [Parameter]
     public int Id { get; set; }
 
@@ -149,20 +155,15 @@ else
 
     private ITaskService _taskService;
 
+    private IEnumService _enumService;
+
     public IEnumerable<TaskOutputModelWithSpecialization> task;
 
     public StatusUI status;
 
-    [CascadingParameter]
-    public Task<AuthenticationState> State { get; set; }
-
-    public List<ManagerNameAndPhoneOutputModel> _managers;
+    public IEnumerable<ManagerNameAndPhoneOutputModel> _managers;
 
     private List<TaskOutputModelAllInfo> _tasks;
-
-    private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
-    private string returnRole;
-
 
     private IManagerService _managerService;
     public int selectedManagerId;
@@ -175,7 +176,10 @@ else
 
         _taskService = new TaskService();
 
+        _enumService = new EnumService();
+
         OrderOutput = new OrderOutputModel();
+
         _managerService = new ManagerService();
 
         TaskOutput = new TaskOutputModel();
@@ -206,10 +210,9 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        await GetClaims().ConfigureAwait(false);
-        if (returnRole == "Manager")
+        if (_role == "Manager")
         {
-            OrderOutputModel orderOutput = _orderService.GetOrderById(Id);
+            OrderOutputModel orderOutput = await _orderService.GetOrderById(Id);
             OrderOutput.Id = orderOutput.Id;
             OrderOutput.OrderName = orderOutput.OrderName;
             OrderOutput.Date = orderOutput.Date;
@@ -220,9 +223,9 @@ else
             OrderOutput.Manager = orderOutput.Manager;
             selectedManagerId = orderOutput.Manager.Id;
 
-            _managers = _managerService.GetAllManagers();
+            _managers = await _managerService.GetAllManagers();
 
-            task = _taskService.GetTasksByOrderIdWithSpecialization(Id);
+            task = await _taskService.GetTasksByOrderIdWithSpecialization(Id);
         }
     }
 
@@ -255,19 +258,6 @@ else
         _orderService.UpdateOrderStatus(Id, newStatus);
     }
 
-
-    private async Task GetClaims()
-    {
-        var authState = await State;
-        var user = authState.User;
-
-
-        if (user.Identity is not null && user.Identity.IsAuthenticated)
-        {
-            claims = user.Claims;
-            returnRole = claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).Single();
-        }
-    }
     public void ManagerSelection(ChangeEventArgs e)
     {
         selectedManagerId = int.Parse(e.Value.ToString());
@@ -279,8 +269,3 @@ else
         _managerService.AddManagerIdToOrder(selectedManagerId, Id);
     }
 }
-    
-
-   
-
-    

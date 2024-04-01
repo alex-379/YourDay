@@ -5,22 +5,30 @@ namespace YourDay.DAL.IRepositories
 {
     public interface ITaskRepository
     {
-        public TaskDto AddTask(TaskDto task);
+        public Task<TaskDto> AddTask(TaskDto task);
 
-        public void AddTaskManager(TaskDto task, int orderId);
+        public Task<IEnumerable<TaskDto>> GetAllTasksWithOrderWithSpecialization();
 
-        public IEnumerable<TaskDto> GetAllTasksWithOrderWithSpecialization();
+        public Task<IEnumerable<TaskDto>> GetAllTasks();
 
-        public IEnumerable<TaskDto> GetAllTasksWithAll();
+        public Task<TaskDto> GetTaskById(int taskId);
 
-        public TaskDto GetTaskByIdWithAll(int taskId);
+        public Task<IEnumerable<TaskDto>> FilterTasks(DateTime? startDate, DateTime? endDate);
 
-        public IEnumerable<TaskDto> GetTasksByOrderIdWithSpecialization(int orderId);
+        public Task<IEnumerable<TaskDto>> GetAllTasksWithAll();
 
-        public IEnumerable<TaskDto> GetTasksByWorkerIdWithOrderWithSpecialization(int workerId);
+        public Task<IEnumerable<TaskDto>> GetTaskByOrderId(int orderId);
 
-        public TaskDto UpdateTask(TaskDto task);
+        public Task<TaskDto> GetTaskByIdWithAll(int taskId);
 
-        public IEnumerable<TaskDto> FilterTasks(DateTime? startDate, DateTime? endDate, Status? status);
+        public Task<IEnumerable<TaskDto>> GetTasksByOrderIdWithSpecialization(int orderId);
+
+        public Task<IEnumerable<TaskDto>> GetTasksByWorkerIdWithOrderWithSpecialization(int workerId);
+
+        public Task<TaskDto> UpdateTask(TaskDto task);
+
+        public Task<IEnumerable<TaskDto>> FilterTasks(DateTime? startDate, DateTime? endDate, Status? status);
+
+        public Task<IEnumerable<TaskDto>> GetAllTaskOfOrderOfTheirManager();
     }
 }
