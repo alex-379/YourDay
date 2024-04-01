@@ -43,10 +43,6 @@ else
             </table>
         </section>
 
-
-        
-
-
         <button onclick="window.manager.showModal()" class="purple-button"> Назначить менеджера на заказ</button>
         <button onclick="window.order.showModal()" class="purple-button"> Изменить статус</button>
         <dialog id="task" aria-labelledby="heading">
@@ -263,6 +259,7 @@ else
 
         isSameManagerSelected = selectedManagerId == OrderOutput.Manager.Id;
     }
+
     public void AddManagerToOrder()
     {
         _managerService.AddManagerIdToOrder(selectedManagerId, Id);
