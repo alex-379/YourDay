@@ -35,7 +35,7 @@
                     new Column()
                 {
                     Field="IdManager",
-                    LayoutHeader="Индификатор менеджера"
+                    LayoutHeader="Идентификатор менеджера"
                 },
                 new Column()
                 {
@@ -45,7 +45,7 @@
                 new Column()
                 {
                     Field="IdOrder",
-                    LayoutHeader="Индификатор заказа"
+                    LayoutHeader="Идентификатор заказа"
                 },
                 new Column()
                 {
@@ -55,7 +55,7 @@
                 new Column()
                 {
                     Field="IdTask",
-                    LayoutHeader="Индификатор задачи"
+                    LayoutHeader="Идентификатор задачи"
                 },
                 new Column()
                 {
