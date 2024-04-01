@@ -1,8 +1,9 @@
 @page "/taskWorker/task/{Id:int}"
 @rendermode InteractiveServer
-@using YourDay.BLL.Services
 
-@if (returnRole != RoleUI.Worker.ToString())
+<GetClaims SendIsCompleted="b=>_isCompleted=b" SendRole="p=>_role=p"></GetClaims>
+
+@if (_isCompleted && _role != RoleUI.Manager.ToString())
 {
     <ReturnToStart></ReturnToStart>
 }
@@ -14,10 +15,10 @@ else
                 <WorkerTaskCard task="_task"></WorkerTaskCard>
                 <form>
                     <select @onchange="UpdateStatusTask">
-                        <option value="0">@StatusUI.Received.GetDisplayName()</option>
-                        <option value="1">@StatusUI.InProgress.GetDisplayName()</option>
-                        <option value="2">@StatusUI.Completed.GetDisplayName()</option>
-                        <option value="3">@StatusUI.Canselled.GetDisplayName()</option>
+                        <option value="0">@_enumService.GetDisplayName(StatusUI.Received)</option>
+                        <option value="1">@_enumService.GetDisplayName(StatusUI.InProgress)</option>
+                        <option value="2">@_enumService.GetDisplayName(StatusUI.Completed)</option>
+                        <option value="3">@_enumService.GetDisplayName(StatusUI.Canselled)</option>
                     </select>
                 </form>
 
@@ -27,26 +28,30 @@ else
 }
 
 @code {
+    private string? _role;
+
+    private bool _isCompleted;
+
     [Parameter]
     public int Id { get; set; }
 
-    private TaskService taskClient = new TaskService();
+    private ITaskService _taskService;
+
+    private IEnumService _enumService;
 
     private TaskOutputModelAllInfo _task;
 
-    [CascadingParameter]
-    public Task<AuthenticationState> State { get; set; }
-
-    private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
-
-    private string returnRole;
+    public TaskPage()
+    {
+        _taskService = new TaskService();
+        _enumService = new EnumService();
+    }
 
     protected override async Task OnInitializedAsync()
     {
-        await GetClaims().ConfigureAwait(false);
-        if (returnRole == RoleUI.Worker.ToString())
+        if (_role == RoleUI.Worker.ToString())
         {
-            _task = await taskClient.GetTaskByIdWithAll(Id);
+            _task = await _taskService.GetTaskByIdWithAll(Id);
         }
     }
 
@@ -68,7 +73,7 @@ else
                 break;
             case 2:
                 newStatus = StatusUI.Completed;
-   
+
                 break;
             case 3:
                 newStatus = StatusUI.Canselled;
@@ -76,18 +81,6 @@ else
                 break;
         }
 
-        taskClient.UpdateTaskStatusByTaskId(Id, newStatus);
-    }
-
-    private async Task GetClaims()
-    {
-        var authState = await State;
-        var user = authState.User;
-
-        if (user.Identity is not null && user.Identity.IsAuthenticated)
-        {
-            claims = user.Claims;
-            returnRole = claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).Single();
-        }
+        _taskService.UpdateTaskStatusByTaskId(Id, newStatus);
     }
 }

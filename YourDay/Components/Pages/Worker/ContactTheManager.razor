@@ -1,9 +1,9 @@
 ﻿@page "/contactTheManager"
 @attribute [StreamRendering]
-@inject NavigationManager NavigationWorker
-@inject IJSRuntime JsRuntime
 
-@if (returnRole != RoleUI.Worker.ToString())
+<GetClaims SendIsCompleted="b=>_isCompleted=b" SendRole="p=>_role=p"></GetClaims>
+
+@if (_isCompleted && _role != RoleUI.Manager.ToString())
 {
     <ReturnToStart></ReturnToStart>
 }
@@ -40,9 +40,12 @@ else
     </table>
 }
 
-
 @code {
-    private List<ManagerNameAndPhoneOutputModel> _models;
+    private string? _role;
+
+    private bool _isCompleted;
+
+    private IEnumerable<ManagerNameAndPhoneOutputModel> _models;
 
     private IManagerService _managers;
 
@@ -70,8 +73,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        await GetClaims().ConfigureAwait(false);
-        if (returnRole == RoleUI.Worker.ToString())
+        if (_role == RoleUI.Worker.ToString())
         {
             Columns = new List<Column>();
 
@@ -92,23 +94,6 @@ else
                 });
 
             _models = await _managers.GetAllManagers();
-        }
-    }
-
-    private void ContactTheManagers()
-    {
-        NavigationWorker.NavigateTo("/contactTheManager");
-    }
-
-    private async Task GetClaims()
-    {
-        var authState = await State;
-        var user = authState.User;
-
-        if (user.Identity is not null && user.Identity.IsAuthenticated)
-        {
-            claims = user.Claims;
-            returnRole = claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).Single();
         }
     }
 }
