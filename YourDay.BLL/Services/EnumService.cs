@@ -3,9 +3,9 @@ using System.Reflection;
 
 namespace YourDay.BLL.Services
 {
-    public static class EnumService
+    public class EnumService:IEnumService
     {
-        public static string? GetDisplayName(this Enum enumValue)
+        public string? GetDisplayName(Enum enumValue)
         {
             return enumValue
                       .GetType()

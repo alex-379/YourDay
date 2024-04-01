@@ -5,6 +5,8 @@ namespace YourDay.DAL.IRepositories
 {
     public interface ITaskRepository
     {
+        public Task<TaskDto> AddTask(TaskDto task);
+
         public Task<IEnumerable<TaskDto>> GetAllTasksWithOrderWithSpecialization();
 
         public Task<IEnumerable<TaskDto>> GetAllTasks();
@@ -26,5 +28,7 @@ namespace YourDay.DAL.IRepositories
         public Task<TaskDto> UpdateTask(TaskDto task);
 
         public Task<IEnumerable<TaskDto>> FilterTasks(DateTime? startDate, DateTime? endDate, Status? status);
+
+        public Task<IEnumerable<TaskDto>> GetAllTaskOfOrderOfTheirManager();
     }
 }

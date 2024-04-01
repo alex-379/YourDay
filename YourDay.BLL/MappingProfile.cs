@@ -11,13 +11,17 @@ using YourDay.BLL.Models.UserModels.InputModels;
 using YourDay.BLL.Models.UserModels.OutputModels;
 using YourDay.DAL.Dtos;
 using YourDay.BLL.Models.CompanyModels.OutputModels;
+using YourDay.BLL.IServices;
 
 namespace YourDay.BLL
 {
     public class MappingProfile : Profile
     {
+        private IOrderService _orderService;
         public MappingProfile()
         {
+            _orderService = new OrderService();
+
             CreateMap<UserRegistrationInputModel, UserDto>();
 
             CreateMap<UserRegistrationForManagerInputModel, UserDto>();
@@ -39,7 +43,7 @@ namespace YourDay.BLL
             CreateMap<OrderDto, OrderOutputModel>();
 
             CreateMap<OrderDto, OrderNameDateOutputModel>()
-                .ForMember(d => d.Date, opt => opt.MapFrom(s => OrderService.GetDateStringForOrder(s.Date)));
+                .ForMember(d => d.Date, opt => opt.MapFrom(s => _orderService.GetDateStringForOrder(s.Date)));
 
 
             CreateMap<OrderForManagerInputModel, OrderDto>();
@@ -51,7 +55,7 @@ namespace YourDay.BLL
             CreateMap<OrderInputModel, OrderDto>();
 
             CreateMap<OrderDto, OrderNameDateOutputModel>()
-                .ForMember(d => d.Date, opt => opt.MapFrom(s => OrderService.GetDateStringForOrder(s.Date)));
+                .ForMember(d => d.Date, opt => opt.MapFrom(s => _orderService.GetDateStringForOrder(s.Date)));
 
             CreateMap<ApplicationInputModel, HistoryDto>();
 

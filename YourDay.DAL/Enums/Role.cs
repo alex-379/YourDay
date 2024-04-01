@@ -2,7 +2,6 @@
 {
     public enum Role
     {
-
         Client = 0,
 
         Worker = 1,

@@ -9,8 +9,6 @@ namespace YourDay.DAL.Repositories
     {
         private readonly Context context = SingletoneStorage.GetStorage().Сontext;
 
-        public OrderRepository orderRepository = new OrderRepository();
-
         public async Task<TaskDto> AddTask(TaskDto task)
         {
             context.Tasks.Add(task);
@@ -108,6 +106,17 @@ namespace YourDay.DAL.Repositories
                 && (status != null ? task.Status == status : true)).ToListAsync();
 
             return filterdTasks;
+        }
+
+        public async Task<IEnumerable<TaskDto>> GetAllTaskOfOrderOfTheirManager()
+        {
+            var tasksWithOrdersAndManagers = await context.Tasks
+                .AsQueryable()
+                .Include(task => task.Order)
+                .ThenInclude(order => order.Manager)
+                .ToListAsync();
+
+            return tasksWithOrdersAndManagers;
         }
     }
 }

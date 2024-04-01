@@ -1,4 +1,5 @@
-﻿using YourDay.BLL.Models.ManagerModels.OutputModel;
+﻿using YourDay.BLL.Models.CompanyModels.OutputModels;
+using YourDay.BLL.Models.ManagerModels.OutputModel;
 
 namespace YourDay.BLL.IServices
 {
@@ -7,5 +8,7 @@ namespace YourDay.BLL.IServices
         public List<ManagerNameAndPhoneOutputModel> GetAllManagers();
 
         public void AddManagerIdToOrder(int managerId,int orderId);
+
+        public List<CompanyStatisticOutputModel> GetAllTaskOfOrderOfTheirManager();
     }
 }

@@ -6,22 +6,22 @@ namespace YourDay.BLL.IServices
 {
     public interface IOrderService
     {
-        public OrderOutputModel AddOrder(OrderForManagerInputModel order);
+        public Task<OrderOutputModel> AddOrder(OrderForManagerInputModel order);
 
-        public void AddApplication(ApplicationInputModel application, string userMail);
+        public Task<IEnumerable<OrderOutputModel>> GetAllOrders();
 
-        public IEnumerable<OrderOutputModel> GetAllOrders();
+        public Task<IEnumerable<OrderNameDateOutputModel>> GetAllOrdersForCard();
 
-        public IEnumerable<OrderNameDateOutputModel> GetAllOrdersForCard();
+        public Task<IEnumerable<OrderNameDateOutputModel>> GetAllApplications();
 
-        public IEnumerable<OrderNameDateOutputModel> GetAllApplications();
+        public IEnumerable<OrderNameDateOutputModel> ShowAllCompletedAndCanselledOrdersForCard(IEnumerable<OrderNameDateOutputModel> orders);
 
-        public List<OrderNameDateOutputModel> ShowAllCompletedAndCanselledOrdersForCard(IEnumerable<OrderNameDateOutputModel> orders);
+        public Task<OrderOutputModel> GetOrderById(int id);
 
-        public OrderOutputModel GetOrderById(int id);
+        public Task<OrderInputModel> GetOrderByIdForAddTask(int id);
 
-        public OrderInputModel GetOrderByIdForAddTask(int id);
+        public Task<OrderOutputModel> UpdateOrderStatus(int orderId, StatusUI newOrderStatus);
 
-        public void UpdateOrderStatus(int orderId, StatusUI newOrderStatus);
+        public string? GetDateStringForOrder(DateTime? date);
     }
 }
