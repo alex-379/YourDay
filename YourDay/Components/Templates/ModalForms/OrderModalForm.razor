@@ -1,6 +1,6 @@
 ﻿<div class="modal-dialog">
     <div class="modal-content">
-        <EditForm Model="OrderModel" FormName="OrderModel">
+        <EditForm Model="OrderModel" FormName="OrderModel" OnValidSubmit="Add">
             <DataAnnotationsValidator />
             <div class="modal-body">
                 <div class="form-group">
@@ -10,7 +10,6 @@
                 </div>
                 <div class="form-group">
                     <label>Дата:</label>
-@*                     <InputDate class="form-control" @bind-Value=OrderModel.Date /> *@
                      <DateInput TValue="DateTime" EnableMinMax="true" Min="@_minDate" Max="@_maxDate" class="form-control" @bind-Value=OrderModel.Date placeholder="Введите дату праздника" /> 
                     <ValidationMessage For="@(() => OrderModel.Date)" />
                 </div>
@@ -25,13 +24,13 @@
                     <ValidationMessage For="@(() => OrderModel.CountPeople)" />
                 </div>
                 <div class="form-group">
-                    <label>Количество человек:</label>
+                    <label>Цена:</label>
                     <InputNumber class="form-control" @bind-Value="@OrderModel.Price" placeholder="Введите цену" />
                     <ValidationMessage For="@(() => OrderModel.Price)" />
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="purple-button">Создать</button>
+                <button type="submit" class="purple-button" data-bs-toggle="modal">Создать</button>
                 <button type="button" class="purple-button" data-bs-dismiss="modal">Отмена</button>
             </div>
         </EditForm>
@@ -59,6 +58,7 @@
     private void Add()
     {
         OrderModel.OrderName = OrderModel.OrderName.ToLower();
+        OrderModel.Address = OrderModel.Address.ToLower();
         AddOrder(OrderModel);
     }
 }
