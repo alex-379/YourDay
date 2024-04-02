@@ -62,3 +62,85 @@
             </div>
         </section>
     </div> *@
+
+
+                
+@* 
+
+    public TaskOutputModel TaskOutput { get; set; }
+
+    private IOrderService _orderService;
+
+    private ITaskService _taskService;
+
+
+
+    public IEnumerable<TaskOutputModelWithSpecialization> _task;
+
+    public StatusUI status;
+
+
+
+    private List<TaskOutputModelAllInfo> _tasks;
+
+
+
+            public int selectedtaskId;
+
+    public Order()
+    {
+        _orderService = new OrderService();
+
+        _taskService = new TaskService();
+
+        _enumService = new EnumService();
+
+        OrderOutput = new OrderOutputModel();
+
+        _managerService = new ManagerService();
+
+        TaskOutput = new TaskOutputModel();
+
+        IEnumerable<TaskOutputModelWithSpecialization> task = new List<TaskOutputModelWithSpecialization>();
+
+        status = StatusUI.Completed;
+
+    }
+
+    private async Task ShowModal(int taskId)
+    {
+        selectedtaskId = taskId;
+
+        await JSRuntime.InvokeVoidAsync("user.showModal");
+
+        StateHasChanged();
+    }
+
+    public void UpdateStatus()
+    {
+        _orderService.UpdateOrderStatus(Id, status);
+    }
+    public void Close()
+    {
+
+        NavigationManager.NavigateTo("/order/Id");
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        OrderOutputModel orderOutput = await _orderService.GetOrderById(Id);
+        OrderOutput.Id = orderOutput.Id;
+        OrderOutput.OrderName = orderOutput.OrderName;
+        OrderOutput.Date = orderOutput.Date;
+        OrderOutput.Address = orderOutput.Address;
+        OrderOutput.CountPeople = orderOutput.CountPeople;
+        OrderOutput.Price = orderOutput.Price;
+        OrderOutput.Status = orderOutput.Status;
+        OrderOutput.Manager = orderOutput.Manager;
+        selectedManagerId = orderOutput.Manager.Id;
+
+        _managers = await _managerService.GetAllManagers();
+
+        _task = await _taskService.GetTasksByOrderIdWithSpecialization(Id);
+    }
+ *@

@@ -3,9 +3,9 @@
     <form>
         <select @onchange="UpdateStatusOrder">
             <option value="0">@_enumService.GetDisplayName(StatusUI.Received)</option>
-            <option value="1">@_enumService.GetDisplayName(StatusUI.Received)</option>
-            <option value="2">@_enumService.GetDisplayName(StatusUI.Received)</option>
-            <option value="3">@_enumService.GetDisplayName(StatusUI.Received)</option>
+            <option value="1">@_enumService.GetDisplayName(StatusUI.InProgress)</option>
+            <option value="2">@_enumService.GetDisplayName(StatusUI.Completed)</option>
+            <option value="3">@_enumService.GetDisplayName(StatusUI.Canselled)</option>
         </select>
     </form>
     <form method="dialog">
@@ -17,18 +17,45 @@
 
 @code {
     [Parameter]
-    public int SelectedClientId { get; set; }
+    public int OrderId { get; set; }
+
+    private IEnumService _enumService;
+
+    private IOrderService _orderService;
 
 
-    private IUserService _userService;
-
-    public ManagerDialogForChangeStatusModalForm()
+    public ManagerDialogForChangeStatusOrderModalForm()
     {
-        _userService = new UserService();
+        _enumService = new EnumService();
+        _orderService = new OrderService();
     }
 
-    private void DeleteUser()
+    public void UpdateStatusOrder(ChangeEventArgs e)
     {
-        _userService.DeleteUser(SelectedClientId);
+        int newStatusInt = int.Parse(e.Value.ToString());
+
+        StatusUI newStatus = new StatusUI();
+
+        switch (newStatusInt)
+        {
+            case 0:
+                newStatus = StatusUI.Received;
+
+                break;
+            case 1:
+                newStatus = StatusUI.InProgress;
+
+                break;
+            case 2:
+                newStatus = StatusUI.Completed;
+
+                break;
+            case 3:
+                newStatus = StatusUI.Canselled;
+
+                break;
+        }
+
+        _orderService.UpdateOrderStatus(OrderId, newStatus);
     }
 }

@@ -12,37 +12,54 @@
 }
 else
 {
-    <section class="white">
-        <table class="table white">
-            <thead>
-                <tr>
-                    <th>Праздник</th>
-                    <th>Дата</th>
-                    <th>Адрес</th>
-                    <th>Количество гостей</th>
-                    <th>Цена</th>
-                    <th>Статус</th>
-                    <th>Менеджер</th>
-                    <th>Клиент</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>@OrderOutput.OrderName</td>
-                    <td>@OrderOutput.Date</td>
-                    <td>@OrderOutput.Address</td>
-                    <td>@OrderOutput.CountPeople</td>
-                    <td>@OrderOutput.Price</td>
-                    <td>@_enumService.GetDisplayName(OrderOutput.Status)</td>
-                    <td>@OrderOutput.Manager = orderOutput.Manager</td>
-                    <td>@OrderOutput.Client = orderOutput.Client</td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
+    if (_isReceieved)
+    {
+        <section class="white">
+            <table class="table white">
+                <thead>
+                    <tr>
+                        <th>Праздник</th>
+                        <th>Дата</th>
+                        <th>Адрес</th>
+                        <th>Количество гостей</th>
+                        <th>Цена</th>
+                        <th>Статус</th>
+                        <th>Менеджер</th>
+                        <th>Клиент</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@OrderOutput.OrderName</td>
+                        <td>@OrderOutput.Date</td>
+                        <td>@OrderOutput.Address</td>
+                        <td>@OrderOutput.CountPeople</td>
+                        <td>@OrderOutput.Price</td>
+                        <td>@_enumService.GetDisplayName(OrderOutput.Status)</td>
+                        @if (OrderOutput.Manager is not null)
+                        {
+                            <td>@OrderOutput.Manager</td>
+                        }
+                        else
+                        {
+                            OrderOutput.Manager = new UserOutputModel();
+                        }
+                        @if (OrderOutput.Client is not null)
+                        {
+                            <td>@OrderOutput.Client</td>
+                        }
+                        else
+                        {
+                            OrderOutput.Client = new UserOutputModel();
+                        }
+                    </tr>
+                </tbody>
+            </table>
+        </section>
 
-    <ManagerDialogForAssignManagerModalForm OrderId=Id ManagerId=OrderOutput.Manager.Id></ManagerDialogForAssignManagerModalForm>
-    <ManagerDialogForChangeStatusOrderModalForm OrderId=Id></ManagerDialogForChangeStatusOrderModalForm>
+        <ManagerDialogForAssignManagerModalForm OrderId=Id ManagerId=OrderOutput.Manager.Id></ManagerDialogForAssignManagerModalForm>
+        <ManagerDialogForChangeStatusOrderModalForm OrderId=Id></ManagerDialogForChangeStatusOrderModalForm>
+    }
 
     <button onclick="window.manager.showModal()" class="purple-button"> Назначить менеджера на заказ</button>
     <button onclick="window.statusOrder.showModal()" class="purple-button"> Изменить статус</button>
@@ -54,6 +71,8 @@ else
     private string? _role;
 
     private bool _isCompleted;
+
+    private bool _isReceieved;
 
     [Parameter]
     public int Id { get; set; }
@@ -84,5 +103,6 @@ else
         OrderOutput.Status = orderOutput.Status;
         OrderOutput.Manager = orderOutput.Manager;
         OrderOutput.Client = orderOutput.Client;
+        _isReceieved = true;
     }
 }
