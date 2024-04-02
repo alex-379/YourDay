@@ -2,13 +2,13 @@
 {
     public class CompanyStatisticOutputModel
     {
-        public int IdManager {  get; set; }
-        public string NameManager { get; set; }
-        public int IdOrder {  get; set; }
-        public string TitleOrder { get; set; }
-        public int IdTask {  get; set; }
-        public string TitleTask { get; set; }
+        public int ManagerId {  get; set; }
+        public string ManagerName { get; set; }
+        public int OrderId {  get; set; }
+        public string OrderTitle { get; set; }
+        public int TaskId {  get; set; }
+        public string TaskTitle { get; set; }
         public int ClientId {  get; set; }
-        public string NameClient { get; set; }
+        public string ClientName { get; set; }
     }
 }
