@@ -1,0 +1,22 @@
+﻿<button @onclick="() => OpenModal(Application.Id)">&#128056;</button>
+
+<div class="product-card">
+    <p>@Application.Id</p>
+@*     @foreach (var i in @App.Specializations)
+    {
+        <p>@i.Name</p>
+    } *@
+
+</div>
+
+@code {
+    [Parameter]
+    public ApplicationOutputModel Application { get; set; }
+
+    [Parameter] public EventCallback<int> OnOpenModal { get; set; }
+
+    private async Task OpenModal(int id)
+    {
+        await OnOpenModal.InvokeAsync(id);
+    }
+}

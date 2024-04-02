@@ -12,9 +12,11 @@ namespace YourDay.BLL.IServices
 
         public Task<IEnumerable<OrderNameDateOutputModel>> GetAllOrdersForCard();
 
-        public Task<IEnumerable<OrderNameDateOutputModel>> GetAllApplications();
+        public Task<IEnumerable<ApplicationOutputModel>> GetAllApplications();
 
         public IEnumerable<OrderNameDateOutputModel> ShowAllCompletedAndCanselledOrdersForCard(IEnumerable<OrderNameDateOutputModel> orders);
+
+        public IEnumerable<OrderNameDateOutputModel> ShowAllInProgressOrdersForCard(IEnumerable<OrderNameDateOutputModel> orders);
 
         public Task<OrderOutputModel> GetOrderById(int id);
 

@@ -39,6 +39,7 @@ namespace YourDay.BLL
 
             CreateMap<OrderDto, OrderNameDateOutputModel>()
                 .ForMember<string>(outputModel => outputModel.Date, date => date.MapFrom(orderDto => orderDto.Date != null ? orderDto.Date.Value.ToString("yyyy-MM-dd") : null));
+
             CreateMap<OrderInputModel, OrderDto>();
 
             CreateMap<ApplicationInputModel, HistoryDto>();

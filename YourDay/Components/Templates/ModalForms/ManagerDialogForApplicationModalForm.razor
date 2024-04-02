@@ -5,7 +5,7 @@
             <button>
                 Закрыть
             </button>
-            <button>
+            <button @onclick="DeleteApplication">
                 Архивировать
             </button>
             <button>
@@ -19,15 +19,15 @@
     [Parameter]
     public int SelectedClientId { get; set; }
 
-    private IUserService _userService;
+    private IOrderService _orderService;
 
     public ManagerDialogForApplicationModalForm()
     {
-        _userService = new UserService();
+        _orderService = new OrderService();
     }
 
-    private void DeleteUser()
+    private void DeleteApplication()
     {
-        _userService.DeleteUser(SelectedClientId);
+        _orderService.UpdateOrderStatus(SelectedClientId, StatusUI.Canselled);
     }
 }
