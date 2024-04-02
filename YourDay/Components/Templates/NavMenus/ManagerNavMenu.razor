@@ -1,17 +1,19 @@
-﻿<header class="navbar">
+<header class="navbar">
     <div>
         <NavLink href="/"><img src="/images/logo.png" alt=""></NavLink>
     </div>
-    <nav class="menu-yellow">
+    <nav class="menu">
         <ul>
             <li>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#orderNew">
+                <button type="button" class="button-menu btn btn-primary" data-bs-toggle="modal" data-bs-target="#orderNew">
                     Создать заказ
                 </button>
             </li>
+            <li><NavLink href="/">Заказы</NavLink></li>
             <li><NavLink href="/applications">Заявки</NavLink></li>
             <li><NavLink href="/manager-statistics">Статистика</NavLink></li>
-            <li><NavLink href="/clients">Клиенты</NavLink></li>
+            <li><NavLink href="/workers">Сотрудники</NavLink></li>
+            <li><NavLink href="/history">История</NavLink></li>
             <li><RefreshNavLink></RefreshNavLink></li>
         </ul>
     </nav>

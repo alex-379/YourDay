@@ -1,4 +1,6 @@
-﻿using YourDay.DAL.Dtos;
+using YourDay.BLL.Models.TaskModels.InputModels;
+using YourDay.DAL.Dtos;
+using YourDay.BLL.Models.SpecializationModels.OutputModels;
 using YourDay.DAL.Enums;
 
 namespace YourDay.BLL.Models.TaskModels.OutputModels
@@ -17,6 +19,6 @@ namespace YourDay.BLL.Models.TaskModels.OutputModels
 
         public Status? Status { get; set; }
 
-        public SpecializationDto? Specialization { get; set; }
+        public SpecializationTaskInputModel? Specialization { get; set; }
     }
 }

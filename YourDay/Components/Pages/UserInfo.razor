@@ -1,0 +1,62 @@
+﻿@page "/{Id:int}"
+@rendermode InteractiveServer
+
+<GetClaims SendIsCompleted="b=>_isCompleted=b" SendRole="p=>_role=p"></GetClaims>
+
+@if (_isCompleted && _role != RoleUI.Manager.ToString())
+{
+    <ReturnToStart></ReturnToStart>
+}
+else
+{
+    <section>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Имя</th>
+                    <th>e-mail</th>
+                    <th>Телефон</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@UserOutput.Id</td>
+                    <td>@UserOutput.UserName</td>
+                    <td>@UserOutput.Mail</td>
+                    <td>@UserOutput.Phone</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    }
+
+@code
+{
+    private string? _role;
+
+    private bool _isCompleted;
+
+    [Parameter]
+    public int Id { get; set; }
+
+    [Parameter]
+    public UserOutputModel UserOutput { get; set; }
+
+    private IUserService _userService;
+
+    public UserInfo()
+    {
+        _userService = new UserService();
+        UserOutput = new UserOutputModel();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        UserOutputModel userOutput = await _userService.GetUserById(Id);
+        UserOutput.Id = userOutput.Id;
+        UserOutput.UserName = userOutput.UserName;
+        UserOutput.Mail = userOutput.Mail;
+        UserOutput.Phone = userOutput.Phone;
+    }
+}

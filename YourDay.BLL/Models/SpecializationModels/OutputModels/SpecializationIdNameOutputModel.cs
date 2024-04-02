@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YourDay.BLL.Models.TaskModels.OutputModels
+namespace YourDay.BLL.Models.SpecializationModels.OutputModels
 {
-    public class SpecializationsOutputModel
+    public class SpecializationIdNameOutputModel
     {
         public int Id { get; set; }
 

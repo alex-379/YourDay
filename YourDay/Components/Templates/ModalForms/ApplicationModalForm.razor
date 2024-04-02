@@ -1,0 +1,36 @@
+﻿<div class="modal-dialog">
+    <div class="modal-content">
+        <EditForm Model="ApplicationModel" FormName="ApplicationModel" OnValidSubmit="Add">
+            <DataAnnotationsValidator />
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Название праздника:</label>
+                    <InputText class="form-control" @bind-Value="ApplicationModel.Comment" placeholder="Введите название праздника" />
+                    <ValidationMessage For="@(() => ApplicationModel.Comment)" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="purple-button" data-bs-toggle="modal">Отправить</button>
+                <button type="button" class="purple-button" data-bs-dismiss="modal">Отмена</button>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    [SupplyParameterFromForm(FormName = "ApplicationModel")]
+    public ApplicationInputModel ApplicationModel { get; set; }
+
+    [Parameter]
+    public Action<ApplicationInputModel> AddApplication { get; set; }
+
+    public ApplicationModalForm()
+    {
+        ApplicationModel = new ApplicationInputModel();
+    }
+
+    private void Add()
+    {
+        AddApplication(ApplicationModel);
+    }
+}

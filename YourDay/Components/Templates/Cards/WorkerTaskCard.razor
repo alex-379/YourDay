@@ -1,19 +1,29 @@
 <div class="container-buttons">
-    <a href="./taskWorker/task/@task.Id">
+    <a href="./task/@task.Id">
 
-    <div class="taskWorker-card">
-        <p>@task.Title </p>
-        <p>@task.Specialization</p>
+        <div class="taskWorker-card">
+            <p>@task.Title </p>
+            @if (task.Specialization !=null)
+            {
+                <p>@task.Specialization.Name</p>
+            }
             <p>@task.TimeStart.ToShortTimeString() - @task.TimeEnd.ToShortTimeString()</p>
-       @*  <p>@getStatusNameByIndex(task.Status)</p> *@
-        <p>@task.TimeStart - @task.TimeEnd</p>
-        <p>@getStatusNameByIndex((int)task.Status)</p>
-    </div>
-</a>
- </div>
+            <p>@task.TimeStart - @task.TimeEnd</p>
+            <p>@getStatusNameByIndex((int)task.Status)</p>
+        </div>
+    </a>
+</div>
+
 @code {
     [Parameter]
     public TaskOutputModelAllInfo task { get; set; }
+
+    private IEnumService _enumService;
+
+    public WorkerTaskCard()
+    {
+        _enumService = new EnumService();
+    }
 
     public string getStatusNameByIndex(int index)
     {
@@ -22,19 +32,19 @@
         switch (index)
         {
             case 0:
-                statusName = "�������";
+                statusName = _enumService.GetDisplayName(StatusUI.Received);
 
                 break;
             case 1:
-                statusName = "� ������";
+                statusName = _enumService.GetDisplayName(StatusUI.InProgress);
 
                 break;
             case 2:
-                statusName = "��������";
+                statusName = _enumService.GetDisplayName(StatusUI.Completed);
 
                 break;
             case 3:
-                statusName = "��������";
+                statusName = _enumService.GetDisplayName(StatusUI.Canselled);
 
                 break;
         }

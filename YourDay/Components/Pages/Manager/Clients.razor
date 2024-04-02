@@ -12,7 +12,7 @@
 else
 {
     <div class="body">
-        <ManagerDialogModalForm SelectedClientId=selectedClientId></ManagerDialogModalForm>
+        <ManagerDialogForOrderModalForm SelectedClientId=selectedClientId></ManagerDialogForOrderModalForm>
 
         <section>
             <h2 class="manager-h1"> Клиенты:</h2>
@@ -48,9 +48,9 @@ else
         _clients = Enumerable.Empty<UserSpecializationOutputModel>();
     }
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        _clients = _userService.GetAllUsersSpecializationByRole(RoleUI.Client);
+        _clients = await _userService.GetAllUsersSpecializationByRole(RoleUI.Client);
     }
 
     private void AddClient(UserRegistrationForManagerInputModel input)

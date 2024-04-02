@@ -17,15 +17,12 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="BootstrapBlazor" Version="8.4.0" />
     <PackageReference Include="System.Security.Cryptography.Encoding" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\YourDay.DAL\YourDay.DAL.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Models\ManagerModels\InputModels\" />
   </ItemGroup>
 
 </Project>

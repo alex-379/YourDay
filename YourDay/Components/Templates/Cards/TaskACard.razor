@@ -1,0 +1,21 @@
+﻿<button @onclick="() => OpenModal(taskcCard.Id)">ааа</button>
+
+<div class="product-card">
+    <p>@taskcCard.Title</p>
+    <p>@taskcCard.TimeStart.ToShortTimeString()-@taskcCard.TimeEnd.ToShortTimeString()</p>
+    <p>@taskcCard.Specialization</p>
+
+</div>
+
+@code {
+    [Parameter]
+    public TaskOutputModelWithSpecialization taskcCard { get; set; }
+
+    [Parameter] public EventCallback<int> OnOpenModal { get; set; }
+
+    private async Task OpenModal(int id)
+    {
+        await OnOpenModal.InvokeAsync(id);
+
+    }
+}

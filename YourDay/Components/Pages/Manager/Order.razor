@@ -2,8 +2,11 @@
 @attribute [StreamRendering]
 @rendermode InteractiveServer
 @inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
 
-@if (returnRole != RoleUI.Manager.ToString())
+<GetClaims SendIsCompleted="b=>_isCompleted=b" SendRole="p=>_role=p"></GetClaims>
+
+@if (_isCompleted && _role != RoleUI.Manager.ToString())
 {
     <ReturnToStart></ReturnToStart>
 }
@@ -20,35 +23,28 @@ else
                         <th>Количество гостей</th>
                         <th>Цена</th>
                         <th>Статус</th>
+                        <th>Менеджер</th>
+                        <th>Клиент</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
+                       
                         <td>@OrderOutput.OrderName</td>
                         <td>@OrderOutput.Date</td>
                         <td>@OrderOutput.Address</td>
                         <td>@OrderOutput.CountPeople</td>
                         <td>@OrderOutput.Price</td>
-                        <td>@OrderOutput.Status</td>
+                        <td>@_enumService.GetDisplayName(OrderOutput.Status)</td>
+                        <td>@OrderOutput.Manager = orderOutput.Manager</td>
+                        <td>@OrderOutput.Manager = orderOutput.Client</td>
                     </tr>
                 </tbody>
             </table>
         </section>
-        <div class="manager-reassign-container">
-            <div>Назначить менеджера на заказ:</div>
-            <div>
-                <select onchange="@ManagerSelection" value="@selectedManagerId">
-                    @foreach (ManagerNameAndPhoneOutputModel outputModel in _managers)
-                    {
-                        <option value="@outputModel.Id">@outputModel.Name</option>
-                    }
-                </select>
-            </div>
-            <div>
-                <button onclick="@AddManagerToOrder" disabled="@isSameManagerSelected">Назначить</button>
-            </div>
-        </div>
 
+        <button onclick="window.manager.showModal()" class="purple-button"> Назначить менеджера на заказ</button>
+        <button onclick="window.order.showModal()" class="purple-button"> Изменить статус</button>
         <dialog id="task" aria-labelledby="heading">
             <h2 id="heading">Что сделать с таской? &#128054 </h2>
 
@@ -65,13 +61,65 @@ else
             </form>
         </dialog>
 
+        <dialog id="order" aria-labelledby="heading">
+            <h2 id="heading">Изменить статус: &#128054 </h2>
+            <form>
+                <select @onchange="UpdateStatusOrder">
+                    <option value="0">@_enumService.GetDisplayName(StatusUI.Received)</option>
+                    <option value="1">@_enumService.GetDisplayName(StatusUI.Received)</option>
+                    <option value="2">@_enumService.GetDisplayName(StatusUI.Received)</option>
+                    <option value="3">@_enumService.GetDisplayName(StatusUI.Received)</option>
+                </select>
+            </form>
+            <form method="dialog">
+                <button> Закрыть</button>
+            </form>
 
+        </dialog>
+
+        <dialog id="task" aria-labelledby="heading">
+            <h2 id="heading">Изменить статус: &#128054 </h2>
+            
+            <form method="dialog">
+                <button> Закрыть</button>
+            </form>
+
+        </dialog>
+
+        <dialog id="manager" aria-labelledby="heading">
+            <div class="manager-reassign-container">
+                <div>Назначить менеджера на заказ:</div>
+                <div>
+                    <select onchange="@ManagerSelection" value="@selectedManagerId">
+                        @if (_managers is not null)
+                        {
+                        @foreach (ManagerNameAndPhoneOutputModel outputModel in _managers)
+                        {
+                            <option value="@outputModel.Id">@outputModel.Name</option>
+                        }
+                        }
+                    </select>
+                </div>
+                <div>
+                    <button onclick="@AddManagerToOrder" disabled="@isSameManagerSelected">Назначить</button>
+                </div>
+                <form method="dialog">
+                    <button> Закрыть</button>
+                </form>
+            </div>
+        </dialog>
+
+
+        <ManagerDialogForTaskModalForm aaa=14></ManagerDialogForTaskModalForm>
         <section>
             <h2 class="manager-h1"> Задачи:</h2>
             <div class="container-task">
-                @foreach (var i in task)
+                @if (_task is not null)
                 {
-                    <button class="task-button"><TaskManagerCard taskcCard=i> </TaskManagerCard> </button>
+                    @foreach (var i in _task)
+                    {
+                        <button @onclick="() => ShowModal(i.Id)" class="order-button"><TaskManagerCard taskcCard="i" OnOpenModal="ShowModal"> </TaskManagerCard> </button>
+                    }
                 }
             </div>
         </section>
@@ -83,6 +131,7 @@ else
                 <button class="purple-button"> Завершить заказ </button>
                 <button class="purple-button"> Другое</button>
                 <button class="order-button"> <AddTaskCard order=OrderOutput> </AddTaskCard> </button>
+                
             </div>
         </section>
     </div>
@@ -91,6 +140,10 @@ else
 
 @code
 {
+    private string? _role;
+
+    private bool _isCompleted;
+
     [Parameter]
     public int Id { get; set; }
 
@@ -103,22 +156,20 @@ else
 
     private ITaskService _taskService;
 
-    public IEnumerable<TaskOutputModelWithSpecialization> task;
+    private IEnumService _enumService;
 
-    [CascadingParameter]
-    public Task<AuthenticationState> State { get; set; }
+    public IEnumerable<TaskOutputModelWithSpecialization> _task;
 
-    public List<ManagerNameAndPhoneOutputModel> _managers;
+    public StatusUI status;
+
+    public IEnumerable<ManagerNameAndPhoneOutputModel> _managers;
 
     private List<TaskOutputModelAllInfo> _tasks;
-
-    private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
-    private string returnRole;
-
 
     private IManagerService _managerService;
     public int selectedManagerId;
     public bool isSameManagerSelected = true;
+    public int selectedtaskId;
 
     public Order()
     {
@@ -126,61 +177,96 @@ else
 
         _taskService = new TaskService();
 
+        _enumService = new EnumService();
+
         OrderOutput = new OrderOutputModel();
+
         _managerService = new ManagerService();
 
         TaskOutput = new TaskOutputModel();
 
         IEnumerable<TaskOutputModelWithSpecialization> task = new List<TaskOutputModelWithSpecialization>();
+
+        status = StatusUI.Completed;
+
+    }
+
+     private async Task ShowModal(int taskId)
+    {
+        selectedtaskId = taskId;
+
+        await JSRuntime.InvokeVoidAsync("user.showModal");
+
+        StateHasChanged();
+    }
+
+    public void UpdateStatus()
+    {
+        _orderService.UpdateOrderStatus(Id, status);
+    }
+    public void Close()
+    {
+
+        NavigationManager.NavigateTo("/order/Id");
     }
 
     protected override async Task OnInitializedAsync()
     {
-        await GetClaims().ConfigureAwait(false);
-        if (returnRole == "Manager")
-        {
-            OrderOutputModel orderOutput = _orderService.GetOrderById(Id);
+            OrderOutputModel orderOutput = await _orderService.GetOrderById(Id);
             OrderOutput.Id = orderOutput.Id;
             OrderOutput.OrderName = orderOutput.OrderName;
             OrderOutput.Date = orderOutput.Date;
             OrderOutput.Address = orderOutput.Address;
             OrderOutput.CountPeople = orderOutput.CountPeople;
             OrderOutput.Price = orderOutput.Price;
+            OrderOutput.Status = orderOutput.Status;
             OrderOutput.Manager = orderOutput.Manager;
             OrderOutput.Client = orderOutput.Client;
             selectedManagerId = orderOutput.Manager.Id;
 
-            _managers = _managerService.GetAllManagers();
+            _managers = await _managerService.GetAllManagers();
 
-            task = _taskService.GetTasksByOrderIdWithSpecialization(Id);
-        }
+        _task = await _taskService.GetTasksByOrderIdWithSpecialization(Id);
     }
 
-    private async Task GetClaims()
+    public void UpdateStatusOrder(ChangeEventArgs e)
     {
-        var authState = await State;
-        var user = authState.User;
+        int newStatusInt = int.Parse(e.Value.ToString());
 
+        StatusUI newStatus = new StatusUI();
 
-        if (user.Identity is not null && user.Identity.IsAuthenticated)
+        switch (newStatusInt)
         {
-            claims = user.Claims;
-            returnRole = claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).Single();
+            case 0:
+                newStatus = StatusUI.Received;
+
+                break;
+            case 1:
+                newStatus = StatusUI.InProgress;
+
+                break;
+            case 2:
+                newStatus = StatusUI.Completed;
+
+                break;
+            case 3:
+                newStatus = StatusUI.Canselled;
+
+                break;
         }
+
+        _orderService.UpdateOrderStatus(Id, newStatus);
     }
+
     public void ManagerSelection(ChangeEventArgs e)
     {
         selectedManagerId = int.Parse(e.Value.ToString());
 
         isSameManagerSelected = selectedManagerId == OrderOutput.Manager.Id;
     }
+
     public void AddManagerToOrder()
     {
         _managerService.AddManagerIdToOrder(selectedManagerId, Id);
     }
 }
-    
-
-   
-
-    

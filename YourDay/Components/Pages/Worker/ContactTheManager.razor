@@ -1,9 +1,9 @@
 ﻿@page "/contactTheManager"
 @attribute [StreamRendering]
-@inject NavigationManager NavigationWorker
-@inject IJSRuntime JsRuntime
 
-@if (returnRole != RoleUI.Worker.ToString())
+<GetClaims SendIsCompleted="b=>_isCompleted=b" SendRole="p=>_role=p"></GetClaims>
+
+@if (_isCompleted && _role != RoleUI.Worker.ToString())
 {
     <ReturnToStart></ReturnToStart>
 }
@@ -17,7 +17,7 @@ else
 
     <table>
         <thead>
-            @foreach (Column column in Columns)
+            @foreach (Column column in _table.Columns)
             {
             <th>
                     @column.LayoutHeader
@@ -28,7 +28,7 @@ else
             @foreach (ManagerNameAndPhoneOutputModel manager in _models)
             {
                 <tr>
-                    @foreach (Column column in Columns)
+                    @foreach (Column column in _table.Columns)
                     {
                         <td>
                             @typeof(ManagerNameAndPhoneOutputModel).GetProperty(column.Field).GetValue(manager)
@@ -40,75 +40,27 @@ else
     </table>
 }
 
-
 @code {
-    private List<ManagerNameAndPhoneOutputModel> _models;
+    private string? _role;
+
+    private bool _isCompleted;
+
+    private Tables _table;
+
+    private IEnumerable<ManagerNameAndPhoneOutputModel> _models;
 
     private IManagerService _managers;
-
-    private List<Column> Columns { get; set; }
-
-    class Column
-    {
-        public string Field { get; set; }
-        public string LayoutHeader { get; set; }
-    }
-
-    [CascadingParameter]
-    public Task<AuthenticationState> State { get; set; }
-
-    private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
-
-    private string returnRole;
 
     public ContactTheManager()
     {
         _models = new List<ManagerNameAndPhoneOutputModel>();
         _managers = new ManagerService();
-        Columns = new List<Column>();
+        _table = new Tables();
     }
 
     protected override async Task OnInitializedAsync()
     {
-        await GetClaims().ConfigureAwait(false);
-        if (returnRole == RoleUI.Worker.ToString())
-        {
-            Columns = new List<Column>();
-
-            Columns.AddRange(
-                new Column[]
-                {
-                new Column()
-                {
-                    Field="Name",
-                    LayoutHeader="Имя"
-                },
-
-                new Column()
-                {
-                    Field="Phone",
-                    LayoutHeader="Телефон"
-                }
-                });
-
-            _models = _managers.GetAllManagers();
-        }
-    }
-
-    private void ContactTheManagers()
-    {
-        NavigationWorker.NavigateTo("/contactTheManager");
-    }
-
-    private async Task GetClaims()
-    {
-        var authState = await State;
-        var user = authState.User;
-
-        if (user.Identity is not null && user.Identity.IsAuthenticated)
-        {
-            claims = user.Claims;
-            returnRole = claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).Single();
-        }
+        _table.GetTableForPrintManagers();
+        _models = await _managers.GetAllManagers();
     }
 }

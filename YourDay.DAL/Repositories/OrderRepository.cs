@@ -7,37 +7,57 @@ namespace YourDay.DAL.Repositories
 {
     public class OrderRepository:IOrderRepository
     {
-        readonly Context context = SingletoneStorage.GetStorage().Сontext;
-
-        public OrderDto AddOrder(OrderDto order)
+        public async Task<OrderDto> AddOrder(OrderDto order)
         {
-            context.Orders.Add(order);
-            context.SaveChanges();
+            using (Context context = new Context())
+            {
+                context.Orders.Add(order);
+                await context.SaveChangesAsync();
 
-            return order;
+                return order;
+            }
         }
 
-        public IEnumerable<OrderDto> GetAllOrders()
+        public async Task<IEnumerable<OrderDto>> GetAllOrdersWithManager()
         {
-            IEnumerable<OrderDto> orders = context.Orders;
+            using (Context context = new Context())
+            {
+                var orders = await context.Orders.AsQueryable().Where(o => o.Manager != null).ToListAsync();
 
-            return orders;
+                return orders;
+            }
         }
 
-        public OrderDto GetOrderById(int id)
+        public async Task<IEnumerable<OrderDto>> GetAllApplications()
         {
-            OrderDto order = context.Orders.Where(o => o.Id == id)
-                .Include(order => order.Manager).Single();
+            using (Context context = new Context())
+            {
+                var orders = await context.Orders.AsQueryable().Where(o => o.Status == Status.Received).ToListAsync();
 
-            return order;
+                return orders;
+            }
         }
 
-        public OrderDto UpdateOrder(OrderDto order)
+        public async Task<OrderDto> GetOrderById(int id)
         {
-            context.Orders.Update(order);
-            context.SaveChanges();
+            using (Context context = new Context())
+            {
+                OrderDto order = await context.Orders.AsQueryable().Where(o => o.Id == id)
+                    .Include(order => order.Manager).SingleAsync();
 
-            return order;
+                return order;
+            }
+        }
+
+        public async Task<OrderDto> UpdateOrder(OrderDto order)
+        {
+            using (Context context = new Context())
+            {
+                context.Orders.Update(order);
+                await context.SaveChangesAsync();
+
+                return order;
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace YourDay.BLL.Models.CompanyModels.OutputModels
+namespace YourDay.BLL.Models.CompanyModels.OutputModels
 {
     public class CompanyStatisticOutputModel
     {

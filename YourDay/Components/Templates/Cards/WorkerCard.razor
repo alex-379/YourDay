@@ -1,4 +1,4 @@
-﻿<button @onclick="() => OpenModal(worker.Id)">	&#128056;</button>
+﻿<button @onclick="() => OpenModal(worker.Id)">&#128056;</button>
 
     <div class="product-card">
         <p>@worker.UserName</p>
@@ -20,4 +20,3 @@
         await OnOpenModal.InvokeAsync(id);
     }
 }
-
