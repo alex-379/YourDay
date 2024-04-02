@@ -11,9 +11,8 @@ namespace YourDay.DAL.Repositories
         {
             using (Context context = new Context())
             {
-                order.Status = Status.Received;
                 context.Orders.Add(order);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
 
                 return order;
             }

@@ -107,6 +107,7 @@ namespace YourDay.BLL.Services
             historyDtoInput
             };
             orderDtoInput.Client = await _userRepository.GetUserByMail(userMail);
+            orderDtoInput.Status = Status.Received;
             OrderDto orderDtoOutput = await _orderRepository.AddOrder(orderDtoInput);
             ApplicationOutputModel applicationOutput = _mapper.Map<ApplicationOutputModel>(orderDtoOutput);
 
