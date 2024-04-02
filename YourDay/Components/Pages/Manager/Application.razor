@@ -42,7 +42,8 @@ else
     public Application()
     {
         _orderService = new OrderService();
-        _orders = Enumerable.Empty<OrderNameDateOutputModel>();
+        // _orders = Enumerable.Empty<OrderNameDateOutputModel>();
+        _orders = new List<OrderNameDateOutputModel>();
     }
 
     protected override async Task OnInitializedAsync()

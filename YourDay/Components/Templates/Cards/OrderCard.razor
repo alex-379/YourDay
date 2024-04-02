@@ -1,15 +1,12 @@
-
-
-<a href="./order/@order.Id">
+<a href="./order/@Order.Id">
     <div class="product-card">
-        <p>@order.Id</p>
-        <p>@order.OrderName</p>
-        <p>@order.Date</p>
+        <p>@Order.Id</p>
+        <p>@Order.OrderName</p>
+        <p>@Order.Date</p>
     </div>
 </a>
 
 @code {
     [Parameter]
-    public OrderNameDateOutputModel order { get; set; }
-
+    public OrderNameDateOutputModel Order { get; set; }
 }
