@@ -98,6 +98,7 @@ else
 
     private ITaskService _taskService;
     private IOrderService _orderService;
+    private ISpecializationService _specializationService;
     private IManagerService _managerService;
 
     public NewTask()
@@ -108,6 +109,8 @@ else
         _orderService = new OrderService();
 
         _managerService = new ManagerService();
+
+        _specializationService = new SpecializationService();
 
         taskInputModel = new TaskInputModel();
     }
@@ -131,14 +134,14 @@ else
     
     private async Task AddTask()
     {
-        //taskInputModel.Order = _orderService.GetOrderByIdForAddTask(Id);
+        taskInputModel.Specialization = await _specializationService.GetSpecializationById(selectedSpecialization);
         await _managerService.AddTaskManager(taskInputModel, Id);
 
-        NavigationManager.NavigateTo("/manager");
+        NavigationManager.NavigateTo($"/order/{Id}");
     }
     private void Main()
     {
-        NavigationManager.NavigateTo("/manager");
+        NavigationManager.NavigateTo($"/order/{Id}");
     }
 
     // Переменная для хранения выбранного значения

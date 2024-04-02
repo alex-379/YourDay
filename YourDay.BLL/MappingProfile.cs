@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using YourDay.BLL.Models.CompanyModels.OutputModels;
 using YourDay.BLL.Models.HistoryModels.OutputModels;
 using YourDay.BLL.Models.ManagerModels.OutputModel;
@@ -58,6 +58,18 @@ namespace YourDay.BLL
             CreateMap<TaskDto, TaskOutputModelWithSpecialization>();
 
             CreateMap<TaskDto, TaskOutputModel>();
+
+            CreateMap<SpecializationInputModel, SpecializationDto>(); 
+
+            CreateMap<SpecializationTaskInputModel, SpecializationDto>();
+
+            CreateMap<SpecializationDto, SpecializationTaskInputModel>();
+
+            CreateMap<SpecializationDto, SpecializationIdNameOutputModel>();
+
+            CreateMap<SpecializationIdNameOutputModel, SpecializationDto>();
+
+            CreateMap<OrderDto, OrderOutputModel>();
 
             CreateMap<TaskDto, CompanyStatisticOutputModel>()
                 .ForMember(outputModel => outputModel.NameManager, taskdto => taskdto.MapFrom(task => task.Order.Manager.UserName))

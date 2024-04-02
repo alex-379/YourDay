@@ -1,30 +1,33 @@
-﻿<dialog id="task" aria-labelledby="heading">
+@rendermode InteractiveServer
+<dialog id="aaa" aria-labelledby="heading">
     <h2 id="heading">Что вы хотите сделать?</h2>
-
+    <h3> @aaa </h3>
     <form method="dialog">
-        <button>
-            Полная информация
-        </button>
-        <button>
-            Изменить
-        </button>
-        <button >
-            Удалить
-        </button>
+       
         <button>
             Закрыть
+        </button>
+        <button>
+            Удалить
         </button>
     </form>
 </dialog>
 
 @code {
     [Parameter]
-    public int SelectedTaskId { get; set; }
+    public int aaa { get; set; }
 
-    private IUserService _userService;
+    private ITaskService _taskService;
+
+    private TaskOutputModelAllInfo task;
+
+    public int a { get; set; }
 
     public ManagerDialogForTaskModalForm()
     {
-        _userService = new UserService();
+        a = aaa;
+        _taskService = new TaskService();
+
+        //task = _taskService.GetTaskByIdWithAll(SelectedTaskId);
     }
 }
