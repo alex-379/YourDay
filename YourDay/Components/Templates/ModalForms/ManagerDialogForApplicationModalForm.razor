@@ -1,4 +1,6 @@
-﻿<section class="text-style">
+﻿@inject NavigationManager navManager
+
+<section class="text-style">
     <dialog id="application" aria-labelledby="heading">
         <h2 id="heading">Что сделать с заявкой?</h2>
         <form method="dialog">
@@ -8,7 +10,7 @@
             <button @onclick="DeleteApplication">
                 Архивировать
             </button>
-            <button>
+            <button @onclick="MoveToOrder">
                 Создать заказ
             </button>
         </form>
@@ -29,5 +31,10 @@
     private void DeleteApplication()
     {
         _orderService.UpdateOrderStatus(SelectedClientId, StatusUI.Canselled);
+    }
+
+    private void MoveToOrder()
+    {
+        navManager.NavigateTo($"./order/{SelectedClientId}"); 
     }
 }

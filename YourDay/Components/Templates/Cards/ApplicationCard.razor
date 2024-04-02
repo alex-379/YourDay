@@ -1,13 +1,13 @@
-﻿<button @onclick="() => OpenModal(Application.Id)">&#128056;</button>
+﻿<button @onclick="() => OpenModal(Application.Id)">&#128056</button>
 
 <div class="product-card">
     <p>@Application.Id</p>
-@*     @foreach (var i in @App.Specializations)
-    {
-        <p>@i.Name</p>
-    } *@
-
-</div>
+        @foreach (var i in Application.Histories)
+        {
+            <p>@i.DateTime</p>
+            <p>@i.Comment</p>
+        }
+    </div>
 
 @code {
     [Parameter]

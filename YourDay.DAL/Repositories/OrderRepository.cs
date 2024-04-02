@@ -32,7 +32,7 @@ namespace YourDay.DAL.Repositories
         {
             using (Context context = new Context())
             {
-                var orders = await context.Orders.AsQueryable().Where(o => o.Status == Status.Received).ToListAsync();
+                var orders = await context.Orders.Include(o=>o.Histories).AsQueryable().Where(o => o.Status == Status.Received).ToListAsync();
 
                 return orders;
             }
