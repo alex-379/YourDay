@@ -20,5 +20,7 @@ namespace YourDay.BLL.Models.OrderModels.OutputModels
         public StatusUI Status { get; set; }
 
         public UserOutputModel? Manager { get; set; }
+
+        public UserOutputModel? Client { get; set; }
     }
 }

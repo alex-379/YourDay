@@ -34,3 +34,31 @@
         //task = _taskService.GetTaskByIdWithAll(SelectedTaskId);
     }
 }
+
+@* 
+
+        <ManagerDialogForTaskModalForm aaa=14></ManagerDialogForTaskModalForm>
+        <section>
+            <h2 class="manager-h1"> Задачи:</h2>
+            <div class="container-task">
+                @if (_task is not null)
+                {
+                    @foreach (var i in _task)
+                    {
+                        <button @onclick="() => ShowModal(i.Id)" class="order-button"><TaskManagerCard taskcCard="i" OnOpenModal="ShowModal"> </TaskManagerCard> </button>
+                    }
+                }
+            </div>
+        </section>
+
+
+        <section>
+            <div class="button-container">
+                <button class="purple-button"> История заказа </button>
+                <button class="purple-button"> Завершить заказ </button>
+                <button class="purple-button"> Другое</button>
+                <button class="order-button"> <AddTaskCard order=OrderOutput> </AddTaskCard> </button>
+                
+            </div>
+        </section>
+    </div> *@

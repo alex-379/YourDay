@@ -11,19 +11,17 @@
 }
 else
 {
-    <div class="body">
-        <ManagerDialogForApplicationModalForm SelectedClientId=selectedClientId></ManagerDialogForApplicationModalForm>
+    <ManagerDialogForApplicationModalForm SelectedClientId=selectedClientId></ManagerDialogForApplicationModalForm>
 
-        <section>
-            <h2 class="manager-h1">Заявки:</h2>
-            <div class="container-task">
-                @foreach (var i in _applications)
-                {
-                    <button @onclick="() => ShowModal(i.Id)" class="worker-button"> <ApplicationCard Application="i" OnOpenModal="ShowModal"> </ApplicationCard> </button>
-                }
-            </div>
-        </section>
-    </div>
+    <section>
+        <h2 class="manager-h1">Заявки:</h2>
+        <div class="container-task">
+            @foreach (var i in _applications)
+            {
+                <button @onclick="() => ShowModal(i.Id)" class="worker-button"> <ApplicationCard Application="i" OnOpenModal="ShowModal"> </ApplicationCard> </button>
+            }
+        </div>
+    </section>
 }
 
 @code {
