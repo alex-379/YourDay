@@ -1,4 +1,4 @@
-<button @onclick="() => OpenModal(order.Id)">	&#128056;</button>
+
 
 <a href="./order/@order.Id">
     <div class="product-card">
@@ -12,10 +12,4 @@
     [Parameter]
     public OrderNameDateOutputModel order { get; set; }
 
-    [Parameter] public EventCallback<int> OnOpenModal { get; set; }
-
-    private async Task OpenModal(int id)
-    {
-        await OnOpenModal.InvokeAsync(id);
-    }
 }

@@ -30,11 +30,12 @@
     }
 
     .navbar .menu ul li {
-        margin: 20px 20px;
+        margin: 30px 20px;
+        padding: 20px auto;
     }
 
     .navbar .menu-yellow ul li {
-        margin: 20px 20px;
+        margin: 30px 20px;
     }
 
     .navbar .menu ul a {
@@ -45,9 +46,9 @@
         color: #FDD551
     }
 
-.button-container {
+.button-container { 
     display: flex;
-    height: 70px;
+/*    height: 70px;*/
 }
 
 .yellow {
@@ -135,8 +136,9 @@ html, body {
 
 .text-style {
     font-family: 'Manrope', sans-serif;
-    font-size: 20px;
-    line-height: 20px;
+    font-size: 40px;
+    line-height: 30px;
+    color: #FFFFFF;
 }
 
 
@@ -147,7 +149,18 @@ button {
     margin: 20px 20px 20px 20px;
 }
 
-������� ������
+
+.product-card {
+    background-color: #FFFEFF;
+    border-radius: 10px;
+    padding: 20px 20px 20px 20px;
+    margin: 20px 20px 20px 20px;
+}
+.button-menu {
+    margin: 0px 20px 20px 20px;
+}
+
+
 .purple-button {
     color: #AF8DFE;
     border: none;
@@ -183,7 +196,7 @@ button {
 }
 .task-button {
     border: 1px solid #92dea8;
-    height: 150px;
+/*    height: 150px;*/
     line-height: 30px;
     align-items: baseline;
     padding: 10px 40px;
@@ -201,7 +214,7 @@ button {
 /*�������� ��������*/
 .client-button {
     border: 1px solid #92dea8;
-    height: 150px;
+/*    height: 150px;*/
     line-height: 30px;
     align-items: baseline;
     padding: 10px 40px;
@@ -277,7 +290,6 @@ h1 {
     flex-wrap: wrap;
 }
 
-��� ��� ��� ���������� ������ �� ��������
 .manager-h1 {
     font-family: 'Dela Gothic One', sans-serif;
     font-size: 40px;
@@ -336,7 +348,6 @@ h1 {
     align-items: center;
 }
 
-//������������ �� ������
 .aligncenter {
     text-align: center;
 }

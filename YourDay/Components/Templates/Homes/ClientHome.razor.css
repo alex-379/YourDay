@@ -14,3 +14,22 @@ img {
     height: 90%;
     object-fit: cover;
 }
+
+.yellow {
+    color: #FDD551;
+}
+
+h1 {
+    color: #FFFFFF;
+}
+
+.text {
+    line-height: 40px;
+    font-family: 'DelaGothicOne', sans-serif;
+    font-size: 30px;
+    color: #FFFFFF;
+}
+
+big {
+    margin: 40px 20px;
+}
