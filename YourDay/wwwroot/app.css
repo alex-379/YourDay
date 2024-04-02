@@ -244,10 +244,9 @@ button {
 .top-right {
     position: absolute;
     top: 10px;
-    ������ ������ right: 10px;
-    ������ ������ max-width: 100px;
-    ������������ ������ �������� max-height: 100px;
-    ������������ ������ ��������
+    right: 10px;
+    max-width: 100px;
+    max-height: 100px;
 }
 
 .block {
@@ -373,11 +372,6 @@ tr {
     color: #FDD551
 }
 
-
-
-
-
-
 .button-container {
     display: flex;
 }
@@ -400,9 +394,6 @@ th {
     text-align: left;
     padding: 16px;
 }
-
-
-
 
 .fields-add-order {
     width: 700px;

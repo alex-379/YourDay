@@ -43,10 +43,6 @@ else
             </table>
         </section>
 
-
-        
-
-
         <button onclick="window.manager.showModal()" class="purple-button"> Назначить менеджера на заказ</button>
         <button onclick="window.order.showModal()" class="purple-button"> Изменить статус</button>
         <dialog id="task" aria-labelledby="heading">
@@ -95,9 +91,12 @@ else
                 <div>Назначить менеджера на заказ:</div>
                 <div>
                     <select onchange="@ManagerSelection" value="@selectedManagerId">
+                        @if (_managers is not null)
+                        {
                         @foreach (ManagerNameAndPhoneOutputModel outputModel in _managers)
                         {
                             <option value="@outputModel.Id">@outputModel.Name</option>
+                        }
                         }
                     </select>
                 </div>
@@ -115,11 +114,13 @@ else
         <section>
             <h2 class="manager-h1"> Задачи:</h2>
             <div class="container-task">
-                @foreach (var i in task)
+                @if (_task is not null)
                 {
-                    <button @onclick="() => ShowModal(i.Id)" class="order-button"><TaskManagerCard taskcCard="i" OnOpenModal="ShowModal"> </TaskManagerCard> </button>
+                    @foreach (var i in _task)
+                    {
+                        <button @onclick="() => ShowModal(i.Id)" class="order-button"><TaskManagerCard taskcCard="i" OnOpenModal="ShowModal"> </TaskManagerCard> </button>
+                    }
                 }
-
             </div>
         </section>
 
@@ -157,7 +158,7 @@ else
 
     private IEnumService _enumService;
 
-    public IEnumerable<TaskOutputModelWithSpecialization> task;
+    public IEnumerable<TaskOutputModelWithSpecialization> _task;
 
     public StatusUI status;
 
@@ -211,8 +212,6 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        if (_role == "Manager")
-        {
             OrderOutputModel orderOutput = await _orderService.GetOrderById(Id);
             OrderOutput.Id = orderOutput.Id;
             OrderOutput.OrderName = orderOutput.OrderName;
@@ -226,8 +225,7 @@ else
 
             _managers = await _managerService.GetAllManagers();
 
-            task = await _taskService.GetTasksByOrderIdWithSpecialization(Id);
-        }
+        _task = await _taskService.GetTasksByOrderIdWithSpecialization(Id);
     }
 
     public void UpdateStatusOrder(ChangeEventArgs e)
@@ -265,6 +263,7 @@ else
 
         isSameManagerSelected = selectedManagerId == OrderOutput.Manager.Id;
     }
+
     public void AddManagerToOrder()
     {
         _managerService.AddManagerIdToOrder(selectedManagerId, Id);
