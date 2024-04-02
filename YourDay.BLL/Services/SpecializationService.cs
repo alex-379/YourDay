@@ -1,11 +1,14 @@
 ﻿using AutoMapper;
+using YourDay.BLL.Enums;
 using YourDay.BLL.IServices;
 using YourDay.BLL.Models.OrderModels.InputModels;
 using YourDay.BLL.Models.SpecializationModels.InputModels;
 using YourDay.BLL.Models.SpecializationModels.OutputModels;
 using YourDay.BLL.Models.TaskModels.InputModels;
+using YourDay.BLL.Models.UserModels.OutputModels;
 using YourDay.DAL;
 using YourDay.DAL.Dtos;
+using YourDay.DAL.Enums;
 using YourDay.DAL.IRepositories;
 using YourDay.DAL.Repositories;
 
@@ -37,20 +40,22 @@ namespace YourDay.BLL.Services
             return specializationOutput;
         }
 
-        //public SpecializationTaskInputModel GetSpecializationById(int id)
-        //{
-        //    SpecializationDto specialization = _specializationRepository.GetSpecializationById(id);
-        //    SpecializationTaskInputModel specializationModel = _mapper.Map<SpecializationTaskInputModel>(specialization);
+        public async Task<SpecializationTaskInputModel> GetSpecializationById(int id)
+        {
+            var specialization = await _specializationRepository.GetSpecializationById(id);
+            SpecializationTaskInputModel specializationModel = _mapper.Map<SpecializationTaskInputModel>(specialization);
 
-        //    return specializationModel;
-        //}
+            return specializationModel;
+        }
 
-        //public IEnumerable<SpecializationIdNameOutputModel> GetAllSpecialization()
-        //{
-        //    IEnumerable<SpecializationDto> specializations = _specializationRepository.GetAllSpecialization();
-        //    IEnumerable<SpecializationIdNameOutputModel> specializationModel = _mapper.Map<IEnumerable<SpecializationIdNameOutputModel>>(specializations);
+       
 
-        //    return specializationModel;
-        //}
+        public async Task<IEnumerable<SpecializationIdNameOutputModel>> GetAllSpecialization()
+        {
+            var specializations = await _specializationRepository.GetAllSpecialization();
+            var specializationModel = _mapper.Map<IEnumerable<SpecializationIdNameOutputModel>>(specializations);
+
+            return specializationModel;
+        }
     }
 }

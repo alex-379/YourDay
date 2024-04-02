@@ -134,8 +134,7 @@ else
     
     private async Task AddTask()
     {
-        taskInputModel.Specialization = _specializationService.GetSpecializationById(selectedSpecialization);
-        //taskInputModel.Order = _orderService.GetOrderByIdForAddTask(Id);
+        taskInputModel.Specialization = await _specializationService.GetSpecializationById(selectedSpecialization);
         await _managerService.AddTaskManager(taskInputModel, Id);
 
         NavigationManager.NavigateTo($"/order/{Id}");

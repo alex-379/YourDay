@@ -18,7 +18,7 @@ namespace YourDay.DAL.Repositories
                 return specialization;
             }
         }
-
+       
         public async Task<SpecializationDto> GetSpecializationById(int id)
         {
             using (Context context = new Context())
@@ -29,11 +29,11 @@ namespace YourDay.DAL.Repositories
             }
         }
 
-        public async Task<SpecializationDto> GetAllSpecialization()
+        public async Task<IEnumerable<SpecializationDto>> GetAllSpecialization()
         {
             using (Context context = new Context())
             {
-                SpecializationDto specialization = await context.Specializations.AsQueryable().SingleAsync();
+                var specialization = await context.Specializations.AsQueryable().ToListAsync();
 
                 return specialization;
             }

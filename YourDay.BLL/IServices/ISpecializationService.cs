@@ -8,8 +8,9 @@ namespace YourDay.BLL.IServices
     {
         public Task<SpecializationOnlyNameOutputModel> AddSpecialization(SpecializationInputModel specialization);
 
-        public SpecializationTaskInputModel GetSpecializationById(int id);
+        public Task<SpecializationTaskInputModel> GetSpecializationById(int id);
 
-        public IEnumerable<SpecializationIdNameOutputModel> GetAllSpecialization();
+
+        public Task<IEnumerable<SpecializationIdNameOutputModel>> GetAllSpecialization();
     }
 }
