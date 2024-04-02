@@ -10,8 +10,8 @@
                 </div>
                 <div class="form-group">
                     <label>Дата:</label>
-                    <InputDate class="form-control" @bind-Value=OrderModel.Date />
-@*                     <DateInput TValue="DateTime" EnableMinMax="true" Min="@_minDate" Max="@_maxDate" class="form-control" @bind-Value=OrderModel.Date placeholder="Введите дату праздника" /> *@
+@*                     <InputDate class="form-control" @bind-Value=OrderModel.Date /> *@
+                     <DateInput TValue="DateTime" EnableMinMax="true" Min="@_minDate" Max="@_maxDate" class="form-control" @bind-Value=OrderModel.Date placeholder="Введите дату праздника" /> 
                     <ValidationMessage For="@(() => OrderModel.Date)" />
                 </div>
                 <div class="form-group">
