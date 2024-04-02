@@ -107,14 +107,15 @@ else
         </dialog>
 
 
-        <ManagerDialogForTaskModalForm SelectedTaskId=selectedtaskId></ManagerDialogForTaskModalForm>
+        <ManagerDialogForTaskModalForm aaa=14></ManagerDialogForTaskModalForm>
         <section>
             <h2 class="manager-h1"> Задачи:</h2>
             <div class="container-task">
                 @foreach (var i in task)
                 {
-                    <button @onclick="() => ShowModal(i.Id)" class="worker-button"><TaskManagerCard taskcCard="i" OnOpenModal="ShowModal"> </TaskManagerCard> </button>
+                    <button @onclick="() => ShowModal(i.Id)" class="order-button"><TaskManagerCard taskcCard="i" OnOpenModal="ShowModal"> </TaskManagerCard> </button>
                 }
+
             </div>
         </section>
 
@@ -163,7 +164,7 @@ else
     private IManagerService _managerService;
     public int selectedManagerId;
     public bool isSameManagerSelected = true;
-    private int selectedtaskId;
+    public int selectedtaskId;
 
     public Order()
     {

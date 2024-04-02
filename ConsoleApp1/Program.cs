@@ -31,18 +31,21 @@ namespace ConsoleApp1
             ITaskService taskService = new TaskService();
             ISpecializationService specializationService = new SpecializationService();
 
+            //var a = specializationService.GetAllSpecialization();
+            //var b = 6;
 
-            TaskInputModel a = new TaskInputModel()
-            {
-                TimeEnd = DateTime.Now,
-                TimeStart = DateTime.Now,
-                Title = "A",
-                Description = "B",
-                Status = Status.InProgress
-            };
 
-            //a.Order = orderService.GetOrderByIdForAddTask(8);
-            taskService.AddTaskManager(a, 8);
+            //TaskInputModel a = new TaskInputModel()
+            //{
+            //    TimeEnd = DateTime.Now,
+            //    TimeStart = DateTime.Now,
+            //    Title = "A",
+            //    Description = "B",
+            //    Status = Status.InProgress
+            //};
+
+            ////a.Order = orderService.GetOrderByIdForAddTask(8);
+            //taskService.AddTaskManager(a, 8);
 
             //context.Tasks.Add(a);
             //a.Order = orderRepository.GetOrderById(4);
