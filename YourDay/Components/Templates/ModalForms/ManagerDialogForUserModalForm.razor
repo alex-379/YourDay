@@ -1,0 +1,33 @@
+﻿<dialog id="user" aria-labelledby="heading">
+    <h2 id="heading">Что вы хотите сделать?</h2>
+    <h2>@SelectedClientId</h2>
+    <form method="dialog">
+        <button>
+            Изменить
+        </button>
+        <button @onclick="DeleteUser">
+            Удалить
+        </button>
+        <button>
+            Закрыть
+        </button>
+    </form>
+</dialog>
+
+@code {
+    [Parameter]
+    public int SelectedClientId { get; set; }
+
+
+    private IUserService _userService;
+
+    public ManagerDialogForOrderModalForm()
+    {
+        _userService = new UserService();
+    }
+
+    private void DeleteUser()
+    {
+         _userService.DeleteUser(SelectedClientId);
+    }
+}

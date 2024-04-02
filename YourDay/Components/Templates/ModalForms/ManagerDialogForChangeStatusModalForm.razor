@@ -13,3 +13,22 @@
     </form>
 
 </dialog>
+
+
+@code {
+    [Parameter]
+    public int SelectedClientId { get; set; }
+
+
+    private IUserService _userService;
+
+    public ManagerDialogForChangeStatusModalForm()
+    {
+        _userService = new UserService();
+    }
+
+    private void DeleteUser()
+    {
+        _userService.DeleteUser(SelectedClientId);
+    }
+}

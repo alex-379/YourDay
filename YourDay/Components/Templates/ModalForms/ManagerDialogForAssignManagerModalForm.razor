@@ -1,0 +1,22 @@
+﻿<dialog id="manager" aria-labelledby="heading">
+    <div class="manager-reassign-container">
+        <div>Назначить менеджера на заказ:</div>
+        <div>
+            <select onchange="@ManagerSelection" value="@selectedManagerId">
+                @if (_managers is not null)
+                {
+                    @foreach (ManagerNameAndPhoneOutputModel outputModel in _managers)
+                    {
+                        <option value="@outputModel.Id">@outputModel.Name</option>
+                    }
+                }
+            </select>
+        </div>
+        <div>
+            <button onclick="@AddManagerToOrder" disabled="@isSameManagerSelected">Назначить</button>
+        </div>
+        <form method="dialog">
+            <button> Закрыть</button>
+        </form>
+    </div>
+</dialog>
