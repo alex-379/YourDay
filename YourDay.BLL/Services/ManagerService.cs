@@ -1,4 +1,5 @@
 using AutoMapper;
+using System.Collections.Generic;
 using YourDay.BLL.IServices;
 using YourDay.BLL.Models.CompanyModels.OutputModels;
 using YourDay.BLL.Models.ManagerModels.OutputModel;
@@ -6,6 +7,7 @@ using YourDay.BLL.Models.OrderModels.InputModels;
 using YourDay.BLL.Models.OrderModels.OutputModels;
 using YourDay.BLL.Models.TaskModels.InputModels;
 using YourDay.BLL.Models.TaskModels.OutputModels;
+using YourDay.BLL.Models.UserModels.OutputModels;
 using YourDay.DAL.Dtos;
 using YourDay.DAL.Enums;
 using YourDay.DAL.IRepositories;
@@ -119,6 +121,15 @@ namespace YourDay.BLL.Services
             var tasks = await _taskRepository.GetAllTaskOfOrderOfTheirManager();
             var statistics = _mapper.Map<List<CompanyStatisticOutputModel>>(tasks);
             return statistics;
+        }
+
+        public async Task<IEnumerable<UserOutputModel>> GetAllWorkersForTask(TaskInputModel task)
+        {
+            TaskDto taskDto = _mapper.Map<TaskDto>(task);
+            IEnumerable<UserDto> userDtos = await _userRepository.GetAllWorkersForTask(taskDto);
+            IEnumerable<UserOutputModel> users = _mapper.Map<IEnumerable<UserOutputModel>>(userDtos);
+
+            return users;
         }
     }
 }

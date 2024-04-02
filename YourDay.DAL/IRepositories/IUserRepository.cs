@@ -16,5 +16,7 @@ namespace YourDay.DAL.IRepositories
         public Task<UserDto> UpdateUser(UserDto user);
 
         public Task<IEnumerable<UserDto>> GetAllUsersByRole(Role role);
+
+        public  Task<IEnumerable<UserDto>> GetAllWorkersForTask(TaskDto task);
     }
 }

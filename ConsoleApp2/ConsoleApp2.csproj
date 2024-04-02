@@ -8,7 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\YourDay.BLL\YourDay.BLL.csproj" />
     <ProjectReference Include="..\YourDay.DAL\YourDay.DAL.csproj" />
+    <ProjectReference Include="..\YourDay\YourDay.csproj" />
   </ItemGroup>
 
 </Project>
