@@ -30,6 +30,6 @@ namespace YourDay.DAL.Dtos
 
         public IEnumerable<TaskDto>? WorkerTasks { get; set; }
 
-        public UserProfilesPictureDto Picture { get; set; }
+        public UserProfilesPictureDto? Picture { get; set; }
     }
 }

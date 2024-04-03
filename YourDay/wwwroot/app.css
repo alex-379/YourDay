@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'manrope';
-    src: url(/fonts/Manrope-VariableFont_wght.ttf) format('truetype');
+    src: url(/fonts/manrope.ttf) format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -8,6 +8,13 @@
 @font-face {
     font-family: 'DelaGothicOne';
     src: url(/fonts/DelaGothicOne-Regular.ttf) format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url(/fonts/Montserrat-Black.ttf) format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -31,7 +38,7 @@
 
     .navbar .menu ul li {
         margin: 30px 20px;
-        padding: 20px auto;
+        padding: 20px 20px;
     }
 
     .navbar .menu-yellow ul li {
@@ -46,15 +53,36 @@
         color: #FDD551
     }
 
+@media screen and (max-width: 500px) {
+    .navbar {
+        flex-direction: column;
+    }
+
+        .navbar .menu ul {
+            flex-direction: column;
+            align-self: center;
+        }
+
+            .navbar .menu ul li {
+                margin: 5px;
+            }
+}
+
 .button-container { 
     display: flex;
-/*    height: 70px;*/
 }
 
 .yellow {
     color: #FDD551
 }
 
+.blue {
+    color: #554874;
+}
+
+.margin {
+    margin: 10px auto 10px auto;
+}
 
 .button-quest:hover {
     color: #fff;
@@ -74,20 +102,6 @@ button:active {
 
 .task-card {
     color: #fff;
-}
-@media screen and (max-width: 500px) {
-    .navbar {
-        flex-direction: column;
-    }
-
-        .navbar .menu ul {
-            flex-direction: column;
-            align-self: center;
-        }
-
-            .navbar .menu ul li {
-                margin: 5px;
-            }
 }
 
 .footer {
@@ -141,7 +155,6 @@ html, body {
     color: #FFFFFF;
 }
 
-
 button {
     background-color: #FFFEFF;
     border-radius: 15px;
@@ -156,15 +169,37 @@ button {
     padding: 20px 20px 20px 20px;
     margin: 20px 20px 20px 20px;
 }
+
+.client-card {
+    background-color: #FFFEFF;
+    border-radius: 10px;
+    padding: 5px 5px;
+    margin: 20px 20px 20px 20px;
+    color: #554874;
+    border: none;
+    border-color: transparent;
+}
+
+.plus-button {
+    padding: 40px 40px;
+    height: 100px;
+    width: 100px;
+    color: #554874;
+    font-size: 30px;
+    margin: 70px auto auto auto;
+}
+
 .button-menu {
     margin: 0px 20px 20px 20px;
 }
 
-
+.button-frog {
+    margin: 5px 5px ;
+}
 .purple-button {
-    color: #AF8DFE;
+    color: #554874;
     border: none;
-    height: 50px;
+
 }
 
 .button {
@@ -172,7 +207,7 @@ button {
     border-radius: 30px;
     padding: 15px 60px 15px 60px;
     margin: 40px 20px 140px 20px;
-    font-family: 'Dela Gothic One', sans-serif;
+    font-family: 'DelaGothicOne', sans-serif;
     font-size: 25px;
     line-height: 20px;
     color: #AF8DFE;
@@ -196,7 +231,6 @@ button {
 }
 .task-button {
     border: 1px solid #92dea8;
-/*    height: 150px;*/
     line-height: 30px;
     align-items: baseline;
     padding: 10px 40px;
@@ -205,16 +239,12 @@ button {
     color: #554874;
 }
 
-
 .task-card {
     color: #fff;
 }
 
-
-/*�������� ��������*/
 .client-button {
     border: 1px solid #92dea8;
-/*    height: 150px;*/
     line-height: 30px;
     align-items: baseline;
     padding: 10px 40px;
@@ -227,10 +257,10 @@ button {
     border: 1px solid #92dea8;
     line-height: 30px;
     align-items: baseline;
-    padding: 20px 40px;
+    padding: 0px 0px;
     margin: 20px 10px;
     border-radius: 20px;
-    color: #AF8DFE;
+    color: #554874;
 }
 
 .background {
@@ -238,7 +268,6 @@ button {
     width: 100%;
     height: 100vh;
     background-color: #f0f0f0;
-    ���� ����
 }
 
 .top-right {
@@ -262,27 +291,23 @@ button {
     flex wrap: nowrap;
 }
 
-
 .h {
-    font-family: 'Dela Gothic One', sans-serif;
+    font-family: 'DelaGothicOne', sans-serif;
     font-size: 80px;
     color: #FFFEFF;
 }
 
-
 h3 {
     color: #FFFEFF;
     font-size: 30px;
-    font-family: 'Manrope-VariableFont_wght', sans-serif;
+    font-family: 'Manrope', sans-serif;
 }
 
 h1 {
-    font-family: 'Dela Gothic One', sans-serif;
+    font-family: 'DelaGothicOne', sans-serif;
     font-size: 40px;
     color: #FFFEFF;
 }
-
-
 
 .manager-container {
     display: flex;
@@ -291,7 +316,7 @@ h1 {
 }
 
 .manager-h1 {
-    font-family: 'Dela Gothic One', sans-serif;
+    font-family: 'DelaGothicOne', sans-serif;
     font-size: 40px;
     color: #FFFEFF;
 }
@@ -306,10 +331,8 @@ h1 {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    color: #54494B;
+    color: #554874;
 }
-
-
 
 .text {
     margin: 20px 20px 5px 20px;
@@ -409,7 +432,6 @@ th {
     font-size: 25px;
     color: #444444;
 }
-
 
 .input {
     display: block;

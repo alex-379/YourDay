@@ -52,6 +52,8 @@ namespace YourDay.BLL
 
             CreateMap<TaskInputModel, TaskDto>(); 
 
+            CreateMap<TaskDto, TaskInputModel>();
+
             CreateMap<TaskUpdateInputModelAllInfo, TaskDto>();
 
             CreateMap<TaskOutputModelAllInfo, TaskDto>();
@@ -62,11 +64,13 @@ namespace YourDay.BLL
 
             CreateMap<TaskDto, TaskOutputModelAllInfo>();
 
+            CreateMap<TaskDto, TaskInputModel>();
+
             CreateMap<TaskDto, TaskOutputModelWithSpecialization>();
 
             CreateMap<TaskDto, TaskOutputModel>();
 
-            CreateMap<SpecializationInputModel, SpecializationDto>(); 
+            CreateMap<SpecializationInputModel, SpecializationDto>();
 
             CreateMap<SpecializationTaskInputModel, SpecializationDto>();
 

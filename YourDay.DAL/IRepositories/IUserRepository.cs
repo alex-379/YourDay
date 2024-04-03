@@ -21,5 +21,7 @@ namespace YourDay.DAL.IRepositories
 
         public void SetWorkerForTask(int workerId, int taskId);
 
+
+        public Task<IEnumerable<UserDto>> GetAllWorkersForTask(TaskDto task);
     }
 }

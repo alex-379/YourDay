@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System.Data;
 using YourDay.BLL.Enums;
 using YourDay.BLL.IServices;

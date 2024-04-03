@@ -61,6 +61,14 @@ namespace YourDay.BLL.Services
             return task;
         }
 
+        public async Task<TaskInputModel> GetTaskById(int taskId)
+        {
+            TaskDto taskDto = await _taskRepository.GetTaskByIdWithAll(taskId);
+            TaskInputModel task = _mapper.Map<TaskInputModel>(taskDto);
+
+            return task;
+        }
+
         public async Task<IEnumerable<TaskOutputModelWithSpecialization>> GetTasksByOrderIdWithSpecialization(int orderId)
         {
             var taskDtos = await _taskRepository.GetTasksByOrderIdWithSpecialization(orderId);
@@ -118,7 +126,7 @@ namespace YourDay.BLL.Services
 
         private static void SetDefaultStatus(TaskInputModel task, Status status)
         {
-            task.Status = (StatusUI)status;
+            task.StatusUI = (StatusUI)status;
         }
     }
 }

@@ -89,7 +89,7 @@ namespace YourDay.BLL.Services
             return users;
         }
 
-        
+
 
         public async Task<IEnumerable<UserOutputModel>> GetAllUsersByRole(RoleUI role)
         {

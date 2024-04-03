@@ -97,5 +97,23 @@ namespace YourDay.DAL.Repositories
                 user.WorkerTasks.Append(context.Tasks.Where(c => c.Id == taskId).Single());
             }
         }
+
+        public async Task<IEnumerable<UserDto>> GetAllWorkersForTask(TaskDto task)
+        {
+            using (Context context = new Context())
+            {
+                var users = await context.Users
+                    .AsQueryable()
+                    .Include(c => c.Specializations)
+                    .Include(c => c.WorkerTasks)
+                    .Where(u => u.Role == Role.Worker)
+                    .Where(u => u.IsDeleted == false)
+                    .Where(u => u.Specializations.Any(s => s.Id == task.Specialization.Id))
+                    .Where(u => u.WorkerTasks.Any(s => s.TimeStart.Date != task.TimeStart.Date))
+                    .ToListAsync();
+
+                return users;
+            }
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿@rendermode InteractiveServer
+@rendermode InteractiveServer
 <button type="button" class="btn btn-primary" @onclick="GetCompletedOrders">
     История
 </button>
@@ -9,7 +9,7 @@
 <div class="manager-container">
     <section>
         <div class="manager-blok">
-            @if (!isClick)
+            @if (!_isClick)
             {
                 <h2 class="manager-h1"> Наши заказы:</h2>
                 <div class="manager-button-container">
@@ -34,7 +34,7 @@
 </div>
 
 @code {
-    private bool isClick;
+    private bool _isClick;
 
     private IEnumerable<OrderNameDateOutputModel> _orders;
 
@@ -61,11 +61,11 @@
 
     private void GetCompletedOrders()
     {
-        isClick = true;
+        _isClick = true;
     }
 
     private void GetCurrentOrders()
     {
-        isClick = false;
+        _isClick = false;
     }
 }

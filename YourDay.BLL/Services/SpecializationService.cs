@@ -1,20 +1,15 @@
 ﻿using AutoMapper;
-using YourDay.BLL.Enums;
 using YourDay.BLL.IServices;
-using YourDay.BLL.Models.OrderModels.InputModels;
 using YourDay.BLL.Models.SpecializationModels.InputModels;
 using YourDay.BLL.Models.SpecializationModels.OutputModels;
 using YourDay.BLL.Models.TaskModels.InputModels;
-using YourDay.BLL.Models.UserModels.OutputModels;
-using YourDay.DAL;
 using YourDay.DAL.Dtos;
-using YourDay.DAL.Enums;
 using YourDay.DAL.IRepositories;
 using YourDay.DAL.Repositories;
 
 namespace YourDay.BLL.Services
 {
-    public class SpecializationService: ISpecializationService
+    public class SpecializationService : ISpecializationService
     {
         private readonly ISpecializationRepository _specializationRepository;
         private readonly Mapper _mapper;
@@ -48,7 +43,7 @@ namespace YourDay.BLL.Services
             return specializationModel;
         }
 
-       
+
 
         public async Task<IEnumerable<SpecializationOutputModel>> GetAllSpecialization()
         {
