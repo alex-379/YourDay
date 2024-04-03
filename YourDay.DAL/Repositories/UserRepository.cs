@@ -18,7 +18,8 @@ namespace YourDay.DAL.Repositories
                 return user;
             }
         }
-
+        
+        
         public async Task<IEnumerable<UserDto>> GetAllUsers()
         {
             using (Context context = new Context())
@@ -71,6 +72,29 @@ namespace YourDay.DAL.Repositories
                     .Where(u => u.IsDeleted == false).ToListAsync();
 
                 return users;
+            }
+        }
+
+        public List<UserDto> GetAllUsersByRoleForTask(Role role)
+        {
+            Context context = new Context();
+            var users = context.Users
+                    .AsQueryable()
+                    .Include(c => c.Specializations)
+                    .Where(u => u.Role == role)
+                    .Where(u => u.IsDeleted == false).ToList();
+
+                return users;
+            
+        }
+
+        public void SetWorkerForTask(int workerId, int taskId)
+        {
+            Context context = new Context();
+            UserDto user = context.Users.Where(c => c.Id == workerId).Single();
+            if (user.WorkerTasks != null)
+            {
+                user.WorkerTasks.Append(context.Tasks.Where(c => c.Id == taskId).Single());
             }
         }
 

@@ -1,31 +1,70 @@
+@attribute [StreamRendering]
+@rendermode InteractiveServer
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+
+<section>
 <dialog id="task" aria-labelledby="heading">
     <h2 id="heading">Что вы хотите сделать с задачей?</h2>
     <form method="dialog">
         <button>
             Закрыть
+         </button>
+            <button @onclick="SetWorker">
+            Назначить сотрудника
         </button>
-        <button>
-            Изменить
-        </button>
-        <button>
-            Установить статус
-        </button>
-        <button>
-            Архивировать
-        </button>
+            <div class="form-group">
+                <label>Специализация:</label>
+                <InputSelect class="form-control" @bind-Value="worker" placeholder="Выберите специализацию:">
+                    @foreach (UserOutputModel i in users)
+                    {
+                        <option value=@i.Id.>@i.UserName</option>
+                    }
+                </InputSelect>
+               
+            </div>
     </form>
-</dialog>
 
+   
+</dialog>
+@*  <ManagerDialogForSetWorkerModalForm OrderId=2></ManagerDialogForSetWorkerModalForm> *@
+</section>
 @code {
     [Parameter]
     public int TaskId { get; set; }
 
     private ITaskService _taskService;
 
-    private TaskOutputModelAllInfo _task;
+    private IUserService _userService;
+
+    private TaskOutputModelAllInfo task;
+
+    public IEnumerable<UserOutputModel> users;
+
+    public int a { get; set; }
+
+    public UserOutputModel worker;
 
     public ManagerDialogForTaskModalForm()
     {
         _taskService = new TaskService();
+
+        users = Enumerable.Empty<UserOutputModel>();
+
+        task = new TaskOutputModelAllInfo();
+
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        //users = await _userService.GetAllUsers();
+
+        //task = await _taskService.GetTaskByIdWithAll(TaskId);
+    }
+    private async void SetWorker()
+    {
+        //var a = await _taskService.SetWorkerTask(task);
     }
 }
+

@@ -1,5 +1,6 @@
-@page "/manager-statistics"
+@* @page "/manager-statistics"
 @attribute [StreamRendering]
+@using YourDay.BLL.TablesForUi
 @inject NavigationManager NavigationWorker
 
 <GetClaims SendIsCompleted="b=>_isCompleted=b" SendRole="p=>_role = p"></GetClaims>
@@ -167,4 +168,4 @@ else
                     };
             });
     }
-}
+} *@

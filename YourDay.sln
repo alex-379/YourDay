@@ -10,6 +10,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YourDay.DAL", "YourDay.DAL\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp2", "ConsoleApp2\ConsoleApp2.csproj", "{FB6975A4-2107-42E9-A0B2-804C56307E40}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "teataa", "teataa\teataa.csproj", "{518553C5-2214-4A19-BF64-8542CC31D75D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{FB6975A4-2107-42E9-A0B2-804C56307E40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB6975A4-2107-42E9-A0B2-804C56307E40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB6975A4-2107-42E9-A0B2-804C56307E40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{518553C5-2214-4A19-BF64-8542CC31D75D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{518553C5-2214-4A19-BF64-8542CC31D75D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{518553C5-2214-4A19-BF64-8542CC31D75D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{518553C5-2214-4A19-BF64-8542CC31D75D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

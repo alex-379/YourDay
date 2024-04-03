@@ -2,6 +2,7 @@ using AutoMapper;
 using YourDay.BLL.Enums;
 using YourDay.BLL.IServices;
 using YourDay.BLL.Models.UserModels.InputModels;
+using YourDay.BLL.Models.TaskModels.InputModels;
 using YourDay.BLL.Models.UserModels.OutputModels;
 using YourDay.DAL.Dtos;
 using YourDay.DAL.Enums;
@@ -98,6 +99,8 @@ namespace YourDay.BLL.Services
             return users;
         }
 
+        
+
         public async Task<IEnumerable<UserSpecializationOutputModel>> GetAllUsersSpecializationByRole(RoleUI role)
         {
             var userDtos = await _userRepository.GetAllUsersByRole((Role)role);
@@ -188,5 +191,19 @@ namespace YourDay.BLL.Services
 
             return user;
         }
+
+        public void SetWorkerForTask(int workerId, int taskId)
+        {
+            _userRepository.SetWorkerForTask(workerId, taskId);
+        }
+
+        public IEnumerable<UserWorkerOutputModel> GetAllUsersByRoleForTask(RoleUI role)
+        {
+            var userDtos = _userRepository.GetAllUsersByRoleForTask((Role)role);
+            var users = _mapper.Map<IEnumerable<UserWorkerOutputModel>>(userDtos);
+
+            return users;
+        }
+
     }
 }

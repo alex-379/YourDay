@@ -23,6 +23,8 @@ namespace YourDay.BLL
             CreateMap<UserRegistrationForManagerInputModel, UserDto>();
 
             CreateMap<UserDto, UserOutputModel>();
+            CreateMap<UserDto, UserWorkerOutputModel>();
+            CreateMap<UserWorkerOutputModel, UserDto>(); 
 
             CreateMap<UserDto, UserMailOutputModel>();
 
@@ -48,11 +50,15 @@ namespace YourDay.BLL
 
             CreateMap<HistoryDto, HistoryOutputModel>();
 
-            CreateMap<TaskInputModel, TaskDto>();
+            CreateMap<TaskInputModel, TaskDto>(); 
 
             CreateMap<TaskDto, TaskInputModel>();
 
             CreateMap<TaskUpdateInputModelAllInfo, TaskDto>();
+
+            CreateMap<TaskOutputModelAllInfo, TaskDto>();
+
+            CreateMap<TaskDto, TaskOutputModelAllInfo>();
 
             CreateMap<TaskDto, TaskOutputModelWithOrderWithSpecialization>();
 
