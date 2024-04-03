@@ -4,17 +4,17 @@
             <DataAnnotationsValidator />
             <div class="modal-body">
                 <div class="form-group">
-                    <label>Название:</label>
+                    <label class="margin">Название:</label>
                     <InputText class="form-control" @bind-Value="TaskModel.Title" placeholder="Введите название задачи" />
                     <ValidationMessage For="@(() => TaskModel.Title)" />
                 </div>
                 <div class="form-group">
-                    <label>Описание:</label>
+                    <label class="margin">Описание:</label>
                     <InputText class="form-control" @bind-Value="TaskModel.Description" placeholder="Введите описание" />
                     <ValidationMessage For="@(() => TaskModel.Description)" />
                 </div>
                 <div class="form-group">
-                    <label>Специализация:</label>
+                    <label class="margin">Специализация:</label>
                     <InputSelect class="form-control" @bind-Value="TaskModel.Specialization" placeholder="Выберите специализацию:">
                         @foreach (SpecializationOutputModel i in _specializations)
                         {
@@ -24,12 +24,12 @@
                     <ValidationMessage For="@(() => TaskModel.Specialization)" />
                 </div>
                 <div class="form-group">
-                    <label>Время начала:</label>
+                    <label class="margin">Время начала:</label>
                     <DateInput TValue="DateTime" class="form-control" @bind-Value=TaskModel.TimeStart placeholder="Введите время начала" />
                     <ValidationMessage For="@(() => TaskModel.TimeStart)" />
                 </div>
                 <div class="form-group">
-                    <label>Время окончания:</label>
+                    <label class="margin">Время окончания:</label>
                     <DateInput TValue="DateTime" class="form-control" @bind-Value=TaskModel.TimeEnd placeholder="Введите время окончания" />
                     <ValidationMessage For="@(() => TaskModel.TimeEnd)" />
                 </div>

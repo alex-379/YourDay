@@ -28,6 +28,3 @@ namespace ConsoleApp2
 }
 
 
-ManagerService m = new ManagerService();
-var a = await m.GetAllWorkersForTask(tasks);
-var w = 8;
