@@ -105,6 +105,17 @@ namespace YourDay.BLL.Services
             return taskOutput;
         }
 
+
+        public async Task<TaskOutputModelAllInfo> SetWorkerTask(TaskOutputModelAllInfo task)
+        {
+            TaskDto taskDto = _mapper.Map<TaskDto>(task);
+            TaskDto taskDtoOutput = await _taskRepository.UpdateTask(taskDto);
+            TaskOutputModelAllInfo taskOutput = _mapper.Map<TaskOutputModelAllInfo>(taskDtoOutput);
+
+            return taskOutput;
+        }
+
+
         private static void SetDefaultStatus(TaskInputModel task, Status status)
         {
             task.Status = (StatusUI)status;

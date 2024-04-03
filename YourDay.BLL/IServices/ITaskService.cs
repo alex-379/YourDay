@@ -23,5 +23,7 @@ namespace YourDay.BLL.IServices
         public Task<IEnumerable<TaskOutputModelAllInfo>> FilterTasks(DateTime? startDate, DateTime? endDate, StatusUI? statusUi);
 
         public Task<TaskOutputModelAllInfo> UpdateTask(TaskUpdateInputModelAllInfo task);
+
+        public Task<TaskOutputModelAllInfo> SetWorkerTask(TaskOutputModelAllInfo task);
     }
 }

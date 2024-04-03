@@ -1,36 +1,89 @@
-﻿<button @onclick="() => OpenModal(Task.Id)">
+﻿
     <p>@Task.Title </p>
     @if (Task.Specialization != null)
     {
-        <p>@Task.Specialization.Name</p>
+        <p>Специализация: @Task.Specialization.Name</p>
     }
     <p>@Task.TimeStart.ToShortTimeString() - @Task.TimeEnd.ToShortTimeString()</p>
-    <p>@Task.TimeStart - @Task.TimeEnd</p>
     <p>@_taskStatus</p>
-</button>
+    <section>
+    
+        <button @onclick="SetWorker">
+            Назначить сотрудника
+        </button>
+        <div class="form-group">
+        
+        <label>Специализация:</label>
+            <InputSelect class="form-control" @bind-Value="worker" placeholder="Выберите специализацию:">
+                @foreach (UserWorkerOutputModel i in users)
+                {
+                    <option value=@i.Id.>@i.UserName</option>
+                }
+            </InputSelect>
+        </div>  
+
+     @* *@
+
+
+    </section>
+
 
 @code {
     [Parameter]
     public TaskOutputModelWithSpecialization Task { get; set; }
 
-    [Parameter] public EventCallback<int> OnOpenModal { get; set; }
+    //[Parameter] public EventCallback<int> OnOpenModal { get; set; }
 
     private IStatusService _statusService;
 
     private string _taskStatus;
 
-    private async Task OpenModal(int id)
-    {
-        await OnOpenModal.InvokeAsync(id);
-    }
+    private ITaskService _taskService;
+
+    private IUserService _userService;
+
+    private TaskOutputModelAllInfo task;
+
+    public IEnumerable<UserWorkerOutputModel> users;
+
+
+    public int a { get; set; }
+
+    public UserOutputModel worker;
+
+    // private async Task OpenModal(int id)
+    // {
+    //     await OnOpenModal.InvokeAsync(id);
+    // }
 
     public TaskMasterCard()
     {
-        _statusService = new StatusService();
-    }
 
-    protected override void OnInitialized()
+        _userService = new UserService();
+        _statusService = new StatusService();
+
+        _taskService = new TaskService();
+
+        users = _userService.GetAllUsersByRoleForTask(RoleUI.Client);
+
+        //users = Enumerable.Empty<UserOutputModel>();
+
+        //task = new TaskOutputModelAllInfo();
+
+    }
+    protected void  OnInitialized()
     {
         _taskStatus = _statusService.GetStatusNameByIndex((int)Task.Status);
+
+        users = _userService.GetAllUsersByRoleForTask(RoleUI.Client);
+
+        //task = await _taskService.GetTaskByIdWithAll(Task.Id);
+    }
+
+    private async void SetWorker()
+    {
+        //_userService.SetWorkerForTask(worker.Id, Task.Id);
+        //users = _userService.GetAllUsersByRoleAA(RoleUI.Client);
+        //var a = await _taskService.SetWorkerTask(task);
     }
 }
