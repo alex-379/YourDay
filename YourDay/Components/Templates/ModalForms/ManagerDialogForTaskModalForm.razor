@@ -18,7 +18,7 @@
 
 @code {
     [Parameter]
-    public int aaa { get; set; }
+    public int TaskId { get; set; }
 
     private ITaskService _taskService;
 
@@ -28,7 +28,6 @@
 
     public ManagerDialogForTaskModalForm()
     {
-        a = aaa;
         _taskService = new TaskService();
 
         //task = _taskService.GetTaskByIdWithAll(SelectedTaskId);
@@ -36,111 +35,23 @@
 }
 
 @* 
+        public StatusUI status;;
 
-        <ManagerDialogForTaskModalForm aaa=14></ManagerDialogForTaskModalForm>
-        <section>
-            <h2 class="manager-h1"> Задачи:</h2>
-            <div class="container-task">
-                @if (_task is not null)
-                {
-                    @foreach (var i in _task)
-                    {
-                        <button @onclick="() => ShowModal(i.Id)" class="order-button"><TaskManagerCard taskcCard="i" OnOpenModal="ShowModal"> </TaskManagerCard> </button>
-                    }
-                }
-            </div>
-        </section>
-
-
-        <section>
-            <div class="button-container">
-                <button class="purple-button"> История заказа </button>
-                <button class="purple-button"> Завершить заказ </button>
-                <button class="purple-button"> Другое</button>
-                <button class="order-button"> <AddTaskCard order=OrderOutput> </AddTaskCard> </button>
-                
-            </div>
-        </section>
-    </div> *@
-
-
-                
-@* 
-
-    public TaskOutputModel TaskOutput { get; set; }
-
-    private IOrderService _orderService;
-
-    private ITaskService _taskService;
-
-
-
-    public IEnumerable<TaskOutputModelWithSpecialization> _task;
-
-    public StatusUI status;
-
-
-
-    private List<TaskOutputModelAllInfo> _tasks;
-
-
-
-            public int selectedtaskId;
 
     public Order()
     {
-        _orderService = new OrderService();
-
-        _taskService = new TaskService();
-
-        _enumService = new EnumService();
-
-        OrderOutput = new OrderOutputModel();
-
-        _managerService = new ManagerService();
-
-        TaskOutput = new TaskOutputModel();
-
         IEnumerable<TaskOutputModelWithSpecialization> task = new List<TaskOutputModelWithSpecialization>();
 
         status = StatusUI.Completed;
 
     }
 
-    private async Task ShowModal(int taskId)
-    {
-        selectedtaskId = taskId;
-
-        await JSRuntime.InvokeVoidAsync("user.showModal");
-
-        StateHasChanged();
-    }
 
     public void UpdateStatus()
     {
         _orderService.UpdateOrderStatus(Id, status);
     }
-    public void Close()
-    {
+    
 
-        NavigationManager.NavigateTo("/order/Id");
-    }
-
-    protected override async Task OnInitializedAsync()
-    {
-        OrderOutputModel orderOutput = await _orderService.GetOrderById(Id);
-        OrderOutput.Id = orderOutput.Id;
-        OrderOutput.OrderName = orderOutput.OrderName;
-        OrderOutput.Date = orderOutput.Date;
-        OrderOutput.Address = orderOutput.Address;
-        OrderOutput.CountPeople = orderOutput.CountPeople;
-        OrderOutput.Price = orderOutput.Price;
-        OrderOutput.Status = orderOutput.Status;
-        OrderOutput.Manager = orderOutput.Manager;
-        selectedManagerId = orderOutput.Manager.Id;
-
-        _managers = await _managerService.GetAllManagers();
-
-        _task = await _taskService.GetTasksByOrderIdWithSpecialization(Id);
-    }
+    
  *@

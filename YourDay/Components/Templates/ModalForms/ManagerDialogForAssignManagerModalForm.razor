@@ -61,7 +61,17 @@
     }
 }
 
+
+
 @*
+
+    // Метод, который будет вызываться при изменении значения в select
+    private void OnSpecializationChange(ChangeEventArgs e)
+    {
+        selectedSpecialization = (int)e.Value;
+    }
+
+
 
         @code {
     [Parameter]

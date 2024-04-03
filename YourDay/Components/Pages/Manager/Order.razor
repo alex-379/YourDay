@@ -38,7 +38,7 @@ else
                         <td>@_enumService.GetDisplayName(OrderOutput.Status)</td>
                         @if (OrderOutput.Manager is not null)
                         {
-                            <td>@OrderOutput.Manager</td>
+                            <td>@OrderOutput.Manager.Id</td>
                         }
                         else
                         {
@@ -46,7 +46,7 @@ else
                         }
                         @if (OrderOutput.Client is not null)
                         {
-                            <td>@OrderOutput.Client</td>
+                            <td>@OrderOutput.Client.Id</td>
                         }
                         else
                         {
@@ -58,12 +58,47 @@ else
         </section>
 
         <ManagerDialogForAssignManagerModalForm OrderId=Id ManagerId=OrderOutput.Manager.Id></ManagerDialogForAssignManagerModalForm>
-        <ManagerDialogForChangeStatusOrderModalForm OrderId=Id></ManagerDialogForChangeStatusOrderModalForm>
     }
 
+    <section>
+        <h2 class="manager-h1"> Задачи:</h2>
+        <div class="container-task">
+            @if (_tasks is not null)
+            {
+                @foreach (var i in _tasks)
+                {
+                    <button @onclick="() => ShowModal(i.Id)" class="order-button"><TaskManagerCard taskcCard="i" OnOpenModal="ShowModal"> </TaskManagerCard> </button>
+                }
+            }
+        </div>
+    </section>
+
+    <section>
+        <div class="button-container">
+            <button class="purple-button"> История заказа </button>
+            <button class="purple-button"> Завершить заказ </button>
+            <button class="purple-button"> Другое</button>
+@*             <button class="order-button"> <AddTaskCard order=OrderOutput> </AddTaskCard> </button>
+ *@        </div>
+    </section>
+
+    <ManagerDialogForChangeStatusOrderModalForm OrderId=Id></ManagerDialogForChangeStatusOrderModalForm>
+@*     <ManagerDialogForTaskModalForm TaskId=_selectedtaskId></ManagerDialogForTaskModalForm>
+ *@
     <button onclick="window.manager.showModal()" class="purple-button"> Назначить менеджера на заказ</button>
-    <button onclick="window.statusOrder.showModal()" class="purple-button"> Изменить статус</button>
+    <button onclick="window.statusOrder.showModal()" class="purple-button"> Изменить статус заказа</button>
 }
+
+
+@*
+
+    private async Task AddTask()
+    {
+        taskInputModel.Specialization = await _specializationService.GetSpecializationById(selectedSpecialization);
+        await _managerService.AddTaskManager(taskInputModel, Id);
+*@
+
+
 
 @code
 {
@@ -72,6 +107,8 @@ else
     private bool _isCompleted;
 
     private bool _isReceieved;
+
+    private int _selectedtaskId;
 
     [Parameter]
     public int Id { get; set; }
@@ -83,11 +120,18 @@ else
 
     private IEnumService _enumService;
 
+    public IEnumerable<TaskOutputModelWithSpecialization> _tasks;
+
+    public ITaskService _taskService;
+
     public Order()
     {
         OrderOutput = new OrderOutputModel();
         _orderService = new OrderService();
         _enumService = new EnumService();
+        _tasks = Enumerable.Empty<TaskOutputModelWithSpecialization>();
+        _taskService = new TaskService();
+
     }
 
     protected override async Task OnInitializedAsync()
@@ -102,6 +146,18 @@ else
         OrderOutput.Status = orderOutput.Status;
         OrderOutput.Manager = orderOutput.Manager;
         OrderOutput.Client = orderOutput.Client;
+
         _isReceieved = true;
+
+        _tasks = await _taskService.GetTasksByOrderIdWithSpecialization(Id);
+    }
+
+    private async Task ShowModal(int taskId)
+    {
+        _selectedtaskId = taskId;
+
+        await JSRuntime.InvokeVoidAsync("task.showModal");
+
+        StateHasChanged();
     }
 }

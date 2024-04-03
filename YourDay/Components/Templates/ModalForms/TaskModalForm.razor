@@ -1,0 +1,62 @@
+﻿<div class="modal-dialog">
+    <div class="modal-content">
+        <EditForm Model="TaskModel" FormName="TaskModel" OnValidSubmit="Add">
+            <DataAnnotationsValidator />
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Название:</label>
+                    <InputText class="form-control" @bind-Value="TaskModel.Title" placeholder="Введите название задачи" />
+                    <ValidationMessage For="@(() => TaskModel.Title)" />
+                </div>
+                <div class="form-group">
+                    <label>Описание:</label>
+                    <InputText class="form-control" @bind-Value="TaskModel.Description" placeholder="Введите описание" />
+                    <ValidationMessage For="@(() => TaskModel.Description)" />
+                </div>
+                <div class="form-group">
+                    <label>Специализация:</label>
+                    <InputSelect class="form-control" @bind-Value="TaskModel.Specialization" placeholder="Выберите специализацию:">
+                        <option value=1>Флорист</option>
+                        <option value=2>Оформитель</option>
+                        <option value=3>Грузчик</option>
+                    </InputSelect>
+                    <ValidationMessage For="@(() => TaskModel.Specialization)" />
+                </div>
+                <div class="form-group">
+                    <label>Время начала:</label>
+                    <DateInput TValue="DateTime" class="form-control" @bind-Value=TaskModel.TimeStart placeholder="Введите время начала" />
+                    <ValidationMessage For="@(() => TaskModel.TimeStart)" />
+                </div>
+                <div class="form-group">
+                    <label>Время окончания:</label>
+                    <DateInput TValue="DateTime" class="form-control" @bind-Value=TaskModel.TimeEnd placeholder="Введите время окончания" />
+                    <ValidationMessage For="@(() => TaskModel.TimeEnd)" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="purple-button" data-bs-toggle="modal">Создать</button>
+                <button type="button" class="purple-button" data-bs-dismiss="modal">Отмена</button>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    [SupplyParameterFromForm(FormName = "TaskModel")]
+    public TaskInputModel TaskModel { get; set; }
+
+    [Parameter]
+    public Action<TaskInputModel> AddTask { get; set; }
+
+    public TaskModalForm()
+    {
+        TaskModel = new TaskInputModel();
+    }
+
+    private void Add()
+    {
+        TaskModel.Title = TaskModel.Title.ToLower();
+        TaskModel.Description = TaskModel.Description.ToLower();
+        AddTask(TaskModel);
+    }
+}
