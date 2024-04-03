@@ -21,6 +21,7 @@
     </div>
 </dialog>
 
+
 @code {
     [Parameter]
     public int OrderId { get; set; }
@@ -30,7 +31,7 @@
 
     private int _selectedManagerId;
 
-    private bool _isSameManagerSelected = true;
+    private bool _isSameManagerSelected;
 
     private IEnumerable<ManagerNameAndPhoneOutputModel> _managers;
 
@@ -40,6 +41,11 @@
     {
         _managers = Enumerable.Empty<ManagerNameAndPhoneOutputModel>();
         _managerService = new ManagerService();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _managers = await _managerService.GetAllManagers();
     }
 
     public void ManagerSelection(ChangeEventArgs e)
@@ -54,3 +60,44 @@
         _managerService.AddManagerIdToOrder(_selectedManagerId, OrderId);
     }
 }
+
+@*
+
+        @code {
+    [Parameter]
+    public int OrderId { get; set; }
+
+    [Parameter]
+    public int ManagerId { get; set; }
+
+    private int _selectedManagerId;
+
+    private bool _isSameManagerSelected;
+
+    private IEnumerable<ManagerNameAndPhoneOutputModel> _managers;
+
+    private IManagerService _managerService;
+
+    public ManagerDialogForAssignManagerModalForm()
+    {
+        _managers = Enumerable.Empty<ManagerNameAndPhoneOutputModel>();
+        _managerService = new ManagerService();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _managers = await _managerService.GetAllManagers();
+    }
+
+    public void ManagerSelection(ChangeEventArgs e)
+    {
+        _selectedManagerId = int.Parse(e.Value.ToString());
+
+        _isSameManagerSelected = (_selectedManagerId == ManagerId);
+    }
+
+    public void AddManagerToOrder()
+    {
+        _managerService.AddManagerIdToOrder(_selectedManagerId, OrderId);
+    }
+} *@
