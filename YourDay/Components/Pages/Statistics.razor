@@ -142,7 +142,8 @@ else
             .GroupBy(task => task.ManagerId)
             .Select((tasksGroupByManager) =>
             {
-                CompanyStatisticOutputModel? currentTask = _tasks.Find((taskFromOutputModel) => taskFromOutputModel.ManagerId == tasksGroupByManager.Key);
+                List<CompanyStatisticOutputModel> outputModels = _tasks.ToList();
+                CompanyStatisticOutputModel currentTask = outputModels.Find((taskFromOutputModel) => taskFromOutputModel.ManagerId == tasksGroupByManager.Key);
 
                 IEnumerable<OrderRow> TasksByOrder = tasksGroupByManager
                             .Select(taskFromOutputModel => new TaskRow()
