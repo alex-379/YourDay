@@ -10,7 +10,6 @@ namespace YourDay.BLL.IServices
 
         public Task<SpecializationTaskInputModel> GetSpecializationById(int id);
 
-
-        public Task<IEnumerable<SpecializationIdNameOutputModel>> GetAllSpecialization();
+        public Task<IEnumerable<SpecializationOnlyNameOutputModel>> GetAllSpecialization();
     }
 }

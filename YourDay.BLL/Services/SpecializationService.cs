@@ -50,10 +50,10 @@ namespace YourDay.BLL.Services
 
        
 
-        public async Task<IEnumerable<SpecializationIdNameOutputModel>> GetAllSpecialization()
+        public async Task<IEnumerable<SpecializationOnlyNameOutputModel>> GetAllSpecialization()
         {
             var specializations = await _specializationRepository.GetAllSpecialization();
-            var specializationModel = _mapper.Map<IEnumerable<SpecializationIdNameOutputModel>>(specializations);
+            var specializationModel = _mapper.Map<IEnumerable<SpecializationOnlyNameOutputModel>>(specializations);
 
             return specializationModel;
         }

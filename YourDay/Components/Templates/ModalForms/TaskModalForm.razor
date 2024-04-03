@@ -16,6 +16,7 @@
                 <div class="form-group">
                     <label>Специализация:</label>
                     <InputSelect class="form-control" @bind-Value="TaskModel.Specialization" placeholder="Выберите специализацию:">
+                        for ()
                         <option value=1>Флорист</option>
                         <option value=2>Оформитель</option>
                         <option value=3>Грузчик</option>
@@ -48,9 +49,20 @@
     [Parameter]
     public Action<TaskInputModel> AddTask { get; set; }
 
+    private ISpecializationService _specializationService;
+
+    private IEnumerable<SpecializationOnlyNameOutputModel> _specializationOnlyNameOutputModel;
+
     public TaskModalForm()
     {
         TaskModel = new TaskInputModel();
+        _specializationService = new SpecializationService();
+        _specializationOnlyNameOutputModel = Enumerable.Empty<SpecializationOnlyNameOutputModel>();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _specializationOnlyNameOutputModel = await _specializationService.GetAllSpecialization();
     }
 
     private void Add()
