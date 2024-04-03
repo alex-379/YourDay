@@ -125,7 +125,6 @@ else
         _table = new Tables();
         _tasks = Enumerable.Empty<CompanyStatisticOutputModel>();
         _statistics = new ManagerService();
-
     }
 
     protected override async Task OnInitializedAsync()
@@ -135,6 +134,8 @@ else
         _table.GetTableForPrintTasks();
 
         _tasks = await _statistics.GetAllTaskOfOrderOfTheirManager();
+
+        _isReceieved = true;
 
         orderByManagerGroups = _tasks
             .GroupBy(task => task.ManagerId)
