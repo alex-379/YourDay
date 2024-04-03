@@ -1,25 +1,34 @@
+<button @onclick="() => OpenModal(Task.Id)"></button>
+
 <div class="container-buttons">
-    <a href="./task/@task.Id">
+    <a href="./task/@Task.Id">
         <div class="taskWorker-card">
-            <p>@task.Title </p>
-            @if (task.Specialization !=null)
+            <p>@Task.Title </p>
+            @if (Task.Specialization != null)
             {
-                <p>@task.Specialization.Name</p>
+                <p>@Task.Specialization.Name</p>
             }
-            <p>@task.TimeStart.ToShortTimeString() - @task.TimeEnd.ToShortTimeString()</p>
-            <p>@task.TimeStart - @task.TimeEnd</p>
-            <p>@getStatusNameByIndex((int)task.Status)</p>
+            <p>@Task.TimeStart.ToShortTimeString() - @Task.TimeEnd.ToShortTimeString()</p>
+            <p>@Task.TimeStart - @Task.TimeEnd</p>
+            <p>@getStatusNameByIndex((int)Task.Status)</p>
         </div>
     </a>
 </div>
 
 @code {
     [Parameter]
-    public TaskOutputModelAllInfo task { get; set; }
+    public TaskOutputModelAllInfo Task { get; set; }
+
+    [Parameter] public EventCallback<int> OnOpenModal { get; set; }
+
+    private async Task OpenModal(int id)
+    {
+        await OnOpenModal.InvokeAsync(id);
+    }
 
     private IEnumService _enumService;
 
-    public WorkerTaskCard()
+    public TaskCard()
     {
         _enumService = new EnumService();
     }

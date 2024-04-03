@@ -67,7 +67,7 @@ else
             {
                 @foreach (var i in _tasks)
                 {
-                    <button @onclick="() => ShowModal(i.Id)" class="order-button"><TaskManagerCard taskcCard="i" OnOpenModal="ShowModal"> </TaskManagerCard> </button>
+                    <button @onclick="() => ShowModal(i.Id)" class="order-button"><TaskCard Task="i" OnOpenModal="ShowModal"> </TaskCard> </button>
                 }
             }
         </div>

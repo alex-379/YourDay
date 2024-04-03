@@ -1,0 +1,36 @@
+﻿<button @onclick="() => OpenModal(Task.Id)"></button>
+
+<div class="container-buttons">
+    <a href="./task/@Task.Id">
+        <div class="taskWorker-card">
+            <p>@Task.Title </p>
+            @if (Task.Specialization != null)
+            {
+                <p>@Task.Specialization.Name</p>
+            }
+            <p>@Task.TimeStart.ToShortTimeString() - @Task.TimeEnd.ToShortTimeString()</p>
+            <p>@Task.TimeStart - @Task.TimeEnd</p>
+            <p>@getStatusNameByIndex((int)Task.Status)</p>
+        </div>
+    </a>
+</div>
+
+@code {
+    [Parameter]
+    public TaskOutputModelWithSpecialization Task { get; set; }
+
+    [Parameter] public EventCallback<int> OnOpenModal { get; set; }
+
+    private async Task OpenModal(int id)
+    {
+        await OnOpenModal.InvokeAsync(id);
+    }
+
+    private IStatusService _statusService;
+
+    public TaskMasterCard()
+    {
+        _statusService = new StatusService();
+    }
+
+}
