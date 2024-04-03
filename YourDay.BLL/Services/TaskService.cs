@@ -117,7 +117,7 @@ namespace YourDay.BLL.Services
 
         private static void SetDefaultStatus(TaskInputModel task, Status status)
         {
-            task.Status = (StatusUI)status;
+            task.StatusUI = (StatusUI)status;
         }
     }
 }

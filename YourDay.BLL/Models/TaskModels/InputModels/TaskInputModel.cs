@@ -22,6 +22,6 @@ namespace YourDay.BLL.Models.TaskModels.InputModels
 
         public SpecializationTaskInputModel? Specialization { get; set; }
 
-        public StatusUI? Status { get; set; }
+        public StatusUI? StatusUI { get; set; }
     }
 }
