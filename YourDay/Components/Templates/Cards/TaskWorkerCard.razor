@@ -1,5 +1,3 @@
-<button @onclick="() => OpenModal(Task.Id)"></button>
-
 <div class="container-buttons">
     <a href="./task/@Task.Id">
         <div class="taskWorker-card">
@@ -10,7 +8,7 @@
             }
             <p>@Task.TimeStart.ToShortTimeString() - @Task.TimeEnd.ToShortTimeString()</p>
             <p>@Task.TimeStart - @Task.TimeEnd</p>
-            <p>@getStatusNameByIndex((int)Task.Status)</p>
+            <p>@_taskStatus</p>
         </div>
     </a>
 </div>
@@ -19,44 +17,17 @@
     [Parameter]
     public TaskOutputModelAllInfo Task { get; set; }
 
-    [Parameter] public EventCallback<int> OnOpenModal { get; set; }
+    private IStatusService _statusService;
 
-    private async Task OpenModal(int id)
+    private string _taskStatus;
+
+    public TaskWorkerCard()
     {
-        await OnOpenModal.InvokeAsync(id);
+        _statusService = new StatusService();
     }
 
-    private IEnumService _enumService;
-
-    public TaskCard()
+    protected override void OnInitialized()
     {
-        _enumService = new EnumService();
-    }
-
-    public string getStatusNameByIndex(int index)
-    {
-        string statusName = "";
-
-        switch (index)
-        {
-            case 0:
-                statusName = _enumService.GetDisplayName(StatusUI.Received);
-
-                break;
-            case 1:
-                statusName = _enumService.GetDisplayName(StatusUI.InProgress);
-
-                break;
-            case 2:
-                statusName = _enumService.GetDisplayName(StatusUI.Completed);
-
-                break;
-            case 3:
-                statusName = _enumService.GetDisplayName(StatusUI.Canselled);
-
-                break;
-        }
-
-        return statusName;
+        _taskStatus = _statusService.GetStatusNameByIndex((int)Task.Status);
     }
 }
