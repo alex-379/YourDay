@@ -7,5 +7,7 @@
         public string OrderName { get; set; }
 
         public IGrouping<int, TaskRow> OrderTask { get; set; }
+
+        public int TaskQuantity { get; set; }
     }
 }

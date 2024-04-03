@@ -7,5 +7,6 @@
         public string? ManagerName { get; set; }
 
         public IEnumerable<OrderRow> TasksByOrder { get; set; }
+        public int OrderQuantity { get; set; }
     }
 }
