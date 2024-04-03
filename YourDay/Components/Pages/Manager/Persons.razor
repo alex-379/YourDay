@@ -31,7 +31,7 @@ else
                         <button class="order-button" data-bs-toggle="modal" data-bs-target="#registrationClientForManager"> + </button>
                         @foreach (var i in _clients)
                         {
-                            <button @onclick="() => ShowModal(i.Id)" class="worker-button"> <WorkerCard worker="i" OnOpenModal="ShowModal"> </WorkerCard> </button>
+                            <button @onclick="() => ShowModal(i.Id)" class="worker-button"> <UserCard User="i" OnOpenModal="ShowModal"> </UserCard> </button>
                         }
                     </div>
             }
@@ -42,7 +42,7 @@ else
                         <button class="order-button" data-bs-toggle="modal" data-bs-target="#registrationWorkerForManager"> + </button>
                         @foreach (var i in _workers)
                         {
-                            <button @onclick="() => ShowModal(i.Id)" class="worker-button"> <WorkerCard worker="i" OnOpenModal="ShowModal"> </WorkerCard> </button>
+                            <button @onclick="() => ShowModal(i.Id)" class="worker-button"> <WorkerCard Worker="i" OnOpenModal="ShowModal"> </WorkerCard> </button>
                         }
                     </div>
             }
@@ -53,7 +53,7 @@ else
                         <button class="order-button" data-bs-toggle="modal" data-bs-target="#registrationManager"> + </button>
                         @foreach (var i in _managers)
                         {
-                            <button @onclick="() => ShowModal(i.Id)" class="worker-button"> <WorkerCard worker="i" OnOpenModal="ShowModal"> </WorkerCard> </button>
+                            <button @onclick="() => ShowModal(i.Id)" class="worker-button"> <UserCard User="i" OnOpenModal="ShowModal"> </UserCard> </button>
                         }
                     </div>
             }
@@ -85,27 +85,27 @@ else
 
     private IUserService _userService;
 
-    private IEnumerable<UserSpecializationOutputModel> _clients;
+    private IEnumerable<UserOutputModel> _clients;
 
     private IEnumerable<UserSpecializationOutputModel> _workers;
 
-    private IEnumerable<UserSpecializationOutputModel> _managers;
+    private IEnumerable<UserOutputModel> _managers;
 
     private int selectedUserId;
 
     public Persons()
     {
         _userService = new UserService();
-        _clients = Enumerable.Empty<UserSpecializationOutputModel>();
+        _clients = Enumerable.Empty<UserOutputModel>();
         _workers = Enumerable.Empty<UserSpecializationOutputModel>();
-        _managers = Enumerable.Empty<UserSpecializationOutputModel>();
+        _managers = Enumerable.Empty<UserOutputModel>();
     }
 
     protected override async Task OnInitializedAsync()
     {
-        _clients = await _userService.GetAllUsersSpecializationByRole(RoleUI.Client);
+        _clients = await _userService.GetAllUsersByRole(RoleUI.Client);
         _workers = await _userService.GetAllUsersSpecializationByRole(RoleUI.Worker);
-        _managers = await _userService.GetAllUsersSpecializationByRole(RoleUI.Manager);
+        _managers = await _userService.GetAllUsersByRole(RoleUI.Manager);
 
     }
 
