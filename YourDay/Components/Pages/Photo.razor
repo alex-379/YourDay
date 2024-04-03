@@ -4,6 +4,66 @@
 <div class="container-for-img">
     <ul class="image-gallery">
         <li>
+            <img src="@_link" />
+            <div class="overlay"></div>
+        </li>
+    </ul>
+</div>
+
+@code {
+    int Count = (int)Time.TimeAwaitChangePicture;
+
+    private string _link;
+
+    private IPictureService _pictureService;
+
+    protected override void OnInitialized()
+    {
+        _pictureService = new PictureService();
+        _link = "/images/gallery/01.jpg";
+        Countdown();
+    }
+
+    void Countdown()
+    {
+        var timer = new Timer(TimeCallBack, null, 1000, 1000);
+    }
+
+    void TimeCallBack(object state)
+    {
+        if (Count > 0)
+        {
+            Count--;
+            _link = _pictureService.GetPictureNameByCounter(Count);
+            InvokeAsync(StateHasChanged);
+        }
+        else
+        {
+            Count = (int)Time.TimeAwaitChangePicture;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* 
+<div class="container-for-img">
+    <ul class="image-gallery">
+        <li>
             <img src="/images/gallery/01.jpg" />
             <div class="overlay"></div>
         </li>
@@ -17,3 +77,4 @@
         </li>
     </ul>
 </div>
+ *@
