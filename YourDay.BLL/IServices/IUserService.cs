@@ -8,11 +8,11 @@ namespace YourDay.BLL.IServices
     {
         public Task<UserOutputModel> AddUser(UserRegistrationInputModel user);
 
-        public Task<UserOutputModel> AddClientForManager(UserRegistrationForManagerInputModel client);
+        public Task<UserPasswordOutputModel> AddClientForManager(UserRegistrationForManagerInputModel client);
 
-        public Task<UserOutputModel> AddWorkerForManager(UserRegistrationForManagerInputModel worker);
+        public Task<UserPasswordOutputModel> AddWorkerForManager(UserRegistrationForManagerInputModel worker);
 
-        public Task<UserOutputModel> AddManager(UserRegistrationForManagerInputModel manager);
+        public Task<UserPasswordOutputModel> AddManager(UserRegistrationForManagerInputModel manager);
 
         public Task<IEnumerable<UserOutputModel>> GetAllUsers();
 

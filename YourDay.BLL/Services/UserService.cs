@@ -41,7 +41,7 @@ namespace YourDay.BLL.Services
             return userOutput;
         }
 
-        public async Task<UserOutputModel> AddClientForManager(UserRegistrationForManagerInputModel client)
+        public async Task<UserPasswordOutputModel> AddClientForManager(UserRegistrationForManagerInputModel client)
         {
             client.Password = _passwordService.GetRandomPassword();
             this.GetSaltHashForManager(client);
@@ -49,12 +49,13 @@ namespace YourDay.BLL.Services
             this.SetRole(userDtoInput, Role.Client);
             this.SetIsUndeleted(userDtoInput);
             UserDto userDtoOutput = await _userRepository.AddUser(userDtoInput);
-            UserOutputModel userOutput = _mapper.Map<UserOutputModel>(userDtoOutput);
+            UserPasswordOutputModel userOutput = _mapper.Map<UserPasswordOutputModel>(userDtoOutput);
+            userOutput.Password = client.Password;
 
             return userOutput;
         }
 
-        public async Task<UserOutputModel> AddWorkerForManager(UserRegistrationForManagerInputModel worker)
+        public async Task<UserPasswordOutputModel> AddWorkerForManager(UserRegistrationForManagerInputModel worker)
         {
             worker.Password = _passwordService.GetRandomPassword();
             this.GetSaltHashForManager(worker);
@@ -62,12 +63,13 @@ namespace YourDay.BLL.Services
             this.SetRole(userDtoInput, Role.Worker);
             this.SetIsUndeleted(userDtoInput);
             UserDto userDtoOutput = await _userRepository.AddUser(userDtoInput);
-            UserOutputModel userOutput = _mapper.Map<UserOutputModel>(userDtoOutput);
+            UserPasswordOutputModel userOutput = _mapper.Map<UserPasswordOutputModel>(userDtoOutput);
+            userOutput.Password = worker.Password;
 
             return userOutput;
         }
 
-        public async Task<UserOutputModel> AddManager(UserRegistrationForManagerInputModel manager)
+        public async Task<UserPasswordOutputModel> AddManager(UserRegistrationForManagerInputModel manager)
         {
             manager.Password = _passwordService.GetRandomPassword();
             this.GetSaltHashForManager(manager);
@@ -75,7 +77,8 @@ namespace YourDay.BLL.Services
             this.SetRole(userDtoInput, Role.Manager);
             this.SetIsUndeleted(userDtoInput);
             UserDto userDtoOutput = await _userRepository.AddUser(userDtoInput);
-            UserOutputModel userOutput = _mapper.Map<UserOutputModel>(userDtoOutput);
+            UserPasswordOutputModel userOutput = _mapper.Map<UserPasswordOutputModel>(userDtoOutput);
+            userOutput.Password = manager.Password;
 
             return userOutput;
         }
@@ -87,8 +90,6 @@ namespace YourDay.BLL.Services
 
             return users;
         }
-
-
 
         public async Task<IEnumerable<UserOutputModel>> GetAllUsersByRole(RoleUI role)
         {
