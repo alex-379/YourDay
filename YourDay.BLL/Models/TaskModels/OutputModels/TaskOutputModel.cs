@@ -18,7 +18,7 @@ namespace YourDay.BLL.Models.TaskModels.OutputModels
 
         public string Description { get; set; }
 
-        public SpecializationOnlyNameOutputModel Specialization { get; set; }
+        public SpecializationOutputModel Specialization { get; set; }
 
         public StatusUI Status { get; set; }
     }

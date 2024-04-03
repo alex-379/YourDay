@@ -16,10 +16,14 @@
                 <div class="form-group">
                     <label>Специализация:</label>
                     <InputSelect class="form-control" @bind-Value="TaskModel.Specialization" placeholder="Выберите специализацию:">
-                        for ()
+
+                        @foreach (int i in _specializations)
+                        {
                         <option value=1>Флорист</option>
                         <option value=2>Оформитель</option>
                         <option value=3>Грузчик</option>
+                }
+
                     </InputSelect>
                     <ValidationMessage For="@(() => TaskModel.Specialization)" />
                 </div>
@@ -51,18 +55,18 @@
 
     private ISpecializationService _specializationService;
 
-    private IEnumerable<SpecializationOnlyNameOutputModel> _specializationOnlyNameOutputModel;
+    private IEnumerable<SpecializationOutputModel> _specializations;
 
     public TaskModalForm()
     {
         TaskModel = new TaskInputModel();
         _specializationService = new SpecializationService();
-        _specializationOnlyNameOutputModel = Enumerable.Empty<SpecializationOnlyNameOutputModel>();
+        _specializations = Enumerable.Empty<SpecializationOutputModel>();
     }
 
     protected override async Task OnInitializedAsync()
     {
-        _specializationOnlyNameOutputModel = await _specializationService.GetAllSpecialization();
+        _specializations = await _specializationService.GetAllSpecialization();
     }
 
     private void Add()
