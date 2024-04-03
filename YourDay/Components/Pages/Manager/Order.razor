@@ -38,7 +38,7 @@ else
                         <td>@_enumService.GetDisplayName(OrderOutput.Status)</td>
                         @if (OrderOutput.Manager is not null)
                         {
-                            <td>@OrderOutput.Manager.Id</td>
+                            <td>@OrderOutput.Manager.UserName</td>
                         }
                         else
                         {
@@ -46,7 +46,7 @@ else
                         }
                         @if (OrderOutput.Client is not null)
                         {
-                            <td>@OrderOutput.Client.Id</td>
+                            <td>@OrderOutput.Client.UserName</td>
                         }
                         else
                         {
