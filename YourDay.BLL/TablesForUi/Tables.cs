@@ -7,6 +7,7 @@
         public List<ColumnForTables> OrderColumns { get; set; }
 
         public List<ColumnForTables> TaskColumns { get; set; }
+
         public List<ColumnForTables> ContactWithManagerColumns {  get; set; }
 
         public Tables()
@@ -90,9 +91,3 @@
         }
     }
 }
-
-
-
-
-
-

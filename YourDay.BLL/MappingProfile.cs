@@ -64,7 +64,7 @@ namespace YourDay.BLL
 
             CreateMap<TaskDto, TaskOutputModel>();
 
-            CreateMap<SpecializationInputModel, SpecializationDto>(); 
+            CreateMap<SpecializationInputModel, SpecializationDto>();
 
             CreateMap<SpecializationTaskInputModel, SpecializationDto>();
 

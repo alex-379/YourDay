@@ -1,5 +1,4 @@
 ﻿using YourDay.DAL.Dtos;
-using YourDay.DAL.Enums;
 
 namespace YourDay.DAL.IRepositories
 {

@@ -1,12 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using YourDay.DAL.Dtos;
 using YourDay.DAL.IRepositories;
 
 namespace YourDay.DAL.Repositories
 {
-    public class SpecializationRepository: ISpecializationRepository
+    public class SpecializationRepository : ISpecializationRepository
     {
         public async Task<SpecializationDto> AddSpecialization(SpecializationDto specialization)
         {
@@ -18,7 +16,7 @@ namespace YourDay.DAL.Repositories
                 return specialization;
             }
         }
-       
+
         public async Task<SpecializationDto> GetSpecializationById(int id)
         {
             using (Context context = new Context())

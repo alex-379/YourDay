@@ -4,7 +4,7 @@ using YourDay.BLL.IServices;
 
 namespace YourDay.BLL.Services
 {
-    public class EnumService:IEnumService
+    public class EnumService : IEnumService
     {
         public string? GetDisplayName(Enum enumValue)
         {
