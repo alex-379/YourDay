@@ -7,7 +7,7 @@ namespace YourDay.DAL.IRepositories
     {
         public Task<OrderDto> AddOrder(OrderDto order);
 
-        public Task<IEnumerable<OrderDto>> GetAllOrdersWithManager();
+        public Task<IEnumerable<OrderDto>> GetAllOrders();
 
         public Task<IEnumerable<OrderDto>> GetAllApplications();
 

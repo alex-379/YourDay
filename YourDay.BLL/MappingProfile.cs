@@ -39,6 +39,7 @@ namespace YourDay.BLL
 
             CreateMap<OrderDto, OrderNameDateOutputModel>()
                 .ForMember<string>(outputModel => outputModel.Date, date => date.MapFrom(orderDto => orderDto.Date != null ? orderDto.Date.Value.ToString("yyyy-MM-dd") : null));
+
             CreateMap<OrderInputModel, OrderDto>();
 
             CreateMap<ApplicationInputModel, HistoryDto>();
@@ -69,23 +70,24 @@ namespace YourDay.BLL
 
             CreateMap<SpecializationDto, SpecializationTaskInputModel>();
 
-            CreateMap<SpecializationDto, SpecializationIdNameOutputModel>();
+            CreateMap<SpecializationDto, SpecializationOutputModel>();
 
-            CreateMap<SpecializationIdNameOutputModel, SpecializationDto>();
+            CreateMap<SpecializationOutputModel, SpecializationDto>();
 
             CreateMap<OrderDto, OrderOutputModel>();
 
             CreateMap<TaskDto, CompanyStatisticOutputModel>()
-                .ForMember(outputModel => outputModel.NameManager, taskdto => taskdto.MapFrom(task => task.Order.Manager.UserName))
-                .ForMember(outputModel => outputModel.IdManager, taskdto => taskdto.MapFrom(task => task.Order.Manager.Id))
-                .ForMember(outputModel => outputModel.IdTask, taskdto => taskdto.MapFrom(task => task.Id))
-                .ForMember(outputModel => outputModel.TitleTask, taskDto => taskDto.MapFrom(task => task.Title))
-                .ForMember(outputModel => outputModel.IdOrder, taskDto => taskDto.MapFrom(order => order.Order.Id))
-                .ForMember(outputModel => outputModel.TitleOrder, taskDto => taskDto.MapFrom(order => order.Order.OrderName));
-
+                .ForMember(outputModel => outputModel.ManagerName, taskdto => taskdto.MapFrom(task => task.Order.Manager.UserName))
+                .ForMember(outputModel => outputModel.ManagerId, taskdto => taskdto.MapFrom(task => task.Order.Manager.Id))
+                .ForMember(outputModel => outputModel.TaskId, taskdto => taskdto.MapFrom(task => task.Id))
+                .ForMember(outputModel => outputModel.TaskTitle, taskDto => taskDto.MapFrom(task => task.Title))
+                .ForMember(outputModel => outputModel.OrderId, taskDto => taskDto.MapFrom(task => task.Order.Id))
+                .ForMember(outputModel => outputModel.OrderTitle, taskDto => taskDto.MapFrom(task => task.Order.OrderName))
+                .ForMember(outputModel => outputModel.ClientId, taskDto => taskDto.MapFrom(task => task.Order.Client.Id))
+                .ForMember(outputModel => outputModel.ClientId, taskDto => taskDto.MapFrom(task => task.Order.Client.UserName));
             CreateMap<SpecializationInputModel, SpecializationDto>();
 
-            CreateMap<SpecializationDto, SpecializationOnlyNameOutputModel>();
+            CreateMap<SpecializationDto, SpecializationOutputModel>();
         }
     }
 }

@@ -1,5 +1,6 @@
-﻿using YourDay.BLL.Enums;
+using YourDay.BLL.Enums;
 using YourDay.BLL.Models.UserModels.OutputModels;
+
 
 namespace YourDay.BLL.Models.OrderModels.OutputModels
 {
@@ -9,7 +10,7 @@ namespace YourDay.BLL.Models.OrderModels.OutputModels
 
         public string? OrderName { get; set; }
 
-        public string Address { get; set; }
+        public string? Address { get; set; }
 
         public DateTime? Date { get; set; }
 
@@ -20,5 +21,7 @@ namespace YourDay.BLL.Models.OrderModels.OutputModels
         public StatusUI Status { get; set; }
 
         public UserOutputModel? Manager { get; set; }
+
+        public UserOutputModel? Client { get; set; }
     }
 }
