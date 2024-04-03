@@ -2,6 +2,7 @@ using AutoMapper;
 using YourDay.BLL.Enums;
 using YourDay.BLL.IServices;
 using YourDay.BLL.Models.UserModels.InputModels;
+using YourDay.BLL.Models.TaskModels.InputModels;
 using YourDay.BLL.Models.UserModels.OutputModels;
 using YourDay.DAL.Dtos;
 using YourDay.DAL.Enums;
@@ -87,6 +88,8 @@ namespace YourDay.BLL.Services
 
             return users;
         }
+
+        
 
         public async Task<IEnumerable<UserOutputModel>> GetAllUsersByRole(RoleUI role)
         {

@@ -1,68 +1,98 @@
-﻿namespace YourDay.BLL.Tables
+﻿namespace YourDay.BLL.TablesForUi
 {
     public class Tables
     {
-        public List<Column> Columns { get; set; }
+        public List<ColumnForTables> ManagerColumns { get; set; }
+
+        public List<ColumnForTables> OrderColumns { get; set; }
+
+        public List<ColumnForTables> TaskColumns { get; set; }
+        public List<ColumnForTables> ContactWithManagerColumns {  get; set; }
 
         public Tables()
         {
-            Columns = new List<Column>();
+            ManagerColumns = new List<ColumnForTables>();
+            OrderColumns = new List<ColumnForTables>();
+            TaskColumns = new List<ColumnForTables>();
+            ContactWithManagerColumns= new List<ColumnForTables>();
+        }
+
+        public void GetTableForPrintContactWithManager()
+        {
+            ContactWithManagerColumns.AddRange(
+                new ColumnForTables[]
+                {
+                    new ColumnForTables()
+                    {
+                        Field="Name",
+                        LayoutHeader="Имя менеджера"
+                    },
+                     new ColumnForTables()
+                    {
+                        Field="Phone",
+                        LayoutHeader="Номер телефона менеджера"
+                    }
+                });
         }
 
         public void GetTableForPrintManagers()
         {
-            Columns.AddRange(
-                new Column[]
+            ManagerColumns.AddRange(
+                new ColumnForTables[]
                 {
-                new Column()
-                {
-                    Field="Name",
-                    LayoutHeader="Имя"
-                },
-                new Column()
-                {
-                    Field="Phone",
-                    LayoutHeader="Телефон"
-                }
-        });
+                    new ColumnForTables()
+                    {
+                        Field="ManagerId",
+                        LayoutHeader="Идентификатор менеджера"
+                    },
+                    new ColumnForTables()
+                    {
+                        Field="ManagerName",
+                        LayoutHeader="Имя менеджера"
+                    },
+                });
         }
 
-        public void GetTableForStatistics()
+        public void GetTableForPrintOrders()
         {
-            Columns.AddRange(
-                    new Column[]
+            OrderColumns.AddRange(
+                new ColumnForTables[]
+                {
+                    new ColumnForTables()
                     {
-                    new Column()
+                        Field="OrderId",
+                        LayoutHeader="Идентификатор заказа"
+                    },
+                    new ColumnForTables()
+                    {
+                        Field="OrderName",
+                        LayoutHeader="Название заказа"
+                    },
+                });
+        }
+
+        public void GetTableForPrintTasks()
+        {
+            TaskColumns.AddRange(
+                new ColumnForTables[]
                 {
-                    Field="IdManager",
-                    LayoutHeader="Идентификатор менеджера"
-                },
-                new Column()
-                {
-                    Field="NameManager",
-                    LayoutHeader="Имя менеджера"
-                },
-                new Column()
-                {
-                    Field="IdOrder",
-                    LayoutHeader="Идентификатор заказа"
-                },
-                new Column()
-                {
-                    Field="TitleOrder",
-                    LayoutHeader="Название заказа"
-                },
-                new Column()
-                {
-                    Field="IdTask",
-                    LayoutHeader="Идентификатор задачи"
-                },
-                new Column()
-                {
-                    Field="TitleTask",
-                    LayoutHeader="название задачи"
-                }
-                    });
+                    new ColumnForTables()
+                    {
+                        Field="OrderId",
+                        LayoutHeader="Идентификатор заказа"
+                    },
+                    new ColumnForTables()
+                    {
+                        Field="TaskName",
+                        LayoutHeader="Название задачи"
+                    },
+                });
         }
     }
 }
+
+
+
+
+
+

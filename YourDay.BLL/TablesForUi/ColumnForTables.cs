@@ -1,6 +1,6 @@
-﻿namespace YourDay.BLL.Tables
+﻿namespace YourDay.BLL.TablesForUi
 {
-    public class Column
+    public class ColumnForTables
     {
         public string Field { get; set; }
         public string LayoutHeader { get; set; }

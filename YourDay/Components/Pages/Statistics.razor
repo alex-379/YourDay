@@ -1,8 +1,9 @@
-﻿@page "/manager-statistics"
+@page "/manager-statistics"
 @attribute [StreamRendering]
 @inject NavigationManager NavigationWorker
+@using YourDay.BLL.TablesForUi
 
-<GetClaims SendIsCompleted="b=>_isCompleted=b" SendRole="p=>_role=p"></GetClaims>
+<GetClaims SendIsCompleted="b=>_isCompleted=b" SendRole="p=>_role = p"></GetClaims>
 
 @if (_isCompleted && _role != RoleUI.Manager.ToString())
 {
@@ -10,58 +11,162 @@
 }
 else
 {
-    <PageTitle>Cтатистика</PageTitle>
+    if (_isReceieved)
+    {
+        <PageTitle>Cтатистика</PageTitle>
 
-    <div>
-        <h2 class="manager-h1">Здесь вы можете посмотреть статистику по всей компании:</h2>
-    </div>
+        <div>
+            <h2 class="manager-h1">Здесь вы можете посмотреть статистику по всей компании:</h2>
+        </div>
 
-    <table>
-        <thead>
-            @foreach (Column column in _table.Columns)
-            {
-            <th>
-                    @column.LayoutHeader
-            </th>
-            }
-        </thead>
-        <tbody>
-            @foreach (CompanyStatisticOutputModel outputModel in _model)
-            {
-                <tr>
-                    @foreach (Column column in _table.Columns)
-                    {
-                        <td>
-                            @typeof(CompanyStatisticOutputModel).GetProperty(column.Field).GetValue(outputModel)
+        <table>
+            <thead>
+                @foreach (ColumnForTables column in _table.ManagerColumns)
+                {
+                <th>
+                        @column.LayoutHeader
+                </th>
+                }
+            </thead>
+            <tbody>
+                @foreach (ManagerRow managerRow in orderByManagerGroups)
+                {
+                    <tr>
+                        @foreach (ColumnForTables column in _table.ManagerColumns)
+                        {
+                            <td>
+                                @typeof(ManagerRow).GetProperty(column.Field)?.GetValue(managerRow)
+                            </td>
+                        }
+                    </tr>
+                    <tr>
+                        <td colspan="@_table.ManagerColumns.Count">
+                            <table>
+                                <thead>
+                                    @foreach (ColumnForTables column in _table.OrderColumns)
+                                    {
+                                    <th>
+                                            @column.LayoutHeader
+                                    </th>
+                                    }
+                                </thead>
+                                <tbody>
+                                    @foreach (OrderRow orderRow in managerRow.TasksByOrder)
+                                    {
+                                        <tr>
+                                            @foreach (ColumnForTables column in _table.OrderColumns)
+                                            {
+                                                <td>
+                                                    @typeof(OrderRow).GetProperty(column.Field).GetValue(orderRow)
+                                                </td>
+                                            }
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <table>
+                                                    <thead>
+                                                        @foreach (ColumnForTables column in _table.TaskColumns)
+                                                        {
+                                                        <th>
+                                                                @column.LayoutHeader
+                                                        </th>
+
+                                                        }
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (TaskRow taskRow in orderRow.OrderTask)
+                                                        {
+                                                            <tr>
+                                                                @foreach (ColumnForTables column in _table.TaskColumns)
+                                                                {
+                                                                    <td>
+                                                                        @typeof(TaskRow).GetProperty(column.Field).GetValue(taskRow)
+                                                                    </td>
+                                                                }
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
                         </td>
-                    }
-                </tr>
-            }
-        </tbody>
-    </table>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
 }
 
+
+
 @code {
-    private string? _role;
+    private string _role;
 
     private bool _isCompleted;
 
+    private bool _isReceieved;
+
     private Tables _table;
 
-    private IEnumerable<CompanyStatisticOutputModel> _model;
+    private IEnumerable<CompanyStatisticOutputModel> _tasks;
+
+    private List<ManagerRow> ManagerRows { get; set; }
+
+    private List<OrderRow> OrderRows { get; set; }
+
+    private IEnumerable<ManagerRow> orderByManagerGroups { get; set; }
+
+    private IEnumerable<ManagerRow> tasksGroupByManager { get; set; }
 
     private IManagerService _statistics;
 
     public Statistics()
     {
-        _model = new List<CompanyStatisticOutputModel>();
-        _statistics = new ManagerService();
         _table = new Tables();
+        _tasks = Enumerable.Empty<CompanyStatisticOutputModel>();
+        _statistics = new ManagerService();
+
     }
 
     protected override async Task OnInitializedAsync()
     {
-        _table.GetTableForStatistics();
-        _model = await _statistics.GetAllTaskOfOrderOfTheirManager();
+        _table.GetTableForPrintManagers();
+        _table.GetTableForPrintOrders();
+        _table.GetTableForPrintTasks();
+
+        _tasks = await _statistics.GetAllTaskOfOrderOfTheirManager();
+
+        orderByManagerGroups = _tasks
+            .GroupBy(task => task.ManagerId)
+            .Select((tasksGroupByManager) =>
+            {
+                List<CompanyStatisticOutputModel> outputModels = _tasks.ToList();
+                CompanyStatisticOutputModel currentTask = outputModels.Find((taskFromOutputModel) => taskFromOutputModel.ManagerId == tasksGroupByManager.Key);
+
+                IEnumerable<OrderRow> TasksByOrder = tasksGroupByManager
+                            .Select(taskFromOutputModel => new TaskRow()
+                                {
+
+                                    TaskName = taskFromOutputModel.TaskTitle
+                                })
+                            .GroupBy(task => task.OrderId)
+                            .Select(orderTasks => new OrderRow()
+                                {
+                                    OrderId = orderTasks.Key,
+                                    OrderName = orderTasks.First().OrderName,
+                                    OrderTask = orderTasks
+                                });
+
+
+                return new ManagerRow()
+                    {
+                        ManagerId = tasksGroupByManager.Key,
+                        ManagerName = currentTask?.ManagerName,
+                        TasksByOrder = TasksByOrder
+                    };
+            });
     }
 }
