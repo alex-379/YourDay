@@ -128,7 +128,7 @@ else
     public Statistics()
     {
         _tasks = new List<CompanyStatisticOutputModel>();
-        _statistics = new CompanyStatisticsService();
+        _statistics = new ManagerService();
         ManagerColumns = new List<ManagerColumn>();
         OrderColumns = new List<OrderColumn>();
         TaskColumns = new List<TaskRowColumn>();
@@ -175,7 +175,7 @@ else
             TaskColumns.AddRange(
                new TaskRowColumn[]
                {
-                   
+
                    new TaskRowColumn()
                    {
                        Field = "TaskName",
@@ -183,7 +183,7 @@ else
                    },
                });
 
-            _tasks = _statistics.GetAllTaskOfOrderOfTheirManager();
+            _tasks =  _statistics.GetAllTaskOfOrderOfTheirManager();
 
             orderByManagerGroups = _tasks
                 .GroupBy(task => task.ManagerId)

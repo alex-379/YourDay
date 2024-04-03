@@ -151,7 +151,8 @@ namespace YourDay.DAL.Repositories
                 var tasksWithOrdersAndManagers = await context.Tasks
                     .AsQueryable()
                     .Include(task => task.Order)
-                    .ThenInclude(order => order.Manager)
+                    .ThenInclude(task => task.Manager)
+                    .ThenInclude(task=>task.Orders)
                     .ToListAsync();
 
                 return tasksWithOrdersAndManagers;

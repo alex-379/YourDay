@@ -1,5 +1,7 @@
 using YourDay.BLL.Enums;
 using YourDay.BLL.Models.UserModels.OutputModels;
+using YourDay.DAL.Dtos;
+
 
 namespace YourDay.BLL.Models.OrderModels.OutputModels
 {
@@ -19,8 +21,8 @@ namespace YourDay.BLL.Models.OrderModels.OutputModels
 
         public StatusUI Status { get; set; }
 
-        public UserDto? Manager { get; set; }
+        public UserOutputModel? Manager { get; set; }
 
-        public UserDto? Client { get; set; }
+        public UserOutputModel? Client { get; set; }
     }
 }
