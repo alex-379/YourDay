@@ -1,7 +1,6 @@
 @page "/manager-statistics"
 @attribute [StreamRendering]
 @inject NavigationManager NavigationWorker
-@using YourDay.BLL.TablesForUi
 
 <GetClaims SendIsCompleted="b=>_isCompleted=b" SendRole="p=>_role = p"></GetClaims>
 
@@ -100,8 +99,6 @@ else
     }
 }
 
-
-
 @code {
     private string _role;
 
@@ -128,7 +125,6 @@ else
         _table = new Tables();
         _tasks = Enumerable.Empty<CompanyStatisticOutputModel>();
         _statistics = new ManagerService();
-
     }
 
     protected override async Task OnInitializedAsync()
@@ -138,6 +134,8 @@ else
         _table.GetTableForPrintTasks();
 
         _tasks = await _statistics.GetAllTaskOfOrderOfTheirManager();
+
+        _isReceieved = true;
 
         orderByManagerGroups = _tasks
             .GroupBy(task => task.ManagerId)

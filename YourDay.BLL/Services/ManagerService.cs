@@ -1,5 +1,4 @@
 using AutoMapper;
-using System.Collections.Generic;
 using YourDay.BLL.IServices;
 using YourDay.BLL.Models.CompanyModels.OutputModels;
 using YourDay.BLL.Models.ManagerModels.OutputModel;

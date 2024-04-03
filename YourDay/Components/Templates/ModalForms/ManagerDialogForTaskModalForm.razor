@@ -22,36 +22,10 @@
 
     private ITaskService _taskService;
 
-    private TaskOutputModelAllInfo task;
-
-    public int a { get; set; }
+    private TaskOutputModelAllInfo _task;
 
     public ManagerDialogForTaskModalForm()
     {
         _taskService = new TaskService();
-
-        //task = _taskService.GetTaskByIdWithAll(SelectedTaskId);
     }
 }
-
-@* 
-        public StatusUI status;;
-
-
-    public Order()
-    {
-        IEnumerable<TaskOutputModelWithSpecialization> task = new List<TaskOutputModelWithSpecialization>();
-
-        status = StatusUI.Completed;
-
-    }
-
-
-    public void UpdateStatus()
-    {
-        _orderService.UpdateOrderStatus(Id, status);
-    }
-    
-
-    
- *@

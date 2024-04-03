@@ -3,7 +3,7 @@ using YourDay.BLL.IServices;
 
 namespace YourDay.BLL.Services
 {
-    public class StatusService:IStatusService
+    public class StatusService : IStatusService
     {
         private string? _statusName;
 

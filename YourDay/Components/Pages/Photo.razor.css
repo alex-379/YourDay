@@ -6,7 +6,7 @@
 }
 
     .image-gallery > li {
-        flex-basis: 350px; /* width: 350px; */
+        flex-basis: auto;
     }
 
     .image-gallery li img {
@@ -19,10 +19,10 @@
 
     .image-gallery::after {
         content: "";
-        flex-basis: 350px;
+        flex-basis: auto;
     }
 
-    .image-gallery > li { /* ... */
+    .image-gallery > li {
         position: relative;
         cursor: pointer;
     }
@@ -37,12 +37,11 @@
     transform: scale(0);
     transition: all 0.2s 0.1s ease-in-out;
     color: #fff;
-    border-radius: 5px; /* center overlay text */
+    border-radius: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-/* hover */
 
 .image-gallery li:hover .overlay {
     transform: scale(1);
