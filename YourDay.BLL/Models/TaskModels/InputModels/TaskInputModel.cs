@@ -1,19 +1,12 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using YourDay.BLL.Enums;
 
 namespace YourDay.BLL.Models.TaskModels.InputModels
 {
     public class TaskInputModel
     {
-
-
-
-
-
-
-
         public StatusUI? Status { get; set; }
-
-
 
         [MaxLength(255)]
         public string Title { get; set; }

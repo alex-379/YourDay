@@ -5,7 +5,7 @@
         </div>
         <table>
             <thead>
-                @foreach (ColumnForTables column in _table.Columns)
+                @foreach (ColumnForTables column in _table.ContactWithManagerColumns)
                 {
                 <th>
                         @column.LayoutHeader
@@ -16,7 +16,7 @@
                 @foreach (ManagerNameAndPhoneOutputModel manager in _models)
                 {
                     <tr>
-                        @foreach (ColumnForTables column in _table.Columns)
+                        @foreach (ColumnForTables column in _table.ContactWithManagerColumns)
                         {
                             <td>
                                 @typeof(ManagerNameAndPhoneOutputModel).GetProperty(column.Field).GetValue(manager)
