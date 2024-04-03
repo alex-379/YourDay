@@ -1,21 +1,24 @@
+@attribute [StreamRendering]
+@rendermode InteractiveServer
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+<section>
 <dialog id="task" aria-labelledby="heading">
     <h2 id="heading">Что вы хотите сделать с задачей?</h2>
     <form method="dialog">
         <button>
             Закрыть
         </button>
-        <button>
-            Изменить
+        <button onclick="window.setWorker.showModal()">
+            Назначить сотрудника
         </button>
-        <button>
-            Установить статус
-        </button>
-        <button>
-            Архивировать
-        </button>
+        
     </form>
-</dialog>
 
+   
+</dialog>
+ <ManagerDialogForSetWorkerModalForm OrderId=2></ManagerDialogForSetWorkerModalForm>
+</section>
 @code {
     [Parameter]
     public int TaskId { get; set; }

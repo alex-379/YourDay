@@ -1,0 +1,63 @@
+﻿@* БУДЕТ МОДАЛКА ДЛЯ СОТРУДНИКА  *@
+
+<dialog id="setWorker" aria-labelledby="heading">
+    <h2 id="heading">Изменить статус: &#128054 </h2>
+    <form>
+        <select @onchange="UpdatesetWorker">
+            <option value="0">@_enumService.GetDisplayName(StatusUI.Received)</option>
+            <option value="1">@_enumService.GetDisplayName(StatusUI.InProgress)</option>
+            <option value="2">@_enumService.GetDisplayName(StatusUI.Completed)</option>
+            <option value="3">@_enumService.GetDisplayName(StatusUI.Canselled)</option>
+        </select>
+    </form>
+    <form method="dialog">
+        <button> Закрыть</button>
+    </form>
+
+</dialog>
+
+
+@code {
+    [Parameter]
+    public int OrderId { get; set; }
+
+    private IEnumService _enumService;
+
+    private IOrderService _orderService;
+
+
+    public ManagerDialogForSetWorkerModalForm()
+    {
+        _enumService = new EnumService();
+        _orderService = new OrderService();
+    }
+
+    public void UpdatesetWorker(ChangeEventArgs e)
+    {
+        int newStatusInt = int.Parse(e.Value.ToString());
+
+        StatusUI newStatus = new StatusUI();
+
+        switch (newStatusInt)
+        {
+            case 0:
+                newStatus = StatusUI.Received;
+
+                break;
+            case 1:
+                newStatus = StatusUI.InProgress;
+
+                break;
+            case 2:
+                newStatus = StatusUI.Completed;
+
+                break;
+            case 3:
+                newStatus = StatusUI.Canselled;
+
+                break;
+        }
+
+        _orderService.UpdateOrderStatus(OrderId, newStatus);
+    }
+}
