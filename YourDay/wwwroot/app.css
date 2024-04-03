@@ -156,11 +156,33 @@ button {
     padding: 20px 20px 20px 20px;
     margin: 20px 20px 20px 20px;
 }
+
+.client-card {
+    background-color: #FFFEFF;
+    border-radius: 10px;
+    padding: 5px 5px;
+    margin: 20px 20px 20px 20px;
+    color: #554874;
+    border: none;
+    border-color: transparent;
+}
+
+.plus-button {
+    padding: 40px 40px;
+    height: 100px;
+    width: 100px;
+    color: #554874;
+    font-size: 30px;
+    margin: 70px auto autoo auto;
+}
+
 .button-menu {
     margin: 0px 20px 20px 20px;
 }
 
-
+.button-frog {
+    margin: 5px 5px ;
+}
 .purple-button {
     color: #554874;
     border: none;

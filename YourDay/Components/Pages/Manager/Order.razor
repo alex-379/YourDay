@@ -225,7 +225,7 @@ else
 
             _managers = await _managerService.GetAllManagers();
 
-        _task = await _taskService.GetTasksByOrderIdWithSpecialization(Id);
+            _task = await _taskService.GetTasksByOrderIdWithSpecialization(Id);
     }
 
     public void UpdateStatusOrder(ChangeEventArgs e)

@@ -16,8 +16,9 @@ else
 
         <section>
             <h2 class="manager-h1"> Сотрудники:</h2>
+            <button class="plus-button" data-bs-toggle="modal" data-bs-target="#registrationForManager"> + </button>
             <div class="container-task">
-                <button class="order-button" data-bs-toggle="modal" data-bs-target="#registrationForManager"> + </button>
+                
                 @if (_workers is not null)
                 {
                     @foreach (var i in _workers)

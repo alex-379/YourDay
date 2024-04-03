@@ -1,6 +1,6 @@
-﻿<button @onclick="() => OpenModal(worker.Id)">&#128056;</button>
+﻿<button class="button-frog" @onclick="() => OpenModal(worker.Id)">&#128056;</button>
 
-    <div class="product-card">
+<div class="client-card">
         <p>@worker.UserName</p>
         @foreach (var i in @worker.Specializations)
         {
