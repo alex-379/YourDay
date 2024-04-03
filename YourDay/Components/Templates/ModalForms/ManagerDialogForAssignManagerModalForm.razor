@@ -71,6 +71,11 @@
         selectedSpecialization = (int)e.Value;
     }
 
+        private async Task AddTask()
+    {
+        taskInputModel.Specialization = await _specializationService.GetSpecializationById(selectedSpecialization);
+        await _managerService.AddTaskManager(taskInputModel, Id);
+
 
 
         @code {

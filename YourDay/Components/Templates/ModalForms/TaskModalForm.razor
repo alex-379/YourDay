@@ -16,14 +16,10 @@
                 <div class="form-group">
                     <label>Специализация:</label>
                     <InputSelect class="form-control" @bind-Value="TaskModel.Specialization" placeholder="Выберите специализацию:">
-
-                        @foreach (int i in _specializations)
+                        @foreach (SpecializationOutputModel i in _specializations)
                         {
-                        <option value=1>Флорист</option>
-                        <option value=2>Оформитель</option>
-                        <option value=3>Грузчик</option>
-                }
-
+                            <option value=@i.Id.>@i.Name</option>
+                        }
                     </InputSelect>
                     <ValidationMessage For="@(() => TaskModel.Specialization)" />
                 </div>
