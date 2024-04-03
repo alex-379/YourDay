@@ -5,7 +5,7 @@ using YourDay.DAL.Enums;
 
 namespace YourDay.BLL.Services
 {
-    public class PasswordService:IPasswordService
+    public class PasswordService : IPasswordService
     {
         private readonly RandomNumberGenerator _rng = RandomNumberGenerator.Create();
 

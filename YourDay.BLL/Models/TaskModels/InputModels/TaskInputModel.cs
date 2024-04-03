@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using YourDay.BLL.Enums;
 
 namespace YourDay.BLL.Models.TaskModels.InputModels
@@ -17,6 +19,6 @@ namespace YourDay.BLL.Models.TaskModels.InputModels
 
         public SpecializationTaskInputModel? Specialization { get; set; }
 
-        public StatusUI? Status { get; set; }
+        public StatusUI? StatusUI { get; set; }
     }
 }
