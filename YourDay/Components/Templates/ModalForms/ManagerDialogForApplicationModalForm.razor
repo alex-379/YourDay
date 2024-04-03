@@ -19,7 +19,7 @@
 
 @code {
     [Parameter]
-    public int SelectedClientId { get; set; }
+    public int SelectedApplicationId { get; set; }
 
     private IOrderService _orderService;
 
@@ -30,11 +30,11 @@
 
     private void DeleteApplication()
     {
-        _orderService.UpdateOrderStatus(SelectedClientId, StatusUI.Canselled);
+        _orderService.UpdateOrderStatus(SelectedApplicationId, StatusUI.Canselled);
     }
 
     private void MoveToOrder()
     {
-        navManager.NavigateTo($"./order/{SelectedClientId}"); 
+        navManager.NavigateTo($"./order/{SelectedApplicationId}");
     }
 }

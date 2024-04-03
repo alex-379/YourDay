@@ -11,7 +11,7 @@
 }
 else
 {
-    <ManagerDialogForApplicationModalForm SelectedClientId=selectedClientId></ManagerDialogForApplicationModalForm>
+    <ManagerDialogForApplicationModalForm SelectedApplicationId=selectedClientId></ManagerDialogForApplicationModalForm>
 
     <section>
         <h2 class="manager-h1">Заявки:</h2>
@@ -37,7 +37,7 @@ else
 
     private int selectedClientId;
 
-    public Application()
+    public Applications()
     {
         _orderService = new OrderService();
         _applications = Enumerable.Empty<ApplicationOutputModel>();

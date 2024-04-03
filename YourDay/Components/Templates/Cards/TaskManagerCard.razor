@@ -5,18 +5,18 @@
 
 
 <div class="task-card black">
-     <p>@taskcCard.Title </p>
+    <p>@taskcCard.Title </p>
     <p>@taskcCard.Description </p>
     <p>@taskcCard.TimeStart.ToShortTimeString() - @taskcCard.TimeEnd.ToShortTimeString()</p>
     <p>@taskcCard.Specialization.Name</p>
     <p>@taskcCard.Id </p>
-     
+
     @* <p>@taskcCard.Specialization </p>  *@
     @* <p>@taskcCard.TimeStart.ToShortTimeString() - @taskcCard.TimeEnd.ToShortTimeString()</p> *@
- </div>
+</div>
 
 
- @code {
+@code {
     [Parameter]
     public TaskOutputModelWithSpecialization taskcCard { get; set; }
 
@@ -26,7 +26,7 @@
 
     private async Task ShowModal(int taskId)
     {
-        
+
 
         selectedtaskId = taskId;
 
