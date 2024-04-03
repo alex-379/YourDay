@@ -53,8 +53,6 @@ namespace YourDay.BLL.Services
             return tasks;
         }
 
-
-
         public async Task<TaskOutputModelAllInfo> GetTaskByIdWithAll(int taskId)
         {
             TaskDto taskDto = await _taskRepository.GetTaskByIdWithAll(taskId);

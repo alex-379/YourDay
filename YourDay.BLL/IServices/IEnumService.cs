@@ -1,5 +1,4 @@
-﻿
-namespace YourDay.BLL.IServices
+﻿namespace YourDay.BLL.IServices
 {
     public interface IEnumService
     {

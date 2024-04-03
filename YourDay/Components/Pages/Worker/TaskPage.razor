@@ -13,7 +13,7 @@ else
     <div>
         <div>
             <div class="container-task">
-                <WorkerTaskCard task="_task"></WorkerTaskCard>
+                <TaskWorkerCard Task="_task"></TaskWorkerCard>
                 <form>
                     <select @onchange="UpdateStatusTask">
                         <option value="0">@_enumService.GetDisplayName(StatusUI.Received)</option>
