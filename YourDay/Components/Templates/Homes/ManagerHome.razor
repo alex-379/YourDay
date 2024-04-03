@@ -1,4 +1,5 @@
-﻿<button type="button" class="btn btn-primary" @onclick="GetCompletedOrders">
+﻿@rendermode InteractiveServer
+<button type="button" class="btn btn-primary" @onclick="GetCompletedOrders">
     История
 </button>
 <button type="button" class="btn btn-primary" @onclick="GetCurrentOrders">
@@ -8,23 +9,23 @@
 <div class="manager-container">
     <section>
         <div class="manager-blok">
-            @if (isClick == false)
+            @if (!isClick)
             {
                 <h2 class="manager-h1"> Наши заказы:</h2>
                 <div class="manager-button-container">
-                    @foreach (var i in _orders)
+                    @foreach (var i in _currentOrders)
                     {
-                         <OrderCard order=i> </OrderCard> 
+                        <OrderCard Order=i> </OrderCard>
                     }
                 </div>
             }
             else
             {
-                <h2 class="manager-h1"> Прошлые заказы:</h2>
+                <h2 class="manager-h1"> Наши заказы:</h2>
                 <div class="manager-button-container">
                     @foreach (var i in _completedOrders)
                     {
-                        <button class="order-button"> <OrderCard order=i> </OrderCard> </button>
+                        <OrderCard Order=i> </OrderCard>
                     }
                 </div>
             }
@@ -39,23 +40,27 @@
 
     private IEnumerable<OrderNameDateOutputModel> _completedOrders;
 
-    private OrderService _orderService;
+    private IEnumerable<OrderNameDateOutputModel> _currentOrders;
+
+    private IOrderService _orderService;
 
     public ManagerHome()
     {
         _orderService = new OrderService();
         _orders = Enumerable.Empty<OrderNameDateOutputModel>();
         _completedOrders = Enumerable.Empty<OrderNameDateOutputModel>();
+        _currentOrders = Enumerable.Empty<OrderNameDateOutputModel>();
     }
 
     protected override async Task OnInitializedAsync()
     {
         _orders = await _orderService.GetAllOrdersForCard();
+        _currentOrders = _orderService.ShowAllInProgressOrdersForCard(_orders);
+        _completedOrders = _orderService.ShowAllCompletedAndCanselledOrdersForCard(_orders);
     }
 
     private void GetCompletedOrders()
     {
-        _completedOrders = _orderService.ShowAllCompletedAndCanselledOrdersForCard(_orders);
         isClick = true;
     }
 

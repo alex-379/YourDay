@@ -99,9 +99,11 @@ namespace YourDay.DAL.Repositories
         {
             using (Context context = new Context())
             {
-                var tasks = context.Tasks.Include(t => t.Specialization)
-                .Where(t => t.Order.Id == orderId)
-                .Where(t => t.Status != Status.Cancelled);
+                var tasks = await context.Tasks.AsQueryable()
+                    .Include(t => t.Specialization)
+                    .Where(t => t.Order.Id == orderId)
+                    .Where(t => t.Status != Status.Cancelled).ToListAsync();
+
                 return tasks;
             }
         }

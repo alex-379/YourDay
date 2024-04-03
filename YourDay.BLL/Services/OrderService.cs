@@ -38,7 +38,7 @@ namespace YourDay.BLL.Services
 
         public async Task<IEnumerable<OrderOutputModel>> GetAllOrders()
         {
-            var orderDtos = await _orderRepository.GetAllOrdersWithManager();
+            var orderDtos = await _orderRepository.GetAllOrders();
             var orders = _mapper.Map<IEnumerable<OrderOutputModel>>(orderDtos);
 
             return orders;
@@ -46,17 +46,17 @@ namespace YourDay.BLL.Services
 
         public async Task<IEnumerable<OrderNameDateOutputModel>> GetAllOrdersForCard()
         {
-            var orderDtos = await _orderRepository.GetAllOrdersWithManager();
+            var orderDtos = await _orderRepository.GetAllOrders();
 
             var orders = _mapper.Map<IEnumerable<OrderNameDateOutputModel>>(orderDtos);
 
             return orders;
         }
 
-        public async Task<IEnumerable<OrderNameDateOutputModel>> GetAllApplications()
+        public async Task<IEnumerable<ApplicationOutputModel>> GetAllApplications()
         {
             var orderDtos = await _orderRepository.GetAllApplications();
-            var orders = _mapper.Map<IEnumerable<OrderNameDateOutputModel>>(orderDtos);
+            var orders = _mapper.Map<IEnumerable<ApplicationOutputModel>>(orderDtos);
 
             return orders;
         }
@@ -66,6 +66,13 @@ namespace YourDay.BLL.Services
             var completedOrders = orders.Where(o => o.Status == StatusUI.Completed || o.Status == StatusUI.Canselled);
 
             return completedOrders;
+        }
+
+        public IEnumerable<OrderNameDateOutputModel> ShowAllInProgressOrdersForCard(IEnumerable<OrderNameDateOutputModel> orders)
+        {
+            var currentOrders = orders.Where(o => o.Status == StatusUI.InProgress);
+
+            return currentOrders;
         }
 
         public async Task<OrderOutputModel> GetOrderById(int id)

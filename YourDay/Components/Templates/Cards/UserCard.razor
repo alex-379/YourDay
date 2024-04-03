@@ -1,12 +1,18 @@
-﻿<a href="./registration/@user.Id">
+﻿<button @onclick="() => OpenModal(User.Id)">&#128056;</button>
     <div class="product-card">
-        <p>@user.UserName</p>
-        <p>@user.Mail</p>
-        <p>@user.Phone</p>
+        <p>@User.UserName</p>
+        <p>@User.Mail</p>
+        <p>@User.Phone</p>
     </div>
-</a>
 
 @code {
     [Parameter]
-    public UserOutputModel user { get; set; }
+    public UserOutputModel User { get; set; }
+
+    [Parameter] public EventCallback<int> OnOpenModal { get; set; }
+
+    private async Task OpenModal(int id)
+    {
+        await OnOpenModal.InvokeAsync(id);
+    }
 }

@@ -1,21 +1,24 @@
-@rendermode InteractiveServer
-<dialog id="aaa" aria-labelledby="heading">
-    <h2 id="heading">Что вы хотите сделать?</h2>
-    <h3> @aaa </h3>
+<dialog id="task" aria-labelledby="heading">
+    <h2 id="heading">Что вы хотите сделать с задачей?</h2>
     <form method="dialog">
-       
         <button>
             Закрыть
         </button>
         <button>
-            Удалить
+            Изменить
+        </button>
+        <button>
+            Установить статус
+        </button>
+        <button>
+            Архивировать
         </button>
     </form>
 </dialog>
 
 @code {
     [Parameter]
-    public int aaa { get; set; }
+    public int TaskId { get; set; }
 
     private ITaskService _taskService;
 
@@ -25,9 +28,30 @@
 
     public ManagerDialogForTaskModalForm()
     {
-        a = aaa;
         _taskService = new TaskService();
 
         //task = _taskService.GetTaskByIdWithAll(SelectedTaskId);
     }
 }
+
+@* 
+        public StatusUI status;;
+
+
+    public Order()
+    {
+        IEnumerable<TaskOutputModelWithSpecialization> task = new List<TaskOutputModelWithSpecialization>();
+
+        status = StatusUI.Completed;
+
+    }
+
+
+    public void UpdateStatus()
+    {
+        _orderService.UpdateOrderStatus(Id, status);
+    }
+    
+
+    
+ *@

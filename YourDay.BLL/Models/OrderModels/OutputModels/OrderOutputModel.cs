@@ -11,7 +11,7 @@ namespace YourDay.BLL.Models.OrderModels.OutputModels
 
         public string? OrderName { get; set; }
 
-        public string Address { get; set; }
+        public string? Address { get; set; }
 
         public DateTime? Date { get; set; }
 

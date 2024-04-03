@@ -1,0 +1,150 @@
+﻿@page "/persons"
+@attribute [StreamRendering]
+@rendermode InteractiveServer
+@inject IJSRuntime JSRuntime
+
+<GetClaims SendIsCompleted="b=>_isCompleted=b" SendRole="p=>_role=p"></GetClaims>
+
+@if (_isCompleted && _role != RoleUI.Manager.ToString())
+{
+    <ReturnToStart></ReturnToStart>
+}
+else
+{
+<button type="button" class="btn btn-primary" @onclick="GetClients">
+    Клиенты
+</button>
+<button type="button" class="btn btn-primary" @onclick="GetWorkers">
+    Мастера
+</button>
+<button type="button" class="btn btn-primary" @onclick="GetManagers">
+    Менеджеры
+</button>
+
+<div class="manager-container">
+    <section>
+        <div class="manager-blok">
+                @if (_roleFiltered == RoleUI.Client)
+            {
+                    <h2 class="manager-h1"> Клиенты:</h2>
+                    <div class="container-task">
+                        <button class="order-button" data-bs-toggle="modal" data-bs-target="#registrationClientForManager"> + </button>
+                        @foreach (var i in _clients)
+                        {
+                            <button @onclick="() => ShowModal(i.Id)" class="worker-button"> <UserCard User="i" OnOpenModal="ShowModal"> </UserCard> </button>
+                        }
+                    </div>
+            }
+                else if (_roleFiltered == RoleUI.Worker)
+            {
+                    <h2 class="manager-h1"> Мастера:</h2>
+                    <div class="container-task">
+                        <button class="order-button" data-bs-toggle="modal" data-bs-target="#registrationWorkerForManager"> + </button>
+                        @foreach (var i in _workers)
+                        {
+                            <button @onclick="() => ShowModal(i.Id)" class="worker-button"> <WorkerCard Worker="i" OnOpenModal="ShowModal"> </WorkerCard> </button>
+                        }
+                    </div>
+            }
+            else
+            {
+                    <h2 class="manager-h1"> Менеджеры:</h2>
+                    <div class="container-task">
+                        <button class="order-button" data-bs-toggle="modal" data-bs-target="#registrationManager"> + </button>
+                        @foreach (var i in _managers)
+                        {
+                            <button @onclick="() => ShowModal(i.Id)" class="worker-button"> <UserCard User="i" OnOpenModal="ShowModal"> </UserCard> </button>
+                        }
+                    </div>
+            }
+        </div>
+    </section>
+</div>
+
+    <ManagerDialogForUserModalForm SelectedClientId=selectedUserId></ManagerDialogForUserModalForm>
+
+    <div class="modal fade" id="registrationClientForManager" tabindex="-1" aria-hidden="true">
+        <RegistrationForManagerModalForm AddUser="AddClient" />
+    </div>
+
+    <div class="modal fade" id="registrationWorkerForManager" tabindex="-1" aria-hidden="true">
+        <RegistrationForManagerModalForm AddUser="AddWorker" />
+    </div>
+
+    <div class="modal fade" id="registrationManager" tabindex="-1" aria-hidden="true">
+        <RegistrationForManagerModalForm AddUser="AddManager" />
+    </div>
+}
+
+@code {
+    private string? _role;
+
+    private bool _isCompleted;
+
+    private RoleUI _roleFiltered;
+
+    private IUserService _userService;
+
+    private IEnumerable<UserOutputModel> _clients;
+
+    private IEnumerable<UserSpecializationOutputModel> _workers;
+
+    private IEnumerable<UserOutputModel> _managers;
+
+    private int selectedUserId;
+
+    public Persons()
+    {
+        _userService = new UserService();
+        _clients = Enumerable.Empty<UserOutputModel>();
+        _workers = Enumerable.Empty<UserSpecializationOutputModel>();
+        _managers = Enumerable.Empty<UserOutputModel>();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _clients = await _userService.GetAllUsersByRole(RoleUI.Client);
+        _workers = await _userService.GetAllUsersSpecializationByRole(RoleUI.Worker);
+        _managers = await _userService.GetAllUsersByRole(RoleUI.Manager);
+
+    }
+
+    private void AddClient(UserRegistrationForManagerInputModel input)
+    {
+        _userService.AddClientForManager(input);
+    }
+
+    private void AddWorker(UserRegistrationForManagerInputModel input)
+    {
+        _userService.AddClientForManager(input);
+    }
+
+    private void AddManager(UserRegistrationForManagerInputModel input)
+    {
+        _userService.AddClientForManager(input);
+    }
+
+    private async Task ShowModal(int userId)
+    {
+        selectedUserId = userId;
+
+        await JSRuntime.InvokeVoidAsync("user.showModal");
+
+        StateHasChanged();
+    }
+
+    private void GetClients()
+    {
+        _roleFiltered = RoleUI.Client;
+    }
+
+    private void GetWorkers()
+    {
+        _roleFiltered = RoleUI.Worker;
+    }
+
+    private void GetManagers()
+    {
+        _roleFiltered = RoleUI.Manager;
+    }
+}

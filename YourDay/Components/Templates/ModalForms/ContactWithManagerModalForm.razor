@@ -29,11 +29,6 @@
     </div>
 </div>
 
-@if (IsOpened)
-    {
-        _table.GetTableForPrintManagers();
-    }
-
 @code {
     [Parameter]
     public bool IsOpened { get; set; }
@@ -53,6 +48,7 @@
 
     protected override async Task OnInitializedAsync()
     {
+        _table.GetTableForPrintManagers();
         _models = await _managerService.GetAllManagers();
     }
 }
