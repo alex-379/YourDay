@@ -18,11 +18,11 @@ namespace YourDay.DAL.Repositories
             }
         }
 
-        public async Task<IEnumerable<OrderDto>> GetAllOrdersWithManager()
+        public async Task<IEnumerable<OrderDto>> GetAllOrders()
         {
             using (Context context = new Context())
             {
-                var orders = await context.Orders.AsQueryable().Where(o => o.Manager != null).ToListAsync();
+                var orders = await context.Orders.AsQueryable().Where(o => o.Status != Status.Received).ToListAsync();
 
                 return orders;
             }
@@ -32,7 +32,7 @@ namespace YourDay.DAL.Repositories
         {
             using (Context context = new Context())
             {
-                var orders = await context.Orders.AsQueryable().Where(o => o.Status == Status.Received).ToListAsync();
+                var orders = await context.Orders.Include(o=>o.Histories).AsQueryable().Where(o => o.Status == Status.Received).ToListAsync();
 
                 return orders;
             }

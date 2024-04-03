@@ -31,11 +31,11 @@ namespace YourDay.BLL.Services
             _mapper = new Mapper(config);
         }
 
-        public async Task<SpecializationOnlyNameOutputModel> AddSpecialization(SpecializationInputModel specialization)
+        public async Task<SpecializationOutputModel> AddSpecialization(SpecializationInputModel specialization)
         {
             SpecializationDto specializationDtoInput = _mapper.Map<SpecializationDto>(specialization);
             SpecializationDto specializationDtoOutput = await _specializationRepository.AddSpecialization(specializationDtoInput);
-            SpecializationOnlyNameOutputModel specializationOutput = _mapper.Map<SpecializationOnlyNameOutputModel>(specializationDtoOutput);
+            SpecializationOutputModel specializationOutput = _mapper.Map<SpecializationOutputModel>(specializationDtoOutput);
 
             return specializationOutput;
         }
@@ -50,10 +50,10 @@ namespace YourDay.BLL.Services
 
        
 
-        public async Task<IEnumerable<SpecializationIdNameOutputModel>> GetAllSpecialization()
+        public async Task<IEnumerable<SpecializationOutputModel>> GetAllSpecialization()
         {
             var specializations = await _specializationRepository.GetAllSpecialization();
-            var specializationModel = _mapper.Map<IEnumerable<SpecializationIdNameOutputModel>>(specializations);
+            var specializationModel = _mapper.Map<IEnumerable<SpecializationOutputModel>>(specializations);
 
             return specializationModel;
         }

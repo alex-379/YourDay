@@ -1,14 +1,16 @@
-﻿<section class="text-style">
+﻿@inject NavigationManager navManager
+
+<section class="text-style">
     <dialog id="application" aria-labelledby="heading">
         <h2 id="heading">Что сделать с заявкой?</h2>
         <form method="dialog">
             <button>
                 Закрыть
             </button>
-            <button>
+            <button @onclick="DeleteApplication">
                 Архивировать
             </button>
-            <button>
+            <button @onclick="MoveToOrder">
                 Создать заказ
             </button>
         </form>
@@ -17,17 +19,22 @@
 
 @code {
     [Parameter]
-    public int SelectedClientId { get; set; }
+    public int SelectedApplicationId { get; set; }
 
-    private IUserService _userService;
+    private IOrderService _orderService;
 
     public ManagerDialogForApplicationModalForm()
     {
-        _userService = new UserService();
+        _orderService = new OrderService();
     }
 
-    private void DeleteUser()
+    private void DeleteApplication()
     {
-        _userService.DeleteUser(SelectedClientId);
+        _orderService.UpdateOrderStatus(SelectedApplicationId, StatusUI.Canselled);
+    }
+
+    private void MoveToOrder()
+    {
+        navManager.NavigateTo($"./order/{SelectedApplicationId}");
     }
 }

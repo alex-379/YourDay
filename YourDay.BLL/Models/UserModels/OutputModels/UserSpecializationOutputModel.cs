@@ -8,6 +8,6 @@ namespace YourDay.BLL.Models.UserModels.OutputModels
 
         public string UserName { get; set; }
 
-        public IEnumerable<SpecializationOnlyNameOutputModel> Specializations { get; set; }
+        public IEnumerable<SpecializationOutputModel> Specializations { get; set; }
     }
 }

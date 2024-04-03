@@ -39,6 +39,7 @@ namespace YourDay.BLL
 
             CreateMap<OrderDto, OrderNameDateOutputModel>()
                 .ForMember<string>(outputModel => outputModel.Date, date => date.MapFrom(orderDto => orderDto.Date != null ? orderDto.Date.Value.ToString("yyyy-MM-dd") : null));
+
             CreateMap<OrderInputModel, OrderDto>();
 
             CreateMap<ApplicationInputModel, HistoryDto>();
@@ -65,9 +66,9 @@ namespace YourDay.BLL
 
             CreateMap<SpecializationDto, SpecializationTaskInputModel>();
 
-            CreateMap<SpecializationDto, SpecializationIdNameOutputModel>();
+            CreateMap<SpecializationDto, SpecializationOutputModel>();
 
-            CreateMap<SpecializationIdNameOutputModel, SpecializationDto>();
+            CreateMap<SpecializationOutputModel, SpecializationDto>();
 
             CreateMap<OrderDto, OrderOutputModel>();
 
@@ -81,7 +82,7 @@ namespace YourDay.BLL
 
             CreateMap<SpecializationInputModel, SpecializationDto>();
 
-            CreateMap<SpecializationDto, SpecializationOnlyNameOutputModel>();
+            CreateMap<SpecializationDto, SpecializationOutputModel>();
         }
     }
 }
