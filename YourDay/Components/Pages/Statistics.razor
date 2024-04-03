@@ -24,9 +24,9 @@ else
             <thead>
                 @foreach (ColumnForTables column in _table.ManagerColumns)
                 {
-                <th>
+                    <th>
                         @column.LayoutHeader
-                </th>
+                    </th>
                 }
             </thead>
             <tbody>
@@ -169,5 +169,7 @@ else
                         TasksByOrder = TasksByOrder
                     };
             });
+
+        _isReceieved = true;
     }
 }
