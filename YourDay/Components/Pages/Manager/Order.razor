@@ -78,25 +78,21 @@ else
             <button class="purple-button"> История заказа </button>
             <button class="purple-button"> Завершить заказ </button>
             <button class="purple-button"> Другое</button>
-@*             <button class="order-button"> <AddTaskCard order=OrderOutput> </AddTaskCard> </button>
- *@        </div>
+            <button class="order-button" data-bs-toggle="modal" data-bs-target="#task"> + </button>
+            <button class="order-button"> <AddTaskCard order=OrderOutput> </AddTaskCard> </button>
+        </div>
     </section>
 
     <ManagerDialogForChangeStatusOrderModalForm OrderId=Id></ManagerDialogForChangeStatusOrderModalForm>
-@*     <ManagerDialogForTaskModalForm TaskId=_selectedtaskId></ManagerDialogForTaskModalForm>
- *@
+     <ManagerDialogForTaskModalForm TaskId=_selectedtaskId></ManagerDialogForTaskModalForm>
+
+    <div class="modal fade" id="task" tabindex="-1" aria-hidden="true">
+        <TaskModalForm AddTask="AddTask" />
+    </div>
+ 
     <button onclick="window.manager.showModal()" class="purple-button"> Назначить менеджера на заказ</button>
     <button onclick="window.statusOrder.showModal()" class="purple-button"> Изменить статус заказа</button>
 }
-
-
-@*
-
-    private async Task AddTask()
-    {
-        taskInputModel.Specialization = await _specializationService.GetSpecializationById(selectedSpecialization);
-        await _managerService.AddTaskManager(taskInputModel, Id);
-*@
 
 
 
@@ -159,5 +155,10 @@ else
         await JSRuntime.InvokeVoidAsync("task.showModal");
 
         StateHasChanged();
+    }
+
+    private void AddTask(TaskInputModel input)
+    {
+        _taskService.AddTask(input);
     }
 }
