@@ -1,5 +1,4 @@
 @page "/manager-statistics"
-@using static Microsoft.EntityFrameworkCore.DbLoggerCategory
 @attribute [StreamRendering]
 @inject NavigationManager NavigationWorker
 
@@ -19,18 +18,18 @@ else
 
     <table>
         <thead>
-            @foreach (ManagerColumn column in ManagerColumns)
+            @foreach (ColumnForTables column in _table.ManagerColumns)
             {
-                <th>
+            <th>
                     @column.LayoutHeader
-                </th>
+            </th>
             }
-       </thead>
+        </thead>
         <tbody>
             @foreach (ManagerRow managerRow in orderByManagerGroups)
             {
                 <tr>
-                    @foreach (ManagerColumn column in ManagerColumns)
+                    @foreach (ColumnForTables column in _table.ManagerColumns)
                     {
                         <td>
                             @typeof(ManagerRow).GetProperty(column.Field)?.GetValue(managerRow)
@@ -38,58 +37,58 @@ else
                     }
                 </tr>
                 <tr>
-                    <td colspan="@ManagerColumns.Count">
-                     <table>
-                         <thead>
-                            @foreach (OrderColumn column in OrderColumns)
-                            {
-                                <th >
-                                    @column.LayoutHeader
+                    <td colspan="@_table.ManagerColumns.Count">
+                        <table>
+                            <thead>
+                                @foreach (ColumnForTables column in _table.OrderColumns)
+                                {
+                                <th>
+                                        @column.LayoutHeader
                                 </th>
-                            }
-                        </thead>
-                        <tbody>
-                            @foreach (OrderRow orderRow in managerRow.TasksByOrder)
-                            {
-                                <tr >
-                                    @foreach (OrderColumn column in OrderColumns)
-                                    {
-                                        <td >
-                                            @typeof(OrderRow).GetProperty(column.Field).GetValue(orderRow)
-                                        </td>
-                                    }
-                                </tr>
-                                <tr>
-                                    <td colspan="2">
-                                    <table>
-                                        <thead>
-                                            @foreach (TaskRowColumn column in TaskColumns)
-                                            {
-                                                <th>
-                                                         @column.LayoutHeader
-                                                </th>
-                                                
-                                            }
-                                        </thead>
-                                        <tbody>
-                                            @foreach (TaskRow taskRow in orderRow.OrderTask)
-                                            {
-                                                <tr>
-                                                    @foreach (TaskRowColumn column in TaskColumns)
+                                }
+                            </thead>
+                            <tbody>
+                                @foreach (OrderRow orderRow in managerRow.TasksByOrder)
+                                {
+                                    <tr>
+                                        @foreach (ColumnForTables column in _table.OrderColumns)
+                                        {
+                                            <td>
+                                                @typeof(OrderRow).GetProperty(column.Field).GetValue(orderRow)
+                                            </td>
+                                        }
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <table>
+                                                <thead>
+                                                    @foreach (TaskRowColumn column in _table.TaskColumns)
                                                     {
-                                                        <td>
-                                                            @typeof(TaskRow).GetProperty(column.Field).GetValue(taskRow)
-                                                        </td>
+                                                    <th>
+                                                            @column.LayoutHeader
+                                                    </th>
+
                                                     }
-                                                </tr>
-                                            }
-                                        </tbody>
-                                    </table>
-                                    </td>
-                                </tr>
-                             }
-                        </tbody>
-                    </table>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (TaskRow taskRow in orderRow.OrderTask)
+                                                    {
+                                                        <tr>
+                                                            @foreach (TaskRowColumn column in TaskColumns)
+                                                            {
+                                                                <td>
+                                                                    @typeof(TaskRow).GetProperty(column.Field).GetValue(taskRow)
+                                                                </td>
+                                                            }
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
                     </td>
                 </tr>
             }
@@ -98,120 +97,69 @@ else
 }
 
 @code {
-    private List<CompanyStatisticOutputModel> _tasks;
+    private string _role;
 
     private bool _isCompleted;
 
-    private List<ManagerColumn> ManagerColumns { get; set; }
+    private Tables _table;
 
-    private List<OrderColumn> OrderColumns { get; set; }
+    private IEnumerable<CompanyStatisticOutputModel> _tasks;
 
-    private List<ManagerRow> ManagerRows{ get; set; }
+
+
+    private List<ManagerRow> ManagerRows { get; set; }
 
     private List<OrderRow> OrderRows { get; set; }
 
-    private List<TaskRowColumn> TaskColumns { get; set; }
 
     private IEnumerable<ManagerRow> orderByManagerGroups { get; set; }
+
     private IEnumerable<ManagerRow> tasksGroupByManager { get; set; }
-
-
-
-    class Column
-    {
-        public string Field { get; set; }
-        public string LayoutHeader { get; set; }
-    }
 
     private IManagerService _statistics;
 
     public Statistics()
     {
-        _tasks = new List<CompanyStatisticOutputModel>();
+        _table = new Tables();
+        _tasks = Enumerable.Empty<CompanyStatisticOutputModel>();
         _statistics = new ManagerService();
-        ManagerColumns = new List<ManagerColumn>();
-        OrderColumns = new List<OrderColumn>();
-        TaskColumns = new List<TaskRowColumn>();
+
     }
 
     protected override async Task OnInitializedAsync()
     {
-        await GetClaims().ConfigureAwait(false);
-        if (returnRole == RoleUI.Manager.ToString())
-        {
-            ManagerColumns = new List<ManagerColumn>();
+        _table.GetTableForPrintManagers();
+        _table.GetTableForPrintOrders();
+        _table.GetTableForPrintTasks();
+        _tasks = await _statistics.GetAllTaskOfOrderOfTheirManager();
 
-            ManagerColumns.AddRange(
-                new ManagerColumn[]
-                {
-                    new ManagerColumn()
-                    {
-                        Field="ManagerId",
-                        LayoutHeader="Индификатор менеджера"
-                    },
-                    new ManagerColumn()
-                    {
-                        Field="ManagerName",
-                        LayoutHeader="Имя менеджера"
-                    },
-                });
+        orderByManagerGroups = _tasks
+            .GroupBy(task => task.ManagerId)
+            .Select((tasksGroupByManager) =>
+            {
+                CompanyStatisticOutputModel? currentTask = _tasks.Find((taskFromOutputModel) => taskFromOutputModel.ManagerId == tasksGroupByManager.Key);
 
-            OrderColumns = new List<OrderColumn>();
-            OrderColumns.AddRange(
-                new OrderColumn[]
-                {
-                    new OrderColumn()
-                    {
-                        Field = "OrderId",
-                        LayoutHeader = "Индификатор заказа"
-                    },
-                    new OrderColumn()
-                    {
-                        Field = "OrderName",
-                        LayoutHeader = "Название заказа"
-                    }
-                });
-            TaskColumns = new List<TaskRowColumn>();
-            TaskColumns.AddRange(
-               new TaskRowColumn[]
-               {
-
-                   new TaskRowColumn()
-                   {
-                       Field = "TaskName",
-                       LayoutHeader = "Название задачи"
-                   },
-               });
-
-            _tasks =  _statistics.GetAllTaskOfOrderOfTheirManager();
-
-            orderByManagerGroups = _tasks
-                .GroupBy(task => task.ManagerId)
-                .Select((tasksGroupByManager) => {
-                    CompanyStatisticOutputModel? currentTask = _tasks.Find((taskFromOutputModel) => taskFromOutputModel.ManagerId == tasksGroupByManager.Key);
-
-                    IEnumerable<OrderRow> TasksByOrder = tasksGroupByManager
-                                .Select(taskFromOutputModel => new TaskRow()
+                IEnumerable<OrderRow> TasksByOrder = tasksGroupByManager
+                            .Select(taskFromOutputModel => new TaskRow()
                                 {
-                                    
+
                                     TaskName = taskFromOutputModel.TaskTitle
                                 })
-                                .GroupBy(task => task.OrderId)
-                                .Select(orderTasks => new OrderRow()
+                            .GroupBy(task => task.OrderId)
+                            .Select(orderTasks => new OrderRow()
                                 {
                                     OrderId = orderTasks.Key,
                                     OrderName = orderTasks.First().OrderName,
                                     OrderTask = orderTasks
                                 });
-                                
 
-                    return new ManagerRow()
+
+                return new ManagerRow()
                     {
                         ManagerId = tasksGroupByManager.Key,
                         ManagerName = currentTask?.ManagerName,
                         TasksByOrder = TasksByOrder
                     };
-                });
-        }
+            });
     }
 }
