@@ -25,12 +25,12 @@
                 </div>
                 <div class="form-group">
                     <label class="margin">Время начала:</label>
-                    <DateInput TValue="DateTime" EnableMinMax="true" Min="@_minDate" Max="@_maxDate" class="form-control" @bind-Value=TaskModel.TimeStart placeholder="Введите время начала" />
+                    <DateInput TValue="DateTime" class="form-control" @bind-Value=TaskModel.TimeStart placeholder="Введите время начала" />
                     <ValidationMessage For="@(() => TaskModel.TimeStart)" />
                 </div>
                 <div class="form-group">
                     <label class="margin">Время окончания:</label>
-                    <DateInput TValue="DateTime" EnableMinMax="true" Min="@_minDate" Max="@_maxDate" class="form-control" @bind-Value=TaskModel.TimeEnd placeholder="Введите время окончания" />
+                    <DateInput TValue="DateTime" class="form-control" @bind-Value=TaskModel.TimeEnd placeholder="Введите время окончания" />
                     <ValidationMessage For="@(() => TaskModel.TimeEnd)" />
                 </div>
             </div>
@@ -49,10 +49,6 @@
     [Parameter]
     public Action<TaskInputModel> AddTask { get; set; }
 
-    private DateTime _minDate;
-
-    private DateTime _maxDate;
-
     private ISpecializationService _specializationService;
 
     private IEnumerable<SpecializationOutputModel> _specializations;
@@ -60,8 +56,6 @@
     public TaskModalForm()
     {
         TaskModel = new TaskInputModel();
-        _minDate = DateTime.Now;
-        _maxDate = _minDate.AddDays((double)DateForOrder.Period);
         _specializationService = new SpecializationService();
         _specializations = Enumerable.Empty<SpecializationOutputModel>();
     }

@@ -105,14 +105,6 @@ namespace YourDay.BLL.Services
             return users;
         }
 
-        public async Task<IEnumerable<UserSpecializationOutputModel>> GetAllUsersSpecializationByRoleBySpeciailiztion(RoleUI role, int specializationId)
-        {
-            var userDtos = await _userRepository.GetAllUsersByRole((Role)role);
-            var users = _mapper.Map<IEnumerable<UserSpecializationOutputModel>>(userDtos);
-
-            return users;
-        }
-
         public async Task<UserOutputModel> GetUserById(int userId)
         {
             UserDto userDto = await _userRepository.GetUserById(userId);

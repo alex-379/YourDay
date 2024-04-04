@@ -1,4 +1,5 @@
 using YourDay.BLL.Enums;
+using YourDay.BLL.Models.TaskModels.OutputModels;
 using YourDay.BLL.Models.UserModels.InputModels;
 using YourDay.BLL.Models.UserModels.OutputModels;
 
@@ -23,8 +24,6 @@ namespace YourDay.BLL.IServices
         public Task<IEnumerable<UserOutputModel>> GetAllUsersByRole(RoleUI role);
 
         public Task<IEnumerable<UserSpecializationOutputModel>> GetAllUsersSpecializationByRole(RoleUI role);
-
-        public Task<IEnumerable<UserSpecializationOutputModel>> GetAllUsersSpecializationByRoleBySpeciailiztion(RoleUI role, int specializationId);
 
         public Task<bool> ConfirmMail(UserRegistrationInputModel user);
 

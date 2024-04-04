@@ -18,7 +18,7 @@
 <section>
     <div class="form-group">
         <label>Назначить сотрудника:</label>
-        <InputSelect class="form-control" @bind-Value="_selectedWorkerId" @onchange="AddWorker" placeholder="Выберите специализацию:">
+        <InputSelect class="form-control" @bind-Value="Worker" placeholder="Выберите специализацию:">
             @foreach (UserSpecializationOutputModel i in _users)
             {
                 <option value=@i.Id>@i.UserName</option>
@@ -32,6 +32,9 @@
     [Parameter]
     public TaskOutputModelAllInfo Task { get; set; }
 
+    [Parameter]
+    public int Worker { get; set; }
+
     private ITaskService _taskService;
 
     private IUserService _userService;
@@ -40,8 +43,6 @@
 
     private IManagerService _managerService;
 
-    private int _selectedWorkerId;
-
     private IEnumerable<UserSpecializationOutputModel> _users;
 
     public TaskMasterCard()
@@ -49,23 +50,17 @@
         _taskService = new TaskService();
         _userService = new UserService();
         _enumService = new EnumService();
+        _managerService = new ManagerService();
         _users = Enumerable.Empty<UserSpecializationOutputModel>();
     }
 
     protected override async Task OnInitializedAsync()
     {
-        @if (Task.Specialization != null)
-        {
-            _users = await _userService.GetAllUsersSpecializationByRoleBySpeciailiztion(RoleUI.Worker, Task.Specialization.Id);
-        }
-        else
-        {
-            _users = await _userService.GetAllUsersSpecializationByRole(RoleUI.Worker);
-        }
+        _users = await _managerService.GetAllWorkers(RoleUI.Worker, Task);
     }
 
     private void AddWorker()
     {
-        _managerService.AddWorkerForTask(Task.Id, _selectedWorkerId);
+        _managerService.AddWorkerForTask(Task.Id, Worker);
     }
 }
