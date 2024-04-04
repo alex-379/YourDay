@@ -51,6 +51,11 @@
                         Field="ManagerName",
                         LayoutHeader="Имя менеджера"
                     },
+                    new ColumnForTables()
+                    {
+                        Field="OrderQuantity",
+                        LayoutHeader="Количество заказов"
+                    },
                 });
         }
 
@@ -69,6 +74,11 @@
                         Field="OrderName",
                         LayoutHeader="Название заказа"
                     },
+                    new ColumnForTables()
+                    {
+                        Field="TaskQuantity",
+                        LayoutHeader="Количество задач"
+                    }
                 });
         }
 
@@ -87,6 +97,7 @@
                         Field="TaskName",
                         LayoutHeader="Название задачи"
                     },
+                
                 });
         }
     }

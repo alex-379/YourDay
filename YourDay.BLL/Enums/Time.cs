@@ -3,5 +3,7 @@
     public enum Time
     {
         TimeAwaitInfoRegistration = 100,
+
+        TimeAwaitChangePicture = 15
     }
 }

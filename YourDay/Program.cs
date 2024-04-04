@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
-
 using YourDay.Components;
 
 namespace YourDay

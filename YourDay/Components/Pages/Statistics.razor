@@ -1,6 +1,8 @@
 @page "/manager-statistics"
 @attribute [StreamRendering]
 @inject NavigationManager NavigationWorker
+@using YourDay.BLL.TablesForUi
+@rendermode InteractiveServer
 
 <GetClaims SendIsCompleted="b=>_isCompleted=b" SendRole="p=>_role = p"></GetClaims>
 
@@ -22,15 +24,15 @@ else
             <thead>
                 @foreach (ColumnForTables column in _table.ManagerColumns)
                 {
-                <th>
+                    <th>
                         @column.LayoutHeader
-                </th>
+                    </th>
                 }
             </thead>
             <tbody>
                 @foreach (ManagerRow managerRow in orderByManagerGroups)
                 {
-                    <tr>
+                    <tr @onclick="ShowAnswer">
                         @foreach (ColumnForTables column in _table.ManagerColumns)
                         {
                             <td>
@@ -38,7 +40,7 @@ else
                             </td>
                         }
                     </tr>
-                    <tr>
+                    <tr style="display:@(display == "block" ? "block" : "none")">
                         <td colspan="@_table.ManagerColumns.Count">
                             <table>
                                 <thead>
@@ -61,7 +63,7 @@ else
                                             }
                                         </tr>
                                         <tr>
-                                            <td colspan="2">
+                                            <td colspan="@_table.OrderColumns.Count">
                                                 <table>
                                                     <thead>
                                                         @foreach (ColumnForTables column in _table.TaskColumns)
@@ -83,6 +85,7 @@ else
                                                                     </td>
                                                                 }
                                                             </tr>
+                                                            
                                                         }
                                                     </tbody>
                                                 </table>
@@ -100,6 +103,8 @@ else
 }
 
 @code {
+    private string display = "none";
+
     private string _role;
 
     private bool _isCompleted;
@@ -147,7 +152,7 @@ else
                 IEnumerable<OrderRow> TasksByOrder = tasksGroupByManager
                             .Select(taskFromOutputModel => new TaskRow()
                                 {
-
+                                    
                                     TaskName = taskFromOutputModel.TaskTitle
                                 })
                             .GroupBy(task => task.OrderId)
@@ -155,7 +160,8 @@ else
                                 {
                                     OrderId = orderTasks.Key,
                                     OrderName = orderTasks.First().OrderName,
-                                    OrderTask = orderTasks
+                                    OrderTask = orderTasks,
+                                    TaskQuantity = orderTasks.Count()
                                 });
 
 
@@ -163,8 +169,15 @@ else
                     {
                         ManagerId = tasksGroupByManager.Key,
                         ManagerName = currentTask?.ManagerName,
-                        TasksByOrder = TasksByOrder
+                        TasksByOrder = TasksByOrder,
+                        OrderQuantity = TasksByOrder.Count()
                     };
             });
+
+        _isReceieved = true;
+    }
+    private void ShowAnswer()
+    {
+        display = display == "block" ? "none" : "block";
     }
 }

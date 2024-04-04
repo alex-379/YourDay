@@ -1,4 +1,5 @@
 using AutoMapper;
+using YourDay.BLL.Enums;
 using YourDay.BLL.Models.CompanyModels.OutputModels;
 using YourDay.BLL.Models.HistoryModels.OutputModels;
 using YourDay.BLL.Models.ManagerModels.OutputModel;
@@ -24,6 +25,8 @@ namespace YourDay.BLL
 
             CreateMap<UserDto, UserOutputModel>();
 
+            CreateMap<UserDto, UserPasswordOutputModel>();
+
             CreateMap<UserDto, UserMailOutputModel>();
 
             CreateMap<UserDto, UserSpecializationOutputModel>();
@@ -48,7 +51,7 @@ namespace YourDay.BLL
 
             CreateMap<HistoryDto, HistoryOutputModel>();
 
-            CreateMap<TaskInputModel, TaskDto>(); 
+            CreateMap<TaskInputModel, TaskDto>();
 
             CreateMap<TaskDto, TaskInputModel>();
 
