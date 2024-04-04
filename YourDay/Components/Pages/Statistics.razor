@@ -32,7 +32,7 @@ else
             <tbody>
                 @foreach (ManagerRow managerRow in orderByManagerGroups)
                 {
-                    <tr @onclick="ShowAnswer">
+                    <tr @onclick="() => SetVisibility(managerRow.ManagerId)">
                         @foreach (ColumnForTables column in _table.ManagerColumns)
                         {
                             <td>
@@ -40,7 +40,7 @@ else
                             </td>
                         }
                     </tr>
-                    <tr style="display:@(display == "block" ? "block" : "none")">
+                    <tr style="display:@(VisibleRows.Contains(managerRow.ManagerId) ? "contents" : "none")">
                         <td colspan="@_table.ManagerColumns.Count">
                             <table>
                                 <thead>
@@ -125,11 +125,14 @@ else
 
     private IManagerService _statistics;
 
+    private List<int> VisibleRows { get; set; }
+
     public Statistics()
     {
         _table = new Tables();
         _tasks = Enumerable.Empty<CompanyStatisticOutputModel>();
         _statistics = new ManagerService();
+        VisibleRows = new List<int>();
     }
 
     protected override async Task OnInitializedAsync()
@@ -152,7 +155,6 @@ else
                 IEnumerable<OrderRow> TasksByOrder = tasksGroupByManager
                             .Select(taskFromOutputModel => new TaskRow()
                                 {
-                                    
                                     TaskName = taskFromOutputModel.TaskTitle
                                 })
                             .GroupBy(task => task.OrderId)
@@ -179,5 +181,16 @@ else
     private void ShowAnswer()
     {
         display = display == "block" ? "none" : "block";
+    }
+    private void SetVisibility(int managerId)
+    {
+        if (VisibleRows.Contains(managerId))
+        {
+            VisibleRows.Remove(managerId);
+        }
+        else
+        {
+            VisibleRows.Add(managerId);
+        }
     }
 }
