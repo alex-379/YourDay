@@ -1,36 +1,66 @@
-﻿<button @onclick="() => OpenModal(Task.Id)">
-    <p>@Task.Title </p>
-    @if (Task.Specialization != null)
+﻿<p>@Task.Title </p>
+@if (Task.Specialization != null)
+{
+    <p>Специализация: @Task.Specialization.Name</p>
+}
+<p>@Task.TimeStart.ToShortTimeString() - @Task.TimeEnd.ToShortTimeString()</p>
+<p>@_enumService.GetDisplayName(Task.Status)</p>
+<p>
+    @if (Task.Workers != null)
     {
-        <p>@Task.Specialization.Name</p>
+        foreach (var i in Task.Workers)
+        {
+        <p>Сотрудники: @i.UserName</p>
+        }
     }
-    <p>@Task.TimeStart.ToShortTimeString() - @Task.TimeEnd.ToShortTimeString()</p>
-    <p>@Task.TimeStart - @Task.TimeEnd</p>
-    <p>@_taskStatus</p>
-</button>
+</p>
+
+<section>
+    <div class="form-group">
+        <label>Назначить сотрудника:</label>
+        <InputSelect class="form-control" @bind-Value="Worker" placeholder="Выберите специализацию:">
+            @foreach (UserSpecializationOutputModel i in _users)
+            {
+                <option value=@i.Id>@i.UserName</option>
+            }
+        </InputSelect>
+        <input type="button" @onclick="AddWorker">Подтвердить</input>
+    </div>
+</section>
 
 @code {
     [Parameter]
-    public TaskOutputModelWithSpecialization Task { get; set; }
+    public TaskOutputModelAllInfo Task { get; set; }
 
-    [Parameter] public EventCallback<int> OnOpenModal { get; set; }
+    [Parameter]
+    public int Worker { get; set; }
 
-    private IStatusService _statusService;
+    private ITaskService _taskService;
 
-    private string _taskStatus;
+    private IUserService _userService;
 
-    private async Task OpenModal(int id)
-    {
-        await OnOpenModal.InvokeAsync(id);
-    }
+    private IEnumService _enumService;
+
+    private IManagerService _managerService;
+
+    private IEnumerable<UserSpecializationOutputModel> _users;
 
     public TaskMasterCard()
     {
-        _statusService = new StatusService();
+        _taskService = new TaskService();
+        _userService = new UserService();
+        _enumService = new EnumService();
+        _managerService = new ManagerService();
+        _users = Enumerable.Empty<UserSpecializationOutputModel>();
     }
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        _taskStatus = _statusService.GetStatusNameByIndex((int)Task.Status);
+        _users = await _managerService.GetAllWorkers(RoleUI.Worker, Task);
+    }
+
+    private void AddWorker()
+    {
+        _managerService.AddWorkerForTask(Task.Id, Worker);
     }
 }

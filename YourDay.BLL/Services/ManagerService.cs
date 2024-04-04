@@ -1,4 +1,5 @@
 using AutoMapper;
+using YourDay.BLL.Enums;
 using YourDay.BLL.IServices;
 using YourDay.BLL.Models.CompanyModels.OutputModels;
 using YourDay.BLL.Models.ManagerModels.OutputModel;
@@ -122,13 +123,28 @@ namespace YourDay.BLL.Services
             return statistics;
         }
 
-        public async Task<IEnumerable<UserOutputModel>> GetAllWorkersForTask(TaskInputModel task)
+        public async Task<IEnumerable<UserSpecializationOutputModel>> GetAllWorkers(RoleUI role, TaskOutputModelAllInfo task)
         {
-            TaskDto taskDto = _mapper.Map<TaskDto>(task);
-            IEnumerable<UserDto> userDtos = await _userRepository.GetAllWorkersForTask(taskDto);
-            IEnumerable<UserOutputModel> users = _mapper.Map<IEnumerable<UserOutputModel>>(userDtos);
+            var users = Enumerable.Empty<UserSpecializationOutputModel>();
 
-            return users;
+            if (task.Specialization != null)
+            {
+                var userDtos = await _userRepository.GetAllUsersByRoleBySpecialization((Role)role, task.Specialization.Id);
+                users = _mapper.Map<IEnumerable<UserSpecializationOutputModel>>(userDtos);
+            }
+            else
+            {
+                var userDtos = await _userRepository.GetAllUsersByRole((Role)role);
+                users = _mapper.Map<IEnumerable<UserSpecializationOutputModel>>(userDtos);
+            }
+
+            var assignedUsersId = task.Workers.Select(u => u.Id).ToList();
+            var allUsersId = users.Select(u=>u.Id).ToList();
+            var filteredId = allUsersId.Except(assignedUsersId).ToList();
+            var filetredUsers = users.Where(u => filteredId.Contains(u.Id)).ToList();
+
+            return filetredUsers;
         }
+
     }
 }

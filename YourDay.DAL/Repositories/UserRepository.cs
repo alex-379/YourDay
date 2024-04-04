@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Data;
+using System.Linq;
+using System.Threading.Tasks;
 using YourDay.DAL.Dtos;
 using YourDay.DAL.Enums;
 using YourDay.DAL.IRepositories;
@@ -18,7 +20,7 @@ namespace YourDay.DAL.Repositories
                 return user;
             }
         }
-
+        
         public async Task<IEnumerable<UserDto>> GetAllUsers()
         {
             using (Context context = new Context())
@@ -69,6 +71,20 @@ namespace YourDay.DAL.Repositories
                     .Include(c => c.Specializations)
                     .Where(u => u.Role == role)
                     .Where(u => u.IsDeleted == false).ToListAsync();
+
+                return users;
+            }
+        }
+
+        public async Task<IEnumerable<UserDto>> GetAllUsersByRoleBySpecialization(Role role, int specializationId)
+        {
+            using (Context context = new Context())
+            {
+                var users = await context.Users
+                    .AsQueryable()
+                    .Include(u => u.Specializations)
+                .Where(u => u.Role == role)
+                    .Where(u => u.IsDeleted == false).Where(u=>u.Specializations.Any(s => s.Id == specializationId)).ToListAsync();
 
                 return users;
             }

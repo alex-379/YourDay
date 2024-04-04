@@ -14,8 +14,8 @@ else
 {
     if (_isReceieved)
     {
-        <section class="white">
-            <table class="table white">
+        <section class="blue">
+            <table class="table blue">
                 <thead>
                     <tr>
                         <th>Праздник</th>
@@ -67,7 +67,7 @@ else
             {
                 @foreach (var i in _tasks)
                 {
-                    <button @onclick="() => ShowModal(i.Id)" ><TaskMasterCard Task="i" OnOpenModal="ShowModal"> </TaskMasterCard> </button>
+                    <button><TaskMasterCard Task="i"> </TaskMasterCard> </button>
                 }
             }
         </div>
@@ -78,13 +78,11 @@ else
             <button onclick="window.manager.showModal()" class="purple-button"> Назначить менеджера на заказ</button>
             <button onclick="window.statusOrder.showModal()" class="purple-button"> Изменить статус заказа</button>
             <button class="purple-button"> История заказа </button>
-            <button class="purple-button"> Завершить заказ </button>
             <button class="purple-button" data-bs-toggle="modal" data-bs-target="#taskNew"> Добавить задачу </button>
         </div>
     </section>
 
     <ManagerDialogForChangeStatusOrderModalForm OrderId=Id></ManagerDialogForChangeStatusOrderModalForm>
-    <ManagerDialogForTaskModalForm TaskId=_selectedtaskId></ManagerDialogForTaskModalForm>
 
     <div class="modal fade" id="taskNew" tabindex="-1" aria-hidden="true">
         <TaskModalForm AddTask="AddTask" />
@@ -111,7 +109,7 @@ else
 
     private IEnumService _enumService;
 
-    public IEnumerable<TaskOutputModelWithSpecialization> _tasks;
+    public IEnumerable<TaskOutputModelAllInfo> _tasks;
 
     public ITaskService _taskService;
 
@@ -120,9 +118,8 @@ else
         OrderOutput = new OrderOutputModel();
         _orderService = new OrderService();
         _enumService = new EnumService();
-        _tasks = Enumerable.Empty<TaskOutputModelWithSpecialization>();
+        _tasks = Enumerable.Empty<TaskOutputModelAllInfo>();
         _taskService = new TaskService();
-
     }
 
     protected override async Task OnInitializedAsync()
@@ -140,16 +137,7 @@ else
 
         _isReceieved = true;
 
-        _tasks = await _taskService.GetTasksByOrderIdWithSpecialization(Id);
-    }
-
-    private async Task ShowModal(int taskId)
-    {
-        _selectedtaskId = taskId;
-
-        await JSRuntime.InvokeVoidAsync("task.showModal");
-
-        StateHasChanged();
+        _tasks = await _taskService.GetTasksByOrderIdWithAll(Id);
     }
 
     private void AddTask(TaskInputModel input)

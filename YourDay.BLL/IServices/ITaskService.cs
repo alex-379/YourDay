@@ -14,7 +14,7 @@ namespace YourDay.BLL.IServices
 
         public Task<TaskOutputModelAllInfo> GetTaskByIdWithAll(int taskId);
 
-        public Task<IEnumerable<TaskOutputModelWithSpecialization>> GetTasksByOrderIdWithSpecialization(int orderId);
+        public Task<IEnumerable<TaskOutputModelAllInfo>> GetTasksByOrderIdWithAll(int orderId);
 
         public Task<IEnumerable<TaskOutputModelWithOrderWithSpecialization>> GetTasksByWorkerIdWithOrderWithSpecialization(int workerId);
 

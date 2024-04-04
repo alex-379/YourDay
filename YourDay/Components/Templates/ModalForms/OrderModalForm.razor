@@ -4,27 +4,27 @@
             <DataAnnotationsValidator />
             <div class="modal-body">
                 <div class="form-group">
-                    <label>Название праздника:</label>
+                    <label class="margin">Название праздника:</label>
                     <InputText class="form-control" @bind-Value="OrderModel.OrderName" placeholder="Введите название праздника" />
                     <ValidationMessage For="@(() => OrderModel.OrderName)" />
                 </div>
                 <div class="form-group">
-                    <label>Дата:</label>
+                    <label class="margin">Дата:</label>
                      <DateInput TValue="DateTime" EnableMinMax="true" Min="@_minDate" Max="@_maxDate" class="form-control" @bind-Value=OrderModel.Date placeholder="Введите дату праздника" /> 
                     <ValidationMessage For="@(() => OrderModel.Date)" />
                 </div>
                 <div class="form-group">
-                    <label>Адрес:</label>
+                    <label class="margin">Адрес:</label>
                     <InputText class="form-control" @bind-Value="@OrderModel.Address" placeholder="Введите адрес вашего события" />
                     <ValidationMessage For="@(() => OrderModel.Address)" />
                 </div>
                 <div class="form-group">
-                    <label>Количество человек:</label>
+                    <label class="margin">Количество человек:</label>
                     <InputNumber class="form-control" @bind-Value="@OrderModel.CountPeople" placeholder="Введите сколько будет людей на празднике" />
                     <ValidationMessage For="@(() => OrderModel.CountPeople)" />
                 </div>
                 <div class="form-group">
-                    <label>Цена:</label>
+                    <label class="margin">Цена:</label>
                     <InputNumber class="form-control" @bind-Value="@OrderModel.Price" placeholder="Введите цену" />
                     <ValidationMessage For="@(() => OrderModel.Price)" />
                 </div>

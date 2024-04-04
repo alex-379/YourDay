@@ -1,4 +1,5 @@
 using AutoMapper;
+using YourDay.BLL.Enums;
 using YourDay.BLL.Models.CompanyModels.OutputModels;
 using YourDay.BLL.Models.HistoryModels.OutputModels;
 using YourDay.BLL.Models.ManagerModels.OutputModel;
@@ -56,15 +57,13 @@ namespace YourDay.BLL
 
             CreateMap<TaskUpdateInputModelAllInfo, TaskDto>();
 
-            CreateMap<TaskDto, TaskOutputModelWithOrderWithSpecialization>();
+            CreateMap<TaskOutputModelAllInfo, TaskDto>();
 
             CreateMap<TaskDto, TaskOutputModelAllInfo>();
 
-            CreateMap<TaskDto, TaskInputModel>();
+            CreateMap<TaskDto, TaskOutputModelWithOrderWithSpecialization>();
 
             CreateMap<TaskDto, TaskOutputModelWithSpecialization>();
-
-            CreateMap<TaskDto, TaskOutputModel>();
 
             CreateMap<SpecializationInputModel, SpecializationDto>();
 
@@ -76,8 +75,6 @@ namespace YourDay.BLL
 
             CreateMap<SpecializationOutputModel, SpecializationDto>();
 
-            CreateMap<OrderDto, OrderOutputModel>();
-
             CreateMap<TaskDto, CompanyStatisticOutputModel>()
                 .ForMember(outputModel => outputModel.ManagerName, taskdto => taskdto.MapFrom(task => task.Order.Manager.UserName))
                 .ForMember(outputModel => outputModel.ManagerId, taskdto => taskdto.MapFrom(task => task.Order.Manager.Id))
@@ -87,7 +84,6 @@ namespace YourDay.BLL
                 .ForMember(outputModel => outputModel.OrderTitle, taskDto => taskDto.MapFrom(task => task.Order.OrderName))
                 .ForMember(outputModel => outputModel.ClientId, taskDto => taskDto.MapFrom(task => task.Order.Client.Id))
                 .ForMember(outputModel => outputModel.ClientId, taskDto => taskDto.MapFrom(task => task.Order.Client.UserName));
-            CreateMap<SpecializationInputModel, SpecializationDto>();
 
             CreateMap<SpecializationDto, SpecializationOutputModel>();
         }

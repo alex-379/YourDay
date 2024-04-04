@@ -95,12 +95,14 @@ namespace YourDay.DAL.Repositories
             }
         }
 
-        public async Task<IEnumerable<TaskDto>> GetTasksByOrderIdWithSpecialization(int orderId)
+        public async Task<IEnumerable<TaskDto>> GetTasksByOrderIdWithAll(int orderId)
         {
             using (Context context = new Context())
             {
                 var tasks = await context.Tasks.AsQueryable()
                     .Include(t => t.Specialization)
+                    .Include(t => t.Order)
+                    .Include(t => t.Workers)
                     .Where(t => t.Order.Id == orderId)
                     .Where(t => t.Status != Status.Cancelled).ToListAsync();
 

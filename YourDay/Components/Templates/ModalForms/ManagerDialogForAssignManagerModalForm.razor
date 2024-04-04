@@ -31,7 +31,7 @@
 
     private int _selectedManagerId;
 
-    private bool _isSameManagerSelected;
+    private bool _isSameManagerSelected = true;
 
     private IEnumerable<ManagerNameAndPhoneOutputModel> _managers;
 
@@ -52,7 +52,7 @@
     {
         _selectedManagerId = int.Parse(e.Value.ToString());
 
-        _isSameManagerSelected = (_selectedManagerId == ManagerId);
+        _isSameManagerSelected = _selectedManagerId == ManagerId;
     }
 
     public void AddManagerToOrder()
