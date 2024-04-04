@@ -35,7 +35,6 @@ namespace YourDay.DAL.Repositories
 
                 return specialization;
             }
-
         }
     }
 }
