@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Data;
+using System.Linq;
+using System.Threading.Tasks;
 using YourDay.DAL.Dtos;
 using YourDay.DAL.Enums;
 using YourDay.DAL.IRepositories;
@@ -18,7 +20,6 @@ namespace YourDay.DAL.Repositories
                 return user;
             }
         }
-        
         
         public async Task<IEnumerable<UserDto>> GetAllUsers()
         {
@@ -75,26 +76,17 @@ namespace YourDay.DAL.Repositories
             }
         }
 
-        public List<UserDto> GetAllUsersByRoleForTask(Role role)
+        public async Task<IEnumerable<UserDto>> GetAllUsersByRoleBySpecialization(Role role, int specializationId)
         {
-            Context context = new Context();
-            var users = context.Users
+            using (Context context = new Context())
+            {
+                var users = await context.Users
                     .AsQueryable()
-                    .Include(c => c.Specializations)
-                    .Where(u => u.Role == role)
-                    .Where(u => u.IsDeleted == false).ToList();
+                    .Include(u => u.Specializations)
+                .Where(u => u.Role == role)
+                    .Where(u => u.IsDeleted == false).Where(u=>u.Specializations.Any(s => s.Id == specializationId)).ToListAsync();
 
                 return users;
-            
-        }
-
-        public void SetWorkerForTask(int workerId, int taskId)
-        {
-            Context context = new Context();
-            UserDto user = context.Users.Where(c => c.Id == workerId).Single();
-            if (user.WorkerTasks != null)
-            {
-                user.WorkerTasks.Append(context.Tasks.Where(c => c.Id == taskId).Single());
             }
         }
 

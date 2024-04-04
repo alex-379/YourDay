@@ -61,18 +61,10 @@ namespace YourDay.BLL.Services
             return task;
         }
 
-        public async Task<TaskInputModel> GetTaskById(int taskId)
+        public async Task<IEnumerable<TaskOutputModelAllInfo>> GetTasksByOrderIdWithAll(int orderId)
         {
-            TaskDto taskDto = await _taskRepository.GetTaskByIdWithAll(taskId);
-            TaskInputModel task = _mapper.Map<TaskInputModel>(taskDto);
-
-            return task;
-        }
-
-        public async Task<IEnumerable<TaskOutputModelWithSpecialization>> GetTasksByOrderIdWithSpecialization(int orderId)
-        {
-            var taskDtos = await _taskRepository.GetTasksByOrderIdWithSpecialization(orderId);
-            var tasks = _mapper.Map<IEnumerable<TaskOutputModelWithSpecialization>>(taskDtos);
+            var taskDtos = await _taskRepository.GetTasksByOrderIdWithAll(orderId);
+            var tasks = _mapper.Map<IEnumerable<TaskOutputModelAllInfo>>(taskDtos);
 
             return tasks;
         }
@@ -112,17 +104,6 @@ namespace YourDay.BLL.Services
 
             return taskOutput;
         }
-
-
-        public async Task<TaskOutputModelAllInfo> SetWorkerTask(TaskOutputModelAllInfo task)
-        {
-            TaskDto taskDto = _mapper.Map<TaskDto>(task);
-            TaskDto taskDtoOutput = await _taskRepository.UpdateTask(taskDto);
-            TaskOutputModelAllInfo taskOutput = _mapper.Map<TaskOutputModelAllInfo>(taskDtoOutput);
-
-            return taskOutput;
-        }
-
 
         private static void SetDefaultStatus(TaskInputModel task, Status status)
         {

@@ -23,8 +23,6 @@ namespace YourDay.BLL
             CreateMap<UserRegistrationForManagerInputModel, UserDto>();
 
             CreateMap<UserDto, UserOutputModel>();
-            CreateMap<UserDto, UserWorkerOutputModel>();
-            CreateMap<UserWorkerOutputModel, UserDto>(); 
 
             CreateMap<UserDto, UserMailOutputModel>();
 
@@ -62,13 +60,7 @@ namespace YourDay.BLL
 
             CreateMap<TaskDto, TaskOutputModelWithOrderWithSpecialization>();
 
-            CreateMap<TaskDto, TaskOutputModelAllInfo>();
-
-            CreateMap<TaskDto, TaskInputModel>();
-
             CreateMap<TaskDto, TaskOutputModelWithSpecialization>();
-
-            CreateMap<TaskDto, TaskOutputModel>();
 
             CreateMap<SpecializationInputModel, SpecializationDto>();
 
@@ -80,8 +72,6 @@ namespace YourDay.BLL
 
             CreateMap<SpecializationOutputModel, SpecializationDto>();
 
-            CreateMap<OrderDto, OrderOutputModel>();
-
             CreateMap<TaskDto, CompanyStatisticOutputModel>()
                 .ForMember(outputModel => outputModel.ManagerName, taskdto => taskdto.MapFrom(task => task.Order.Manager.UserName))
                 .ForMember(outputModel => outputModel.ManagerId, taskdto => taskdto.MapFrom(task => task.Order.Manager.Id))
@@ -91,7 +81,6 @@ namespace YourDay.BLL
                 .ForMember(outputModel => outputModel.OrderTitle, taskDto => taskDto.MapFrom(task => task.Order.OrderName))
                 .ForMember(outputModel => outputModel.ClientId, taskDto => taskDto.MapFrom(task => task.Order.Client.Id))
                 .ForMember(outputModel => outputModel.ClientId, taskDto => taskDto.MapFrom(task => task.Order.Client.UserName));
-            CreateMap<SpecializationInputModel, SpecializationDto>();
 
             CreateMap<SpecializationDto, SpecializationOutputModel>();
         }

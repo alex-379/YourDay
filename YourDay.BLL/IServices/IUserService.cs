@@ -24,12 +24,10 @@ namespace YourDay.BLL.IServices
 
         public Task<IEnumerable<UserSpecializationOutputModel>> GetAllUsersSpecializationByRole(RoleUI role);
 
+        public Task<IEnumerable<UserSpecializationOutputModel>> GetAllUsersSpecializationByRoleBySpeciailiztion(RoleUI role, int specializationId);
+
         public Task<bool> ConfirmMail(UserRegistrationInputModel user);
 
         public Task<bool> ConfirmPassword(UserAutenthicationInputModel user);
-
-        public IEnumerable<UserWorkerOutputModel> GetAllUsersByRoleForTask(RoleUI role);
-
-        public void SetWorkerForTask(int workerId, int taskId);
     }
 }
