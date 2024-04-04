@@ -26,14 +26,14 @@
     <button @onclick="TaskFilter">Поиск</button>
 </div>
 
-@if (_isCompletedTask)
+ @if (_isCompletedTask)
 {
     <div class="container-task">
         @foreach (TaskOutputModelAllInfo task in _tasks)
         {
-            <TaskWorkerCard Task="task"></TaskWorkerCard>
+            <TaskWorkerCard Task=task></TaskWorkerCard>
         }
-    </div>
+    </div> 
 }
 
 @code
@@ -68,7 +68,6 @@
     {
         dateFrom = null;
         dateTo = null;
-        status = null;
         _tasks = await _workerService.GetAllTasksWithAll();
         _isCompletedTask = true;
     }

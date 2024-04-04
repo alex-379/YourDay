@@ -50,10 +50,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        if (_role == RoleUI.Worker.ToString())
-        {
             _task = await _taskService.GetTaskByIdWithAll(Id);
-        }
     }
 
     public void UpdateStatusTask(ChangeEventArgs e)

@@ -8,9 +8,9 @@ namespace YourDay.BLL.Models.TaskModels.InputModels
 
         public string? Description { get; set; }
 
-        public DateTime TimeStart { get; set; }
+        public TimeOnly TimeStart { get; set; }
 
-        public DateTime TimeEnd { get; set; }
+        public TimeOnly TimeEnd { get; set; }
 
         public SpecializationTaskInputModel? Specialization { get; set; }
 
