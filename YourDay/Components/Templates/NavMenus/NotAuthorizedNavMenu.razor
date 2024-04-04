@@ -1,4 +1,5 @@
-﻿<header class="navbar">
+﻿@inject IJSRuntime JSRuntime
+<header class="navbar">
     <div>
         <NavLink href="/"><img src="/images/logo.png" alt=""></NavLink>
     </div>
@@ -26,7 +27,7 @@
 </div>
 
 <div class="modal fade" id="registration" tabindex="-1" aria-hidden="true">
-    <RegistrationModalForm AddUser="AddClient" />
+    <RegistrationModalForm AddUser="AddClient" SendIsCompleted="b=>_isCompleted=b" />
 </div>
 
 <div class="modal fade" id="infoRegistration" tabindex="-1" aria-labelledby="infoRegistration" aria-hidden="true">
@@ -35,6 +36,10 @@
 
 @code {
     private IUserService _userService;
+
+    private bool _isCompleted;
+
+    private string _isOpen;
 
     public NotAuthorizedNavMenu()
     {

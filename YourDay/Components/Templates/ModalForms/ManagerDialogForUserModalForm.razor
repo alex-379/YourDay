@@ -1,7 +1,12 @@
-﻿<dialog id="user" aria-labelledby="heading">
+﻿@inject NavigationManager navManager
+
+<dialog id="user" aria-labelledby="heading">
     <h2 id="heading">Что вы хотите сделать?</h2>
     <form method="dialog">
 
+        <button @onclick="MoveToUser">
+            Изменить
+        </button>
         <button @onclick="DeleteUser">
             Удалить
         </button>
@@ -26,5 +31,10 @@
     private void DeleteUser()
     {
          _userService.DeleteUser(SelectedClientId);
+    }
+
+    private void MoveToUser()
+    {
+        navManager.NavigateTo($"./user/{SelectedClientId}");
     }
 }

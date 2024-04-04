@@ -67,8 +67,7 @@ else
             {
                 @foreach (var i in _tasks)
                 {
-                    //<button @onclick="() => ShowModal(i.Id)" ><TaskMasterCard Task="i" OnOpenModal="ShowModal"> </TaskMasterCard> </button>
-                    <button ><TaskMasterCard Task="i" > </TaskMasterCard> </button>
+                    <button><TaskMasterCard Task="i"> </TaskMasterCard> </button>
                 }
             }
         </div>
@@ -84,7 +83,6 @@ else
     </section>
 
     <ManagerDialogForChangeStatusOrderModalForm OrderId=Id></ManagerDialogForChangeStatusOrderModalForm>
-    <ManagerDialogForTaskModalForm TaskId=_selectedtaskId></ManagerDialogForTaskModalForm>
 
     <div class="modal fade" id="taskNew" tabindex="-1" aria-hidden="true">
         <TaskModalForm AddTask="AddTask" />
@@ -111,7 +109,7 @@ else
 
     private IEnumService _enumService;
 
-    public IEnumerable<TaskOutputModelWithSpecialization> _tasks;
+    public IEnumerable<TaskOutputModelAllInfo> _tasks;
 
     public ITaskService _taskService;
 
@@ -120,9 +118,8 @@ else
         OrderOutput = new OrderOutputModel();
         _orderService = new OrderService();
         _enumService = new EnumService();
-        _tasks = Enumerable.Empty<TaskOutputModelWithSpecialization>();
+        _tasks = Enumerable.Empty<TaskOutputModelAllInfo>();
         _taskService = new TaskService();
-
     }
 
     protected override async Task OnInitializedAsync()
@@ -140,16 +137,7 @@ else
 
         _isReceieved = true;
 
-        _tasks = await _taskService.GetTasksByOrderIdWithSpecialization(Id);
-    }
-
-    private async Task ShowModal(int taskId)
-    {
-        _selectedtaskId = taskId;
-
-        await JSRuntime.InvokeVoidAsync("task.showModal");
-
-        StateHasChanged();
+        _tasks = await _taskService.GetTasksByOrderIdWithAll(Id);
     }
 
     private void AddTask(TaskInputModel input)

@@ -1,89 +1,71 @@
-﻿
-    <p>@Task.Title </p>
-    @if (Task.Specialization != null)
+﻿<p>@Task.Title </p>
+@if (Task.Specialization != null)
+{
+    <p>Специализация: @Task.Specialization.Name</p>
+}
+<p>@Task.TimeStart.ToShortTimeString() - @Task.TimeEnd.ToShortTimeString()</p>
+<p>@_enumService.GetDisplayName(Task.Status)</p>
+<p>
+    @if (Task.Workers != null)
     {
-        <p>Специализация: @Task.Specialization.Name</p>
+        foreach (var i in Task.Workers)
+        {
+        <p>Сотрудники: @i.UserName</p>
+        }
     }
-    <p>@Task.TimeStart.ToShortTimeString() - @Task.TimeEnd.ToShortTimeString()</p>
-    <p>@_taskStatus</p>
-    <section>
-    
-        <button @onclick="SetWorker">
-            Назначить сотрудника
-        </button>
-        <div class="form-group">
-        
-        <label>Специализация:</label>
-            <InputSelect class="form-control" @bind-Value="worker" placeholder="Выберите специализацию:">
-                @foreach (UserWorkerOutputModel i in users)
-                {
-                    <option value=@i.Id.>@i.UserName</option>
-                }
-            </InputSelect>
-        </div>  
+</p>
 
-     @* *@
-
-
-    </section>
-
+<section>
+    <div class="form-group">
+        <label>Назначить сотрудника:</label>
+        <InputSelect class="form-control" @bind-Value="_selectedWorkerId" @onchange="AddWorker" placeholder="Выберите специализацию:">
+            @foreach (UserSpecializationOutputModel i in _users)
+            {
+                <option value=@i.Id>@i.UserName</option>
+            }
+        </InputSelect>
+        <input type="button" @onclick="AddWorker">Подтвердить</input>
+    </div>
+</section>
 
 @code {
     [Parameter]
-    public TaskOutputModelWithSpecialization Task { get; set; }
-
-    //[Parameter] public EventCallback<int> OnOpenModal { get; set; }
-
-    private IStatusService _statusService;
-
-    private string _taskStatus;
+    public TaskOutputModelAllInfo Task { get; set; }
 
     private ITaskService _taskService;
 
     private IUserService _userService;
 
-    private TaskOutputModelAllInfo task;
+    private IEnumService _enumService;
 
-    public IEnumerable<UserWorkerOutputModel> users;
+    private IManagerService _managerService;
 
+    private int _selectedWorkerId;
 
-    public int a { get; set; }
-
-    public UserOutputModel worker;
-
-    // private async Task OpenModal(int id)
-    // {
-    //     await OnOpenModal.InvokeAsync(id);
-    // }
+    private IEnumerable<UserSpecializationOutputModel> _users;
 
     public TaskMasterCard()
     {
-
-        _userService = new UserService();
-        _statusService = new StatusService();
-
         _taskService = new TaskService();
-
-        users = _userService.GetAllUsersByRoleForTask(RoleUI.Client);
-
-        //users = Enumerable.Empty<UserOutputModel>();
-
-        //task = new TaskOutputModelAllInfo();
-
-    }
-    protected void  OnInitialized()
-    {
-        _taskStatus = _statusService.GetStatusNameByIndex((int)Task.Status);
-
-        users = _userService.GetAllUsersByRoleForTask(RoleUI.Client);
-
-        //task = await _taskService.GetTaskByIdWithAll(Task.Id);
+        _userService = new UserService();
+        _enumService = new EnumService();
+        _users = Enumerable.Empty<UserSpecializationOutputModel>();
     }
 
-    private async void SetWorker()
+    protected override async Task OnInitializedAsync()
     {
-        //_userService.SetWorkerForTask(worker.Id, Task.Id);
-        //users = _userService.GetAllUsersByRoleAA(RoleUI.Client);
-        //var a = await _taskService.SetWorkerTask(task);
+        @if (Task.Specialization != null)
+        {
+            _users = await _userService.GetAllUsersSpecializationByRoleBySpeciailiztion(RoleUI.Worker, Task.Specialization.Id);
+        }
+        else
+        {
+            _users = await _userService.GetAllUsersSpecializationByRole(RoleUI.Worker);
+        }
+    }
+
+    private void AddWorker()
+    {
+        _managerService.AddWorkerForTask(Task.Id, _selectedWorkerId);
     }
 }

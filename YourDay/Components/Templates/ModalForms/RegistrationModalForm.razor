@@ -26,7 +26,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="purple-button" data-bs-toggle="modal">Регистрация</button>
+                <button type="submit" class="purple-button" data-bs-toggle="modal" data-bs-target="#infoRegistration">Регистрация</button>
                 <button type="button" class="purple-button" data-bs-dismiss="modal">Отмена</button>
             </div>
         </EditForm>
@@ -40,6 +40,11 @@
     [Parameter]
     public Action<UserRegistrationInputModel> AddUser { get; set; }
 
+    [Parameter]
+    public EventCallback<bool> SendIsCompleted { get; set; }
+
+    private bool _isCompleted;
+
     public RegistrationModalForm()
     {
         RegistrationModel = new UserRegistrationInputModel();
@@ -50,5 +55,7 @@
         RegistrationModel.UserName = RegistrationModel.UserName.ToLower();
         RegistrationModel.Mail = RegistrationModel.Mail.ToLower();
         AddUser(RegistrationModel);
+        _isCompleted = true;
+        SendIsCompleted.InvokeAsync(_isCompleted);
     }
 }
