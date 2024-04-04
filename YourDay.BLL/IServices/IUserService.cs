@@ -24,6 +24,8 @@ namespace YourDay.BLL.IServices
 
         public Task<IEnumerable<UserSpecializationOutputModel>> GetAllUsersSpecializationByRole(RoleUI role);
 
+        public Task<IEnumerable<UserSpecializationOutputModel>> GetAllUsersSpecializationByRoleBySpeciailiztion(RoleUI role, int specializationId);
+
         public Task<bool> ConfirmMail(UserRegistrationInputModel user);
 
         public Task<bool> ConfirmPassword(UserAutenthicationInputModel user);

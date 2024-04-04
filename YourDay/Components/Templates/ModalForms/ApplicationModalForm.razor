@@ -4,8 +4,8 @@
             <DataAnnotationsValidator />
             <div class="modal-body">
                 <div class="form-group">
-                    <label>Название праздника:</label>
-                    <InputText class="form-control" @bind-Value="ApplicationModel.Comment" placeholder="Введите название праздника" />
+                    <label class="margin">Название праздника:</label>
+                    <InputText class="form-control blue" @bind-Value="ApplicationModel.Comment" placeholder="Введите название праздника" />
                     <ValidationMessage For="@(() => ApplicationModel.Comment)" />
                 </div>
             </div>

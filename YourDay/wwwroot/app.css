@@ -19,7 +19,7 @@
     font-style: normal;
 }
 
-/*ШАПКА СТРАНИЦЫ */
+
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -74,6 +74,14 @@
 
 .yellow {
     color: #FDD551
+}
+
+.blue {
+    color: #554874;
+}
+
+.margin {
+    margin: 10px auto 10px auto;
 }
 
 .button-quest:hover {
@@ -191,7 +199,7 @@ button {
 .purple-button {
     color: #554874;
     border: none;
-    height: 50px;
+
 }
 
 .button {
@@ -249,10 +257,10 @@ button {
     border: 1px solid #92dea8;
     line-height: 30px;
     align-items: baseline;
-    padding: 20px 40px;
+    padding: 0px 0px;
     margin: 20px 10px;
     border-radius: 20px;
-    color: #AF8DFE;
+    color: #554874;
 }
 
 .background {
@@ -323,7 +331,7 @@ h1 {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    color: #54494B;
+    color: #554874;
 }
 
 .text {

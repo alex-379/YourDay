@@ -17,6 +17,8 @@ namespace YourDay.DAL.IRepositories
 
         public Task<IEnumerable<UserDto>> GetAllUsersByRole(Role role);
 
+        public Task<IEnumerable<UserDto>> GetAllUsersByRoleBySpecialization(Role role, int specializationId);
+
         public Task<IEnumerable<UserDto>> GetAllWorkersForTask(TaskDto task);
     }
 }
