@@ -50,12 +50,12 @@
         RegistrationModel = new UserRegistrationInputModel();
     }
 
-    private void Add()
+    private async void Add()
     {
         RegistrationModel.UserName = RegistrationModel.UserName.ToLower();
         RegistrationModel.Mail = RegistrationModel.Mail.ToLower();
         AddUser(RegistrationModel);
         _isCompleted = true;
-        SendIsCompleted.InvokeAsync(_isCompleted);
+        await SendIsCompleted.InvokeAsync(_isCompleted);
     }
 }

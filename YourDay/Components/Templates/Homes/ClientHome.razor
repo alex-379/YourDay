@@ -1,9 +1,4 @@
 ﻿<div class="home-client">
-    <div>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#applicationNew">
-            Оставить заявку
-        </button>
-    </div>
     <div class="welcome">
         <h1 class="h">Добро пожаловать</h1>
         <h1 class="h yellow"> в Твой День!</h1>
@@ -24,27 +19,3 @@
         <img src="/images/96714381.jpg">
     </div>
 </div>
-
-<GetClaims SendIsCompleted="b=>_isCompleted=b" SendMail="m=>_mail=m"></GetClaims>
-
-<div class="modal fade" id="applicationNew" tabindex="-1" aria-hidden="true">
-    <ApplicationModalForm AddApplication="AddApplication" />
-</div>
-
-@code {
-    private string _mail;
-
-    private bool _isCompleted;
-
-    private IManagerService _managerService;
-
-    public ClientHome()
-    {
-        _managerService = new ManagerService();
-    }
-
-    private void AddApplication(ApplicationInputModel input)
-    {
-        _managerService.AddApplication(input, _mail);
-    }
-}

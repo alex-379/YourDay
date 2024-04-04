@@ -4,6 +4,11 @@
     </div>
     <nav class="menu">
         <ul>
+            <li>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#applicationNew">
+                    Оставить заявку
+                </button>
+            </li>
             <li><NavLink href="/gallery">Фото с мероприятий</NavLink></li>
             <li><NavLink href="/contacts">Контакты</NavLink></li>
             <li><NavLink href="/info">О нас</NavLink></li>
@@ -11,3 +16,27 @@
         </ul>
     </nav>
 </header>
+
+<GetClaims SendIsCompleted="b=>_isCompleted=b" SendMail="m=>_mail=m"></GetClaims>
+
+<div class="modal fade" id="applicationNew" tabindex="-1" aria-hidden="true">
+    <ApplicationModalForm AddApplication="AddApplication" />
+</div>
+
+@code {
+    private string _mail;
+
+    private bool _isCompleted;
+
+    private IManagerService _managerService;
+
+    public ClientNavMenu()
+    {
+        _managerService = new ManagerService();
+    }
+
+    private void AddApplication(ApplicationInputModel input)
+    {
+        _managerService.AddApplication(input, _mail);
+    }
+}
