@@ -1,6 +1,8 @@
 @page "/task/{Id:int}"
+@attribute [StreamRendering]
 @rendermode InteractiveServer
-@using YourDay.BLL.IServices
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
 
 <GetClaims SendIsCompleted="b=>_isCompleted=b" SendRole="p=>_role=p"></GetClaims>
 
@@ -10,50 +12,95 @@
 }
 else
 {
-    <div>
-        <div>
-            <div class="container-task">
-                <TaskWorkerCard Task="_task"></TaskWorkerCard>
-                <form>
-                    <select @onchange="UpdateStatusTask">
-                        <option value="0">@_enumService.GetDisplayName(StatusUI.Received)</option>
-                        <option value="1">@_enumService.GetDisplayName(StatusUI.InProgress)</option>
-                        <option value="2">@_enumService.GetDisplayName(StatusUI.Completed)</option>
-                        <option value="3">@_enumService.GetDisplayName(StatusUI.Canselled)</option>
-                    </select>
-                </form>
+    if (_isReceieved)
+    {
+        <section class="blue">
+            <table class="table blue">
+                <thead>
+                    <tr>
+                        <th>Название</th>
+                        <th>Описание</th>
+                        <th>Время начала</th>
+                        <th>Время окончания</th>
+                        <th>Статус</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@Task.Title</td>
+                        <td>@Task.Description</td>
+                        <td>@Task.TimeStart</td>
+                        <td>@Task.TimeEnd</td>
+                        <td>@_enumService.GetDisplayName(Task.Status)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
 
+        <div>
+            <div>
+                <div class="container-task">
+                    <TaskWorkerCard Task="Task"></TaskWorkerCard>
+                    <form>
+                        <select @onchange="UpdateStatusTask">
+                            <option value="0">@_enumService.GetDisplayName(StatusUI.Received)</option>
+                            <option value="1">@_enumService.GetDisplayName(StatusUI.InProgress)</option>
+                            <option value="2">@_enumService.GetDisplayName(StatusUI.Completed)</option>
+                            <option value="3">@_enumService.GetDisplayName(StatusUI.Canselled)</option>
+                        </select>
+                    </form>
+
+                </div>
             </div>
         </div>
-    </div>
+    }
 }
 
-@code {
+@code
+{
     private string? _role;
 
     private bool _isCompleted;
 
+    private bool _isReceieved;
+
+    private int _selectedtaskId;
+
     [Parameter]
     public int Id { get; set; }
 
-    private ITaskService _taskService;
+    [Parameter]
+    public TaskOutputModelAllInfo Task { get; set; }
+
+    private IOrderService _orderService;
 
     private IEnumService _enumService;
 
-    private TaskOutputModelAllInfo _task;
+    public IEnumerable<TaskOutputModelAllInfo> _tasks;
+
+    public ITaskService _taskService;
 
     public TaskPage()
     {
-        _taskService = new TaskService();
+        Task = new TaskOutputModelAllInfo();
+        _orderService = new OrderService();
         _enumService = new EnumService();
+        _tasks = Enumerable.Empty<TaskOutputModelAllInfo>();
+        _taskService = new TaskService();
     }
 
     protected override async Task OnInitializedAsync()
     {
-        if (_role == RoleUI.Worker.ToString())
-        {
-            _task = await _taskService.GetTaskByIdWithAll(Id);
-        }
+        TaskOutputModelAllInfo taskOutput = await _taskService.GetTaskByIdWithAll(Id);
+        Task.Title = taskOutput.Title;
+        Task.Description = taskOutput.Description;
+        Task.TimeStart = taskOutput.TimeStart;
+        Task.TimeEnd = taskOutput.TimeEnd;
+        Task.Status = taskOutput.Status;
+
+        _isReceieved = true;
+
+        _tasks = await _taskService.GetTasksByOrderIdWithAll(Id);
     }
 
     public void UpdateStatusTask(ChangeEventArgs e)

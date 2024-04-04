@@ -25,12 +25,12 @@
                 </div>
                 <div class="form-group">
                     <label class="margin">Время начала:</label>
-                    <DateInput TValue="DateTime" class="form-control" @bind-Value=TaskModel.TimeStart placeholder="Введите время начала" />
+                    <DateInput TValue="TimeOnly" class="form-control" @bind-Value=TaskModel.TimeStart placeholder="Введите время начала" />
                     <ValidationMessage For="@(() => TaskModel.TimeStart)" />
                 </div>
                 <div class="form-group">
                     <label class="margin">Время окончания:</label>
-                    <DateInput TValue="DateTime" class="form-control" @bind-Value=TaskModel.TimeEnd placeholder="Введите время окончания" />
+                    <DateInput TValue="TimeOnly" class="form-control" @bind-Value=TaskModel.TimeEnd placeholder="Введите время окончания" />
                     <ValidationMessage For="@(() => TaskModel.TimeEnd)" />
                 </div>
             </div>

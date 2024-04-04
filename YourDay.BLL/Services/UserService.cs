@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.Identity.Client;
 using System.Data;
 using YourDay.BLL.Enums;
 using YourDay.BLL.IServices;

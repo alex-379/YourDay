@@ -1,7 +1,7 @@
-﻿using YourDay.BLL.Models.OrderModels.OutputModels;
+﻿using YourDay.BLL.Enums;
+using YourDay.BLL.Models.OrderModels.OutputModels;
 using YourDay.BLL.Models.SpecializationModels.OutputModels;
 using YourDay.BLL.Models.UserModels.OutputModels;
-using YourDay.DAL.Enums;
 
 namespace YourDay.BLL.Models.TaskModels.OutputModels
 {
@@ -17,7 +17,7 @@ namespace YourDay.BLL.Models.TaskModels.OutputModels
 
         public DateTime TimeEnd { get; set; }
 
-        public Status? Status { get; set; }
+        public StatusUI? Status { get; set; }
 
         public IEnumerable<UserSpecializationOutputModel>? Workers { get; set; }
 

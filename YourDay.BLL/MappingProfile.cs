@@ -1,5 +1,4 @@
 using AutoMapper;
-using YourDay.BLL.Enums;
 using YourDay.BLL.Models.CompanyModels.OutputModels;
 using YourDay.BLL.Models.HistoryModels.OutputModels;
 using YourDay.BLL.Models.ManagerModels.OutputModel;
@@ -51,7 +50,9 @@ namespace YourDay.BLL
 
             CreateMap<HistoryDto, HistoryOutputModel>();
 
-            CreateMap<TaskInputModel, TaskDto>();
+            CreateMap<TaskInputModel, TaskDto>()
+                .ForMember(dto => dto.TimeStart, time => time.MapFrom(model => DateOnly.FromDateTime(DateTime.Now).ToDateTime(model.TimeStart)))
+                .ForMember(dto => dto.TimeEnd, time => time.MapFrom(model => DateOnly.FromDateTime(DateTime.Now).ToDateTime(model.TimeEnd)));
 
             CreateMap<TaskDto, TaskInputModel>();
 
