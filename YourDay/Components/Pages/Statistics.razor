@@ -32,7 +32,7 @@ else
             <tbody>
                 @foreach (ManagerRow managerRow in orderByManagerGroups)
                 {
-                    <tr>
+                    <tr @onclick="ShowAnswer">
                         @foreach (ColumnForTables column in _table.ManagerColumns)
                         {
                             <td>
@@ -40,7 +40,7 @@ else
                             </td>
                         }
                     </tr>
-                    <tr>
+                    <tr style="display:@(display == "block" ? "block" : "none")">
                         <td colspan="@_table.ManagerColumns.Count">
                             <table>
                                 <thead>
@@ -103,6 +103,8 @@ else
 }
 
 @code {
+    private string display = "none";
+
     private string _role;
 
     private bool _isCompleted;
@@ -173,5 +175,9 @@ else
             });
 
         _isReceieved = true;
+    }
+    private void ShowAnswer()
+    {
+        display = display == "block" ? "none" : "block";
     }
 }
