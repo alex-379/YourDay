@@ -25,6 +25,8 @@ namespace YourDay.BLL
 
             CreateMap<UserDto, UserOutputModel>();
 
+            CreateMap<UserDto, UserPasswordOutputModel>();
+
             CreateMap<UserDto, UserMailOutputModel>();
 
             CreateMap<UserDto, UserSpecializationOutputModel>();
