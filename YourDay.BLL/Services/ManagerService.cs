@@ -101,16 +101,17 @@ namespace YourDay.BLL.Services
 
         public async Task<ApplicationOutputModel> AddApplication(ApplicationInputModel application, string userMail)
         {
+            OrderDto orderDtoInput = new OrderDto();
+            OrderDto orderDtoOutput = await _orderRepository.AddOrder(orderDtoInput);
             HistoryDto historyDtoInput = _mapper.Map<HistoryDto>(application);
             historyDtoInput.DateTime = DateTime.Now;
-            OrderDto orderDtoInput = new OrderDto();
-            orderDtoInput.Histories = new List<HistoryDto>()
+            orderDtoOutput.Histories = new List<HistoryDto>()
             {
             historyDtoInput
             };
-            orderDtoInput.Client = await _userRepository.GetUserByMail(userMail);
-            orderDtoInput.Status = Status.Received;
-            OrderDto orderDtoOutput = await _orderRepository.AddOrder(orderDtoInput);
+            orderDtoOutput.Client = await _userRepository.GetUserByMail(userMail);
+            orderDtoOutput.Status = Status.Received;
+            OrderDto newOrderDtoOutput = await _orderRepository.UpdateOrder(orderDtoOutput);
             ApplicationOutputModel applicationOutput = _mapper.Map<ApplicationOutputModel>(orderDtoOutput);
 
             return applicationOutput;
