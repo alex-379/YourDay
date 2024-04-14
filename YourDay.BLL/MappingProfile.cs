@@ -50,9 +50,7 @@ namespace YourDay.BLL
 
             CreateMap<HistoryDto, HistoryOutputModel>();
 
-            CreateMap<TaskInputModel, TaskDto>()
-                .ForMember(dto => dto.TimeStart, time => time.MapFrom(model => DateOnly.FromDateTime(DateTime.Now).ToDateTime(model.TimeStart)))
-                .ForMember(dto => dto.TimeEnd, time => time.MapFrom(model => DateOnly.FromDateTime(DateTime.Now).ToDateTime(model.TimeEnd)));
+            CreateMap<TaskInputModel, TaskDto>();
 
             CreateMap<TaskDto, TaskInputModel>();
 
